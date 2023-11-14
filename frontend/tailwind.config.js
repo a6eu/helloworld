@@ -14,6 +14,9 @@ module.exports = {
        '50%': '50%',
        '16': '4rem',
       },
+      width: {
+        'customSize': "500px"
+      },
       backgroundImage: {
         'karouselImage': "url('/images/rectangle 9.svg')",
         'equipmentImage': "url('/images/rectangle 10.svg')",
