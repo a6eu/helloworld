@@ -1,6 +1,8 @@
 import React from "react"
 import Image from "next/image"
 import logo from "../public/images/image 1.svg"
+import mail from "../public/images/SVG.svg"
+import phone from "../public/images/Vector (1).svg"
 //width: 1110px;
 //height: 219px;
 //background-color: white;
@@ -11,17 +13,36 @@ import logo from "../public/images/image 1.svg"
 //margin: 0 auto;
 
 const Footer = () => {
-    return(
+    return (
         <div>
             <div className="w-full justify-center flex absolute bottom-0">
-                <div className="h-40 bg-white w-5/6 flex justify-between">
-                    <Image className="self-center" src={logo} alt="logo"/>
-                    <div className="ProductSansThin">
-                        <p>ИНТЕРНЕТ МАГАЗИН</p>
-                        <br/>
+                <div className="h-44 bg-white w-5/6 flex justify-around">
+                    <Image className="self-center ml-6" src={logo} alt="logo"/>
+                    <div className="ProductSansLight self-center mb-3">
+                        <p className="pb-5 ProductSansThin">ИНТЕРНЕТ МАГАЗИН</p>
                         <p className="pb-1.5">О компании</p>
                         <p className="pb-1.5">Доставка</p>
                         <p className="pb-1.5">Реквизиты</p>
+                    </div>
+                    <div className="mr-6 self-center">
+                        <p className={"ProductSansThin pb-4"}>СВЯЗАТЬСЯ С НАМИ</p>
+                        <div>
+                            <div className="flex flex-col">
+                                <div className="flex pb-3">
+                                    <Image src={mail} alt="Mail"/>
+                                    <div className="pl-3 pr-5">
+                                        <p className="ProductSansLight" >Email</p>
+                                        <a className="ProductSansThin text-blue-500">contact@meagency.io</a></div>
+                                </div>
+                                <div className="flex">
+                                    <Image src={phone} alt="Phone"/>
+                                    <div className="pl-3 pr-5">
+                                        <p className="ProductSansLight">Phone</p>
+                                        <a className="ProductSansThin text-blue-500">+7 (771) 509-3213</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
