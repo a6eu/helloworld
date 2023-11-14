@@ -1,6 +1,6 @@
 const News = () => (
-    <div className="w-full h-80 pl-30 pr-30 bg-red-700 flex justify-center mt-5">
-        <div className="w-3/4 bg-slate-500 flex" >
+    <div className="w-full h-80 pl-30 pr-30  flex justify-center mt-5">
+        <div className="w-3/4  flex" >
 
             <div className="h-full w-3/4 bg-orange-400 mr-4 bg-karouselImage bg-cover bg-center rounded"></div>
             <div className="flex flex-col justify-between">
