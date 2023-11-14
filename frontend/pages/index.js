@@ -1,7 +1,11 @@
 import styles from '../styles/Home.module.css'
-
+import News from '@/components/News';
 const Home = () => (
-  <h1>Helloworld!</h1>
+  <>
+    <News/>
+
+  
+  </>
 )
 
 export default Home;
