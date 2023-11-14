@@ -34,8 +34,8 @@ const Header = () => (
                 </button>
             </div>
             <div className={styles.cityDiv}>
-                <div></div>
-                <div></div>
+                <Image src="/images/location.svg" height={30} width={30} alt="location"/>
+                <button className={styles.cityButton}>Алматы</button>
             </div>
         </div>
 

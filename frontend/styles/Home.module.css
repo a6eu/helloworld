@@ -1,6 +1,7 @@
 .header{
-    border-bottom: 1px solid black;
+    /* border-bottom: 1px solid black; */
     width: 100%;
+    background-color: white;
     height: 92px;
     padding: 0 166px;
     display: flex;
@@ -71,9 +72,11 @@
 }
 
 .cityDiv{
+    display: flex;
+    align-items: center;
     width: 150px;
     height: 30px;
-    background-color: blueviolet;
+    /* background-color: blueviolet; */
 }
 
 .searchArea{
@@ -81,6 +84,10 @@
     justify-content: space-between;
     align-items: center;
     width: 800px;
+}
+
+.cityButton{
+    border-bottom: 2px solid black;
 }
 
 .imageSide{
