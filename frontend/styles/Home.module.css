@@ -1,12 +1,11 @@
 .header{
-    /* border-bottom: 1px solid black; */
     width: 100%;
-    background-color: white;
     height: 92px;
     padding: 0 166px;
     display: flex;
     justify-content: space-between;
     align-items: center;
+    background-color: white;
 }
 
 .katalogButton{

@@ -8,20 +8,17 @@
 @font-face {
   font-family: 'ProductSans-Light'; /* Replace with your font name */
   src: url('../public/fonts/ProductSans-Light.ttf') format('truetype');
-  font-weight: lighter;
   font-style: normal;
 }
 @font-face {
   font-family: 'ProductSans-Medium';
-  src: url('/fonts/ProductSans-Medium.ttf') format('truetype');
-  font-weight: lighter;
+  src: url('../public/fonts/ProductSans-Medium.ttf') format('truetype');
   font-style: normal;
 }
 
 @font-face {
   font-family: 'ProductSans-Thin';
-  src: url('/fonts/ProductSans-Thin.ttf') format('truetype');
-  font-weight: lighter;
+  src: url('../public/fonts/ProductSans-Thin.ttf') format('truetype');
   font-style: normal;
 }
 
@@ -37,12 +34,16 @@ body{
   height: 100vh;
   padding: 0;
   margin: 0;
-  
+  background-color: #F6F6F6;
 }
 
 a{
   color: inherit;
   text-decoration: none;
+}
+
+.ProductSansThin{
+  font-family: "ProductSans-Thin", sans-serif;
 }
 
 
