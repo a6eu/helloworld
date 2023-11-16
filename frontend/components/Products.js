@@ -1,7 +1,10 @@
 import styles from "../styles/Products.module.css"
 import axios from 'axios'
 import React, {useEffect, useState} from 'react';
-import Carousel from 'flat-carousel';
+import Image from "next/image"
+import Link from "next/link";
+import plus from "../public/images/plus.svg"
+import minus from "../public/images/minus.svg"
 
 export default class Products extends React.Component {
 
@@ -18,39 +21,40 @@ export default class Products extends React.Component {
     }
 
     render() {
-        return (<div className="w-full h-90 mb-20 flex justify-center items-center">
-                <div className="w-4/5 h-full flex items-center mt-10 overflow-auto ">
+        return (<div className="w-full h-90 mb-20 flex justify-center">
+                <div className="w-3/4 h-full flex items-center self-center mt-10 overflow-auto ">
                     {this.state.products.map(product => {
                         return (
-                            <li href={``} key={product.id}>
+                            <Link href={``} key={product.id}>
                                 <div className={styles.productCard}>
                                     <div className={styles.imageCard}>
                                         {/*<Image src=/>*/}
                                     </div>
                                     <div className={styles.nameAndPrice}>
                                         <p className="text-xs w-10/12 ProductSansLight">{product.name}</p>
-                                        <p>{product.username} ₸</p>
+                                        <p className="ProductSansMedium">{product.username} ₸</p>
                                     </div>
                                     <div className={styles.piecesAndToBucket}>
-                                        <div className="flex">
+                                        <div className={styles.quantity}>
                                             <button
-                                                className="text-blue-500 bg-blue-50 border-solid border-1px rounded-sm w-4 h-6">+
+                                                className="bg-blue-50 border-solid border-1px mr-customMargin rounded-sm w-5 flex justify-center h-6">
+                                                <Image className="w-3" src={plus} alt="+"/>
                                             </button>
                                             <button
-                                                className="text-white bg-blue-500 border-solid rounded-sm w-4 h-6">1
+                                                className="text-white bg-blue-500 mr-customMargin border-solid rounded-sm w-5 h-6">1
                                             </button>
                                             <button
-                                                className="text-gray-500 bg-blue-50 border-solid border-1px rounded-sm w-4 h-6">-
+                                                className="bg-blue-50 border-solid border-1px rounded-sm w-5 flex justify-center h-6">
+                                                <Image className="w-3" src={minus} alt="-"/>
                                             </button>
                                         </div>
                                         <button
-                                            className="ProductSansLight text-xs border-solid rounded-sm border-1px border-blue-500 w-24 h-6 text-blue-500">В
+                                            className={styles.toBucket}>В
                                             КОРЗИНУ
                                         </button>
                                     </div>
                                 </div>
-
-                            </li>
+                            </Link>
                         )
                     })}
 

@@ -27,7 +27,6 @@
   box-sizing: border-box;
 }
 
-
 body{
   font-family: 'ProductSans-Medium', sans-serif;
   width: 100%;
@@ -48,6 +47,10 @@ a{
 
 .ProductSansLight{
   font-family: "ProductSans-Light", sans-serif;
+}
+
+.ProductSansMedium{
+  font-family: "ProductSans-Medium", sans-serif;
 }
 
 
