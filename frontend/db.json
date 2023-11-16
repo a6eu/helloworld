@@ -1,0 +1,19 @@
+{
+  "products" : [
+    {
+      "id": 1,
+      "nameOfProduct": "Microsoft Office",
+      "price": "200"
+    },
+    {
+      "id": 2,
+      "nameOfProduct": "MacOS",
+      "price": "800"
+    },
+    {
+      "id": 3,
+      "nameOfProduct": "Android",
+      "price": "400"
+    }
+  ]
+}

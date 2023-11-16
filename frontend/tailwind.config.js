@@ -17,6 +17,9 @@ module.exports = {
       width: {
         'customSize': "500px"
       },
+      borderWidth: {
+        '1px':'1px'
+      },
       backgroundImage: {
         'karouselImage': "url('/images/rectangle 9.svg')",
         'equipmentImage': "url('/images/rectangle 10.svg')",

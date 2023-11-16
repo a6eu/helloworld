@@ -15,14 +15,14 @@ import phone from "../public/images/Vector (1).svg"
 const Footer = () => {
     return (
         <div>
-            <div className="w-full justify-center flex absolute bottom-0">
+            <div className="w-full justify-center flex bottom-0 mt-10">
                 <div className="h-44 bg-white w-5/6 flex justify-around">
                     <Image className="self-center ml-6" src={logo} alt="logo"/>
                     <div className="ProductSansLight self-center mb-3">
                         <p className="pb-5 ProductSansThin">ИНТЕРНЕТ МАГАЗИН</p>
-                        <p className="pb-1.5">О компании</p>
-                        <p className="pb-1.5">Доставка</p>
-                        <p className="pb-1.5">Реквизиты</p>
+                        <p className="pb-1.5"><a href="">О компании</a></p>
+                        <p className="pb-1.5"><a href="">Доставка</a></p>
+                        <p className="pb-1.5"><a href="">Реквизиты</a></p>
                     </div>
                     <div className="mr-6 self-center">
                         <p className={"ProductSansThin pb-4"}>СВЯЗАТЬСЯ С НАМИ</p>

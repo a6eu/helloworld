@@ -53,7 +53,7 @@ const Header = () => (
                     src="./images/shopping-cart.svg"
                     height={30}
                     width={30}
-                />
+                 alt="cart"/>
             </a>
         </div>
     </header>

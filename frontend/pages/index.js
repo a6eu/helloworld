@@ -13,7 +13,6 @@ const Home = () => (
       <CategotyChooser/>
       <Products/>
       <AboutCompany/>
-
   </>
 )
 

@@ -6,16 +6,21 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "json-server": "json-server --watch db.json --port 5000",
+    "serve": "concurrently \"npm run dev\" \"npm run json-server\""
   },
   "dependencies": {
     "@next/font": "^14.0.2",
+    "axios": "^1.6.2",
+    "flat-carousel": "^0.0.1",
     "next": "14.0.2",
     "react": "^18",
     "react-dom": "^18"
   },
   "devDependencies": {
     "autoprefixer": "^10.0.1",
+    "concurrently": "^8.2.2",
     "eslint": "^8",
     "eslint-config-next": "14.0.2",
     "postcss": "^8",

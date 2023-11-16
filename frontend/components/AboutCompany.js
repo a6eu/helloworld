@@ -4,14 +4,12 @@ import styles from "../styles/Home.module.css";
 
 const AboutCompany = () => {
     return (
-        <div className="w-full flex justify-evenly">
+        <div className="w-full flex justify-evenly mt-10">
             <Image className="w-customSize" src={pc} alt="PC"/>
-            <div className="ProductSansLight w-96 flex-col items-end">
+            <div className="ProductSansLight w-96 flex-col items-end mr-28">
                 <div className={styles.toTheLeft}>
                     <p className="text-blue-500 text-2xl pb-7">О КОМПАНИИ</p>
                 </div>
-
-                {/*text-blue-500 text-2xl pb-7 mr-5"*/}
                 <p className="text-xl">ASTANA IT GROUP</p>
                 <br/>
                 <p className="w-customSize text-gray-400">
