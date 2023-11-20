@@ -5,63 +5,81 @@ import Image from "next/image"
 import Link from "next/link";
 import plus from "../public/images/plus.svg"
 import minus from "../public/images/minus.svg"
+import {Rating} from 'flowbite-react';
 
-export default class Products extends React.Component {
-
-    state = {
-        products: []
-    }
-
-    componentDidMount() {
-        axios.get(`https://jsonplaceholder.typicode.com/users`)
-            .then(res => {
-                const products = res.data;
-                this.setState({products});
-            })
-    }
-
-    render() {
-        return (<div className="w-full h-90 mb-20 flex justify-center">
-                <div className="w-3/4 h-full flex items-center self-center mt-10 overflow-auto ">
-                    {this.state.products.map(product => {
-                        return (
-                            <Link href={``} key={product.id}>
-                                <div className={styles.productCard}>
-                                    <div className={styles.imageCard}>
-                                        {/*<Image src=/>*/}
-                                    </div>
-                                    <div className={styles.nameAndPrice}>
-                                        <p className="text-xs w-10/12 ProductSansLight">{product.name}</p>
-                                        <p className="ProductSansMedium">{product.username} ₸</p>
-                                    </div>
-                                    <div className={styles.piecesAndToBucket}>
-                                        <div className={styles.quantity}>
-                                            <button
-                                                className="bg-blue-50 border-solid border-1px mr-customMargin rounded-sm w-5 flex justify-center h-6">
-                                                <Image className="w-3" src={plus} alt="+"/>
-                                            </button>
-                                            <button
-                                                className="text-white bg-blue-500 mr-customMargin border-solid rounded-sm w-5 h-6">1
-                                            </button>
-                                            <button
-                                                className="bg-blue-50 border-solid border-1px rounded-sm w-5 flex justify-center h-6">
-                                                <Image className="w-3" src={minus} alt="-"/>
-                                            </button>
-                                        </div>
-                                        <button
-                                            className={styles.toBucket}>В
-                                            КОРЗИНУ
-                                        </button>
-                                    </div>
-                                </div>
-                            </Link>
-                        )
-                    })}
-
-                </div>
-            </div>
-        )
-    }
+function Component() {
+    return (
+        <Rating>
+            <Rating.Star/>
+            <Rating.Star/>
+            <Rating.Star/>
+            <Rating.Star/>
+            <Rating.Star filled={false}/>
+        </Rating>
+    );
 }
 
-// export default Products;
+function Products() {
+    const [products, setProducts] = useState([]);
+    useEffect(() => {
+        axios.get(`https://jsonplaceholder.typicode.com/users`)
+            .then(res => {
+                const fetchedProducts = res.data;
+                setProducts(fetchedProducts);
+            })
+            .catch(error => {
+                console.error('Error fetching data:', error);
+            });
+    }, []);
+
+    return (
+        <div className="w-full h-96 mb-20 flex justify-center">
+            <div className={styles.container}>
+                {products.map(product => (
+                    <Link href="" to={`/products/${product.id}`} key={product.id}>
+                        <div className={styles.productCard}>
+                            <div className={styles.imageCard}>
+                                {/*<Image src=/>*/}
+                            </div>
+                            <div className="flex w-full ml-3 justify-between">
+                                {Component()}
+                                <Image
+                                    src="./images/bookmark.svg"
+                                    height={16}
+                                    width={16}
+                                    alt="favourites"
+                                    className="mr-4"
+                                />
+                            </div>
+                            <div className={styles.nameAndPrice}>
+                                <p className="text-xs w-10/12 ProductSansLight">{product.name}</p>
+                                <p className="ProductSansMedium">{product.username} ₸</p>
+                            </div>
+                            <div className={styles.piecesAndToBucket}>
+                                <div className={styles.quantity}>
+                                    <button
+                                        className="bg-blue-50 border-solid border-1px mr-customMargin rounded-sm w-5 flex justify-center h-6">
+                                        <Image className="w-3" src={plus} alt="+"/>
+                                    </button>
+                                    <button
+                                        className="text-white bg-blue-500 mr-customMargin border-solid rounded-sm w-5 h-6">1
+                                    </button>
+                                    <button
+                                        className="bg-blue-50 border-solid border-1px rounded-sm w-5 flex justify-center h-6">
+                                        <Image className="w-3" src={minus} alt="-"/>
+                                    </button>
+                                </div>
+                                <button className={styles.toBucket}>
+                                    В КОРЗИНУ
+                                </button>
+                            </div>
+                        </div>
+                    </Link>
+                ))}
+            </div>
+        </div>
+    );
+}
+
+export default Products;
+

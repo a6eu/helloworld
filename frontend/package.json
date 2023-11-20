@@ -11,9 +11,12 @@
     "serve": "concurrently \"npm run dev\" \"npm run json-server\""
   },
   "dependencies": {
+    "@headlessui/react": "^1.7.17",
     "@next/font": "^14.0.2",
     "axios": "^1.6.2",
     "flat-carousel": "^0.0.1",
+    "flowbite-react": "^0.6.4",
+    "fs.promises": "^0.1.2",
     "next": "14.0.2",
     "react": "^18",
     "react-dom": "^18"

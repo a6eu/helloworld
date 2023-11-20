@@ -1,5 +1,6 @@
 import styles from "../styles/Home.module.css";
 import Image from "next/image";
+import Flyout from "@/components/Flyout";
 
 const Header = () => (
     <header className={styles.header}>
@@ -13,15 +14,15 @@ const Header = () => (
         </div>
 
         <div className={styles.searchArea}>
-            <div className={styles.katalogButton}>
+            <Flyout className={styles.catalogButton}>
                 <Image
                     src="./images/catalog_svg.svg"
                     height={15}
                     width={15}
                     alt="catalog icon"
                 />
-                <p>&nbsp;&nbsp;КАТАЛОГ</p>
-            </div>
+                &nbsp;&nbsp;КАТАЛОГ
+            </Flyout>
             <div className={styles.searchBar}>
                 <div className={styles.typeArea}></div>
                 <button className={styles.searchButton}>
@@ -53,7 +54,7 @@ const Header = () => (
                     src="./images/shopping-cart.svg"
                     height={30}
                     width={30}
-                 alt="cart"/>
+                    alt="cart"/>
             </a>
         </div>
     </header>
