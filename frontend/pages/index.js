@@ -4,11 +4,9 @@ import AboutCompany from "@/components/AboutCompany";
 import Companies from '@/components/Companies';
 import CategotyChooser from '@/components/CategotyChooser';
 import Products from '@/components/Products';
-
-
 const Home = () => (
   <>
-    <News/>
+      <News/>
       <Companies/>
       <CategotyChooser/>
       <Products/>

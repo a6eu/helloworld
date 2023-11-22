@@ -1,19 +1,26 @@
 import {Popover, Transition} from '@headlessui/react';
 import Image from "next/image";
 import styles from "@/styles/Home.module.css";
-import {useEffect, useState} from "react";
-import data from '../catalog_data.json';
-import React, {Fragment} from "react";
+import React, {Fragment, useState, useEffect} from "react";
+import imported from "../catalog_data.json"
 
 export default function Flyout() {
     const [catalogs, setCatalogs] = useState([]);
-
     useEffect(() => {
-        if (Array.isArray(data.catalog)) {
-            setCatalogs(data.catalog);
-            console.log(catalogs)
-        }
-    }, [catalogs]);
+        const fetchData = async () => {
+            try {
+                const res = await imported
+                setCatalogs(res);
+            } catch (error) {
+                console.error('Error fetching data:', error);
+            }
+        };
+
+        fetchData();
+    }, []);
+    useEffect(() => {
+        console.log(catalogs)
+    }, [catalogs])
 
     return (
         <Popover className="relative">

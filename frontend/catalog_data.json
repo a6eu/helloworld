@@ -1,221 +1,51 @@
-{
-   "catalog":{
-      "Антивирусная безопасность":{
-         "id":1,
-         "items":[
-            {
-               "id":101,
-               "name":"Kaspersky"
-            },
-            {
-               "id":102,
-               "name":"ESET"
-            },
-            {
-               "id":103,
-               "name":"Dr.Web"
-            },
-            {
-               "id":104,
-               "name":"Антивирусы для бизнеса",
-               "items":[
-                  {
-                     "id":201,
-                     "name":"Symantec"
-                  },
-                  {
-                     "id":202,
-                     "name":"Trend Micro"
-                  },
-                  {
-                     "id":203,
-                     "name":"Avast"
-                  },
-                  {
-                     "id":204,
-                     "name":"Bitdefender"
-                  },
-                  {
-                     "id":205,
-                     "name":"McAfee"
-                  }
-               ]
-            }
-         ]
-      },
-      "Резервное копирование":{
-         "id":2,
-         "items":[
-            {
-               "id":301,
-               "name":"Barracuda"
-            },
-            {
-               "id":302,
-               "name":"GFI"
-            },
-            {
-               "id":303,
-               "name":"InfoWatch"
-            },
-            {
-               "id":304,
-               "name":"Kerio Palo"
-            },
-            {
-               "id":305,
-               "name":"Alto Networks"
-            },
-            {
-               "id":306,
-               "name":"Positive Technologies"
-            },
-            {
-               "id":307,
-               "name":"StaffCop"
-            },
-            {
-               "id":308,
-               "name":"Traffic Inspector"
-            },
-            {
-               "id":309,
-               "name":"UserGate"
-            },
-            {
-               "id":310,
-               "name":"Стахановец"
-            },
-            {
-               "id":311,
-               "name":"Check Point"
-            }
-         ]
-      },
-      "Оборудование":{
-         "id":3,
-         "items":[
-            {
-               "id":401,
-               "name":"Cisco"
-            },
-            {
-               "id":402,
-               "name":"Источники бесперебойного питания"
-            },
-            {
-               "id":403,
-               "name":"Настольные ПК"
-            },
-            {
-               "id":404,
-               "name":"Ноутбуки"
-            },
-            {
-               "id":405,
-               "name":"Принтеры"
-            },
-            {
-               "id":406,
-               "name":"Серверы и серверное оборудование"
-            },
-            {
-               "id":407,
-               "name":"Сканеры Терминалы сбора данных"
-            }
-         ]
-      },
-      "Инфраструктура ИТ":{
-         "id":4,
-         "items":[
-            {
-               "id":501,
-               "name":"1С"
-            },
-            {
-               "id":502,
-               "name":"Adobe"
-            },
-            {
-               "id":503,
-               "name":"Atlassian Content"
-            },
-            {
-               "id":504,
-               "name":"AI Corel"
-            },
-            {
-               "id":505,
-               "name":"DataMobile"
-            },
-            {
-               "id":506,
-               "name":"Jet Brains"
-            },
-            {
-               "id":507,
-               "name":"Red Hat"
-            },
-            {
-               "id":508,
-               "name":"Microsoft",
-               "items":[
-                  {
-                     "id":601,
-                     "name":"Exchange"
-                  },
-                  {
-                     "id":602,
-                     "name":"Microsoft Office"
-                  },
-                  {
-                     "id":603,
-                     "name":"Microsoft Windows Server"
-                  },
-                  {
-                     "id":604,
-                     "name":"Project"
-                  },
-                  {
-                     "id":605,
-                     "name":"Sharepoint"
-                  },
-                  {
-                     "id":606,
-                     "name":"SQL"
-                  },
-                  {
-                     "id":607,
-                     "name":"Visio"
-                  },
-                  {
-                     "id":608,
-                     "name":"Visual Studio"
-                  },
-                  {
-                     "id":609,
-                     "name":"Windows OS"
-                  }
-               ]
-            }
-         ]
-      },
-      "Информационная безопасность":{
-         "id":5,
-         "items":[
-            {
-               "id":701,
-               "name":"Acronis"
-            },
-            {
-               "id":702,
-               "name":"Veeam"
-            },
-            {
-               "id":703,
-               "name":"Veritas"
-            }
-         ]
+[
+  {
+    "id": 2,
+    "name": "adil",
+    "children": [
+      {
+        "id": 5,
+        "name": "ass",
+        "children": [
+          {
+            "id": 6,
+            "name": "dilya",
+            "children": []
+          }
+        ]
       }
-   }
-}
+    ]
+  },
+  {
+    "id": 1,
+    "name": "Antivirus",
+    "children": [
+      {
+        "id": 9,
+        "name": "eset",
+        "children": []
+      },
+      {
+        "id": 4,
+        "name": "kaspersky",
+        "children": [
+          {
+            "id": 7,
+            "name": "pro",
+            "children": []
+          },
+          {
+            "id": 8,
+            "name": "student",
+            "children": []
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": 3,
+    "name": "nurs",
+    "children": []
+  }
+]

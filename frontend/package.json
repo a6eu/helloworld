@@ -7,7 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "json-server": "json-server --watch db.json --port 5000",
+    "json-server": "json-server --watch catalog_data2.json --port 5000",
     "serve": "concurrently \"npm run dev\" \"npm run json-server\""
   },
   "dependencies": {
@@ -17,13 +17,17 @@
     "flat-carousel": "^0.0.1",
     "flowbite-react": "^0.6.4",
     "fs.promises": "^0.1.2",
+    "micro-cors": "^0.1.1",
     "next": "14.0.2",
+    "node": "^21.1.0",
     "react": "^18",
     "react-dom": "^18",
     "react-slick": "^0.29.0",
     "slick-carousel": "^1.8.1"
   },
   "devDependencies": {
+    "@types/node": "20.9.3",
+    "@types/react": "18.2.38",
     "autoprefixer": "^10.0.1",
     "concurrently": "^8.2.2",
     "eslint": "^8",
