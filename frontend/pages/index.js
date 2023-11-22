@@ -8,7 +8,7 @@ import Products from '@/components/Products';
 
 const Home = () => (
   <>
-    <News/>
+      <News/>
       <Companies/>
       <CategotyChooser/>
       <Products/>

@@ -7,7 +7,7 @@ import plus from "../public/images/plus.svg"
 import minus from "../public/images/minus.svg"
 
 export default class Products extends React.Component {
-
+    
     state = {
         products: []
     }
@@ -16,9 +16,11 @@ export default class Products extends React.Component {
         axios.get(`https://jsonplaceholder.typicode.com/users`)
             .then(res => {
                 const products = res.data;
+                console.log(products);
                 this.setState({products});
             })
     }
+    
 
     render() {
         return (<div className="w-full h-90 mb-20 flex justify-center">
