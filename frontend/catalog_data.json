@@ -1,0 +1,51 @@
+[
+  {
+    "id": 2,
+    "name": "adil",
+    "children": [
+      {
+        "id": 5,
+        "name": "ass",
+        "children": [
+          {
+            "id": 6,
+            "name": "dilya",
+            "children": []
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": 1,
+    "name": "Antivirus",
+    "children": [
+      {
+        "id": 9,
+        "name": "eset",
+        "children": []
+      },
+      {
+        "id": 4,
+        "name": "kaspersky",
+        "children": [
+          {
+            "id": 7,
+            "name": "pro",
+            "children": []
+          },
+          {
+            "id": 8,
+            "name": "student",
+            "children": []
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": 3,
+    "name": "nurs",
+    "children": []
+  }
+]
