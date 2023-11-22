@@ -1,15 +1,15 @@
 [
   {
-    "id": 2,
-    "name": "adil",
+    "id": 1,
+    "name": "1st lvl",
     "children": [
       {
-        "id": 5,
-        "name": "ass",
+        "id": 1,
+        "name": "2nd lvl",
         "children": [
           {
-            "id": 6,
-            "name": "dilya",
+            "id": 1,
+            "name": "3rd lvl",
             "children": []
           }
         ]
@@ -17,26 +17,26 @@
     ]
   },
   {
-    "id": 1,
-    "name": "Antivirus",
+    "id": 2,
+    "name": "1st lvl",
     "children": [
       {
-        "id": 9,
-        "name": "eset",
+        "id": 1,
+        "name": "2nd lvl",
         "children": []
       },
       {
-        "id": 4,
-        "name": "kaspersky",
+        "id": 2,
+        "name": "2nd lvl 2",
         "children": [
           {
-            "id": 7,
-            "name": "pro",
+            "id": 1,
+            "name": "3rd lvl",
             "children": []
           },
           {
-            "id": 8,
-            "name": "student",
+            "id": 2,
+            "name": "3rd lvl 2",
             "children": []
           }
         ]
@@ -45,7 +45,7 @@
   },
   {
     "id": 3,
-    "name": "nurs",
+    "name": "1st lvl",
     "children": []
   }
 ]

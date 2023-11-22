@@ -26,12 +26,55 @@
 
 }
 
+.catalogFontStyle {
+    /*group relative flex gap-x-6 rounded-lg text-sm p-3 hover:text-blue-500*/
+    position: relative;
+    display: flex;
+    width: max-content;
+    column-gap: 1.5rem;
+    padding: 0.75rem;
+    color: black;
+}
+
+.firstChild {
+    position: relative;
+    display: flex;
+    width: max-content;
+    color: black;
+    visibility: hidden;
+}
+
+.firstChild:hover .textStyle1 {
+    --tw-text-opacity: 1;
+    color: rgb(59 130 246 / var(--tw-text-opacity));
+    border-left: 2px solid rgb(59 130 246 / var(--tw-text-opacity));
+    padding-left: 3px;
+}
+
+.textStyle {
+    flex-direction: column;
+}
+
+.textStyle1 {
+    flex-direction: column;
+}
+
+.catalogFontStyle:hover .textStyle {
+    --tw-text-opacity: 1;
+    color: rgb(59 130 246 / var(--tw-text-opacity));
+    border-left: 2px solid rgb(59 130 246 / var(--tw-text-opacity));
+    padding-left: 3px;
+}
+
+.catalogFontStyle:hover .textStyle1 {
+    visibility: visible;
+}
+
 .cartSide {
     display: flex;
     align-items: center;
     justify-content: space-between;
     width: 64px;
-    /* height: 35px; */
 }
 
 .favourite {
