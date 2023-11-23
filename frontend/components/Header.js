@@ -5,7 +5,7 @@ import Flyout from "@/components/Flyout";
 const Header = () => (
     <header className={styles.header}>
         <div className={styles.imageSide}>
-            <Image
+            <Image className="cursor-pointer"
                 src="/images/image 1.svg"
                 height={60}
                 width={60}
@@ -42,7 +42,7 @@ const Header = () => (
 
         <div className={styles.cartSide}>
             <a className={styles.favourite}>
-                <Image
+                <Image className="cursor-pointer"
                     src="./images/Vector.svg"
                     height={20}
                     width={20}
@@ -50,7 +50,7 @@ const Header = () => (
                 />
             </a>
             <a className={styles.cart}>
-                <Image
+                <Image className="cursor-pointer"
                     src="./images/shopping-cart.svg"
                     height={30}
                     width={30}

@@ -11,7 +11,7 @@ const RangeBar = ({ products, onFilterChange }) => {
   };
 
   return (
-    <div className='w-full h-[20px] bg-green-200'>
+    <div className='w-full h-[20px] '>
       <input
         type="range"
         min="0"

@@ -4,6 +4,8 @@ import RangeBar from "@/components/RangeBar";
 import PriceInputs from "@/components/PriceInputs";
 import BrandFilter from "./BrandFilter";
 import Image from "next/image"
+import PurposeButton from "./PurposeButton";
+
 
 const Filter = ({ products }) => {
     // const [filteredProducts, setFilteredProducts] = useState(products);
@@ -18,27 +20,28 @@ const Filter = ({ products }) => {
     // };
 
     return (
-        <div className="w-[300px] bg-green-300 h-auto">
-            <h3>Фильтры</h3>
-            <p>Цена</p>
+        <div className=" inline-block w-[300px] bg-white p-1 h-min">
+            <h3 className="text-blue-400">Фильтры</h3>
+            <p className="text-blue-400">Цена</p>
             <PriceInputs />
             <RangeBar />
-            <p>Брэнды ↻</p>
+            <p className="text-blue-400">Брэнды ↻</p>
             <BrandFilter />
-            <p>Назначение ↻</p>
+            <p className="text-blue-400">Назначение ↻</p>
             <div>
-                <button className="bg-blue-400 text-white h-[25px] p-3 flex items-center justify-center m-2 rounded-md w-[280px]">Защита виртуальных сред</button>
-                <button className="bg-gray-200 h-[25px] p-3 flex items-center justify-center rounded-md m-2 w-[280px]">Защита рабочих станций</button>
-                <button className="bg-gray-200 h-[25px] p-3 flex items-center justify-center rounded-md m-2 w-[280px]">Защита серверов</button>
+                <PurposeButton buttonText="Защита виртуальных сред" onClick={() => console.log('Button clicked!')} />
+                <PurposeButton buttonText="Защита рабочих станций" onClick={() => console.log('Button clicked!')} />
+                <PurposeButton buttonText="Защита серверов" onClick={() => console.log('Button clicked!')} />
+               
             </div>
 
-            <p>Функции ↻</p>
+            <p className="text-blue-400">Функции ↻</p>
             <div>
-                <button className="bg-blue-400 text-white h-[25px] p-3 flex items-center justify-center m-2 rounded-md w-[280px]">Защита виртуальных сред</button>
-                <button className="bg-gray-200 h-[25px] p-3 flex items-center justify-center rounded-md m-2 w-[280px]">Защита серверов</button>
+                <PurposeButton buttonText="Антивирус" onClick={() => console.log('Button clicked!')} />
+                <PurposeButton buttonText="Защита от щифровальщиков" onClick={() => console.log('Button clicked!')} />
             </div>
 
-            <p>Рейтинг ↻</p>
+            <p className="text-blue-400">Рейтинг ↻</p>
 
             <div className="flex">
                 <Image src="/images/starfilled.svg" width={30} height={30} ></Image>
@@ -48,11 +51,11 @@ const Filter = ({ products }) => {
                 <Image src="/images/starunfilled.svg" width={30} height={30} ></Image>
             </div>
 
-            <div className="w-full italic font-thin flex justify-end pr-3">Найдено 11 товаров</div>
+            <div className="w-full italic font-thin flex justify-end pr-3 mt-3 text-gray-500">Найдено 11 товаров</div>
             <div className="w-full flex justify-end ml-[-10px] mt-1">
                 <div>
                     <button className="text-blue-500 underline mr-4">Сбросить все</button>
-                    <button className="text-blue-500 border-2 border-blue-500 border-solid pr-2 pl-2 rounded-md">Показать</button>
+                    <button className="text-blue-500 border-2 border-blue-500 border-solid pr-2 pl-2 rounded-md mb-4">Показать</button>
 
                 </div>
             </div>
