@@ -1,7 +1,7 @@
 [
   {
     "id": 1,
-    "name": "1st lvl",
+    "name": "АНТИВИРУСНАЯ БЕЗОПАСНОСТЬ",
     "children": [
       {
         "id": 1,
@@ -18,25 +18,31 @@
   },
   {
     "id": 2,
-    "name": "1st lvl",
+    "name": "ИНФОРМАЦИОННАЯ БЕЗОПАСНОСТЬ",
     "children": [
       {
         "id": 1,
-        "name": "2nd lvl",
-        "children": []
-      },
-      {
-        "id": 2,
-        "name": "2nd lvl 2",
+        "name": "2nd lvl1",
         "children": [
           {
             "id": 1,
-            "name": "3rd lvl",
+            "name": "3rd lvl1",
+            "children": []
+          }
+        ]
+      },
+      {
+        "id": 2,
+        "name": "2nd lvl 21",
+        "children": [
+          {
+            "id": 1,
+            "name": "3rd lvl1",
             "children": []
           },
           {
             "id": 2,
-            "name": "3rd lvl 2",
+            "name": "3rd lvl 21",
             "children": []
           }
         ]
@@ -45,7 +51,53 @@
   },
   {
     "id": 3,
-    "name": "1st lvl",
-    "children": []
+    "name": "ИНФРАСТРУКТУРА ИТ",
+    "children": [
+      {
+        "id": 1,
+        "name": "2nd lvl2",
+        "children": [
+          {
+            "id": 1,
+            "name": "3rd lvl2",
+            "children": []
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": 4,
+    "name": "РЕЗЕРВНОЕ КОПИРОВАНИЕ",
+    "children": [
+      {
+        "id": 1,
+        "name": "2nd lvl",
+        "children": [
+          {
+            "id": 1,
+            "name": "3rd lvl",
+            "children": []
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": 5,
+    "name": "ОБОРУДОВАНИЕ",
+    "children": [
+      {
+        "id": 1,
+        "name": "2nd lvl",
+        "children": [
+          {
+            "id": 1,
+            "name": "3rd lvl",
+            "children": []
+          }
+        ]
+      }
+    ]
   }
 ]

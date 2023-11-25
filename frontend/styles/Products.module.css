@@ -4,7 +4,7 @@
     background-color: white;
     display: flex;
     flex-direction: column;
-    justify-content: space-around;
+    justify-content: space-between;
     align-items: center;
     margin: 10px 10px;
     border-radius: 5px;
@@ -26,10 +26,9 @@
 }
 
 
-
 .productCard:hover {
     height: 320px;
-    justify-content: space-evenly;
+    justify-content: space-between;
     transition: 300ms;
 }
 
@@ -38,13 +37,12 @@
 }
 
 .productCard:hover .piecesAndToBucket{
-    display: flex;
-    transition: 300ms;
+    visibility: visible;
 }
 
 .productCard:hover .imageCard {
-    height: 170px;
     transition: 300ms;
+    height: 160px;
 }
 
 .nameAndPrice {
@@ -60,6 +58,7 @@
 .imageCard {
     width: 180px;
     height: 150px;
+    margin-top: 10px;
     background-color: #F6F6F6;
     border-radius: 3px;
     transition: 300ms;
@@ -69,10 +68,10 @@
     width: 180px;
     justify-content: space-between;
     margin-bottom: 10px;
-    display: none;
-    transition: 300ms;
+    visibility: hidden;
+    display: flex;
 }
-/*ProductSansLight text-xs border-solid rounded-sm border-1px border-blue-500 w-24 h-6 text-blue-500 hidden*/
+
 .toBucket {
     font-family: "ProductSans-Light", sans-serif;
     font-size: 11px;
@@ -81,7 +80,6 @@
     border-radius: 3px;
     height: 24px;
     width: 96px;
-    transition: 300ms;
 }
 
 .toBucket:hover {
