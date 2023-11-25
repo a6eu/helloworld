@@ -15,16 +15,11 @@ const Carousel = () => {
     };
   
     return (
-      <Slider {...settings}>
-        <div>
-          <img src="images/Rectangle 9.svg" alt="Image 1" />
-        </div>
-        <div>
-          <img src="images/Rectangle 10.svg" alt="Image 2" />
-        </div>
-        <div>
-          <img src="images/Rectangle 11.svg" alt="Image 3" />
-        </div>
+
+      <Slider className='bg-yellow-500 h-80 w-[100%]' {...settings}>
+        <div className=' h-80 bg-first bg-no-repeat bg-cover bg-center'></div>
+        <div className=' h-80 bg-second bg-no-repeat bg-cover bg-center'></div>
+        <div className=' h-80 bg-third bg-no-repeat bg-cover bg-center'></div>
       </Slider>
     );
   };

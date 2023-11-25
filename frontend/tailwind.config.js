@@ -45,7 +45,9 @@ module.exports = {
                 'newlett': "url('/images/NewLett.svg')",
                 'veeam': "url('/images/veeam.svg')",
                 'vmware': "url('/images/vmware.svg')",
-
+                'first': "url('/images/Rectangle 9.svg')",
+                'second': "url('/images/Rectangle 10.svg')",
+                'third': "url('/images/Rectangle 11.svg')",
 
             },
         },
