@@ -15,11 +15,10 @@ const Carousel = () => {
     };
   
     return (
-
-      <Slider className='bg-yellow-500 h-80 w-[100%]' {...settings}>
-        <div className=' h-80 bg-first bg-no-repeat bg-cover bg-center'></div>
-        <div className=' h-80 bg-second bg-no-repeat bg-cover bg-center'></div>
-        <div className=' h-80 bg-third bg-no-repeat bg-cover bg-center'></div>
+      <Slider className='h-80 w-[100%]' {...settings}>
+        <div className=' h-80 bg-first bg-no-repeat bg-cover bg-center rounded-md'></div>
+        <div className=' h-80 bg-second bg-no-repeat bg-cover bg-center rounded-md'></div>
+        <div className=' h-80 bg-third bg-no-repeat bg-cover bg-center rounded-md'></div>
       </Slider>
     );
   };
