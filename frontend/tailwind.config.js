@@ -15,15 +15,13 @@ module.exports = {
                 '16': '4rem',
             },
             width: {
-                'customSize': "500px",
-                
-
+                '500px': "500px",
             },
             borderWidth: {
                 '1px': '1px'
             },
             margin: {
-                'customMargin': '1px'
+                '1px': '1px'
             },
             backgroundImage: {
                 'karouselImage': "url('/images/rectangle 9.svg')",

@@ -16,7 +16,7 @@ const Footer = () => {
     return (
         <div>
             <div className="w-full justify-center flex bottom-0 mt-10">
-                <div className="h-44 bg-white w-5/6 flex justify-around">
+                <div className="h-44 bg-white w-[75%] flex justify-around">
                     <Image className="self-center ml-6" src={logo} alt="logo"/>
                     <div className="ProductSansLight self-center mb-3">
                         <p className="pb-5 ProductSansThin">ИНТЕРНЕТ МАГАЗИН</p>

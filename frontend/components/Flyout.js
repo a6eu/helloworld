@@ -3,11 +3,14 @@ import Image from "next/image";
 import styles from "@/styles/Home.module.css";
 import React, {Fragment, useState, useEffect} from "react";
 import imported from "../catalog_data.json"
+import _debounce from 'lodash/debounce'
+import arrow from "../public/images/arrow.svg"
 
 export default function Flyout() {
     const [catalogs, setCatalogs] = useState([]);
-    let [firstChild, setFirstChild] = React.useState([]);
-    let [secondChild, setSecondChild] = React.useState([]);
+    let [firstChild, setFirstChild] = useState([]);
+    let [secondChild, setSecondChild] = useState([]);
+    const [path, setPath] = useState([]);
 
     useEffect(() => {
         const fetchData = async () => {
@@ -24,16 +27,24 @@ export default function Flyout() {
 
     const [isShown, setIsShown] = useState(false);
 
-    function showFirstSubcategory(item) {
+    const showFirstSubcategory = _debounce((item) => {
+        setPath([item.name])
         setFirstChild(item.children)
         setSecondChild([])
         setIsShown(true)
-    }
+    }, 300)
 
-    function showSecondSubcategory(item) {
+    const showSecondSubcategory = _debounce((item) => {
+        setPath([path[0], item.name])
         setSecondChild(item.children)
         setIsShown(true)
-    }
+    }, 300)
+
+    const showThirdSubcategory = _debounce((item) => {
+        setPath([path[0], path[1], item.name])
+        setIsShown(true)
+    }, 300)
+
 
     return (
         <Popover className="relative">
@@ -49,23 +60,24 @@ export default function Flyout() {
 
             <Transition
                 as={Fragment}
-                enter="transition ease-out duration-150"
-                enterFrom="opacity-0 translate-y-1"
-                enterTo="opacity-100 translate-y-0"
-                leave="transition ease-in duration-150"
-                leaveFrom="opacity-100 translate-y-0"
-                leaveTo="opacity-0 translate-y-1"
+                enter="transition-opacity duration-75"
+                enterFrom="opacity-0"
+                enterTo="opacity-100"
+                leave="transition-opacity duration-150"
+                leaveFrom="opacity-100"
+                leaveTo="opacity-0"
             >
-                <Popover.Panel className="absolute z-50 -translate-x-[210px] mt-8 flex h-[340px] w-[1125px]">
+                <Popover.Panel className="absolute z-10 -translate-x-[190px] mt-[31px] flex h-[360px] w-[1083px]">
                     <div
-                        className="overflow-hidden text-black ProductSansLight w-full flex-auto rounded-b-xl bg-white leading-6 shadow-inner gap-x-6 p-3">
-                        <div className="flex w-full justify-between">
+                        className={styles.catalogContainer}>
+                        <div className="flex w-full mt-5 justify-between">
                             <div className="ml-20 w-1/3">
                                 {catalogs.map((item) => (
                                     <div key={item.id}>
                                         <div
-                                            className="group relative flex rounded-lg text-sm p-3 hover:text-blue-500"
-                                            onMouseEnter={() => showFirstSubcategory(item)}>{item.name}</div>
+                                            className="group relative flex rounded-lg text-[12px] p-3 hover:text-blue-500"
+                                            onMouseOver={(event) => showFirstSubcategory(item)}
+                                        >{item.name}</div>
                                     </div>
                                 ))}
                             </div>
@@ -82,33 +94,21 @@ export default function Flyout() {
                                 <div className="w-1/3">{secondChild.map((name) => (
                                     <div
                                         className="flex-col mr-20 group relative flex rounded-lg text-sm pb-3 pt-3 hover:text-blue-500"
-                                        onMouseEnter={() => setIsShown(true)} onMouseLeave={() => setIsShown(true)}
+                                        onMouseEnter={() => showThirdSubcategory(name)}
+                                        onMouseLeave={() => setIsShown(true)}
                                         key={name.id}>{name.name}</div>
                                 ))}</div>
                             )}
                         </div>
-                        {/*<div className="p-4">*/}
-                        {/*    {Array.isArray(catalogs) && catalogs.map((item) => (*/}
-                        {/*        <div key={item.id}*/}
-                        {/*             className={styles.catalogFontStyle}>*/}
-                        {/*            <div className="w-[200px] flex justify-between">*/}
-                        {/*                <a href="" className={styles.textStyle}>*/}
-                        {/*                    {item.name}*/}
-                        {/*                </a>*/}
-                        {/*                <div className="absolute top-0">*/}
-                        {/*                    {item.children.map((child) => (*/}
-                        {/*                        <div key={child.id}*/}
-                        {/*                             className={styles.firstChild}>*/}
-                        {/*                            <a href="" className={styles.textStyle1}>*/}
-                        {/*                                {child.name}*/}
-                        {/*                            </a>*/}
-                        {/*                        </div>*/}
-                        {/*                    ))}*/}
-                        {/*                </div>*/}
-                        {/*            </div>*/}
-                        {/*        </div>*/}
-                        {/*    ))}*/}
-                        {/*</div>*/}
+                        <div className="flex mt-8">
+                            {path.map((item, index) => (
+                                <div className="ProductSansLight flex text-blue-500 text-sm" key={index}>{item}
+                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                    {index !== 2 ? <Image src={arrow} alt="arrow"/> : <></>}
+                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                </div>
+                            ))}
+                        </div>
                     </div>
                 </Popover.Panel>
             </Transition>

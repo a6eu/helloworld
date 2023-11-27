@@ -6,6 +6,7 @@
     justify-content: space-between;
     align-items: center;
     background-color: white;
+    z-index: 30;
 }
 
 .catalogButton {
@@ -24,6 +25,22 @@
 
 .catalogButton:focus {
 
+}
+
+.catalogContainer {
+    overflow: hidden;
+    color: black;
+    width: 1080px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border-bottom-right-radius: 0.75rem/* 12px */;
+    border-bottom-left-radius: 0.75rem/* 12px */;
+    background-color: white;
+    line-height: 1.5rem/* 24px */;
+    column-gap: 1.5rem;
+    padding: 0.75rem/* 12px */;
+    box-shadow: rgba(0, 0, 0, 0.06) 0 2px 4px 0 inset;
 }
 
 .cartSide {
