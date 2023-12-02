@@ -76,7 +76,7 @@ export default function Flyout() {
                                     <div key={item.id}>
                                         <div
                                             className="group relative flex rounded-lg text-[12px] p-3 hover:text-blue-500"
-                                            onMouseOver={(event) => showFirstSubcategory(item)}
+                                            onMouseOver={() => showFirstSubcategory(item)}
                                         >{item.name}</div>
                                     </div>
                                 ))}

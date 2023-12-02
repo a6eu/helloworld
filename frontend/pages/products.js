@@ -6,18 +6,14 @@ import Catalog from "@/components/Catalog";
 import Pagination from "@/components/Pagination"
 
 
-const About = () =>(
+const About = () => (
     <div className="h-auto w-full  p-10 flex flex-col items-center">
         <div className="w-4/5  h-full flex">
-            <Filter />
-            <Catalog />
+            <Filter/>
+            <Catalog/>
         </div>
-
         <Pagination/>
-        
-       
 
-        
 
     </div>
 )
