@@ -5,7 +5,7 @@ import Link from "next/link"
 
 const UserNavbar = () => {
     return (
-        <div className={styles.navbar}>
+        <div className={styles.userNavbar}>
             <div className="flex flex-col justify-between">
                 <a className="flex-row flex z-20 hover:text-[#1075B2] cursor-pointer">
                     <Image
