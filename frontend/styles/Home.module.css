@@ -7,6 +7,9 @@
     align-items: center;
     background-color: white;
     z-index: 30;
+    -webkit-box-shadow: -2px 6px 10px -11px rgba(0,0,0,0.75);
+    -moz-box-shadow: -2px 6px 10px -11px rgba(0,0,0,0.75);
+    box-shadow: -2px 6px 10px -11px rgba(0,0,0,0.75);
 }
 
 .catalogButton {

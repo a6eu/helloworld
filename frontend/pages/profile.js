@@ -1,15 +1,17 @@
 import React, {useEffect, useState} from 'react';
 import UserNavbar from "@/components/UserNavbar"
 import ProfileArea from "@/components/ProfileArea"
-import Image from "next/image";
-import Link from "next/link";
-import styles from "../styles/Products.module.css"
 
 function Profile() {
     return (
-        <div className="h-auto flex px-[192px] justify-between">
+        <div className="h-full flex px-[192px] justify-between">
             <UserNavbar/>
-            <ProfileArea/>
+            <div>
+                <h3 className="text-[#1075B2] text-[15px] mt-4">Мой профиль</h3>
+                <div className="mt-[20px]">
+                    <ProfileArea/>
+                </div>
+            </div>
         </div>
     )
 }
