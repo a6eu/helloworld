@@ -3,11 +3,12 @@ import Header from "@/components/Header";
 import Head from "next/head";
 import Filter from "@/components/Filter";
 import Catalog from "@/components/Catalog";
-import Pagination from "@/components/Pagination"
+import Pagination from "@/components/Pagination";
+import imported from "../db.json";
 
 export const getStaticProps = async () => {
-    const res = await fetch ('http://localhost:5000/products');
-    const data = await res.json();
+    const res = await imported;
+    const data = await res.products;
 
     // console.log('data >>> ', data)
 
