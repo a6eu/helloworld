@@ -21,8 +21,8 @@ const About = (props) =>{
     // console.log("props >>> ", props)
 
     return (
-        <div className="h-auto w-full  p-10 flex flex-col items-center">
-            <div className="w-4/5  h-full flex">
+        <div className="h-auto w-full p-10 flex flex-col items-center">
+            <div className="w- h-full flex jus">
                 <Filter />
                 <Catalog products={props.products} />
             </div>
