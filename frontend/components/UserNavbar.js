@@ -1,11 +1,11 @@
 import React, {useState, use} from "react"
 import Image from "next/image"
-import styles from "../styles/Products.module.css"
+import styles from "../styles/Home.module.css"
 import Link from "next/link"
 
 const UserNavbar = () => {
     return (
-        <div className="w-72 bg-white h-[240px] p-10 flex rounded-b-lg ">
+        <div className={styles.navbar}>
             <div className="flex flex-col justify-between">
                 <a className="flex-row flex z-20 hover:text-[#1075B2] cursor-pointer">
                     <Image

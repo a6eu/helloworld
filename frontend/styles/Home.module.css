@@ -126,3 +126,16 @@
     margin-left: -35px;
 }
 
+.navbar {
+    -webkit-box-shadow: inset 0px 3px 10px -5px rgba(0,0,0,0.75);
+    -moz-box-shadow: inset 0px 3px 10px -5px rgba(0,0,0,0.75);
+    box-shadow: inset 0px 3px 5px -5px rgba(0,0,0,0.75);
+    /* w-72 bg-white h-[240px] p-10 flex rounded-b-lg */
+    width: 288px;
+    background: white;
+    height: 240px;
+    padding: 40px;
+    display: flex;
+    border-bottom-right-radius: 12px;
+    border-bottom-left-radius: 12px;
+}
