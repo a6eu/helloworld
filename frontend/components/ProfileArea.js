@@ -4,7 +4,7 @@ import Image from "next/image";
 
 const ProfileArea = () => {
     return (
-        <div className="flex w-[814px] justify-around flex-row h-min bg-white p-5 pl-[10px] pr-[50px] rounded-lg" >
+        <div className="flex w-[700px] justify-around flex-row h-min bg-white p-5 rounded-lg" >
             <Image className=""
                 src="./images/person.svg"
                 height={136}
