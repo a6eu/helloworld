@@ -44,8 +44,8 @@ const Header = () => (
             <a className={styles.favourite}>
                 <Image className="cursor-pointer"
                     src="./images/Vector.svg"
-                    height={20}
-                    width={20}
+                    height={22}
+                    width={22}
                     alt="favourites"
                 />
             </a>
@@ -54,7 +54,16 @@ const Header = () => (
                     src="./images/shopping-cart.svg"
                     height={30}
                     width={30}
-                    alt="cart"/>
+                    alt="cart"
+                />
+            </a>
+            <a className={styles.person}>
+                <Image className="cursor-pointer"
+                    src="./images/person.svg"
+                    height={35}
+                    width={35}
+                    alt="profile"
+                />
             </a>
         </div>
     </header>

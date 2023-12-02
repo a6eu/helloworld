@@ -20,7 +20,7 @@ const Filter = ({ products }) => {
     // };
 
     return (
-        <div className=" inline-block w-[300px] bg-white p-1 h-min">
+        <div className="inline-block w-[300px] bg-white p-1 h-min">
             <h3 className="text-blue-400">Фильтры</h3>
             <p className="text-blue-400">Цена</p>
             <PriceInputs />

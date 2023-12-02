@@ -1,19 +1,138 @@
 {
-  "products" : [
+  "products": [
     {
       "id": 1,
-      "nameOfProduct": "Microsoft Office",
-      "price": "200"
+      "name": "Bitdefender GravityZone Business Security",
+      "price": "55 000",
+      "description": "Bitdefender GravityZone Business Security обеспечивает защиту от вредоносных программ и управление безопасностью для файловых серверов, почтовых серверов и рабочих мест в бизнес-среде. Продукт предназначен для небольших и средних компаний и предоставляет им комплексную защиту.",
+      "category_id": "5",
+      "brand_id": "4",
+      "img_url": "/images/bitfender.png",
+      "quantity": "5",
+      "in_basket": true,
+      "is_favorite": true,
+      "tags": [
+          {
+              "id": 1,
+              "tag_name": "popular"
+          }
+      ],
+      "rating": 4.5
     },
     {
       "id": 2,
-      "nameOfProduct": "MacOS",
-      "price": "800"
+      "name": "Антивирус Dr.Web Gateway Security Suite",
+      "price": "17 000",
+      "description": "Dr.Web Gateway Security Suite обеспечивает антивирусную защиту для интернет-шлюзов Unix, Kerio, MIMEsweeper и Qbik WinGate,MS ISA/Forefront TMG",
+      "category_id": "5",
+      "brand_id": "4",
+      "img_url": "/images/dr-web.jpg",
+      "quantity": "5",
+      "in_basket": "true",
+      "is_favorite": false,
+      "tags": [
+          {
+              "id": 1,
+              "tag_name": "popular"
+          }
+      ],
+      "rating": 4.5
     },
     {
       "id": 3,
-      "nameOfProduct": "Android",
-      "price": "400"
+      "name": "Kaspersky Endpoint Detection and Response Оптимальный",
+      "price": "258 810",
+      "description": "Kaspersky Endpoint Detection and Response предоставляет полную картину событий безопасности в корпоративной ИТ-инфраструктуре и позволяет автоматизировать выполнение рутинных задач по выявлению, приоритизации, расследованию и нейтрализации сложных угроз. Наглядное представление информации об инфраструктуре рабочих мест в централизованной веб-консоли позволяет сотрудникам служб ИБ оперативно реагировать на инциденты, минимизирует количество ручных задач и сокращает общие трудозатраты на мероприятия по реагированию с часов до минут.",
+      "category_id": "5",
+      "brand_id": "4",
+      "img_url": "/images/kaspersky endpoint.png",
+      "quantity": "5",
+      "in_basket": "true",
+      "is_favorite": true,
+      "tags": [
+          {
+              "id": 1,
+              "tag_name": "popular"
+          }
+      ],
+      "rating": 3.5
+    },
+    {
+      "id": 4,
+      "name": "Kaspersky Security для Microsoft Office 365",
+      "price": "106 320",
+      "description": "Kaspersky Security для Microsoft Office 365 - это единое решение для защиты Exchange Online и OneDrive от известных и неизвестных угроз.",
+      "category_id": "2",
+      "brand_id": "4",
+      "img_url": "/images/kaspersky-365.png",
+      "quantity": "9",
+      "in_basket": "false",
+      "is_favorite": false,
+      "tags": [
+          {
+              "id": 1,
+              "tag_name": "popular"
+          }
+      ],
+      "rating": 5.0
+    },
+    {
+      "id": 5,
+      "name": "Kaspersky Security Для Виртуальных И Облачных Сред Standard",
+      "price": "137 270",
+      "description": "Kaspersky Security для виртуальных и облачных сред обеспечивает многоуровневую защиту для многокомпонентной инфраструктуры. Где бы вы ни хранили и ни обрабатывали критически важные бизнес-данные – в частном или публичном облаке либо в их сочетании, – сбалансированное сочетание гибких и эффективных средств защиты оградит вашу информацию от самых сложных известных и неизвестных угроз без ущерба для производительности. Kaspersky Security для виртуальных и облачных сред Standard подходит для базовой защиты виртуальных систем.",
+      "category_id": "1",
+      "brand_id": "4",
+      "img_url": "/images/kaspersky-cloud.png",
+      "quantity": "5",
+      "in_basket": "true",
+      "is_favorite": false,
+      "tags": [
+          {
+              "id": 1,
+              "tag_name": "popular"
+          }
+      ],
+      "rating": 2.5
+    },
+    {
+      "id": 6,
+      "name": "KASPI",
+      "price": "1 000 000",
+      "description": "KASPI Symphony – это линейка решений, которая дает организациям всё необходимое для постепенной или одночастной реализации экосистемного подхода к корпоративной кибербезопасности. Все элементы этой экосистемы дополняют и усиливают друг друга, позволяя обеспечить надежную защиту от кибератак любой сложности и непрерывность",
+      "category_id": "5",
+      "brand_id": "4",
+      "img_url": "/images/mock up.png",
+      "quantity": "5",
+      "in_basket": "true",
+      "is_favorite": true,
+      "tags": [
+          {
+              "id": 1,
+              "tag_name": "popular"
+          }
+      ],
+      "rating": 1.5
+    },
+    {
+      "id": 7,
+      "name": "ZHANBOLAT",
+      "price": "900 200",
+      "description": "ZHANBO Symphony – это линейка решений, которая дает организациям всё необходимое для постепенной или одночастной реализации экосистемного подхода к корпоративной кибербезопасности. Все элементы этой экосистемы дополняют и усиливают друг друга, позволяя обеспечить надежную защиту от кибератак любой сложности и непрерывность",
+      "category_id": "5",
+      "brand_id": "4",
+      "img_url": "/images/about-3.jpg",
+      "quantity": "5",
+      "in_basket": "true",
+      "is_favorite": false,
+      "tags": [
+          {
+              "id": 1,
+              "tag_name": "popular"
+          }
+      ],
+      "rating": 4.0
     }
+
   ]
 }
