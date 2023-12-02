@@ -47,7 +47,7 @@ export default function Flyout() {
 
 
     return (
-        <Popover className="relative">
+        <Popover className="">
             <Popover.Button className={styles.catalogButton}>
                 <Image
                     src="./images/catalog_svg.svg"
@@ -67,7 +67,7 @@ export default function Flyout() {
                 leaveFrom="opacity-100"
                 leaveTo="opacity-0"
             >
-                <Popover.Panel className="absolute z-10 -translate-x-[190px] mt-[31px] flex h-[360px] w-[1083px]">
+                <Popover.Panel className="absolute z-10 -translate-x-[210px] mt-[31px] flex h-[360px] w-full">
                     <div
                         className={styles.catalogContainer}>
                         <div className="flex w-full mt-5 justify-between">

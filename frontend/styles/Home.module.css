@@ -26,14 +26,11 @@
     text-align: center;
 }
 
-.catalogButton:focus {
-
-}
 
 .catalogContainer {
     overflow: hidden;
     color: black;
-    width: 1083px;
+    width: 75%;
     display: flex;
     flex-direction: column;
     align-items: center;
