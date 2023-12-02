@@ -7,7 +7,7 @@ const UserNavbar = () => {
     return (
         <div className={styles.userNavbar}>
             <div className="flex flex-col justify-between">
-                <a className="flex-row flex z-20 hover:text-[#1075B2] cursor-pointer">
+                <a className="flex-row flex hover:text-[#1075B2] cursor-pointer">
                     <Image
                         className=" fill-blue-400"
                         src="./images/person.svg"
@@ -16,7 +16,7 @@ const UserNavbar = () => {
                     />
                     <h3 className="mt-[5px] ml-[20px] font-sans" href="google.com">Мой профиль</h3>
                 </a>
-                <a className="flex flex-row z-20 hover:text-[#1075B2] cursor-pointer">
+                <a className="flex flex-row hover:text-[#1075B2] cursor-pointer">
                     <Image className="cursor-pointer ml-[5px]"
                         src="./images/Vector.svg"
                         height={30}
@@ -25,7 +25,7 @@ const UserNavbar = () => {
                     />
                     <h3 className="mt-[5px] ml-[23px] font-sans" >Избранное</h3>
                 </a>
-                <a className="flex flex-row z-20 hover:text-[#1075B2] cursor-pointer ">
+                <a className="flex flex-row hover:text-[#1075B2] cursor-pointer ">
                     <Image className="cursor-pointer"
                         src="./images/shopping-cart.svg"
                         height={39}
