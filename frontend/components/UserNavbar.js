@@ -14,7 +14,7 @@ const UserNavbar = () => {
                         height={39}
                         width={39}
                     />
-                    <h3 className="mt-[5px] ml-[20px] font-sans" href="google.com">Мой профиль</h3>
+                    <h3 className="mt-[5px] ml-[20px] font-sans">Мой профиль</h3>
                 </a>
                 <a className="flex flex-row hover:text-[#1075B2] cursor-pointer">
                     <Image className="cursor-pointer ml-[5px]"
@@ -23,7 +23,7 @@ const UserNavbar = () => {
                         width={30}
                         alt="favourites"
                     />
-                    <h3 className="mt-[5px] ml-[23px] font-sans" >Избранное</h3>
+                    <h3 className="mt-[5px] ml-[23px] font-sans">Избранное</h3>
                 </a>
                 <a className="flex flex-row hover:text-[#1075B2] cursor-pointer ">
                     <Image className="cursor-pointer"
