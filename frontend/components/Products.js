@@ -33,7 +33,7 @@ function Products() {
     }, []);
 
     return (
-        <div className="w-full h-96 mb-20 flex justify-center">
+        <div className="w-full h-96 mt-6 mb-20 flex justify-center">
             <div className={styles.container}>
                 {products.map(product => (
                     <Link href="" to={`/products/${product.id}`} key={product.id}>
@@ -56,7 +56,7 @@ function Products() {
                                 <p className="ProductSansMedium">{product.username} ₸</p>
                             </div>
                             <div className={styles.piecesAndToBucket}>
-                                <div className={styles.quantity}>
+                                <div className="flex">
                                     <button
                                         className="bg-blue-50 border-solid border-1px mr-customMargin rounded-sm w-5 flex justify-center h-6">
                                         <Image className="w-3" src={plus} alt="+"/>
