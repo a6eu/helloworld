@@ -73,7 +73,7 @@ export default function CatalogDropDown() {
             >
                 <Popover.Panel
                     className="absolute w-full flex justify-center left-[0px] ">
-                    <div className={"flex z-10 mt-[31px] max-w-max w-full height-[100%] rounded-b-lg mt-5 overflow-hidden"}>
+                    <div className={"flex z-10 mt-[31px] max-w-max drop-shadow-[2px_6px_10px_11px_rgba(0,0,0,0.75)] w-full height-[100%] rounded-b-lg mt-5 overflow-hidden"}>
                         <div className="flex-initial flex-1 py-10 pl-5 bg-slate-200">
                             <ul className={"w-full"}
                                 onMouseLeave={() => {
@@ -120,7 +120,7 @@ export default function CatalogDropDown() {
                                         <ul className={"text-left pl-1 mt-2"}>
                                             {item.children.map((children) => (
                                                 <li key={children.id}
-                                                    className={"text-[#606060] hover:text-[#1075B2] hover:cursor-pointer mb-1.5 font-['Product_Sans_Light']"}>
+                                                    className={"text-[#606060] hover:text-[#1075B2] hover:cursor-pointer mb-1.5 ProductSansLight"}>
                                                     {children.name}
                                                 </li>
                                             ))}
