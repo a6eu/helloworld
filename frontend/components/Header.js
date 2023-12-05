@@ -1,7 +1,18 @@
 import styles from "../styles/Home.module.css";
 import Image from "next/image";
-import Flyout from "@/components/Flyout";
 import CatalogDropDown from "@/components/CatalogDropDown";
+
+function goToHome() {
+    window.location.href = '/';
+}
+
+function goToCart() {
+    window.location.href = '/cart';
+}
+
+function goToProfile() {
+    window.location.href = '/profile';
+}
 
 const Header = () => (
     <header className={styles.header}>
@@ -12,6 +23,7 @@ const Header = () => (
                        height={60}
                        width={60}
                        alt="logo"
+                       onClick={goToHome}
                 />
             </div>
 
@@ -37,6 +49,7 @@ const Header = () => (
                     </button>
                 </div>
                 <div className={styles.cityDiv}>
+
                     <Image src="/images/location.svg" height={30} width={30} alt="location"/>
                     <button className={styles.cityButton}>Алматы</button>
                 </div>
@@ -57,6 +70,7 @@ const Header = () => (
                            height={30}
                            width={30}
                            alt="cart"
+                           onClick={goToCart}
                     />
                 </a>
                 <a className={styles.person}>
@@ -65,6 +79,7 @@ const Header = () => (
                            height={35}
                            width={35}
                            alt="profile"
+                           onClick={goToProfile}
                     />
                 </a>
             </div>

@@ -7,7 +7,7 @@ import phone from "../public/images/Vector (1).svg"
 const Footer = () => {
     return (
         <div className={" w-full flex justify-center "}>
-            <div className="max-w-screen-xl w-full  mt-[200px] p-2">
+            <div className="max-w-screen-xl w-full p-2">
                 <div className="flex justify-center">
                     <div className="h-44 bg-white flex justify-between rounded-t-[10px] w-full">
                         <Image className="self-center ml-6" src={logo} alt="logo"/>

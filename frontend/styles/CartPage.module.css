@@ -1,34 +1,31 @@
 .productsAndInfoTable {
-    width: 100%;
     display: flex;
-    justify-content: center;
     align-self: center;
     margin-top: 25px;
 }
 
 .containerWithProducts {
-    width: 45%;
-    border-radius: 6px;
-    -webkit-box-shadow: 0 0 8px 0 rgba(34, 60, 80, 0.2);
-    -moz-box-shadow: 0 0 8px 0 rgba(34, 60, 80, 0.2);
-    box-shadow: 0 0 8px 0 rgba(34, 60, 80, 0.2);
+    width: 70%;
+    border-radius: 5px;
+    box-shadow: 0 4px 10px 4px rgba(0, 0, 0, 0.06);
     margin-right: 25px;
     background-color: white;
 }
 
 .infoTable {
-    width: 20%;
-    -webkit-box-shadow: 0 0 8px 0 rgba(34, 60, 80, 0.2);
-    -moz-box-shadow: 0 0 8px 0 rgba(34, 60, 80, 0.2);
-    box-shadow: 0 0 8px 0 rgba(34, 60, 80, 0.2);
+    width: 30%;
+    height: 255px;
+    box-shadow: 0 4px 10px 4px rgba(0, 0, 0, 0.06);
     border-radius: 6px;
     background-color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 }
 
 .textCart {
-    margin-left: 240px;
     margin-top: 25px;
     font-family: ProductSans-Medium, sans-serif;
-    font-size: 12px;
-    color: rgb(59 130 246);
+    font-size: 16px;
+    color: #1075B2;
 }
