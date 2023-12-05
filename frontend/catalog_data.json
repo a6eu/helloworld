@@ -1,16 +1,161 @@
 [
   {
     "id": 1,
-    "name": "АНТИВИРУСНАЯ БЕЗОПАСНОСТЬ",
+    "name": "Computers & Accessories",
     "children": [
       {
         "id": 1,
-        "name": "2nd lvl",
+        "img_url": "https://www.ico.kz/upload/resize_cache/iblock/1d5/180_180_0/1ci3z0vnu617dopr494ayen8ttzlhj4v.png",
+        "name": "Laptops",
         "children": [
           {
             "id": 1,
-            "name": "3rd lvl",
-            "children": []
+            "name": "Gaming Laptops",
+            "children": [
+              {
+                "id": 1,
+                "name": "High-performance Gaming Laptops",
+                "children": []
+              },
+              {
+                "id": 2,
+                "name": "Budget Gaming Laptops",
+                "children": []
+              }
+            ]
+          },
+          {
+            "id": 2,
+            "name": "Business Laptops",
+            "children": [
+              {
+                "id": 1,
+                "name": "Ultrabooks",
+                "children": []
+              },
+              {
+                "id": 2,
+                "name": "Workstation Laptops",
+                "children": []
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": 1,
+        "name": "Laptops",
+        "img_url": "https://www.ico.kz/upload/resize_cache/iblock/1d5/180_180_0/1ci3z0vnu617dopr494ayen8ttzlhj4v.png",
+        "children": [
+          {
+            "id": 1,
+            "name": "Gaming Laptops",
+            "children": [
+              {
+                "id": 1,
+                "name": "High-performance Gaming Laptops",
+                "children": []
+              },
+              {
+                "id": 2,
+                "name": "Budget Gaming Laptops",
+                "children": []
+              }
+            ]
+          },
+          {
+            "id": 2,
+            "name": "Business Laptops",
+            "children": [
+              {
+                "id": 1,
+                "name": "Ultrabooks",
+                "children": []
+              },
+              {
+                "id": 2,
+                "name": "Workstation Laptops",
+                "children": []
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": 2,
+        "name": "Desktops",
+        "img_url": "https://www.ico.kz/upload/resize_cache/iblock/cc0/qkqxukqlqlc80wj97dfddv9cabb219qr/180_180_0/cisco_logo_transparent.png",
+        "children": [
+          {
+            "id": 1,
+            "name": "Gaming Desktops",
+            "children": [
+              {
+                "id": 1,
+                "name": "Custom-built Gaming Desktops",
+                "children": []
+              },
+              {
+                "id": 2,
+                "name": "Pre-built Gaming Desktops",
+                "children": []
+              }
+            ]
+          },
+          {
+            "id": 2,
+            "name": "All-in-One Desktops",
+            "children": [
+              {
+                "id": 1,
+                "name": "Touchscreen All-in-One Desktops",
+                "children": []
+              },
+              {
+                "id": 2,
+                "name": "Traditional All-in-One Desktops",
+                "children": []
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": 3,
+        "name": "Computer Accessories",
+        "img_url": "https://www.ico.kz/upload/resize_cache/iblock/8eb/6vgz91rvh5uq7py6n6calqpw9v5bjalf/180_180_0/1S_LOGO_PNG.png",
+        "children": [
+          {
+            "id": 1,
+            "name": "Keyboards & Mice",
+            "children": [
+              {
+                "id": 1,
+                "name": "Mechanical Keyboards",
+                "children": []
+              },
+              {
+                "id": 2,
+                "name": "Wireless Mice",
+                "children": []
+              }
+            ]
+          },
+          {
+            "id": 2,
+            "name": "Monitors",
+            "children": [
+              {
+                "id": 1,
+                "name": "Gaming Monitors",
+                "children": []
+              },
+              {
+                "id": 2,
+                "name": "Ultrawide Monitors",
+                "children": []
+              }
+            ]
           }
         ]
       }
@@ -18,31 +163,56 @@
   },
   {
     "id": 2,
-    "name": "ИНФОРМАЦИОННАЯ БЕЗОПАСНОСТЬ",
+    "name": "Smartphones & Tablets",
     "children": [
       {
         "id": 1,
-        "name": "2nd lvl1",
+        "name": "Smartphones",
+        "img_url": "https://www.ico.kz/upload/resize_cache/iblock/8eb/6vgz91rvh5uq7py6n6calqpw9v5bjalf/180_180_0/1S_LOGO_PNG.png",
+
         "children": [
           {
             "id": 1,
-            "name": "3rd lvl1",
+            "name": "Android Smartphones",
+            "children": []
+          },
+          {
+            "id": 2,
+            "name": "iOS Smartphones",
             "children": []
           }
         ]
       },
       {
         "id": 2,
-        "name": "2nd lvl 21",
+        "name": "Tablets",
+        "img_url": "https://www.ico.kz/upload/resize_cache/iblock/8eb/6vgz91rvh5uq7py6n6calqpw9v5bjalf/180_180_0/1S_LOGO_PNG.png",
         "children": [
           {
             "id": 1,
-            "name": "3rd lvl1",
+            "name": "Android Tablets",
             "children": []
           },
           {
             "id": 2,
-            "name": "3rd lvl 21",
+            "name": "iPad & iOS Tablets",
+            "children": []
+          }
+        ]
+      },
+      {
+        "id": 3,
+        "name": "Accessories",
+
+        "children": [
+          {
+            "id": 1,
+            "name": "Cases & Covers",
+            "children": []
+          },
+          {
+            "id": 2,
+            "name": "Screen Protectors",
             "children": []
           }
         ]
@@ -51,15 +221,52 @@
   },
   {
     "id": 3,
-    "name": "ИНФРАСТРУКТУРА ИТ",
+    "name": "TVs & Home Entertainment",
     "children": [
       {
         "id": 1,
-        "name": "2nd lvl2",
+        "name": "Televisions",
         "children": [
           {
             "id": 1,
-            "name": "3rd lvl2",
+            "name": "LED TVs",
+            "children": []
+          },
+          {
+            "id": 2,
+            "name": "Smart TVs",
+            "children": []
+          }
+        ]
+      },
+      {
+        "id": 2,
+        "name": "Speakers",
+        "children": [
+          {
+            "id": 1,
+            "name": "Bluetooth Speakers",
+            "children": []
+          },
+          {
+            "id": 2,
+            "name": "Home Theater Systems",
+            "children": []
+          }
+        ]
+      },
+      {
+        "id": 3,
+        "name": "Media Players",
+        "children": [
+          {
+            "id": 1,
+            "name": "Streaming Devices",
+            "children": []
+          },
+          {
+            "id": 2,
+            "name": "Blu-ray Players",
             "children": []
           }
         ]
@@ -68,15 +275,54 @@
   },
   {
     "id": 4,
-    "name": "РЕЗЕРВНОЕ КОПИРОВАНИЕ",
+    "name": "Cameras & Photography",
+    "img_url": "https://www.ico.kz/upload/resize_cache/iblock/8eb/6vgz91rvh5uq7py6n6calqpw9v5bjalf/180_180_0/1S_LOGO_PNG.png",
+
     "children": [
       {
         "id": 1,
-        "name": "2nd lvl",
+        "name": "DSLR Cameras",
         "children": [
           {
             "id": 1,
-            "name": "3rd lvl",
+            "name": "Canon DSLR Cameras",
+            "children": []
+          },
+          {
+            "id": 2,
+            "name": "Nikon DSLR Cameras",
+            "children": []
+          }
+        ]
+      },
+      {
+        "id": 2,
+        "name": "Mirrorless Cameras",
+        "children": [
+          {
+            "id": 1,
+            "name": "Sony Mirrorless Cameras",
+            "children": []
+          },
+          {
+            "id": 2,
+            "name": "Fujifilm Mirrorless Cameras",
+            "children": []
+          }
+        ]
+      },
+      {
+        "id": 3,
+        "name": "Lenses",
+        "children": [
+          {
+            "id": 1,
+            "name": "Prime Lenses",
+            "children": []
+          },
+          {
+            "id": 2,
+            "name": "Zoom Lenses",
             "children": []
           }
         ]
@@ -85,15 +331,52 @@
   },
   {
     "id": 5,
-    "name": "ОБОРУДОВАНИЕ",
+    "name": "Gaming",
     "children": [
       {
         "id": 1,
-        "name": "2nd lvl",
+        "name": "Gaming Consoles",
         "children": [
           {
             "id": 1,
-            "name": "3rd lvl",
+            "name": "PlayStation Consoles",
+            "children": []
+          },
+          {
+            "id": 2,
+            "name": "Xbox Consoles",
+            "children": []
+          }
+        ]
+      },
+      {
+        "id": 2,
+        "name": "Gaming Accessories",
+        "children": [
+          {
+            "id": 1,
+            "name": "Gaming Headsets",
+            "children": []
+          },
+          {
+            "id": 2,
+            "name": "Gaming Controllers",
+            "children": []
+          }
+        ]
+      },
+      {
+        "id": 3,
+        "name": "PC Gaming",
+        "children": [
+          {
+            "id": 1,
+            "name": "Gaming Desktops",
+            "children": []
+          },
+          {
+            "id": 2,
+            "name": "Gaming Laptops",
             "children": []
           }
         ]
