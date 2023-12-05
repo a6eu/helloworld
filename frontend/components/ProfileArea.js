@@ -4,8 +4,8 @@ import Image from "next/image";
 
 const ProfileArea = () => {
     return (
-        <div className="flex w-full justify-around flex-row h-min bg-white p-5  rounded-lg" >
-            <Image className=""
+        <div className="flex w-4/5 justify-between flex-row h-min bg-white p-5  rounded-lg" >
+            <Image className="" 
                 src="./images/person.svg"
                 height={136}
                 width={136}
@@ -25,9 +25,9 @@ const ProfileArea = () => {
                 <div className="flex flex-row justify-between">
                     <h5 className="text-[#1075B2]">эл. почта</h5><h5>temabeu@icloud.com</h5>
                 </div>
-                {/* <div className="flex flex-row justify-between">
-                    <h5>день рождения</h5><h5>13/02/2003</h5>
-                </div> */}
+                <div className="flex flex-row justify-between">
+                    <h5 className="text-[#1075B2]">день рождения</h5><h5>13/02/2003</h5>
+                </div> 
                 <div className="flex flex-row justify-between">
                     <h5 className="text-[#1075B2]" >пол</h5><h5>мужской</h5>
                 </div>

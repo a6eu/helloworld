@@ -5,13 +5,14 @@ import CategotyChooser from '@/components/CategotyChooser';
 import Products from '@/components/Products';
 
 const Home = () => (
-    <>
-        <News/>
-        <Companies/>
-        <CategotyChooser/>
-        <Products/>
-        <AboutCompany/>
-    </>
+    <div className={"w-full flex justify-center"}>
+        <div className={"max-w-screen-xl w-full p-2"}>
+            <News/>
+            <Companies/>
+            <Products/>
+            <AboutCompany/>
+        </div>
+    </div>
 )
 
 export default Home;

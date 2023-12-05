@@ -6,10 +6,10 @@ import phone from "../public/images/Vector (1).svg"
 
 const Footer = () => {
     return (
-        <div>
-            <div className="w-full mt-[100px]">
+        <div className={" w-full flex justify-center "}>
+            <div className="max-w-screen-xl w-full  mt-[200px] p-2">
                 <div className="flex justify-center">
-                    <div className="h-44 bg-white flex justify-between w-[75%]">
+                    <div className="h-44 bg-white flex justify-between rounded-t-[10px] w-full">
                         <Image className="self-center ml-6" src={logo} alt="logo"/>
                         <div className="ProductSansLight self-center mb-3">
                             <p className="pb-5 ProductSansThin">ИНТЕРНЕТ МАГАЗИН</p>
