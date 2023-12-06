@@ -1,8 +1,25 @@
+'use client'
 import styles from "../styles/Home.module.css";
 import Image from "next/image";
 import Flyout from "@/components/Flyout";
+import CityDropdownMenu from "./CityDropdownMenu";
+import React, { useEffect, useState } from 'react';
 
-const Header = () => (
+
+const Header = () => {
+    const [selectedCity, setSelectedCity] = useState('Алматы' || localStorage.getItem('city'));
+
+    const handleCityChange = (city) => {
+        setSelectedCity(city);
+    };
+
+    useEffect(() => {
+        const storedCity = localStorage.getItem('city');
+        if (storedCity) {
+          setSelectedCity(storedCity);
+        }
+      }, []); 
+    return(
     <header className={styles.header}>
         <div className={styles.imageSide}>
             <Image className="cursor-pointer"
@@ -34,10 +51,10 @@ const Header = () => (
                     />
                 </button>
             </div>
-            <div className={styles.cityDiv}>
-                <Image src="/images/location.svg" height={30} width={30} alt="location"/>
-                <button className={styles.cityButton}>Алматы</button>
-            </div>
+            <CityDropdownMenu
+          selectedCity={selectedCity}
+          onCityChange={handleCityChange}
+        />        
         </div>
 
         <div className={styles.cartSide}>
@@ -67,6 +84,7 @@ const Header = () => (
             </a>
         </div>
     </header>
-);
+    );
+};
 
 export default Header;
