@@ -1,0 +1,31 @@
+.productsAndInfoTable {
+    display: flex;
+    align-self: center;
+    margin-top: 25px;
+}
+
+.containerWithProducts {
+    width: 70%;
+    border-radius: 5px;
+    box-shadow: 0 4px 10px 4px rgba(0, 0, 0, 0.06);
+    margin-right: 25px;
+    background-color: white;
+}
+
+.infoTable {
+    width: 30%;
+    height: 255px;
+    box-shadow: 0 4px 10px 4px rgba(0, 0, 0, 0.06);
+    border-radius: 6px;
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.textCart {
+    margin-top: 25px;
+    font-family: ProductSans-Medium, sans-serif;
+    font-size: 16px;
+    color: #1075B2;
+}

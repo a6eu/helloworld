@@ -1,9 +1,8 @@
 import Carousel from "./Carousel";
 
 const News = () => (
-    <div className="w-full h-80 pl-30 pr-30  flex justify-center mt-5">
-        <div className="flex w-3/4">
-
+    <div className=" h-80 flex justify-center mt-5">
+        <div className="flex w-full">
             <div className="h-full w-[60%] mr-4 rounded box-border">
                 {/* <div className="h-full w-3/4 mr-4 rounded"> */}
                 <div className="box-border  flex justify-center align-middle">
@@ -18,7 +17,6 @@ const News = () => (
                 <div className="h-1/2  bg-orange-300 bg-programImage bg-cover bg-center rounded"></div>
 
             </div>
-
         </div>
     </div>
 )
