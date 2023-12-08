@@ -40,12 +40,7 @@ const Header = () => (
                 <div className={styles.searchBar}>
                     <div className={styles.typeArea}></div>
                     <button className={styles.searchButton}>
-                        <Image
-                            src="./images/search icon.svg"
-                            height={20}
-                            width={20}
-                            alt="search logo"
-                        />
+                        <div id="nav-icon"></div>
                     </button>
                 </div>
                 <div className={styles.cityDiv}>
