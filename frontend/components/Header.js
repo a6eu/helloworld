@@ -1,6 +1,6 @@
 import styles from "../styles/Home.module.css";
 import Image from "next/image";
-import CatalogDropDown from "@/components/CatalogDropDown";
+import CatalogDropdown from "@/components/CatalogDropdown";
 
 function goToHome() {
     window.location.href = '/';
@@ -28,7 +28,7 @@ const Header = () => (
             </div>
 
             <div className={styles.searchArea}>
-                <CatalogDropDown className={styles.catalogButton}>
+                <CatalogDropdown className={styles.catalogButton}>
                     <Image
                         src="./images/catalog_svg.svg"
                         height={15}
@@ -36,7 +36,7 @@ const Header = () => (
                         alt="catalog icon"
                     />
                     &nbsp;&nbsp;КАТАЛОГ
-                </CatalogDropDown>
+                </CatalogDropdown>
                 <div className={styles.searchBar}>
                     <div className={styles.typeArea}></div>
                     <button className={styles.searchButton}>

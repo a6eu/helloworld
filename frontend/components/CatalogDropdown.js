@@ -5,7 +5,7 @@ import React, {Fragment, useEffect, useState} from "react";
 import imported from "../catalog_data.json"
 
 let timeoutId;
-export default function CatalogDropDown() {
+export default function CatalogDropdown() {
     const [ctg, setCtg] = useState([]);
     const [selectedCtg, setSelectedCtg] = useState(0);
     const [subCtg, setSubCtg] = useState([])
@@ -73,8 +73,8 @@ export default function CatalogDropDown() {
             >
                 <Popover.Panel
                     className="absolute w-full flex justify-center left-[0px] ">
-                    <div className={"flex z-10 mt-[31px] max-w-max drop-shadow-[2px_6px_10px_11px_rgba(0,0,0,0.75)] w-full height-[100%] rounded-b-lg mt-5 overflow-hidden"}>
-                        <div className="flex-initial flex-1 py-10 pl-5 bg-slate-200">
+                    <div className={"flex z-10 mt-[31px] w-full max-w-screen-xl drop-shadow-[2px_6px_10px_11px_rgba(0,0,0,0.75)] height-[100%] rounded-b-lg mt-5 overflow-hidden"}>
+                        <div className="flex-initial w-1/5 py-10 pl-5 bg-slate-200">
                             <ul className={"w-full"}
                                 onMouseLeave={() => {
                                     debounce.cancel()
@@ -97,7 +97,7 @@ export default function CatalogDropDown() {
                                 ))}
                             </ul>
                         </div>
-                        <div className={"flex-1 leading-none bg-white py-10 px-10 grid grid-cols-3 gap-10"}>
+                        <div className={"leading-none w-4/5 bg-white py-10 px-10 grid grid-cols-3 gap-10"}>
                             {subCtg.map((item) => (
                                 <div key={item.id} className={"flex"}>
                                     <div className={"pt-2 mr-1"}>
@@ -108,6 +108,7 @@ export default function CatalogDropDown() {
                                                         src={item.img_url}
                                                         height={50}
                                                         width={50}
+                                                        alt={""}
                                                     />
                                                 </div> :
                                                 <></>

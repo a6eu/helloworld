@@ -5,8 +5,6 @@ import EditProfile from '@/components/EditProfile';
 import MainContainer from '@/components/MainContainer';
 
 function Profile() {
-    
-
     const [isEditing, setIsEditing] = useState(false);
 
     const handleSaveClick = () => {
@@ -16,9 +14,6 @@ function Profile() {
     const handleEditClick = () => {
         setIsEditing(true)
     }
-
-
-    
 
     return (
         <MainContainer>
