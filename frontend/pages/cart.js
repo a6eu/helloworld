@@ -61,6 +61,7 @@ function Cart() {
             quantity: 2
         }
     ],);
+
     if (cartWithProducts.length !== 0) {
         return (
             <MainContainer>
@@ -73,12 +74,12 @@ function Cart() {
                                 КОРЗИНЕ {cartWithProducts.length} {(cartWithProducts.length === 1) ? "ТОВАР" :
                                     "ТОВАРА"}</p>
                             <button
+                                onClick={() => cleanCart()}
                                 className="w-40 h-6 mr-3 text-[11px] bg-[#1075B2] text-white rounded-[6px] flex justify-center items-center">
                                 <Image
                                     src={trashBinW}
                                     alt="trashBinW"
                                     className="fill-white w-[14px]"
-                                    onClick={() => cleanCart()}
                                 ></Image>ОЧИСТИТЬ КОРЗИНУ
                             </button>
                         </div>
