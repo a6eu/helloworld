@@ -5,8 +5,9 @@ import Image from "next/image"
 import Link from "next/link";
 import plus from "../public/images/plus.svg"
 import minus from "../public/images/minus.svg"
-import {Rating} from 'flowbite-react';
-import CategotyChooser from "@/components/CategotyChooser";
+import { Rating } from '@smastrom/react-rating'
+
+import '@smastrom/react-rating/style.css'
 
 function Products() {
     const [products, setProducts] = useState([]);
@@ -25,6 +26,8 @@ function Products() {
             });
     }, []);
 
+    const floatValues = [0.29, 1.44, 2.31, 3.48, 4.52];
+
     return (
         <>
             {(fetchingStatus) ?
@@ -38,7 +41,7 @@ function Products() {
                                             {/*<Image src=/>*/}
                                         </div>
                                         <div className="flex w-full ml-3 justify-between">
-                                            {Component()}
+                                            <Stars starAvg={floatValues[Math.floor(Math.random()*5)]} />
                                             <Image
                                                 src="./images/bookmark.svg"
                                                 height={16}
@@ -83,17 +86,19 @@ function Products() {
     );
 }
 
-function Component() {
+function Stars(starAvg) {
     return (
-        <Rating>
-            <Rating.Star/>
-            <Rating.Star/>
-            <Rating.Star/>
-            <Rating.Star/>
-            <Rating.Star filled={false}/>
-        </Rating>
-    );
+        <div>
+            <Rating
+                style={{ maxWidth: 80 }}
+                readOnly
+                orientation="horizontal"
+                value={starAvg.starAvg}
+            />
+        </div>
+    )
 }
+
 
 export default Products;
 
