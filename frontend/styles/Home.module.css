@@ -68,6 +68,8 @@
 
 .person {
     margin-bottom: 5px;
+    position: relative;
+    z-index: 50;
 }
 
 .searchBar {
