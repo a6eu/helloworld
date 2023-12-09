@@ -66,7 +66,7 @@ const EditProfile = ({onSaveClick}) => {
   };
 
   const validateCity = () => {
-    if(city == 'Не выбрано') {
+    if(city === 'Не выбрано') {
       setCityError('Выберите город')
       return false
     }
