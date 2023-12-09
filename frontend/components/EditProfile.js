@@ -117,8 +117,8 @@ const EditProfile = ({onSaveClick}) => {
                     Номер телефона
                   </label>
                   <div className="relative">
-                  <span className="absolute inset-y-0 left-0 pl-2 flex items-center text-gray-700">+7</span>
-                  <input onChange={(e) => setPhone(e.target.value)} className="appearance-none block w-[90%] ml-9 bg-white text-gray-700 border border-[#1075B2] rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500 hover:shadow-lg transition duration-500" id="grid-phone" type="text" placeholder="(***) *** ** **"/>
+                  <span className="absolute inset-y-0 left-0 pl-2 flex items-center w-9 rounded-tl rounded-bl bg-[#1075B2] text-white">+7</span>
+                  <input onChange={(e) => setPhone(e.target.value)} className="appearance-none block w-[90%] ml-9 bg-white text-gray-700 border border-[#1075B2] rounded-tr rounded-br py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500 hover:shadow-lg transition duration-500" id="grid-phone" type="text" placeholder="(***) *** ** **"/>
                   </div>
                   {phoneError && <p className="text-red-500 text-xs italic">{phoneError}</p>}
                 </div>
@@ -143,7 +143,6 @@ const EditProfile = ({onSaveClick}) => {
                     Пароль
                   </label>
                   <input onChange={(e) => setPassword(e.target.value)} className="appearance-none block w-full bg-white text-gray-700 border border-[#1075B2] rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500 hover:shadow-lg transition duration-500" id="grid-password" type="password" placeholder="******************"/>
-                 
                   {passwordError ? (
                   <p className="text-red-500 text-xs italic">{passwordError}</p>
                   ) : (
@@ -167,7 +166,6 @@ const EditProfile = ({onSaveClick}) => {
                   </label>
                   <div className="relative">
                     <select onChange={(e) => setCity(e.target.value)} className="block appearance-none w-full bg-white border border-[#1075B2] text-gray-700 py-3 px-4 mb-2 pr-8 rounded-lg leading-tight focus:outline-none focus:bg-white focus:border-gray-500 hover:shadow-lg transition duration-500" id="grid-state">
-                    
                       <option key="default" value="Не выбрано">Не выбрано</option>
                       <option key="astana" value="Астана">Астана</option>
                       <option key="almaty" value="Алматы">Алматы</option>
