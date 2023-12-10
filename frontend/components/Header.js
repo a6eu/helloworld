@@ -1,6 +1,10 @@
+'use client'
 import styles from "../styles/Home.module.css";
 import Image from "next/image";
+import React, { useEffect, useState } from 'react';
+
 import CatalogDropdown from "@/components/CatalogDropdown";
+import CityDropdownMenu from "@/components/CityDropdownMenu";
 
 function goToHome() {
     window.location.href = '/';
@@ -14,7 +18,19 @@ function goToProfile() {
     window.location.href = '/profile';
 }
 
-const Header = () => (
+const Header = () => {
+    const [selectedCity, setSelectedCity] = useState('Алматы' || localStorage.getItem('city'));
+
+    const handleCityChange = (city) => {
+        setSelectedCity(city);
+    };
+    useEffect(() => {
+        const storedCity = localStorage.getItem('city');
+        if (storedCity) {
+          setSelectedCity(storedCity);
+        }
+      }, []);
+    return(
     <header className={styles.header}>
         <div className={"max-w-screen-xl w-full flex justify-between items-center p-2"}>
             <div className={styles.imageSide}>
@@ -43,11 +59,10 @@ const Header = () => (
                         <div id="nav-icon"></div>
                     </button>
                 </div>
-                <div className={styles.cityDiv}>
-
-                    <Image src="/images/location.svg" height={30} width={30} alt="location"/>
-                    <button className={styles.cityButton}>Алматы</button>
-                </div>
+                <CityDropdownMenu
+          selectedCity={selectedCity}
+          onCityChange={handleCityChange}
+        />  
             </div>
 
             <div className={styles.cartSide}>
@@ -80,6 +95,7 @@ const Header = () => (
             </div>
         </div>
     </header>
-);
+    );
+};
 
 export default Header;
