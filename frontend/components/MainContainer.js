@@ -7,7 +7,7 @@ import AboutCompany from "@/components/AboutCompany";
 const MainContainer = (props) => {
     return (
         <div className={"w-full flex justify-center"}>
-            <div className={"max-w-screen-xl w-full p-2"}>
+            <div className={"max-w-screen-xl w-full px-2"}>
                 {props.children}
             </div>
         </div>

@@ -68,6 +68,8 @@
 
 .person {
     margin-bottom: 5px;
+    position: relative;
+    z-index: 50;
 }
 
 .searchBar {
@@ -82,7 +84,7 @@
     width: 40px;
     height: 30px;
     background-color: #1075B2;
-    border-radius: 5px;
+    border-top-right-radius: 5px;
     border-bottom-right-radius: 5px;
     margin-left: -4px;
     display: flex;
@@ -105,7 +107,7 @@
     align-items: center;
     width: 150px;
     height: 30px;
-    /* background-color: blueviolet; */
+    appearance: none;
 }
 
 .searchArea {
@@ -117,6 +119,7 @@
 
 .cityButton {
     border-bottom: 2px solid black;
+    appearance: none;
 }
 
 .imageSide {
@@ -128,11 +131,12 @@
     margin-left: -35px;
 }
 
+
+
 .userNavbar {
     -webkit-box-shadow: inset 0px 3px 10px -5px rgba(0,0,0,0.75);
     -moz-box-shadow: inset 0px 3px 10px -5px rgba(0,0,0,0.75);
     box-shadow: inset 0px 3px 5px -5px rgba(0,0,0,0.75);
-    /* w-72 bg-white h-[240px] p-10 flex rounded-b-lg */
     width: 22%;
     margin-right: 20px;
     background: white;
@@ -141,4 +145,20 @@
     display: flex;
     border-bottom-right-radius: 12px;
     border-bottom-left-radius: 12px;
+}
+
+.modalContainer {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    z-index: 9999;
+    transform: translate(-50%, -50%);
+    background-color: white;
+    padding: 20px;
+    border: 1px solid #ccc;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+.modalList{
+    display: flex;
+    flex-direction: column;
 }

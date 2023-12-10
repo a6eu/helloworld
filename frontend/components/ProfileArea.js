@@ -4,7 +4,7 @@ import Image from "next/image";
 
 const ProfileArea = ({onEditClick}) => {
     return (
-        <div className="flex w-4/5 justify-between flex-row h-min bg-white p-5  rounded-lg" >
+        <div className="flex w-4/5 justify-around flex-row h-min bg-white p-5  rounded-lg" >
             <Image className="" 
                 src="./images/person.svg"
                 height={136}

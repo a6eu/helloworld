@@ -5,82 +5,31 @@ import Image from "next/image"
 import Link from "next/link";
 import plus from "../public/images/plus.svg"
 import minus from "../public/images/minus.svg"
-import {Rating} from 'flowbite-react';
+import { Rating } from '@smastrom/react-rating'
+
+import '@smastrom/react-rating/style.css'
 
 function Products() {
-
-    const [products, setProducts] = useState([
-        {
-            "id": 1,
-            "name": "Kaspersky Symphony",
-            "price": "313 200",
-            "description": "Kaspersky Symphony – это линейка решений, которая дает организациям всё необходимое для постепенной или одночастной реализации экосистемного подхода к корпоративной кибербезопасности. Все элементы этой экосистемы дополняют и усиливают друг друга, позволяя обеспечить надежную защиту от кибератак любой сложности и непрерывность",
-            "category_id": "5",
-            "brand_id": "4",
-            "img_url": "{url}",
-            "quantity": 6,
-            "in_basket": false,
-            "is_favorite": false,
-            "tags": [
-                {
-                    "id": 1,
-                    "tag_name": "popular"
-                }
-            ],
-            "rating": 4.5
-        },
-        {
-            "id": 2,
-            "name": "Kaspersky Symphony",
-            "price": "313 200",
-            "description": "Kaspersky Symphony – это линейка решений, которая дает организациям всё необходимое для постепенной или одночастной реализации экосистемного подхода к корпоративной кибербезопасности. Все элементы этой экосистемы дополняют и усиливают друг друга, позволяя обеспечить надежную защиту от кибератак любой сложности и непрерывность",
-            "category_id": "5",
-            "brand_id": "4",
-            "img_url": "{url}",
-            "quantity": 5,
-            "in_basket": false,
-            "is_favorite": false,
-            "tags": [
-                {
-                    "id": 1,
-                    "tag_name": "popular"
-                }
-            ],
-            "rating": 4.5
-        }
-    ]);
-
+    const [products, setProducts] = useState([]);
     const [fetchingStatus, setFetchingStatus] = useState(true)
-    // useEffect(() => {
-    //     axios.get(`https://jsonplaceholder.typicode.com/users`)
-    //         .then(res => {
-    //             const fetchedProducts = res.data;
-    //             setProducts(fetchedProducts);
-    //         })
-    //         .catch(error => {
-    //             console.error('Error fetching data:', error);
-    //             setFetchingStatus(false)
-    //         });
-    // }, []);
 
-    const increaseQuantity = (index) => {
-        const updatedProducts = [...products];
-        updatedProducts[index].quantity += 1;
-        setProducts(updatedProducts);
-    }
+    useEffect(() => {
+        axios.get(`https://jsonplaceholder.typicode.com/users`)
+            .then(res => {
+                const fetchedProducts = res.data;
 
-    const decreaseQuantity = (index) => {
-        if (products[index].quantity !== 0) {
-            const updatedProducts = [...products];
-            updatedProducts[index].quantity -= 1;
-            setProducts(updatedProducts);
-        }
-    }
+                setProducts(fetchedProducts);
+                console.log(res.data)
+            })
+            .catch(error => {
+                console.error('Error fetching data:', error);
+                setFetchingStatus(false)
+            });
+    }, []);
 
-    const toCart = (index) => {
-        products[index].in_basket = true;
-        console.log(products[index].in_basket)
-    }
+    const floatValues = [0.29, 1.44, 2.31, 3.48, 4.52];
+
+
 
     return (
         <>
@@ -88,15 +37,13 @@ function Products() {
                 <>
                     <div className="w-full h-96 mb-20 flex justify-center">
                         <div className={styles.container}>
-                            {products.map((product, index) => (
-                                <Link href="" key={index}>
-                                    {/*to={`/products/${product.id}`}*/}
+                            {products.map(product => (
+                                <Link href="" to={`/products/${product.id}`} key={product.id}>
                                     <div className={styles.productCard}>
                                         <div className={styles.imageCard}>
-                                            {/*<Image src=/>*/}
                                         </div>
                                         <div className="flex w-full ml-3 justify-between">
-                                            {Component()}
+                                            <Stars starAvg={floatValues[Math.floor(Math.random()*5)]} />
                                             <Image
                                                 src="./images/bookmark.svg"
                                                 height={16}
@@ -107,35 +54,23 @@ function Products() {
                                         </div>
                                         <div className={styles.nameAndPrice}>
                                             <p className="text-xs w-10/12 ProductSansLight">{product.name}</p>
-                                            <p className="ProductSansMedium">{product.price} ₸</p>
+                                            <p className="ProductSansMedium">{product.username} ₸</p>
                                         </div>
                                         <div className={styles.piecesAndToBucket}>
                                             <div className={styles.quantity}>
                                                 <button
-                                                    onClick={(e) => {
-                                                        e.preventDefault()
-                                                        increaseQuantity(index)
-                                                    }}
                                                     className="bg-[#e9e9e9] border-solid border-1px mr-customMargin rounded-sm w-5 flex justify-center h-6">
                                                     <Image className="w-3" src={plus} alt="+"/>
                                                 </button>
                                                 <button
-                                                    className="text-white bg-[#1075B2] mr-customMargin border-solid rounded-sm w-5 h-6">{product.quantity}
+                                                    className="text-white bg-[#1075B2] mr-customMargin border-solid rounded-sm w-5 h-6">1
                                                 </button>
                                                 <button
-                                                    onClick={(e) => {
-                                                        e.preventDefault()
-                                                        decreaseQuantity(index)
-                                                    }}
                                                     className="bg-[#e9e9e9] border-solid border-1px rounded-sm w-5 flex justify-center h-6">
                                                     <Image className="w-3" src={minus} alt="-"/>
                                                 </button>
                                             </div>
-                                            <button
-                                                onClick={(e) => {
-                                                    e.preventDefault()
-                                                    toCart(index)}}
-                                                className={styles.toBucket}>
+                                            <button className={styles.toBucket}>
                                                 В КОРЗИНУ
                                             </button>
                                         </div>
@@ -146,24 +81,26 @@ function Products() {
                     </div>
                 </> :
                 <div>
-
                 </div>
             }
         </>
     );
 }
 
-function Component() {
+function Stars(starAvg) {
+
     return (
-        <Rating>
-            <Rating.Star/>
-            <Rating.Star/>
-            <Rating.Star/>
-            <Rating.Star/>
-            <Rating.Star filled={false}/>
-        </Rating>
-    );
+        <div>
+            <Rating
+                style={{ maxWidth: 80 }}
+                readOnly
+                orientation="horizontal"
+                value={starAvg.starAvg}
+            />
+        </div>
+    )
 }
+
 
 export default Products;
 
