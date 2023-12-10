@@ -2,23 +2,40 @@
 import styles from "../styles/Home.module.css";
 import Image from "next/image";
 import React, { useEffect, useState } from 'react';
-
 import CatalogDropdown from "@/components/CatalogDropdown";
 import CityDropdownMenu from "@/components/CityDropdownMenu";
 import Link from "next/link";
 import MyDialog from "@/components/ModalDialog";
+import HamburgerNav from "@/components/HamburgerNav";
 
 
 const Header = () => {
-    let [isOpen, setIsOpen] = useState(false)
+    const [selectedCity, setSelectedCity] = useState('Алматы' || localStorage.getItem('city'));
+
+    const handleCityChange = (city) => {
+        setSelectedCity(city);
+    };
+    useEffect(() => {
+        const storedCity = localStorage.getItem('city');
+        if (storedCity) {
+            setSelectedCity(storedCity);
+        }
+    }, []);
+
+    let [isModalOpen, setisModalOpen] = useState(false)
 
     function closeModal() {
-        setIsOpen(false)
+        setisModalOpen(false)
     }
 
     function openModal() {
-        setIsOpen(true)
+        setisModalOpen(true)
+    }
 
+    const [isHamOpen, setIsHamOpen] = useState(false)
+
+    function handleHamClick() {
+        setIsHamOpen(!isHamOpen)
     }
 
     return (
@@ -35,12 +52,7 @@ const Header = () => {
 
                 <div className={styles.searchArea}>
                     <CatalogDropdown className={styles.catalogButton}>
-                        <Image
-                            src="./images/catalog_svg.svg"
-                            height={15}
-                            width={15}
-                            alt="catalog icon"
-                        />
+                        <HamburgerNav onClick={handleHamClick}/>
                         &nbsp;&nbsp;КАТАЛОГ
                     </CatalogDropdown>
                     <div className={styles.searchBar}>
@@ -55,9 +67,10 @@ const Header = () => {
                         </button>
                     </div>
                     <div className={styles.cityDiv}>
-
-                        <Image src="/images/location.svg" height={30} width={30} alt="location"/>
-                        <button className={styles.cityButton}>Алматы</button>
+                        <CityDropdownMenu
+                            selectedCity={selectedCity}
+                            onCityChange={handleCityChange}
+                        />
                     </div>
                 </div>
 
@@ -91,7 +104,7 @@ const Header = () => {
                     </div>
                 </div>
             </div>
-            <MyDialog isOpen={isOpen} onClose={closeModal}></MyDialog>
+            <MyDialog isModalOpen={isModalOpen} onClose={closeModal}></MyDialog>
         </header>
 
 

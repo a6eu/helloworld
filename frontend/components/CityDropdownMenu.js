@@ -34,7 +34,7 @@ const CityDropdownMenu = ({ selectedCity, onCityChange }) => {
   return (
     <div className={styles.cityDiv}>
       <Image src="/images/location.svg" height={30} width={30} alt="location"/>
-      <select value={selectedCity} onChange={handleCityChange}>
+      <select className="select-none outline-0 appearance-none underline font-bold tracking-widest underline-offset-4 cursor-pointer" value={selectedCity} onChange={handleCityChange}>
         {citiesOfKazakhstan.map((city, index) => (
           <option className={styles.cityButton} key={index} value={city}>
             {city}

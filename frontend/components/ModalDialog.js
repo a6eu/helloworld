@@ -4,7 +4,7 @@ import SignUpForm from '@/components/SignUpForm';
 import LogInForm  from '@/components/LogInForm';
 
 
-function MyDialog({isOpen, onClose}) {
+function MyDialog({isModalOpen, onClose}) {
     const [isSignUp, setSignUp] = useState(false)
     const [isLogIn, setLogIn] = useState(false)
     function handleSignUpClick() {
@@ -19,7 +19,7 @@ function MyDialog({isOpen, onClose}) {
 
     return (
 
-            <Dialog as="div" className="select-none fixed top-0 left-0 w-full h-full bg-black bg-opacity-20 z-50" open={isOpen} onClose={onClose}>
+            <Dialog as="div" className="select-none fixed top-0 left-0 w-full h-full bg-black bg-opacity-20 z-50" open={isModalOpen} onClose={onClose}>
                 {isSignUp ? (
                     <Dialog.Panel className="fixed flex-wrap justify-center bg-white w-1/3 top-[20%] left-[33%] rounded-lg pt-5 ">
                         <Dialog.Title className="flex justify-center w-full text-[#1075B2] text-xl mb-6">
