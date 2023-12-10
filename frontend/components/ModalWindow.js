@@ -9,6 +9,7 @@ const ModalWindow = ({ closeModal }) => {
       'Атырау',
       'Актау',
       'Павлодар',
+        'Семей',
 
     ];
   

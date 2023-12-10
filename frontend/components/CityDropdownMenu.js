@@ -1,7 +1,6 @@
 import React from 'react';
 import styles from "../styles/Home.module.css";
 import Image from "next/image";
-import Flyout from "@/components/Flyout";
 
 
 const CityDropdownMenu = ({ selectedCity, onCityChange }) => {
@@ -25,7 +24,6 @@ const CityDropdownMenu = ({ selectedCity, onCityChange }) => {
     'Кокшетау',
     'Темиртау',
     'Казалинск',
-    'Байконыр',
 ];
 
   const handleCityChange = (e) => {

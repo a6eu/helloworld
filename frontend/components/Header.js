@@ -12,7 +12,6 @@ const Header = () => {
     const handleCityChange = (city) => {
         setSelectedCity(city);
     };
-
     useEffect(() => {
         const storedCity = localStorage.getItem('city');
         if (storedCity) {

@@ -13,11 +13,11 @@ const Home = () => {
 
     const closeModal = () => {
       setShowModal(false);
-      localStorage.setItem('vs', 'false');
+      localStorage.setItem('selected', 'false');
     };
   
     useEffect(() => {
-      const visited = localStorage.getItem('vs');
+      const visited = localStorage.getItem('selected');
       if (!visited) {
         setShowModal(true);
       }
