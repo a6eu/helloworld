@@ -4,13 +4,20 @@ import styles from "../styles/Home.module.css"
 import Link from "next/link"
 
 const UserNavbar = () => {
+    const [isPage, setIsPage] = useState(false);
+
+
+    const handlePageClick = () => {
+        setColor("")
+    }
+
     return (
         <div className={styles.userNavbar}>
             <div className="flex flex-col justify-between">
-                <a className="flex-row flex hover:text-[#1075B2] cursor-pointer">
+                <a onClick={handlePageClick} className="flex-row flex hover:text-[#1075B2] cursor-pointer">
                     <Image
-                        className=" fill-blue-400"
-                        src="./images/person.svg"
+                        className=""
+                        src={"./images/person.svg"}
                         height={39}
                         width={39}
                     />
@@ -27,7 +34,7 @@ const UserNavbar = () => {
                 </a>
                 <a className="flex flex-row hover:text-[#1075B2] cursor-pointer ">
                     <Image className="cursor-pointer"
-                        src="./images/shopping-cart.svg"
+                        src="./images/open-box.svg"
                         height={39}
                         width={39}
                         alt="cart"/>
