@@ -29,7 +29,6 @@ const Home = () => {
                     <News />
                     <Companies />
                     <CategotyChooser />
-                    <Products />
                     <AboutCompany />
             </MainContainer>
         );

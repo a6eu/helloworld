@@ -17,6 +17,7 @@ function Products() {
         axios.get(`https://jsonplaceholder.typicode.com/users`)
             .then(res => {
                 const fetchedProducts = res.data;
+
                 setProducts(fetchedProducts);
                 console.log(res.data)
             })
@@ -28,6 +29,8 @@ function Products() {
 
     const floatValues = [0.29, 1.44, 2.31, 3.48, 4.52];
 
+
+
     return (
         <>
             {(fetchingStatus) ?
@@ -38,7 +41,6 @@ function Products() {
                                 <Link href="" to={`/products/${product.id}`} key={product.id}>
                                     <div className={styles.productCard}>
                                         <div className={styles.imageCard}>
-                                            {/*<Image src=/>*/}
                                         </div>
                                         <div className="flex w-full ml-3 justify-between">
                                             <Stars starAvg={floatValues[Math.floor(Math.random()*5)]} />
@@ -79,7 +81,6 @@ function Products() {
                     </div>
                 </> :
                 <div>
-
                 </div>
             }
         </>
@@ -87,6 +88,7 @@ function Products() {
 }
 
 function Stars(starAvg) {
+
     return (
         <div>
             <Rating
