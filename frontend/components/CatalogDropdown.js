@@ -3,9 +3,10 @@ import Image from "next/image";
 import styles from "@/styles/Home.module.css";
 import React, {Fragment, useEffect, useState} from "react";
 import imported from "../catalog_data.json"
+import HamburgerNav from "@/components/HamburgerNav";
 
 let timeoutId;
-export default function CatalogDropdown() {
+export default function CatalogDropdown(isHamOpen, handleHamClick) {
     const [ctg, setCtg] = useState([]);
     const [selectedCtg, setSelectedCtg] = useState(0);
     const [subCtg, setSubCtg] = useState([])
@@ -53,12 +54,13 @@ export default function CatalogDropdown() {
     return (
         <Popover className="">
             <Popover.Button className={styles.catalogButton}>
-                <Image
-                    src="./images/catalog_svg.svg"
-                    height={15}
-                    width={15}
-                    alt="catalog icon"
-                />
+                {/*<Image*/}
+                {/*    src="./images/catalog_svg.svg"*/}
+                {/*    height={15}*/}
+                {/*    width={15}*/}
+                {/*    alt="catalog icon"*/}
+                {/*/>*/}
+                <HamburgerNav onClick={handleHamClick}/>
                 &nbsp;&nbsp;КАТАЛОГ
             </Popover.Button>
 

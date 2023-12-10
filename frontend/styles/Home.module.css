@@ -84,7 +84,7 @@
     width: 40px;
     height: 30px;
     background-color: #1075B2;
-    border-radius: 5px;
+    border-top-right-radius: 5px;
     border-bottom-right-radius: 5px;
     margin-left: -4px;
     display: flex;
@@ -107,7 +107,7 @@
     align-items: center;
     width: 150px;
     height: 30px;
-    /* background-color: blueviolet; */
+    appearance: none;
 }
 
 .searchArea {
@@ -119,6 +119,7 @@
 
 .cityButton {
     border-bottom: 2px solid black;
+    appearance: none;
 }
 
 .imageSide {
