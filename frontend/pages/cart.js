@@ -3,19 +3,61 @@ import React, {useState} from 'react';
 import emptyCart from '../public/images/emptyCart.svg'
 import Image from "next/image"
 import styles from "../styles/CartPage.module.css"
-import dell from "../public/images/DELL.svg"
-import dellPowerEdge from "../public/images/dellPowerEdge.svg"
 import plus from "@/public/images/plus.svg";
 import minus from "@/public/images/minus.svg";
 import trashBin from "../public/images/trashBin.svg"
 import trashBinW from "../public/images/trashBin_white.svg"
 import MainContainer from "@/components/MainContainer";
+import productItem from "@/components/ProductItem";
+import products from "@/components/Products";
+import dellPowerEdge from "../public/images/dellPowerEdge.svg"
+import dell from "../public/images/DELL.svg"
 
 function goToHome() {
     window.location.href = '/';
 }
 
 function Cart() {
+    const [cartWithProducts, setCartWithProducts] = useState([
+        {
+            "id": 1,
+            "name": "Kaspersky Symphony",
+            "price": 313200,
+            "description": "Kaspersky Symphony – это линейка решений, которая дает организациям всё необходимое для постепенной или одночастной реализации экосистемного подхода к корпоративной кибербезопасности. Все элементы этой экосистемы дополняют и усиливают друг друга, позволяя обеспечить надежную защиту от кибератак любой сложности и непрерывность",
+            "category_id": "5",
+            "brand_id": "4",
+            "img_url": dellPowerEdge,
+            "quantity": 6,
+            "in_basket": false,
+            "is_favorite": false,
+            "tags": [
+                {
+                    "id": 1,
+                    "tag_name": "popular"
+                }
+            ],
+            "rating": 4.5
+        },
+        {
+            "id": 2,
+            "name": "Kaspersky Symphony",
+            "price": 313200,
+            "description": "Kaspersky Symphony – это линейка решений, которая дает организациям всё необходимое для постепенной или одночастной реализации экосистемного подхода к корпоративной кибербезопасности. Все элементы этой экосистемы дополняют и усиливают друг друга, позволяя обеспечить надежную защиту от кибератак любой сложности и непрерывность",
+            "category_id": "5",
+            "brand_id": "4",
+            "img_url": dellPowerEdge,
+            "quantity": 5,
+            "in_basket": false,
+            "is_favorite": false,
+            "tags": [
+                {
+                    "id": 1,
+                    "tag_name": "popular"
+                }
+            ],
+            "rating": 4.5
+        }
+    ]);
     let quantity = 0;
     let wholePrice = 0;
     const increaseQuantity = (index) => {
@@ -43,24 +85,6 @@ function Cart() {
         setCartWithProducts(updatedCart)
     }
 
-    const [cartWithProducts, setCartWithProducts] = useState([
-        {
-            name: "First Product",
-            price: 2000,
-            description: "Сервер Dell/R540 12LFF/1/Xeon Gold/6230/2,1 GHz/16 Gb/H730P, 2Gb Cache, LP/0,1,5,6,10,50,60/1/600 Gb/SAS 2.5\"/10k/Nо ODD/(1+1) 750W",
-            companyLogo: dell,
-            productPhoto: dellPowerEdge,
-            quantity: 10
-        },
-        {
-            name: "Second Product",
-            price: 2000,
-            description: "Сервер Dell/R540 12LFF/1/Xeon Gold/6230/2,1 GHz/16 Gb/H730P, 2Gb Cache, LP/0,1,5,6,10,50,60/1/600 Gb/SAS 2.5\"/10k/Nо ODD/(1+1) 750W",
-            companyLogo: dell,
-            productPhoto: dellPowerEdge,
-            quantity: 2
-        }
-    ],);
 
     if (cartWithProducts.length !== 0) {
         return (
@@ -90,14 +114,15 @@ function Cart() {
                                             {quantity += product.quantity}</div>
                                         <div className="hidden">
                                             {wholePrice += product.price * product.quantity}</div>
-                                        <div className="h-[200px] flex align-center border-b-1px">
-                                            <Image className="ml-10" src={product.productPhoto} alt="Product Photo"></Image>
+                                        <div className="h-auto flex align-center pb-6 border-b-1px">
+                                            <Image className="ml-10" src={product.img_url} alt="Product Photo"></Image>
                                             <div className="flex-col ProductSansLight ml-10 mt-4">
                                                 <div className="text-[20px]">{product.name}</div>
                                                 <div className="ProductSansMedium text-lg">{product.price} ₸</div>
                                                 <div className="text-[12px] w-2/3 mt-4">{product.description}</div>
                                                 <div className="flex justify-between items-center">
-                                                    <Image className="mt-4" src={product.companyLogo}
+                                                    {/*---------------------FIX THAT---------------------*/}
+                                                    <Image className="mt-4" src={dell}
                                                            alt="Company Logo"></Image>
                                                     <div className="flex items-center pt-6">
                                                         <button onClick={() => removeItem(index)}><Image className="mr-4"
@@ -119,7 +144,7 @@ function Cart() {
                                                             <Image className="w-3" src={minus} alt="-"/>
                                                         </button>
                                                         <div
-                                                            className="mr-4 ProductSansMedium text-lg w-20">{product.price * product.quantity} ₸
+                                                            className="mr-4 ProductSansMedium text-lg w-24">{product.price * product.quantity} ₸
                                                         </div>
                                                     </div>
                                                 </div>
@@ -141,13 +166,13 @@ function Cart() {
                                     placeholder="промокод"></input>
                             </div>
                         </div>
-                        <div className="flex-col items-center">
-                            <div className="ProductSansLight flex justify-around">
+                        <div className="flex-col">
+                            <div className="ProductSansLight flex justify-between px-10">
                                 <div
                                     className="text-[#1075B2]">{quantity} {quantity === 1 ? "товар на сумму:" : quantity >= 2 && quantity <= 4 ? "товара на сумму:" : "товаров на сумму:"}</div>
                                 <div>{wholePrice}</div>
                             </div>
-                            <div className="ProductSansLight flex justify-around">
+                            <div className="ProductSansLight flex justify-between px-10">
                                 <div className="text-[#1075B2]">Сумма к оплате:</div>
                                 <div className="text-xl">{wholePrice}</div>
                             </div>
@@ -167,7 +192,7 @@ function Cart() {
         )
     } else {
         return (
-            <div className="w-full">
+            <MainContainer>
                 <div className="flex justify-center mt-10">
                     <Image className="w-28 h-28" src={emptyCart} alt="empty cart"></Image>
                 </div>
@@ -184,7 +209,7 @@ function Cart() {
                         РЕКОМЕНДАЦИИ</h3>
                     <Products/>
                 </div>
-            </div>
+            </MainContainer>
         )
     }
 
