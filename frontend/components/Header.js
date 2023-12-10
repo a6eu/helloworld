@@ -1,8 +1,11 @@
+'use client'
 import styles from "../styles/Home.module.css";
 import Image from "next/image";
+import React, { useEffect, useState } from 'react';
+
 import CatalogDropdown from "@/components/CatalogDropdown";
+import CityDropdownMenu from "@/components/CityDropdownMenu";
 import Link from "next/link";
-import {useState} from "react";
 import MyDialog from "@/components/ModalDialog";
 
 

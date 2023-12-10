@@ -130,6 +130,8 @@
     margin-left: -35px;
 }
 
+
+
 .userNavbar {
     -webkit-box-shadow: inset 0px 3px 10px -5px rgba(0,0,0,0.75);
     -moz-box-shadow: inset 0px 3px 10px -5px rgba(0,0,0,0.75);
@@ -142,4 +144,20 @@
     display: flex;
     border-bottom-right-radius: 12px;
     border-bottom-left-radius: 12px;
+}
+
+.modalContainer {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    z-index: 9999;
+    transform: translate(-50%, -50%);
+    background-color: white;
+    padding: 20px;
+    border: 1px solid #ccc;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+.modalList{
+    display: flex;
+    flex-direction: column;
 }
