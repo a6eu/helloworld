@@ -1,0 +1,48 @@
+import React, {useState, use} from "react"
+import Image from "next/image"
+import styles from "../styles/Home.module.css"
+import Link from "next/link"
+
+const UserNavbar = () => {
+    const [isPage, setIsPage] = useState(false);
+
+
+    const handlePageClick = () => {
+        setColor("")
+    }
+
+    return (
+        <div className={styles.userNavbar}>
+            <div className="flex flex-col justify-between">
+                <a onClick={handlePageClick} className="flex-row flex hover:text-[#1075B2] cursor-pointer">
+                    <Image
+                        className=""
+                        src={"./images/person.svg"}
+                        height={39}
+                        width={39}
+                    />
+                    <h3 className="mt-[5px] ml-[20px] font-sans">Мой профиль</h3>
+                </a>
+                <a className="flex flex-row hover:text-[#1075B2] cursor-pointer">
+                    <Image className="cursor-pointer ml-[5px]"
+                        src="./images/Vector.svg"
+                        height={30}
+                        width={30}
+                        alt="favourites"
+                    />
+                    <h3 className="mt-[5px] ml-[23px] font-sans">Избранное</h3>
+                </a>
+                <a className="flex flex-row hover:text-[#1075B2] cursor-pointer ">
+                    <Image className="cursor-pointer"
+                        src="./images/open-box.svg"
+                        height={39}
+                        width={39}
+                        alt="cart"/>
+                    <h3 className="mt-[5px] ml-5 font-sans">Мои заказы</h3>
+                </a>
+            </div>
+        </div>
+    )
+}
+
+export default UserNavbar
