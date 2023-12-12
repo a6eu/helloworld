@@ -1,4 +1,3 @@
-// components/PriceRangeFilter.js
 
 import React, { useState } from 'react';
 
@@ -7,7 +6,7 @@ const RangeBar = ({ products, onFilterChange }) => {
 
   const handleRangeChange = (event) => {
     setPriceRange([0, event.target.value]);
-    // onFilterChange([0, event.target.value]);
+
   };
 
   return (

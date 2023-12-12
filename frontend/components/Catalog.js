@@ -1,32 +1,9 @@
 import Dropdown from "./Dropdown";
 import ProductItem from "./ProductItem";
 
-
-
-
-// const Catalog = (props) => {
-//     const { products } = props;
-
-//     // Now 'products' contains the data passed from the About component
-//     console.log('products in Catalog >>> ', products);
-
-//     // Rest of your Catalog component code...
-
-//     return (
-//         <div>
-//             {/* Your Catalog component rendering goes here */}
-//         </div>
-//     );
-// };
-
-// export default Catalog;
-
 const Catalog = ({products}) => {
-    // const { products } = props;
     console.log('products in Catalog >>> ', products);
 
-
-    // console.log('props >>>', props)
     return (
         <div className="w-full p-3">
             <div className="flex justify-between align-middle">
@@ -44,7 +21,7 @@ const Catalog = ({products}) => {
                 {
                     products.map((product) => (
                         <ProductItem
-                        key={product.id} // Add a unique key for each product
+                        key={product.id}
                         img_url={product.img_url}
                         rating={product.rating}
                         name={product.name}
@@ -53,21 +30,7 @@ const Catalog = ({products}) => {
                         />
                     ))
                 }
-            {/* <ProductItem/>
-            <ProductItem/>
-            <ProductItem/>
-            <ProductItem/>
-            <ProductItem/>
-            <ProductItem/>
-            <ProductItem/>
-            <ProductItem/>
-            <ProductItem/>
-            <ProductItem/>
-            <ProductItem/> */}
-
             </div>
-
-
         </div>
     ) 
 }
