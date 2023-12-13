@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-const Dropdown = () => {
+const FilterDropdown = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [selectedOption, setSelectedOption] = useState(null);
 
@@ -37,7 +37,7 @@ const Dropdown = () => {
 
       {isOpen && (
         <div className="absolute w-[200px] bg-white border rounded-md shadow-lg">
-          {/* Dropdown content */}
+          {/* FilterDropdown content */}
           <ul>
             {options.map((option) => (
               <li
@@ -55,4 +55,4 @@ const Dropdown = () => {
   );
 };
 
-export default Dropdown;
+export default FilterDropdown;

@@ -5,7 +5,7 @@ import Image from "next/image"
 import Link from "next/link";
 import plus from "../public/images/plus.svg"
 import minus from "../public/images/minus.svg"
-import { Rating } from '@smastrom/react-rating'
+import {Rating} from '@smastrom/react-rating'
 
 import '@smastrom/react-rating/style.css'
 
@@ -35,15 +35,17 @@ function Products() {
         <>
             {(fetchingStatus) ?
                 <>
-                    <div className="w-full h-96 mb-20 flex justify-center">
+                    <div className="w-full h-96 mt-6 flex justify-center">
                         <div className={styles.container}>
                             {products.map(product => (
-                                <Link href="" to={`/products/${product.id}`} key={product.id}>
+                                <Link href={{
+                                    pathname: `/products/${encodeURIComponent(product.name)}`
+                                }} key={product.id}>
                                     <div className={styles.productCard}>
                                         <div className={styles.imageCard}>
                                         </div>
                                         <div className="flex w-full ml-3 justify-between">
-                                            <Stars starAvg={floatValues[Math.floor(Math.random()*5)]} />
+                                            <Stars starAvg={floatValues[Math.floor(Math.random() * 5)]}/>
                                             <Image
                                                 src="./images/bookmark.svg"
                                                 height={16}
@@ -92,7 +94,7 @@ function Stars(starAvg) {
     return (
         <div>
             <Rating
-                style={{ maxWidth: 80 }}
+                style={{maxWidth: 80}}
                 readOnly
                 orientation="horizontal"
                 value={starAvg.starAvg}

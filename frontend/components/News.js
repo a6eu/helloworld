@@ -7,7 +7,6 @@ const News = () => (
                 {/* <div className="h-full w-3/4 mr-4 rounded"> */}
                 <div className="box-border  flex justify-center align-middle">
                     <Carousel/>
-
                 </div>
             </div>
             
@@ -15,7 +14,6 @@ const News = () => (
                 <div className="h-1/2  bg-orange-200 bg-equipmentImage bg-cover bg-center rounded"></div>
                 <div className="h-4"></div>
                 <div className="h-1/2  bg-orange-300 bg-programImage bg-cover bg-center rounded"></div>
-
             </div>
         </div>
     </div>

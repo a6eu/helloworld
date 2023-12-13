@@ -1,7 +1,7 @@
 import FilteredProducts from "@/components/FilteredProducts";
 import React, {useEffect, useState} from 'react';
 
-function CategotyChooser() {
+function CategoryChooser() {
     const [type, setType] = useState("new");
     const [newDesign, setNewDesign] = useState("bg-[#1075B2] text-white");
     const [popularDesign, setPopularDesign] = useState("text-[#1075B2]");
@@ -43,4 +43,4 @@ function CategotyChooser() {
     );
 }
 
-export default CategotyChooser;
+export default CategoryChooser;
