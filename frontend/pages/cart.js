@@ -132,17 +132,18 @@ function Cart() {
 
                                                         <button
                                                             onClick={() => increaseQuantity(index)}
-                                                            className="bg-[#E9E9E9] border-solid border-1px mr-customMargin rounded-[3px] w-5 flex justify-center h-6">
+                                                            className="bg-[#E9E9E9] border-solid border-1px mr-customMargin rounded-[3px] w-5 flex justify-center items-center h-6">
                                                             <Image className="w-3" src={plus} alt="+"/>
                                                         </button>
-                                                        <div
-                                                            className="text-white bg-[#1075B2] mx-0.5 text-center mr-customMargin border-solid rounded-[3px] w-5 h-6">{product.quantity}
+                                                        <div className="text-white bg-[#1075B2] mx-0.5 text-center mr-customMargin border-solid rounded-[3px] w-5 h-6">
+                                                            {product.quantity}
                                                         </div>
                                                         <button
                                                             onClick={() => decreaseQuantity(index)}
-                                                            className="bg-[#E9E9E9] border-solid border-1px rounded-[3px] w-5 flex justify-center h-6 mr-4">
+                                                            className="bg-[#E9E9E9] border-solid border-1px rounded-[3px] w-5 flex justify-center items-center h-6 mr-4">
                                                             <Image className="w-3" src={minus} alt="-"/>
                                                         </button>
+
                                                         <div
                                                             className="mr-4 ProductSansMedium text-lg w-24">{product.price * product.quantity} ₸
                                                         </div>

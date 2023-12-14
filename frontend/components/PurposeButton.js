@@ -10,8 +10,7 @@ const PurposeButton = ({ buttonText, onClick }) => {
       onClick();
     }
   };
-//   bg-gray-200 h-[25px] p-3 flex items-center justify-center rounded-md m-2 w-[280px]
-// bg-blue-400 text-white h-[25px] p-3 flex items-center justify-center m-2 rounded-md w-[280px]
+
   return (
     <div>
       {isClicked ? (

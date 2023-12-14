@@ -6,7 +6,7 @@ import imported from "../catalog_data.json"
 import HamburgerNav from "@/components/HamburgerNav";
 
 let timeoutId;
-export default function CatalogDropdown(isHamOpen, handleHamClick) {
+export default function CatalogDropdown(isHamOpen) {
     const [ctg, setCtg] = useState([]);
     const [selectedCtg, setSelectedCtg] = useState(0);
     const [subCtg, setSubCtg] = useState([])
@@ -60,7 +60,7 @@ export default function CatalogDropdown(isHamOpen, handleHamClick) {
                 {/*    width={15}*/}
                 {/*    alt="catalog icon"*/}
                 {/*/>*/}
-                <HamburgerNav onClick={handleHamClick}/>
+                <HamburgerNav isHamOpen={isHamOpen}/>
                 &nbsp;&nbsp;КАТАЛОГ
             </Popover.Button>
 
@@ -85,7 +85,7 @@ export default function CatalogDropdown(isHamOpen, handleHamClick) {
                                     <li key={index}
                                         className={(selectedCtg === index) ? "relative bg-white rounded-bl-2xl rounded-tl-2xl duration-500 scale-x-120" : ""}
                                         onMouseOver={() => {
-                                            debounceRequest(index, item)
+                                           debounceRequest(index, item)
                                         }}>
                                     <span
                                         className={(selectedCtg === index) ? "absolute right-0 w-full h-2.5 bg-white -top-2.5  before:absolute before:top-0 before:right-0 before:w-full before:h-full before:rounded-br-full before:bg-slate-200" : ""}></span>

@@ -17,7 +17,7 @@ function Profile() {
 
     return (
         <MainContainer>
-            <div className="min-h-[calc(100vh-176px-92px-0.6rem)] flex w-full justify-center ">
+            <div className="flex w-full justify-center ">
                 <div className="flex justify-between w-full">
                     <UserNavbar/>
                     <div className="w-3/4">

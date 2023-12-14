@@ -5,7 +5,7 @@ import Products from '@/components/Products';
 import React, { useState, useEffect } from 'react';
 import ModalWindow from '@/components/ModalWindow';
 import MainContainer from "@/components/MainContainer";
-import CategotyChooser from "@/components/CategotyChooser";
+import CategoryChooser from "@/components/CategoryChooser";
 
 
 const Home = () => {
@@ -28,7 +28,7 @@ const Home = () => {
                     {showModal && <ModalWindow closeModal={closeModal} />}
                     <News />
                     <Companies />
-                    <CategotyChooser />
+                    <CategoryChooser />
                     <AboutCompany />
             </MainContainer>
         );

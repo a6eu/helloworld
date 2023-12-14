@@ -52,7 +52,7 @@ const Header = () => {
 
                 <div className={styles.searchArea}>
                     <CatalogDropdown className={styles.catalogButton}>
-                        <HamburgerNav onClick={handleHamClick}/>
+                        <HamburgerNav onClick={() => handleHamClick()}/>
                         &nbsp;&nbsp;КАТАЛОГ
                     </CatalogDropdown>
                     <div className={styles.searchBar}>

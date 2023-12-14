@@ -1,24 +1,21 @@
-import React, { useState } from 'react';
 
-const HamburgerNav = (isHamOpen, handleHamClick) => {
-
+const HamburgerNav = ({ isHamOpen }) => {
     return (
-        <div onClick={handleHamClick}>
-            <span className="bg-steel-500 block transition-all duration-300 ease-out
-                    h-0.5 w-6 rounded-sm z-[100] ${isOpen ?
-                    'rotate-45 translate-y-1' : '-translate-y-0.5'
-                    }">
+        <div>
+            <span className={`bg-steel-500 block transition-all duration-300 ease-out
+                    h-0.5 w-6 rounded-sm z-[100] ${isHamOpen ?
+                'rotate-45 translate-y-1' : '-translate-y-0.5'
+            }`}>
+            </span> 
+            <span className={`bg-steel-500 block transition-all duration-300 ease-out
+                h-0.5 w-6 rounded-sm my-0.5 ${isHamOpen ?
+                'opacity-0' : 'opacity-100'
+            }`}>
             </span>
-            <span className="bg-steel-500 block transition-all duration-300 ease-out
-                    h-0.5 w-6 rounded-sm my-0.5 ${isOpen ?
-                    'opacity-0' : 'opacity-100'
-                    }">
-
-            </span>
-            <span className="bg-steel-500 block transition-all duration-300 ease-out
-                    h-0.5 w-6 rounded-sm ${isOpen ?
-                    '-rotate-45 -translate-y-1' : 'translate-y-0.5'
-                    }">
+            <span className={`bg-steel-500 block transition-all duration-300 ease-out
+                    h-0.5 w-6 rounded-sm ${isHamOpen ?
+                '-rotate-45 -translate-y-1' : 'translate-y-0.5'
+            }`}>
             </span>
         </div>
     )
