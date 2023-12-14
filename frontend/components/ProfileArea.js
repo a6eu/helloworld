@@ -9,6 +9,7 @@ const ProfileArea = ({onEditClick}) => {
                 src="./images/person.svg"
                 height={136}
                 width={136}
+                alt="person"
             />
             <div className="w-[400px] flex flex-col justify-around">
                 <div className="flex flex-row justify-between">

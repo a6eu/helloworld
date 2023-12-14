@@ -13,12 +13,13 @@ const Dropdown = () => {
   const handleOptionClick = (option) => {
     setSelectedOption(option);
     setIsOpen(false);
+    
   };
 
   return (
     <div className="relative inline-block">
       <button
-        className="border-2 w-[200px] border-blue-400 text-blue-400 py-2 px-4 rounded inline-flex items-center"
+        className="border-2 w-[150px] border-blue-400 text-blue-400 py-2 px-4 rounded inline-flex items-center"
         onClick={toggleDropdown}
       >
         {selectedOption || 'популярные'}
@@ -36,8 +37,8 @@ const Dropdown = () => {
       </button>
 
       {isOpen && (
-        <div className="absolute w-[200px] bg-white border rounded-md shadow-lg">
-          {/* Dropdown content */}
+        <div className="absolute w-[150px] bg-white border rounded-md shadow-lg">
+          
           <ul>
             {options.map((option) => (
               <li

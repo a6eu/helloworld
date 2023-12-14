@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 const HamburgerNav = (isHamOpen, handleHamClick) => {
 
     return (
-        <button onClick={handleHamClick}>
+        <div onClick={handleHamClick}>
             <span className="bg-steel-500 block transition-all duration-300 ease-out
                     h-0.5 w-6 rounded-sm z-[100] ${isOpen ?
                     'rotate-45 translate-y-1' : '-translate-y-0.5'
@@ -20,7 +20,7 @@ const HamburgerNav = (isHamOpen, handleHamClick) => {
                     '-rotate-45 -translate-y-1' : 'translate-y-0.5'
                     }">
             </span>
-        </button>
+        </div>
     )
 
 }

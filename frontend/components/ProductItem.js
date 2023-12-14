@@ -10,18 +10,18 @@ const ProductItem = ({ img_url, rating, is_favorite, name, price }) => (
     <div className="flex justify-between w-full p-2">
       <div className="flex">
         {Array.from({ length: Math.ceil(rating) }, (_, index) => (
-          <Image key={index} src="/images/starfilled.svg" width={20} height={20} />
+          <Image key={index} src="/images/starfilled.svg" width={20} height={20} alt="star"/>
         ))}
         {Array.from({ length: 5 - Math.ceil(rating) }, (_, index) => (
-          <Image key={index} src="/images/starunfilled.svg" width={20} height={20} />
+          <Image key={index} src="/images/starunfilled.svg" width={20} height={20} alt="star"/>
         ))}
       </div>
 
       <div>
         {is_favorite ? (
-          <Image src="/images/bookmark.svg" width={20} height={20} />
+          <Image src="/images/bookmark.svg" width={20} height={20} alt="star" />
         ) : (
-          <Image src="/images/Vector.svg" width={20} height={20} />
+          <Image src="/images/Vector.svg" width={20} height={20} alt="star" />
         )}
       </div>
     </div>
