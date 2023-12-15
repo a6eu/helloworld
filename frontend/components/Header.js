@@ -1,12 +1,13 @@
 'use client'
 import styles from "../styles/Home.module.css";
 import Image from "next/image";
-import React, { useEffect, useState } from 'react';
+import React, {useEffect, useState} from 'react';
 import CatalogDropdown from "@/components/CatalogDropdown";
 import CityDropdownMenu from "@/components/CityDropdownMenu";
 import Link from "next/link";
 import MyDialog from "@/components/ModalDialog";
 import HamburgerNav from "@/components/HamburgerNav";
+import catalogImg from "../public/images/catalog_svg.svg"
 
 
 const Header = () => {
@@ -53,7 +54,6 @@ const Header = () => {
                 <div className={styles.searchArea}>
                     <CatalogDropdown className={styles.catalogButton}>
                         <HamburgerNav onClick={() => handleHamClick()}/>
-                        &nbsp;&nbsp;КАТАЛОГ
                     </CatalogDropdown>
                     <div className={styles.searchBar}>
                         <div className={styles.typeArea}></div>
@@ -95,11 +95,11 @@ const Header = () => {
                          onClick={openModal}
                     >
                         <Image
-                               className="cursor-pointer"
-                               src="./images/person.svg"
-                               height={35}
-                               width={35}
-                               alt="profile"
+                            className="cursor-pointer"
+                            src="./images/person.svg"
+                            height={35}
+                            width={35}
+                            alt="profile"
                         />
                     </div>
                 </div>

@@ -4,12 +4,16 @@ import styles from "@/styles/Home.module.css";
 import React, {Fragment, useEffect, useState} from "react";
 import imported from "../catalog_data.json"
 import HamburgerNav from "@/components/HamburgerNav";
+import catalogImg from "@/public/images/catalog_svg.svg";
+import X from "../public/images/X.svg"
 
 let timeoutId;
 export default function CatalogDropdown(isHamOpen) {
     const [ctg, setCtg] = useState([]);
     const [selectedCtg, setSelectedCtg] = useState(0);
     const [subCtg, setSubCtg] = useState([])
+    const [changeToX, setChangeToX] = useState(X);
+    const [state, setState] = useState(true);
     useEffect(() => {
         const initCtg = async () => {
             try {
@@ -51,17 +55,16 @@ export default function CatalogDropdown(isHamOpen) {
 
     const debounceRequest = (index, item) => showCtgItems(index, item);
 
+    function changer() {
+
+    }
+
     return (
         <Popover className="">
-            <Popover.Button className={styles.catalogButton}>
-                {/*<Image*/}
-                {/*    src="./images/catalog_svg.svg"*/}
-                {/*    height={15}*/}
-                {/*    width={15}*/}
-                {/*    alt="catalog icon"*/}
-                {/*/>*/}
+            <Popover.Button className={styles.catalogButton} onClick={changer()}>
                 <HamburgerNav isHamOpen={isHamOpen}/>
-                &nbsp;&nbsp;КАТАЛОГ
+                <Image className="w-5 h-5 pr-1" src={catalogImg} alt="Catalog Img"/>
+                <p className="pr-5">КАТАЛОГ</p>
             </Popover.Button>
 
             <Transition
@@ -75,7 +78,8 @@ export default function CatalogDropdown(isHamOpen) {
             >
                 <Popover.Panel
                     className="absolute w-full flex justify-center left-[0px] ">
-                    <div className={"flex z-10 mt-[31px] w-full max-w-screen-xl drop-shadow-[2px_6px_10px_11px_rgba(0,0,0,0.75)] height-[100%] rounded-b-lg mt-5 overflow-hidden"}>
+                    <div
+                        className={"flex z-10 mt-[31px] w-full max-w-screen-xl drop-shadow-[2px_6px_10px_11px_rgba(0,0,0,0.75)] height-[100%] rounded-b-lg mt-5 overflow-hidden"}>
                         <div className="flex-initial w-1/5 py-10 pl-5 bg-slate-200">
                             <ul className={"w-full"}
                                 onMouseLeave={() => {
@@ -85,7 +89,7 @@ export default function CatalogDropdown(isHamOpen) {
                                     <li key={index}
                                         className={(selectedCtg === index) ? "relative bg-white rounded-bl-2xl rounded-tl-2xl duration-500 scale-x-120" : ""}
                                         onMouseOver={() => {
-                                           debounceRequest(index, item)
+                                            debounceRequest(index, item)
                                         }}>
                                     <span
                                         className={(selectedCtg === index) ? "absolute right-0 w-full h-2.5 bg-white -top-2.5  before:absolute before:top-0 before:right-0 before:w-full before:h-full before:rounded-br-full before:bg-slate-200" : ""}></span>

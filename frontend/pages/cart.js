@@ -8,56 +8,26 @@ import minus from "@/public/images/minus.svg";
 import trashBin from "../public/images/trashBin.svg"
 import trashBinW from "../public/images/trashBin_white.svg"
 import MainContainer from "@/components/MainContainer";
-import productItem from "@/components/ProductItem";
-import products from "@/components/Products";
-import dellPowerEdge from "../public/images/dellPowerEdge.svg"
+import imported from "../db.json";
 import dell from "../public/images/DELL.svg"
+import dellPhoto from "../public/images/dellPowerEdge.svg"
+import {RadioGroup} from "@headlessui/react";
 
 function goToHome() {
     window.location.href = '/';
 }
 
-function Cart() {
-    const [cartWithProducts, setCartWithProducts] = useState([
-        {
-            "id": 1,
-            "name": "Kaspersky Symphony",
-            "price": 313200,
-            "description": "Kaspersky Symphony – это линейка решений, которая дает организациям всё необходимое для постепенной или одночастной реализации экосистемного подхода к корпоративной кибербезопасности. Все элементы этой экосистемы дополняют и усиливают друг друга, позволяя обеспечить надежную защиту от кибератак любой сложности и непрерывность",
-            "category_id": "5",
-            "brand_id": "4",
-            "img_url": dellPowerEdge,
-            "quantity": 6,
-            "in_basket": false,
-            "is_favorite": false,
-            "tags": [
-                {
-                    "id": 1,
-                    "tag_name": "popular"
-                }
-            ],
-            "rating": 4.5
-        },
-        {
-            "id": 2,
-            "name": "Kaspersky Symphony",
-            "price": 313200,
-            "description": "Kaspersky Symphony – это линейка решений, которая дает организациям всё необходимое для постепенной или одночастной реализации экосистемного подхода к корпоративной кибербезопасности. Все элементы этой экосистемы дополняют и усиливают друг друга, позволяя обеспечить надежную защиту от кибератак любой сложности и непрерывность",
-            "category_id": "5",
-            "brand_id": "4",
-            "img_url": dellPowerEdge,
-            "quantity": 5,
-            "in_basket": false,
-            "is_favorite": false,
-            "tags": [
-                {
-                    "id": 1,
-                    "tag_name": "popular"
-                }
-            ],
-            "rating": 4.5
-        }
-    ]);
+export const getStaticProps = async () => {
+    const res = await imported;
+    const data = await res.products;
+
+    return {
+        props: {products: data}
+    }
+}
+
+function Cart(props) {
+    const [cartWithProducts, setCartWithProducts] = useState(props.products);
     let quantity = 0;
     let wholePrice = 0;
     const increaseQuantity = (index) => {
@@ -76,13 +46,12 @@ function Cart() {
 
     const removeItem = (index) => {
         const updatedCart = [...cartWithProducts];
-        updatedCart.pop(index)
+        updatedCart.splice(index, 1)
         setCartWithProducts(updatedCart)
     }
 
     const cleanCart = () => {
-        const updatedCart = [];
-        setCartWithProducts(updatedCart)
+        setCartWithProducts([])
     }
 
 
@@ -109,49 +78,53 @@ function Cart() {
                         </div>
                         {cartWithProducts.map((product, index) => (
                                 <ul key={index}>
-                                    <li>
-                                        <div className="hidden">
-                                            {quantity += product.quantity}</div>
-                                        <div className="hidden">
-                                            {wholePrice += product.price * product.quantity}</div>
-                                        <div className="h-auto flex align-center pb-6 border-b-1px">
-                                            <Image className="ml-10" src={product.img_url} alt="Product Photo"></Image>
-                                            <div className="flex-col ProductSansLight ml-10 mt-4">
-                                                <div className="text-[20px]">{product.name}</div>
-                                                <div className="ProductSansMedium text-lg">{product.price} ₸</div>
-                                                <div className="text-[12px] w-2/3 mt-4">{product.description}</div>
-                                                <div className="flex justify-between items-center">
-                                                    {/*---------------------FIX THAT---------------------*/}
-                                                    <Image className="mt-4" src={dell}
-                                                           alt="Company Logo"></Image>
-                                                    <div className="flex items-center pt-6">
-                                                        <button onClick={() => removeItem(index)}><Image className="mr-4"
-                                                                                                         src={trashBin}
-                                                                                                         alt="trashBin"></Image>
-                                                        </button>
+                                    <RadioGroup>
+                                        <li>
+                                            <div className="hidden">
+                                                {quantity += product.quantity}</div>
+                                            <div className="hidden">
+                                                {wholePrice += product.price * product.quantity}</div>
+                                            <div className="h-auto flex align-center pb-6 border-b-1px">
+                                                <Image className="ml-10" src={dellPhoto} alt="Product Photo"></Image>
+                                                <div className="flex-col ProductSansLight ml-10 mt-4">
+                                                    <div className="text-[20px]">{product.name}</div>
+                                                    <div className="ProductSansMedium text-lg">{product.price} ₸</div>
+                                                    <div className="text-[12px] w-2/3 mt-4">{product.description}</div>
+                                                    <div className="flex justify-between items-center">
+                                                        {/*---------------------FIX THAT---------------------*/}
+                                                        <Image className="mt-4" src={dell}
+                                                               alt="Company Logo"></Image>
+                                                        <div className="flex items-center pt-6">
+                                                            <button onClick={() => removeItem(index)}><Image
+                                                                className="mr-4"
+                                                                src={trashBin}
+                                                                alt="trashBin"></Image>
+                                                            </button>
 
-                                                        <button
-                                                            onClick={() => increaseQuantity(index)}
-                                                            className="bg-[#E9E9E9] border-solid border-1px mr-customMargin rounded-[3px] w-5 flex justify-center items-center h-6">
-                                                            <Image className="w-3" src={plus} alt="+"/>
-                                                        </button>
-                                                        <div className="text-white bg-[#1075B2] mx-0.5 text-center mr-customMargin border-solid rounded-[3px] w-5 h-6">
-                                                            {product.quantity}
-                                                        </div>
-                                                        <button
-                                                            onClick={() => decreaseQuantity(index)}
-                                                            className="bg-[#E9E9E9] border-solid border-1px rounded-[3px] w-5 flex justify-center items-center h-6 mr-4">
-                                                            <Image className="w-3" src={minus} alt="-"/>
-                                                        </button>
+                                                            <button
+                                                                onClick={() => increaseQuantity(index)}
+                                                                className="bg-[#E9E9E9] border-solid border-1px mr-customMargin rounded-[3px] w-5 flex justify-center items-center h-6">
+                                                                <Image className="w-3" src={plus} alt="+"/>
+                                                            </button>
+                                                            <div
+                                                                className="text-white bg-[#1075B2] mx-0.5 text-center mr-customMargin border-solid rounded-[3px] w-5 h-6">
+                                                                {product.quantity}
+                                                            </div>
+                                                            <button
+                                                                onClick={() => decreaseQuantity(index)}
+                                                                className="bg-[#E9E9E9] border-solid border-1px rounded-[3px] w-5 flex justify-center items-center h-6 mr-4">
+                                                                <Image className="w-3" src={minus} alt="-"/>
+                                                            </button>
 
-                                                        <div
-                                                            className="mr-4 ProductSansMedium text-lg w-24">{product.price * product.quantity} ₸
+                                                            <div
+                                                                className="mr-4 ProductSansMedium text-lg w-24">{product.price * product.quantity} ₸
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                    </li>
+                                        </li>
+                                    </RadioGroup>
                                 </ul>
                             )
                         )}
