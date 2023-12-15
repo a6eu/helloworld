@@ -2,7 +2,6 @@ import FilterDropdown from "./FilterDropdown";
 import ProductItem from "./ProductItem";
 
 const Catalog = ({products}) => {
-    console.log('products in Catalog >>> ', products);
 
     return (
         <div className="w-[1000px] p-3 ">

@@ -18,15 +18,13 @@
 .catalogButton {
     color: #1075B2;
     display: flex;
-    justify-content: center;
     align-items: center;
+    justify-content: center;
     width: 90px;
     height: 30px;
     border: 1px solid #1075B2;
     border-radius: 5px;
     font-size: 10px;
-    line-height: 16.98px;
-    text-align: center;
 }
 
 .catalogButton:focus {
@@ -107,6 +105,7 @@
 .cityDiv {
     display: flex;
     align-items: center;
+    background: white;
     width: 150px;
     height: 30px;
     appearance: none;

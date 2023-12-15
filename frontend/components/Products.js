@@ -29,8 +29,6 @@ function Products() {
 
     const floatValues = [0.29, 1.44, 2.31, 3.48, 4.52];
 
-
-
     return (
         <>
             {(fetchingStatus) ?
