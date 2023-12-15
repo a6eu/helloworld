@@ -15,7 +15,7 @@ const Price = ({price, fSizeOfDigit, fSizeOfCurrency}) => {
 
     return (
         <p className={`text-[${fontSizeOfCurrency}px] ProductSansThin`}>
-            <span className={`text-[${fontSizeOfDigit}px] ProductSansLight`}>{formatNumberWithSpaces(price)}</span> ₸
+            <span className={`text-[${fontSizeOfDigit}px] ProductSansLight`}>{formatNumberWithSpaces(price)}</span> <strong>₸</strong>
         </p>
     )
 };
