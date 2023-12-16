@@ -6,16 +6,18 @@ import 'slick-carousel/slick/slick-theme.css';
 
 
 const Carousel = () => {
+  
     const settings = {
       dots: true,
       infinite: true,
-      speed: 500,
+      speed: 1000,
+      autoplay: true,
+      autoplaySpeed: 6000,
       slidesToShow: 1,
       slidesToScroll: 1,
         autoPlay:true,
         autoplaySpeed: 6000,
     };
-  
     return (
       <Slider className='h-80 w-[100%]' {...settings}>
         <div className=' h-80 bg-first bg-no-repeat bg-cover bg-center rounded-md'></div>
