@@ -12,6 +12,10 @@ import catalogImg from "../public/images/catalog_svg.svg"
 
 const Header = () => {
     const [selectedCity, setSelectedCity] = useState('Алматы' || localStorage.getItem('city'));
+    const [favoritesImg, setFavoritesImg] = useState("./images/Vector.svg");
+    const [cartImg, setCartImg] = useState("./images/shoppingCartNormal.svg");
+    const [profileImg, setProfileImg] = useState("./images/person.svg");
+
 
     const handleCityChange = (city) => {
         setSelectedCity(city);
@@ -77,18 +81,22 @@ const Header = () => {
                 <div className={styles.cartSide}>
                     <Link href={"/favorites"} className={styles.favourite}>
                         <Image className="cursor-pointer"
-                               src="./images/Vector.svg"
+                               src={favoritesImg}
                                height={22}
                                width={22}
                                alt="favourites"
+                               onMouseOver={() => setFavoritesImg("./images/favorites.svg")}
+                               onMouseLeave={() => setFavoritesImg("./images/Vector.svg")}
                         />
                     </Link>
                     <Link className={styles.cart} href={"/cart"}>
                         <Image className="cursor-pointer"
-                               src="./images/shopping-cart.svg"
+                               src= {cartImg}
                                height={30}
                                width={30}
                                alt="cart"
+                               onMouseOver={() => setCartImg("./images/shoppingCartBlue.svg")}
+                               onMouseLeave={() => setCartImg("./images/shoppingCartNormal.svg")}
                         />
                     </Link>
                     <div className={styles.person}
@@ -96,10 +104,12 @@ const Header = () => {
                     >
                         <Image
                             className="cursor-pointer"
-                            src="./images/person.svg"
+                            src={profileImg}
                             height={35}
                             width={35}
                             alt="profile"
+                            onMouseOver={() => setProfileImg("./images/profileImg.svg")}
+                            onMouseLeave={() => setProfileImg("./images/person.svg")}
                         />
                     </div>
                 </div>

@@ -50,6 +50,139 @@ function FilteredProducts(props) {
                 }
             ],
             "rating": 4.5
+        },
+        {
+            "id": 3,
+            "name": "Product 3",
+            "price": "175 000",
+            "description": "Description for Product 20",
+            "category_id": "4",
+            "brand_id": "3",
+            "img_url": "https://example.com/product20.jpg",
+            "quantity": 15,
+            "in_basket": true,
+            "is_favorite": false,
+            "tags": [
+                {
+                    "id": 20,
+                    "tag_name": "featured"
+                }
+            ],
+            "rating": 4.9
+        },
+        {
+            "id": 4,
+            "name": "Product 4",
+            "price": "175 000",
+            "description": "Description for Product 20",
+            "category_id": "4",
+            "brand_id": "3",
+            "img_url": "https://example.com/product20.jpg",
+            "quantity": 15,
+            "in_basket": true,
+            "is_favorite": false,
+            "tags": [
+                {
+                    "id": 20,
+                    "tag_name": "featured"
+                }
+            ],
+            "rating": 4.9
+        },
+        {
+            "id": 5,
+            "name": "Product 5",
+            "price": "175 000",
+            "description": "Description for Product 20",
+            "category_id": "4",
+            "brand_id": "3",
+            "img_url": "https://example.com/product20.jpg",
+            "quantity": 15,
+            "in_basket": true,
+            "is_favorite": false,
+            "tags": [
+                {
+                    "id": 20,
+                    "tag_name": "featured"
+                }
+            ],
+            "rating": 4.9
+        },
+        {
+            "id": 6,
+            "name": "Product 6",
+            "price": "175 000",
+            "description": "Description for Product 20",
+            "category_id": "4",
+            "brand_id": "3",
+            "img_url": "https://example.com/product20.jpg",
+            "quantity": 15,
+            "in_basket": true,
+            "is_favorite": false,
+            "tags": [
+                {
+                    "id": 20,
+                    "tag_name": "featured"
+                }
+            ],
+            "rating": 4.9
+        },
+        {
+            "id": 7,
+            "name": "Product 7",
+            "price": "175 000",
+            "description": "Description for Product 20",
+            "category_id": "4",
+            "brand_id": "3",
+            "img_url": "https://example.com/product20.jpg",
+            "quantity": 15,
+            "in_basket": true,
+            "is_favorite": false,
+            "tags": [
+                {
+                    "id": 20,
+                    "tag_name": "featured"
+                }
+            ],
+            "rating": 4.9
+        },
+        {
+            "id": 8,
+            "name": "Product 8",
+            "price": "175 000",
+            "description": "Description for Product 20",
+            "category_id": "4",
+            "brand_id": "3",
+            "img_url": "https://example.com/product20.jpg",
+            "quantity": 15,
+            "in_basket": true,
+            "is_favorite": false,
+            "tags": [
+                {
+                    "id": 20,
+                    "tag_name": "featured"
+                }
+            ],
+            "rating": 4.9
+        },
+        {
+            "id": 9,
+            "name": "Product 9",
+            "price": "175 000",
+            "description": "Description for Product 20",
+            "category_id": "4",
+            "brand_id": "3",
+            "img_url": "https://example.com/product20.jpg",
+            "quantity": 15,
+            "in_basket": true,
+            "is_favorite": false,
+            "tags": [
+                {
+                    "id": 20,
+                    "tag_name": "featured"
+                }
+            ],
+            "rating": 4.9
         }
     ]
 
