@@ -16,7 +16,6 @@ const Carousel = () => {
       slidesToShow: 1,
       slidesToScroll: 1,
     };
-  
     return (
       <Slider className='h-80 w-[100%]' {...settings}>
         <div className=' h-80 bg-first bg-no-repeat bg-cover bg-center rounded-md'></div>
