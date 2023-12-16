@@ -1,99 +1,84 @@
-import {useRouter} from 'next/router';
 import MainContainer from "@/components/MainContainer";
 import Image from "next/image"
 import {useEffect, useState} from "react";
 import {Rating} from "@smastrom/react-rating";
-import Price from "@/components/Price";
+import Path from "@/components/product-page/Path"
+import ProductInfo from "@/components/product-page/ProductInfo"
+import DescriptionChooser from "@/components/product-page/DescriptionChooser";
 import dell from "public/images/DELL.svg"
-import plus from "@/public/images/plus.svg";
-import minus from "@/public/images/minus.svg";
-import styles from "@/styles/Products.module.css";
 
 
-function Stars(starAvg) {
-    return (
-        <div className="flex items-end text-[#9A9A9A] ProductSansLight">
-            <Rating
-                style={{maxWidth: 130}}
-                readOnly
-                orientation="horizontal"
-                value={starAvg.starAvg}
-            />
-            <p className={"ml-2"}>35 отзывов</p>
-        </div>
-    )
-}
+
 
 export default function ProductPage() {
-    const [quantity, setQuantity] = useState(1);
-
-    const router = useRouter();
-    const {productName} = router.query;
-
-    useEffect(() => {
-        console.log(router.query)
-        console.log(router.query.url)
-    }, [])
-
-    const increaseQuantity = () => {
-        setQuantity(quantity + 1);
-    }
-
-    const decreaseQuantity = () => {
-        if (quantity > 1) {
-            setQuantity(quantity - 1);
-        }
-    }
-
+   
     return (
         <MainContainer>
-            <div className="w-full flex mt-3 rounded-[10px] bg-white">
-                <Image
-                    src={router.query.url}
-                    width={310}
-                    height={310}
-                />
-                <div className={""}>
-                    <h2 className={"text-[30px] ProductSansLight"}>
-                        {productName}
-                    </h2>
-                    <Stars starAvg={4}/>
-                    <Price price={1200000} fSizeOfCurrency={30} fSizeOfDigit={35}/>
-                    <p className={"text-[#636363] text-[15px] ProductSansLight max-w-[70%]"}>Dr.Web Gateway Security
-                        Suite обеспечивает антивирусную защиту для интернет-шлюзов Unix, Kerio, MIMEsweeper и Qbik
-                        WinGate,MS ISA/Forefront TMG</p>
-                    <div className={"flex justify-between items-center  "}>
+            <Path />
+            <ProductInfo />
+            <div className="flex mt-5">
+                <div className="flex flex-col w-7/12  p-3 mr-4">
+                    <DescriptionChooser />
+                    <ul className="bg-white p-3 shadow-md mt-5" >
+                        <li className="flex h-12 items-center pl-10 bg-white">
+                            <div>Microsoft_UX_Design</div>
+                            <div className="ml-[20%]">Microsoft_UX_Design</div>
+                        </li>
+                        <li className="flex h-12 items-center pl-10 bg-gray-100">
+                            <div>Microsoft_UX_Design</div>
+                            <div className="ml-[20%]">Microsoft_UX_Design</div>
+                        </li>
+                        <li className="flex h-12 items-center pl-10 bg-white">
+                            <div>Microsoft_UX_Design</div>
+                            <div className="ml-[20%]">Microsoft_UX_Design</div>
+                        </li>
+                        <li className="flex h-12 items-center pl-10 bg-gray-100">
+                            <div>Microsoft_UX_Design</div>
+                            <div className="ml-[20%]">Microsoft_UX_Design</div>
+                        </li>
+                        <li className="flex h-12 items-center pl-10 bg-white">
+                            <div>Microsoft_UX_Design</div>
+                            <div className="ml-[20%]">Microsoft_UX_Design</div>
+                        </li>
+                        <li className="flex h-12 items-center pl-10 bg-gray-100">
+                            <div>Microsoft_UX_Design</div>
+                            <div className="ml-[20%]">Microsoft_UX_Design</div>
+                        </li>
+                        <li className="flex h-12 items-center pl-10 bg-white">
+                            <div>Microsoft_UX_Design</div>
+                            <div className="ml-[20%]">Microsoft_UX_Design</div>
+                        </li>
+                        <li className="flex h-12 items-center pl-10 bg-gray-100">
+                            <div>Microsoft_UX_Design</div>
+                            <div className="ml-[20%]">Microsoft_UX_Design</div>
+                        </li>
+                        <li className="flex h-12 items-center pl-10 bg-white">
+                            <div>Microsoft_UX_Design</div>
+                            <div className="ml-[20%]">Microsoft_UX_Design</div>
+                        </li>
+                        <li className="flex h-12 items-center pl-10 bg-gray-100">
+                            <div>Microsoft_UX_Design</div>
+                            <div className="ml-[20%]">Microsoft_UX_Design</div>
+                        </li>
+                    </ul>
+                </div>
+                <div className="w-5/12  h-auto ">
+                    <div className="h-[4.5rem]"> </div>
+                    <div className="flex flex-col items-center bg-white p-5 shadow-md">
                         <Image
-                            className="mt-4"
+                            className="mb-4"
                             src={dell}
                             alt="Company Logo"
-                            width={53}
-                            height={53}
+                            width={140}
+                            height={140}
                         />
-                        <div className={"flex justify-around w-[35%]"}>
-                            <div className={"flex"}>
-                                <button
-                                    onClick={() => increaseQuantity()}
-                                    className="bg-[#E9E9E9] border-solid border-1px mr-customMargin rounded-[3px] w-5 flex justify-center items-center h-6">
-                                    <Image className="w-3" src={plus} alt="+"/>
-                                </button>
-                                <div className="text-white bg-[#1075B2] mx-0.5 text-center mr-customMargin border-solid rounded-[3px] w-5 h-6">
-                                    {quantity}
-                                </div>
-                                <button
-                                    onClick={() => decreaseQuantity()}
-                                    className="bg-[#E9E9E9] border-solid border-1px rounded-[3px] w-5 flex justify-center items-center h-6 ">
-                                    <Image className="w-3" src={minus} alt="-"/>
-                                </button>
-                            </div>
-                            <button className={"ProductSansMedium text-[10px] text-[#1075B2] w-[86px] border border-[#1075B2] rounded-[3px]"}>
-                                В КОРЗИНУ
-                            </button>
-                            <button className={"ProductSansMedium text-[10px] text-white w-[146px] bg-[#1075B2] border border-[#1075B2] rounded-[3px] "}>
-                                КУПИТЬ В ОДИН КЛИК
-                            </button>
+                        <p className="text-justify text-black text-[15px] ProductSansLight max-w-[90%]" >&nbsp;&nbsp;Корпорация Dell обеспечивает весь мир технологиями, которые позволяют воплощать мечты в жизнь. Клиенты доверяют нашим технологическим решениям, которые позволяют им работать более эффективно, где бы они ни находились: дома, в офисе, в школе и т. д. Узнайте больше о нашей истории, целях и людях, которые воплощают в жизнь нашу стратегию, ориентированную на клиентов.</p>
+                        <div className="flex flex-col text-center mt-5 text-blue-500 underline cursor-pointer text-[15px] ProductSansLight">
+                            <a>Все товары категории</a>
+                            <a>Все товары бренда DELL</a>
                         </div>
                     </div>
+                    
                 </div>
             </div>
         </MainContainer>

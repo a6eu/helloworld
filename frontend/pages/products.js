@@ -2,6 +2,7 @@ import Filter from "@/components/Filter";
 import Catalog from "@/components/Catalog";
 import Pagination from "@/components/Pagination";
 import imported from "../db.json";
+import MainContainer from "@/components/MainContainer";
 
 export const getStaticProps = async () => {
     const res = await imported;
@@ -12,15 +13,19 @@ export const getStaticProps = async () => {
     }
 }
 
+
 const About = (props) =>{
     return (
-        <div className="h-auto w-full p-10 flex flex-col items-center">
-            <div className="w- h-full flex jus">
-                <Filter />
-                <Catalog products={props.products} />
+        <MainContainer>
+            <div className="h-auto w-full pt-1 flex flex-col items-center">
+                <div className="w- h-full flex jus">
+                    <Filter />
+                    <Catalog products={props.products} />
+                </div>
+                <Pagination/>
             </div>
-            <Pagination/>
-        </div>
+        </MainContainer>
+        
     )
 }
 

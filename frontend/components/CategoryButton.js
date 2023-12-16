@@ -1,16 +1,17 @@
 import React, { useState } from 'react';
 
-const CategoryButton = ({ buttonText, onClick }) => {
+const CategoryButton = ({ buttonText, brandId, onClick }) => {
   const [isClicked, setIsClicked] = useState(false);
+  
 
   const handleClick = () => {
     setIsClicked(!isClicked);
     // If an onClick function is provided, call it
     if (onClick) {
-      onClick();
+      onClick(brandId);
     }
   };
-
+ 
   return (
     <div>
       {isClicked ? (

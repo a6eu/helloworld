@@ -4,8 +4,8 @@ import ProductItem from "./ProductItem";
 const Catalog = ({products}) => {
 
     return (
-        <div className="w-full p-3">
-            <div className="flex justify-between align-middle">
+        <div className="w-[1000px] p-3 ">
+            <div className="flex justify-between align-middle mb-2">
                 <div className="flex align-middle">
                     <a className="text-blue-400 cursor-pointer hover:underline">АНТИВИРУСНАЯ БЕЗОПАСНОСТЬ</a>
                     <h2 className="text-blue-400 text-2xl mr-3 ml-3 mt-[-5px]">{'>'}</h2>
