@@ -53,4 +53,33 @@ a{
   font-family: "ProductSans-Medium", sans-serif;
 }
 
+/* custom-scrollbar.css */
+
+/* Hide the scrollbar track */
+::-webkit-scrollbar {
+  width: 4px;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background-color: #d6dee1;
+  border-radius: 4px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background-color: transparent; /* You can set a background color here if needed */
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background-color: #a9b8c5;
+}
+
+/* Optional: Hide scrollbar buttons */
+::-webkit-scrollbar-button {
+  display: none;
+}
+
+
 

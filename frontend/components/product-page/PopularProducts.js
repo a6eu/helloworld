@@ -1,14 +1,14 @@
-import styles from "../styles/Products.module.css"
+import styles from '../../styles/Products.module.css'
 import React, {useEffect, useState} from 'react';
 import Image from "next/image"
 import Link from "next/link";
-import plus from "../public/images/plus.svg"
-import minus from "../public/images/minus.svg"
+import plus from "../../public/images/plus.svg"
+import minus from "../../public/images/minus.svg"
 import { Rating } from '@smastrom/react-rating'
 
 import '@smastrom/react-rating/style.css'
 
-function FilteredProducts(props) {
+function PopularProducts(props) {
     console.log(props.type);
     const [products, setProducts] = useState([]);
 
@@ -50,139 +50,6 @@ function FilteredProducts(props) {
                 }
             ],
             "rating": 4.5
-        },
-        {
-            "id": 3,
-            "name": "Product 3",
-            "price": "175 000",
-            "description": "Description for Product 20",
-            "category_id": "4",
-            "brand_id": "3",
-            "img_url": "https://example.com/product20.jpg",
-            "quantity": 15,
-            "in_basket": true,
-            "is_favorite": false,
-            "tags": [
-                {
-                    "id": 20,
-                    "tag_name": "featured"
-                }
-            ],
-            "rating": 4.9
-        },
-        {
-            "id": 4,
-            "name": "Product 4",
-            "price": "175 000",
-            "description": "Description for Product 20",
-            "category_id": "4",
-            "brand_id": "3",
-            "img_url": "https://example.com/product20.jpg",
-            "quantity": 15,
-            "in_basket": true,
-            "is_favorite": false,
-            "tags": [
-                {
-                    "id": 20,
-                    "tag_name": "featured"
-                }
-            ],
-            "rating": 4.9
-        },
-        {
-            "id": 5,
-            "name": "Product 5",
-            "price": "175 000",
-            "description": "Description for Product 20",
-            "category_id": "4",
-            "brand_id": "3",
-            "img_url": "https://example.com/product20.jpg",
-            "quantity": 15,
-            "in_basket": true,
-            "is_favorite": false,
-            "tags": [
-                {
-                    "id": 20,
-                    "tag_name": "featured"
-                }
-            ],
-            "rating": 4.9
-        },
-        {
-            "id": 6,
-            "name": "Product 6",
-            "price": "175 000",
-            "description": "Description for Product 20",
-            "category_id": "4",
-            "brand_id": "3",
-            "img_url": "https://example.com/product20.jpg",
-            "quantity": 15,
-            "in_basket": true,
-            "is_favorite": false,
-            "tags": [
-                {
-                    "id": 20,
-                    "tag_name": "featured"
-                }
-            ],
-            "rating": 4.9
-        },
-        {
-            "id": 7,
-            "name": "Product 7",
-            "price": "175 000",
-            "description": "Description for Product 20",
-            "category_id": "4",
-            "brand_id": "3",
-            "img_url": "https://example.com/product20.jpg",
-            "quantity": 15,
-            "in_basket": true,
-            "is_favorite": false,
-            "tags": [
-                {
-                    "id": 20,
-                    "tag_name": "featured"
-                }
-            ],
-            "rating": 4.9
-        },
-        {
-            "id": 8,
-            "name": "Product 8",
-            "price": "175 000",
-            "description": "Description for Product 20",
-            "category_id": "4",
-            "brand_id": "3",
-            "img_url": "https://example.com/product20.jpg",
-            "quantity": 15,
-            "in_basket": true,
-            "is_favorite": false,
-            "tags": [
-                {
-                    "id": 20,
-                    "tag_name": "featured"
-                }
-            ],
-            "rating": 4.9
-        },
-        {
-            "id": 9,
-            "name": "Product 9",
-            "price": "175 000",
-            "description": "Description for Product 20",
-            "category_id": "4",
-            "brand_id": "3",
-            "img_url": "https://example.com/product20.jpg",
-            "quantity": 15,
-            "in_basket": true,
-            "is_favorite": false,
-            "tags": [
-                {
-                    "id": 20,
-                    "tag_name": "featured"
-                }
-            ],
-            "rating": 4.9
         }
     ]
 
@@ -224,7 +91,84 @@ function FilteredProducts(props) {
                 }
             ],
             "rating": 4.5
-        }
+        },
+        {
+            "id": 4,
+            "name": "Yerbo",
+            "price": "500 200",
+            "description": "Kaspersky Symphony – это линейка решений, которая дает организациям всё необходимое для постепенной или одночастной реализации экосистемного подхода к корпоративной кибербезопасности. Все элементы этой экосистемы дополняют и усиливают друг друга, позволяя обеспечить надежную защиту от кибератак любой сложности и непрерывность",
+            "category_id": "5",
+            "brand_id": "4",
+            "img_url": "https://example.com/kaspersky_symphony.jpg",
+            "quantity": 5,
+            "in_basket": true,
+            "is_favorite": false,
+            "tags": [
+                {
+                    "id": 1,
+                    "tag_name": "popular"
+                }
+            ],
+            "rating": 4.5
+        },
+        {
+            "id": 4,
+            "name": "Zhanbo",
+            "price": "313 200",
+            "description": "Kaspersky Symphony – это линейка решений, которая дает организациям всё необходимое для постепенной или одночастной реализации экосистемного подхода к корпоративной кибербезопасности. Все элементы этой экосистемы дополняют и усиливают друг друга, позволяя обеспечить надежную защиту от кибератак любой сложности и непрерывность",
+            "category_id": "5",
+            "brand_id": "4",
+            "img_url": "https://example.com/kaspersky_symphony.jpg",
+            "quantity": 5,
+            "in_basket": true,
+            "is_favorite": false,
+            "tags": [
+                {
+                    "id": 1,
+                    "tag_name": "popular"
+                }
+            ],
+            "rating": 4.5
+        },
+        {
+            "id": 4,
+            "name": "Yerbo",
+            "price": "313 200",
+            "description": "Kaspersky Symphony – это линейка решений, которая дает организациям всё необходимое для постепенной или одночастной реализации экосистемного подхода к корпоративной кибербезопасности. Все элементы этой экосистемы дополняют и усиливают друг друга, позволяя обеспечить надежную защиту от кибератак любой сложности и непрерывность",
+            "category_id": "5",
+            "brand_id": "4",
+            "img_url": "https://example.com/kaspersky_symphony.jpg",
+            "quantity": 5,
+            "in_basket": true,
+            "is_favorite": false,
+            "tags": [
+                {
+                    "id": 1,
+                    "tag_name": "popular"
+                }
+            ],
+            "rating": 5.0
+        },
+        {
+            "id": 4,
+            "name": "Beksh",
+            "price": "313 200",
+            "description": "Kaspersky Symphony – это линейка решений, которая дает организациям всё необходимое для постепенной или одночастной реализации экосистемного подхода к корпоративной кибербезопасности. Все элементы этой экосистемы дополняют и усиливают друг друга, позволяя обеспечить надежную защиту от кибератак любой сложности и непрерывность",
+            "category_id": "5",
+            "brand_id": "4",
+            "img_url": "https://example.com/kaspersky_symphony.jpg",
+            "quantity": 5,
+            "in_basket": true,
+            "is_favorite": false,
+            "tags": [
+                {
+                    "id": 1,
+                    "tag_name": "popular"
+                }
+            ],
+            "rating": 4.5
+        },
+        
     ]
 
     const recomended = [
@@ -344,5 +288,5 @@ function Stars(starAvg) {
 }
 
 
-export default FilteredProducts;
+export default PopularProducts;
 
