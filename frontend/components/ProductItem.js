@@ -34,7 +34,7 @@ const ProductItem = ({ product }) => {
                 <div className={styles.imageCard}>
                 </div>
                 <div className="flex w-full ml-3 justify-between">
-                    <Stars starAvg={floatValues[Math.floor(Math.random() * 5)]}/>
+                    <Stars starAvg={Math.random() * 4+1}/>
                     <Image
                         src="./images/bookmark.svg"
                         height={16}
@@ -72,6 +72,20 @@ const ProductItem = ({ product }) => {
 };
 
 const Stars = (starAvg) => {
+    if(starAvg !== 1 || starAvg!==2 || starAvg !== 3 || starAvg!==4 ||starAvg !== 5) {
+        if(starAvg < 1) {
+            starAvg = 0.29;
+        }else if(starAvg > 1 && starAvg < 2) {
+            starAvg = 1.44;
+        }else if(starAvg > 2 && starAvg < 3) {
+            starAvg = 2.31;
+        }else if(starAvg > 3 && starAvg < 4) {
+            starAvg = 3.48;
+        }else if(starAvg > 4 && starAvg < 5) {
+            starAvg = 4.52;
+        }
+    }
+
     return (
         <div>
             <Rating

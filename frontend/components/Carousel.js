@@ -15,7 +15,6 @@ const Carousel = () => {
       autoplaySpeed: 6000,
       slidesToShow: 1,
       slidesToScroll: 1,
-        autoPlay:true,
     };
     return (
       <Slider className='h-80 w-[100%]' {...settings}>

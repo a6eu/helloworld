@@ -6,7 +6,7 @@ import phone from "../public/images/Vector (1).svg"
 
 const Footer = () => {
     return (
-        <div className={" w-full flex justify-center "}>
+        <div className={" w-full flex justify-center mt-20"}>
             <div className="max-w-screen-xl w-full p-2">
                 <div className="flex justify-center">
                     <div className="h-44 bg-white flex justify-between rounded-t-[10px] w-full">

@@ -6,6 +6,7 @@ import plus from "../public/images/plus.svg"
 import minus from "../public/images/minus.svg"
 import { Rating } from '@smastrom/react-rating'
 
+
 import '@smastrom/react-rating/style.css'
 
 function FilteredProducts(props) {
@@ -278,12 +279,11 @@ function FilteredProducts(props) {
         }
     }, [props.type]);
 
-    const floatValues = [0.29, 1.44, 2.31, 3.48, 4.52];
 
     console.log(products);
 
     return (
-                    <div className="w-full h-96 mb-20 flex justify-center">
+                    <div className="w-full h-[340px] mt-10 mb-20 flex justify-center">
                         <div className={styles.container}>
                             {products.map(product => (
                                 <Link href="" to={`/products/${product.id}`} key={product.id}>
@@ -291,7 +291,7 @@ function FilteredProducts(props) {
                                         <div className={styles.imageCard}>
                                         </div>
                                         <div className="flex w-full ml-3 justify-between">
-                                            <Stars starAvg={floatValues[Math.floor(Math.random()*5)]} />
+                                            <Stars starAvg={Math.random()*5+1} />
                                             <Image
                                                 src="./images/bookmark.svg"
                                                 height={16}
@@ -330,11 +330,26 @@ function FilteredProducts(props) {
     );
 }
 
-function Stars(starAvg) {
+const Stars = (starAvg) => {
+
+    if(starAvg !== 1 || starAvg!==2 || starAvg !== 3 || starAvg!==4 ||starAvg !== 5) {
+        if(starAvg < 1) {
+            starAvg = 0.29;
+        }else if(starAvg > 1 && starAvg < 2) {
+            starAvg = 1.44;
+        }else if(starAvg > 2 && starAvg < 3) {
+            starAvg = 2.31;
+        }else if(starAvg > 3 && starAvg < 4) {
+            starAvg = 3.48;
+        }else if(starAvg > 4 && starAvg < 5) {
+            starAvg = 4.52;
+        }
+    }
+
     return (
         <div>
             <Rating
-                style={{ maxWidth: 80 }}
+                style={{maxWidth: 80}}
                 readOnly
                 orientation="horizontal"
                 value={starAvg.starAvg}
@@ -342,7 +357,6 @@ function Stars(starAvg) {
         </div>
     )
 }
-
 
 export default FilteredProducts;
 

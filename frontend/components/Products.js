@@ -15,7 +15,7 @@ function Products({products, fetchingStatus}) {
         <>
             {(fetchingStatus) ?
                 <>
-                    <div className="w-full h-96 mt-6 flex justify-center">
+                    <div className="w-full h-[340px] mt-6 flex justify-center">
                         <div className={styles.container}>
                             {products.map(product => (
                                 <ProductItem key={product.id} product={product} />
