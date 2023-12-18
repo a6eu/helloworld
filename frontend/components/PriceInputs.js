@@ -13,11 +13,6 @@ const PriceInputs = ({ refreshPrice, onPriceChange }) => {
     setMaxPrice(e.target.value);
   };
 
-  const handleMultiRangeInput = (e) => {
-    setMinPrice(e.minValue);
-    setMaxPrice(e.maxValue);
-  }
-
   useEffect(() => {
     onPriceChange({ minPrice, maxPrice });
   }, [maxPrice, minPrice]);

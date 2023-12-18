@@ -1,5 +1,5 @@
 import Filter from "@/components/Filter";
-import CatalogProducts from "@/components/CatalogProducts";
+import ProductsContainer from "@/components/ProductsContainer";
 import imported from "../db.json";
 import MainContainer from "@/components/MainContainer";
 import FilterDropdown from "@/components/FilterDropdown";
@@ -36,7 +36,7 @@ const Products = () => {
                             <Path path={path} />
                             <FilterDropdown selectedOption={selectedOption} setSelectedOption={setSelectedOption}/>
                         </div>
-                        <CatalogProducts products={filterResult}/>
+                        <ProductsContainer products={filterResult}/>
                     </div>
                 </div>
             </div>

@@ -1,6 +1,6 @@
 import MainContainer from "@/components/MainContainer";
 import UserNavbar from "@/components/UserNavbar";
-import CatalogProducts from "@/components/CatalogProducts";
+import ProductsContainer from "@/components/ProductsContainer";
 import React, {useState} from "react";
 import imported from "@/db.json"
 
@@ -12,7 +12,7 @@ function Favorites() {
                 <UserNavbar/>
                 <div className="my-4">
                     <h1 className="ProductSansLight font-medium ml-3 text-blue-700">ИЗБРАННЫЕ</h1>
-                    <CatalogProducts products={filterResult}/>
+                    <ProductsContainer products={filterResult}/>
                 </div>
             </div>
 

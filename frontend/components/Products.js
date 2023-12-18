@@ -1,9 +1,4 @@
 import styles from "../styles/Products.module.css"
-import Image from "next/image"
-import Link from "next/link";
-import plus from "../public/images/plus.svg"
-import minus from "../public/images/minus.svg"
-import {Rating} from '@smastrom/react-rating'
 
 import '@smastrom/react-rating/style.css'
 import ProductItem from "@/components/ProductItem";
@@ -29,21 +24,6 @@ function Products({products, fetchingStatus}) {
         </>
     );
 }
-
-function Stars(starAvg) {
-
-    return (
-        <div>
-            <Rating
-                style={{maxWidth: 80}}
-                readOnly
-                orientation="horizontal"
-                value={starAvg.starAvg}
-            />
-        </div>
-    )
-}
-
 
 export default Products;
 

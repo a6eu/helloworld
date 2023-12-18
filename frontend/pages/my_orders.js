@@ -13,7 +13,6 @@ export const getStaticProps = async () => {
     const res = await imported;
     const data = await res.orders;
 
-
     return {
         props: {products: data}
     }
