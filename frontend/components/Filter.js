@@ -1,45 +1,90 @@
-import React, { useState } from 'react';
+import React, {useEffect, useState} from 'react';
 import PriceInputs from './PriceInputs';
-import Catalog from './Catalog';
-import RangeBar from './RangeBar';
 import BrandFilter from './BrandFilter';
-import Image from 'next/image';
 
-const Filter = () => {
-  const [priceFilter, setPriceFilter] = useState({ minPrice: '', maxPrice: '' });
+const Filter = ({setProducts, products}) => {
 
-  const handlePriceChange = (price) => {
-    setPriceFilter(price);
-  };
+    const [filteredProducts, setFilteredProducts] = useState(products);
+    const [brands, setBrands] = useState(new Set());
+    const [pickedBrands, setPickedBrands] = useState(new Set());
+    const [foundProducts, setFoundProducts] = useState([]);
+    const [refreshPrice, setRefreshPrice] = useState(false)
+    const [clearBrands, setClearBrands] = useState(false)
 
-  return (
-        <div className="inline-block w-[300px] bg-white p-1 h-min">
-            <h3 className="text-blue-400">Фильтры</h3>
-            <p className="text-blue-400">Цена</p>
-            <PriceInputs/>
-            <RangeBar />
-            <p className="text-blue-400">Брэнды ↻</p>
-            <BrandFilter />
-           
+    useEffect(() => {
+        let newBrands = products.map((product) => product.brand);
+        setBrands(new Set([...newBrands]));
+    }, [])
 
-            <p className="text-blue-400">Рейтинг ↻</p>
+    const handlePriceChange = (price) => {
+        let min = price.minPrice;
+        let max = price.maxPrice;
 
-            <div className="flex">
-                <Image src="/images/starfilled.svg" width={30} height={30} alt="star"></Image>
-                <Image src="/images/starfilled.svg" width={30} height={30} alt="star"></Image>
-                <Image src="/images/starfilled.svg" width={30} height={30} alt="star"></Image>
-                <Image src="/images/starunfilled.svg" width={30} height={30} alt="star"></Image>
-                <Image src="/images/starunfilled.svg" width={30} height={30} alt="star"></Image>
+        let inRangeProducts = products.filter((product) => {
+            return product.price >= min && product.price <= max;
+        })
+
+        setFilteredProducts(inRangeProducts)
+    };
+
+    const handleBrandChange = (brandName) => {
+        if (pickedBrands.has(brandName)) {
+            setPickedBrands(new Set([...pickedBrands].filter((brand) => {return brand !== brandName})));
+        } else {
+            setPickedBrands(new Set([...pickedBrands, brandName]))
+        }
+    };
+
+    const applyFilteredProducts = () => {
+        const brandFilter = filteredProducts.filter((product) => {return (pickedBrands.length === 0 ? brands : pickedBrands).has(product.brand)})
+        setFoundProducts(brandFilter);
+        setProducts(brandFilter);
+    }
+    return (
+        <div className="inline-block w-[300px] bg-white p-1 pt-8 h-min">
+            <p className="text-[#1075B2] text-lg ProductSansMedium mb-5">Фильтры</p>
+            <div className={'flex'}>
+                <p className="text-[#1075B2] mr-2 ProductSansLight">Цена </p>
+                <button
+                    className={'hover:text-[#1075B2]'}
+                    onClick={() => {
+                        setRefreshPrice(!refreshPrice);
+                    }}
+                >↻</button>
             </div>
+            <PriceInputs refreshPrice={refreshPrice} onPriceChange={(price) => handlePriceChange(price)}/>
 
-            <div className="w-full italic font-thin flex justify-end pr-3 mt-3 text-gray-500">Найдено 11 товаров</div>
+            <div className={'flex'}>
+                <p className="text-[#1075B2] mr-2 ProductSansLight">Бренды </p>
+                <button
+                    className={'hover:text-[#1075B2]'}
+                    onClick={() => {
+                        setPickedBrands(new Set());
+                    }}
+                >↻</button>
+            </div>
+            <BrandFilter onBrandChange={(brandName) => handleBrandChange(brandName)} brands={brands} clearBrands={clearBrands}/>
+
+            {foundProducts.length !== 0 ?
+                <div className="w-full italic font-thin flex justify-end pr-3 mt-3 text-gray-500">Найдено {foundProducts.length} товаров</div>
+                : <div className={"mb-4"}></div>
+            }
             <div className="w-full flex justify-end ml-[-10px] mt-1">
                 <div>
-                  <button  className="text-blue-500 underline mr-4">Сбросить все</button>
-                  <button  className="text-blue-500 border-2 border-blue-500 border-solid pr-2 pl-2 rounded-md mb-4">Показать</button>
+                    <button className="text-[#1075B2] underline mr-4"
+                            onClick={() => {
+                            setRefreshPrice(!refreshPrice);
+                            setPickedBrands(new Set());
+                            setClearBrands(!clearBrands);
+                            setFoundProducts([])
+                            setProducts(products);
+                            }}>Сбросить все</button>
+                    <button onClick={() => applyFilteredProducts()}
+                            className="text-[#1075B2] border-2 border-[#1075B2] border-solid pr-2 pl-2 rounded-md mb-4">Показать
+                    </button>
                 </div>
             </div>
-            
+
         </div>
     );
 };

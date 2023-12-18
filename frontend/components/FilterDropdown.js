@@ -1,10 +1,9 @@
 import React, { useState } from 'react';
 
-const FilterDropdown = () => {
+const FilterDropdown = ({ selectedOption, setSelectedOption}) => {
   const [isOpen, setIsOpen] = useState(false);
-  const [selectedOption, setSelectedOption] = useState(null);
 
-  const options = ['популярные', 'новинки', 'сначала дорогие', 'сначала дешевые'];
+  const options = ['без сортировки', 'сначала дорогие', 'сначала дешевые'];
 
   const toggleDropdown = () => {
     setIsOpen(!isOpen);
@@ -16,12 +15,12 @@ const FilterDropdown = () => {
   };
 
   return (
-    <div className="relative inline-block">
+    <div className="relative z-20 inline-block">
       <button
-        className="border-2 w-[200px] border-blue-400 text-blue-400 py-2 px-4 rounded inline-flex items-center"
+        className={`border-2 w-[180px] border-[#1075B2] text-[#1075B2] text-[15px] py-1 px-3 ${!isOpen ? "rounded-[10px]" : "rounded-t-[10px]"}  inline-flex  justify-between items-center`}
         onClick={toggleDropdown}
       >
-        {selectedOption || 'популярные'}
+        {selectedOption}
         <svg
           className={`w-4 h-4 ml-2 transition-transform ${
             isOpen ? 'transform rotate-180' : ''
@@ -36,7 +35,7 @@ const FilterDropdown = () => {
       </button>
 
       {isOpen && (
-        <div className="absolute w-[200px] bg-white border rounded-md shadow-lg">
+        <div className={`absolute width-[180px] text-[15px] rounded-b-[10px] px-3 bg-white border shadow-lg`}>
           {/* FilterDropdown content */}
           <ul>
             {options.map((option) => (

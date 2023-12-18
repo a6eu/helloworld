@@ -104,12 +104,12 @@ function my_orders(props) {
 
                                                 </Disclosure.Button>
                                                 <Disclosure.Panel
-                                                    className="flex flex-col w-full h-60 transition duration-300 ease-in-out">
+                                                    className="flex flex-col w-full h-ьшт transition duration-300 ease-in-out">
                                                     {order.order_items.map((item => (
                                                         <div
-                                                            className="h-min w-full border-2 border-b-0 border-l-0 border-r-0 border-dashed flex"
+                                                            className="bg-amber-50 py-5 px-4 р-30 border-2 border-b-0 border-l-0 border-r-0 border-dashed flex"
                                                             key={item.product_id}>
-                                                            <div className="w-full flex flex-row py-5 px-4">
+                                                            <div className="w-full flex flex-row">
                                                                 <div className="flex gap-3 flex-row w-1/2">
                                                                     <div>
                                                                         <Image width={100} height={90} src={dellPhoto}
@@ -119,7 +119,7 @@ function my_orders(props) {
                                                                         <h1>{item.product_name}</h1>
                                                                         <div className="font-sans mt-3">
                                                                             <h2>{item.price} ₸<font
-                                                                                className="text-[1075B2] mb-1"> x </font> {item.quantity}
+                                                                                className="text-[#1075B2] mb-[5px] font-bold"> x </font> {item.quantity}
                                                                             </h2>
                                                                         </div>
                                                                     </div>
