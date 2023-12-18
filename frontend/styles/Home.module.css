@@ -118,9 +118,6 @@
 
 
 .userNavbar {
-    -webkit-box-shadow: inset 0px 3px 10px -5px rgba(0,0,0,0.75);
-    -moz-box-shadow: inset 0px 3px 10px -5px rgba(0,0,0,0.75);
-    box-shadow: inset 0px 3px 5px -5px rgba(0,0,0,0.75);
     width: 22%;
     margin-right: 20px;
     background: white;
@@ -129,6 +126,8 @@
     display: flex;
     border-bottom-right-radius: 12px;
     border-bottom-left-radius: 12px;
+    position: sticky;
+    top: 92px;
 }
 
 .modalContainer {
