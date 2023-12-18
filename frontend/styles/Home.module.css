@@ -15,23 +15,6 @@
     box-shadow: -2px 6px 10px -11px rgba(0,0,0,0.75);
 }
 
-.catalogButton {
-    color: #1075B2;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 90px;
-    height: 30px;
-    border: 1px solid #1075B2;
-    border-radius: 5px;
-    font-size: 10px;
-}
-
-.catalogButton:focus {
-    outline: none;
-}
-
-
 .catalogContainer {
     overflow: hidden;
     color: black;

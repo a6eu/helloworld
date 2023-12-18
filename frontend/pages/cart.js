@@ -1,5 +1,5 @@
 import Products from '@/components/Products';
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import emptyCart from '../public/images/emptyCart.svg'
 import Image from "next/image"
 import styles from "../styles/CartPage.module.css"
@@ -12,6 +12,7 @@ import imported from "../db.json";
 import dell from "../public/images/DELL.svg"
 import dellPhoto from "../public/images/dellPowerEdge.svg"
 import {RadioGroup} from "@headlessui/react";
+import axios from "axios";
 
 function goToHome() {
     window.location.href = '/';
@@ -30,6 +31,22 @@ function Cart(props) {
     const [cartWithProducts, setCartWithProducts] = useState(props.products);
     let quantity = 0;
     let wholePrice = 0;
+
+    const [products, setProducts] = useState([]);
+    const [fetchingStatus, setFetchingStatus] = useState(true)
+    //Recommendations
+    useEffect(() => {
+        axios.get(`https://jsonplaceholder.typicode.com/users`)
+            .then(res => {
+                const fetchedProducts = res.data;
+                setProducts(fetchedProducts);
+            })
+            .catch(error => {
+                console.error('Error fetching data:', error);
+                setFetchingStatus(false)
+            });
+    }, []);
+
     const increaseQuantity = (index) => {
         const updatedCart = [...cartWithProducts];
         updatedCart[index].quantity += 1;
@@ -161,7 +178,7 @@ function Cart(props) {
                 </div>
                 <h3 className="flex justify-center mt-12 ProductSansLight text-xl text-[#1075B2]">ПЕРСОНАЛЬНЫЕ
                     РЕКОМЕНДАЦИИ</h3>
-                <Products/>
+                <Products products={products} fetchingStatus={fetchingStatus}/>
             </MainContainer>
         )
     } else {
@@ -181,7 +198,7 @@ function Cart(props) {
                 <div>
                     <h3 className="flex justify-center mt-12 ProductSansLight text-xl text-[#1075B2]">ПЕРСОНАЛЬНЫЕ
                         РЕКОМЕНДАЦИИ</h3>
-                    <Products/>
+                    <Products products={products} fetchingStatus={fetchingStatus}/>
                 </div>
             </MainContainer>
         )

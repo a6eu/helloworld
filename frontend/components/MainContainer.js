@@ -1,8 +1,4 @@
 import React from 'react';
-import News from "@/components/News";
-import Companies from "@/components/Companies";
-import Products from "@/components/Products";
-import AboutCompany from "@/components/AboutCompany";
 
 const MainContainer = (props) => {
     return (

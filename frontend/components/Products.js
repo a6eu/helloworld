@@ -1,6 +1,4 @@
 import styles from "../styles/Products.module.css"
-import axios from 'axios'
-import React, {useEffect, useState} from 'react';
 import Image from "next/image"
 import Link from "next/link";
 import plus from "../public/images/plus.svg"
@@ -9,26 +7,9 @@ import {Rating} from '@smastrom/react-rating'
 
 import '@smastrom/react-rating/style.css'
 
-function Products() {
-    const [products, setProducts] = useState([]);
-    const [fetchingStatus, setFetchingStatus] = useState(true)
+const floatValues = [0.29, 1.44, 2.31, 3.48, 4.52];
 
-    useEffect(() => {
-        axios.get(`https://jsonplaceholder.typicode.com/users`)
-            .then(res => {
-                const fetchedProducts = res.data;
-
-                setProducts(fetchedProducts);
-                console.log(res.data)
-            })
-            .catch(error => {
-                console.error('Error fetching data:', error);
-                setFetchingStatus(false)
-            });
-    }, []);
-
-    const floatValues = [0.29, 1.44, 2.31, 3.48, 4.52];
-
+function Products({products, fetchingStatus}) {
     return (
         <>
             {(fetchingStatus) ?

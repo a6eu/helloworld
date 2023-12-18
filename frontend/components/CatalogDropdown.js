@@ -12,8 +12,9 @@ export default function CatalogDropdown(isHamOpen) {
     const [ctg, setCtg] = useState([]);
     const [selectedCtg, setSelectedCtg] = useState(0);
     const [subCtg, setSubCtg] = useState([])
-    const [changeToX, setChangeToX] = useState(X);
-    const [state, setState] = useState(true);
+    const [changeToX, setChangeToX] = useState(catalogImg);
+    const [state, setState] = useState("opened");
+    const [focused, setFocused] = useState("focused");
     useEffect(() => {
         const initCtg = async () => {
             try {
@@ -56,14 +57,34 @@ export default function CatalogDropdown(isHamOpen) {
     const debounceRequest = (index, item) => showCtgItems(index, item);
 
     function changer() {
-
+        if (state === "closed") {
+            setChangeToX(catalogImg)
+            setState("opened")
+            setFocused("unfocused")
+        } else if (state === "opened") {
+            setChangeToX(X)
+            setState("closed")
+            setFocused("focused")
+        }
     }
 
     return (
         <Popover className="">
-            <Popover.Button className={styles.catalogButton} onClick={changer()}>
+            <Popover.Button
+                className="text-[#1075B2] flex items-center justify-center w-[90px] h-[30px] border-1px border-[#1075B2] rounded-[5px] text-[10px] focus:outline-none"
+                onFocus={() => {
+                    setChangeToX(X)
+                    setState("opened")
+                }} onClick={() => {
+                    changer()
+                }}
+                onBlur={() => {
+                    setChangeToX(catalogImg)
+                    setState("closed")
+                }}
+            >
                 <HamburgerNav isHamOpen={isHamOpen}/>
-                <Image className="w-5 h-5 pr-1" src={catalogImg} alt="Catalog Img"/>
+                <Image className="w-5 h-5 pr-1" src={changeToX} alt="Catalog Img"/>
                 <p className="pr-5">КАТАЛОГ</p>
             </Popover.Button>
 
