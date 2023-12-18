@@ -4,8 +4,6 @@ import Image from "next/image";
 const Product = (props) => {
   return (
     <div className="bg-neutral-100 flex flex-col items-stretch">
-      
-
       <div className="self-center flex w-full max-w-[1112px] flex-col mt-5 px-5 max-md:max-w-full">
         <div className="flex items-start gap-3.5 self-start max-md:max-w-full max-md:flex-wrap max-md:justify-center">
           <div className="justify-center text-sky-700 text-xs font-medium tracking-wide uppercase self-center whitespace-nowrap my-auto">
