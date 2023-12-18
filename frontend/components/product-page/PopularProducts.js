@@ -227,7 +227,7 @@ function PopularProducts(props) {
     console.log(products);
 
     return (
-                    <div className="w-full h-96 mb-20 flex justify-center">
+                    <div className="w-full h-[22rem] mb-32 flex justify-center">
                         <div className={styles.container}>
                             {products.map(product => (
                                 <Link href="" to={`/products/${product.id}`} key={product.id}>
@@ -251,14 +251,14 @@ function PopularProducts(props) {
                                         <div className={styles.piecesAndToBucket}>
                                             <div className={styles.quantity}>
                                                 <button
-                                                    className="bg-[#e9e9e9] border-solid border-1px mr-customMargin rounded-sm w-5 flex justify-center h-6">
+                                                    className="bg-[#e9e9e9] border-solid border-1px mr-customMargin rounded-sm w-5 flex justify-center items-center h-6">
                                                     <Image className="w-3" src={plus} alt="+"/>
                                                 </button>
                                                 <button
                                                     className="text-white bg-[#1075B2] mr-customMargin border-solid rounded-sm w-5 h-6">1
                                                 </button>
                                                 <button
-                                                    className="bg-[#e9e9e9] border-solid border-1px rounded-sm w-5 flex justify-center h-6">
+                                                    className="bg-[#e9e9e9] border-solid border-1px rounded-sm w-5 flex justify-center items-center h-6">
                                                     <Image className="w-3" src={minus} alt="-"/>
                                                 </button>
                                             </div>

@@ -22,8 +22,8 @@ const CompanyInfo = () => {
                     нашей истории, целях и людях, которые воплощают в жизнь нашу
                     стратегию, ориентированную на клиентов.
                 </p>
-                <div className="flex flex-col text-center mt-5 text-blue-500 underline cursor-pointer text-[15px] ProductSansLight">
-                    <a>Все товары категории</a>
+                <div className="flex flex-col text-center mt-5 text-[#1075B2] underline cursor-pointer text-[15px] ProductSansLight">
+                    {/* <a>Все товары категории</a> */}
                     <a>Все товары бренда DELL</a>
                 </div>
             </div>

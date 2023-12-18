@@ -21,11 +21,11 @@ export default function ProductPage() {
                 {/* <CompanyInfo /> */}
             </div>
             <div className="w-full flex justify-center mt-5">
-                <p className="text-justify text-blue-600 text-[18px] ProductSansLight max-w-[90%]">ВАМ МОЖЕТ ПОНРАВИТЬСЯ</p>
+                <p className="text-justify text-[#1075B2] text-[18px] ProductSansLight max-w-[90%]">ВАМ МОЖЕТ ПОНРАВИТЬСЯ</p>
             </div>
             <PopularProducts type="popular"/>
             <div className="w-full flex justify-center mt-[-90px]">
-                <p className="text-justify text-blue-600 text-[18px] ProductSansLight max-w-[90%]">ПЕРСОНАЛЬНЫЕ РЕКОМЕНДАЦИИ</p>
+                <p className="text-justify text-[#1075B2] text-[18px] ProductSansLight max-w-[90%]">ПЕРСОНАЛЬНЫЕ РЕКОМЕНДАЦИИ</p>
             </div>
             <PopularProducts type="popular"/>
 
