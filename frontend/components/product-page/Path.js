@@ -1,11 +1,19 @@
-const Path = () => {
+import Link from "next/link";
+
+const Path = ({ path }) => {
     return (
         <div className="flex align-middle mt-4">
-            <a className="text-blue-400 cursor-pointer hover:underline">ОБОРУДОВАНИЕ</a>
-            <h2 className="text-blue-400 text-2xl mr-3 ml-3 mt-[-5px]">{'>'}</h2>
-            <a className="text-blue-400 cursor-pointer hover:underline">Серверы и серверное оборудование</a>
-            <h2 className="text-blue-400 text-2xl mr-3 ml-3 mt-[-5px]">{'>'}</h2>
-            <a className="text-blue-400 cursor-pointer hover:underline">Сервер Dell PowerEdge R540 (210-ALZH-B)</a>
+
+            {
+                path.map((element, index) => {
+                    return (
+                        <div key={index} className={"flex"}>
+                            <Link  href={""} className="text-[#1075B2] cursor-pointer hover:underline">{element.title}</Link>
+                            {(path.length - 1) != index ? <h2 className="text-[#1075B2] text-2xl mr-3 ml-3 mt-[-5px]">{'>'}</h2> : <></>}
+                        </div>
+                    );
+                } )
+            }
         </div>
     )
 }

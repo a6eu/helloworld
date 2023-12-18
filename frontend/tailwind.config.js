@@ -46,8 +46,15 @@ module.exports = {
                 'first': "url('/images/Rectangle 9.svg')",
                 'second': "url('/images/Rectangle 10.svg')",
                 'third': "url('/images/Rectangle 11.svg')",
-
             },
+            keyframes: {
+                loading: {
+                    "0%, 100%": { transform: "rotate(360deg)" }
+                }
+            },
+            animation: {
+                loading: "loading 200ms ease-in-out"
+            }
         },
     },
     plugins: [],

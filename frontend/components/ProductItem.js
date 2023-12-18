@@ -1,42 +1,87 @@
+import React from 'react';
+import styles from "@/styles/Products.module.css";
+import Link from "next/link";
 import Image from "next/image";
-import PropTypes from "prop-types";
+import plus from "@/public/images/plus.svg";
+import minus from "@/public/images/minus.svg";
+import {Rating} from "@smastrom/react-rating";
+import Price from "@/components/Price";
 
-const ProductItem = ({ img_url, rating, is_favorite, name, price }) => (
-  <div className="w-[220px] h-[370px] bg-white m-2 flex flex-col items-center rounded-md">
-    <div className="w-[200px] h-[200px] bg-gray-200 mt-2 rounded-md flex flex-col justify-center">
-      <Image src={img_url} alt={name} width={200} height={200} />
-    </div>
+const floatValues = [0.29, 1.44, 2.31, 3.48, 4.52];
 
-    <div className="flex justify-between w-full p-2">
-      <div className="flex">
-        {Array.from({ length: Math.ceil(rating) }, (_, index) => (
-          <Image key={index} src="/images/starfilled.svg" width={20} height={20} alt="star"/>
-        ))}
-        {Array.from({ length: 5 - Math.ceil(rating) }, (_, index) => (
-          <Image key={index} src="/images/starunfilled.svg" width={20} height={20} alt="star"/>
-        ))}
-      </div>
+const ProductItem = ({ product }) => {
 
-      <div>
-        {is_favorite ? (
-          <Image src="/images/bookmark.svg" width={20} height={20} alt="star" />
-        ) : (
-          <Image src="/images/Vector.svg" width={20} height={20} alt="star" />
-        )}
-      </div>
-    </div>
+    const formatName = (title) => {
+        let words = title.split(" ")
+        let formattedTitle = "";
 
-    <div className="p-3 pt-0 pb-2">{name}</div>
-    <h1 className="text-xl self-start pl-3 pb-2">{price} ₸</h1>
-  </div>
-);
+        for (let i = 0; i < words.length && formattedTitle.length < 30; i++) {
+            formattedTitle += words[i] + " ";
+        }
+        if (formattedTitle.length > 30) {
+            formattedTitle += "..."
+        }
 
-ProductItem.propTypes = {
-  imageUrl: PropTypes.string.isRequired,
-  stars: PropTypes.number.isRequired,
-  isBookmarked: PropTypes.bool.isRequired,
-  name: PropTypes.string.isRequired,
-  price: PropTypes.number.isRequired,
+        return formattedTitle;
+    }
+
+
+    return (
+        <Link href={{
+            pathname: `/products/${encodeURIComponent(product.name)}`
+        }} key={product.id}>
+            <div className={styles.productCard}>
+                <div className={styles.imageCard}>
+                </div>
+                <div className="flex w-full ml-3 justify-between">
+                    <Stars starAvg={floatValues[Math.floor(Math.random() * 5)]}/>
+                    <Image
+                        src="./images/bookmark.svg"
+                        height={16}
+                        width={16}
+                        alt="favourites"
+                        className="mr-4"
+                    />
+                </div>
+                <div className={styles.nameAndPrice}>
+                    <p className="text-[14px] pr-1 ProductSansLight mb-3">{formatName(product.name)}</p>
+                    <Price price={product.price} fSizeOfDigit={16} fSizeOfCurrency={13} />
+
+                </div>
+                <div className={styles.piecesAndToBucket}>
+                    <div className={styles.quantity}>
+                        <button
+                            className="bg-[#e9e9e9] border-solid border-1px mr-customMargin rounded-sm w-5 flex justify-center items-center h-6">
+                            <Image className="w-3" src={plus} alt="+"/>
+                        </button>
+                        <button
+                            className="text-white bg-[#1075B2] mr-customMargin border-solid rounded-sm w-5 h-6">1
+                        </button>
+                        <button
+                            className="bg-[#e9e9e9] border-solid border-1px rounded-sm w-5 flex justify-center items-center h-6">
+                            <Image className="w-3" src={minus} alt="-"/>
+                        </button>
+                    </div>
+                    <button className={styles.toBucket}>
+                        В КОРЗИНУ
+                    </button>
+                </div>
+            </div>
+        </Link>
+    );
 };
+
+const Stars = (starAvg) => {
+    return (
+        <div>
+            <Rating
+                style={{maxWidth: 80}}
+                readOnly
+                orientation="horizontal"
+                value={starAvg.starAvg}
+            />
+        </div>
+    )
+}
 
 export default ProductItem;

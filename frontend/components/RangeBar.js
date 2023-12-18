@@ -1,7 +1,6 @@
+import React, {useState} from 'react';
 
-import React, { useState } from 'react';
-
-const RangeBar = ({ products, onFilterChange }) => {
+const RangeBar = () => {
   const [priceRange, setPriceRange] = useState([0, 10000000]);
 
   const handleRangeChange = (event) => {
@@ -10,11 +9,12 @@ const RangeBar = ({ products, onFilterChange }) => {
   };
 
   return (
-    <div className='w-full h-[20px] '>
+    <div className='w-full flex pl-2 h-[20px] '>
       <input
+          className={'w-[80%]'}
         type="range"
         min="0"
-        max="10000000"
+        max="100000000"
         value={priceRange[1]}
         onChange={handleRangeChange}
       />

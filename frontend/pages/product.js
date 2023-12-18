@@ -2,7 +2,7 @@ import Footer from "@/components/Footer";
 import Header from "@/components/Header";
 import Head from "next/head";
 import Filter from "@/components/Filter";
-import Catalog from "@/components/Catalog";
+import Catalog from "@/components/CatalogProducts";
 import Pagination from "@/components/Pagination"
 import { useState } from "react";
 
