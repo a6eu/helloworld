@@ -7,9 +7,6 @@ function CategoryChooser() {
     const [popularDesign, setPopularDesign] = useState("text-[#1075B2]");
     const [recommendedDesign, setRecommendedDesign] = useState("text-[#1075B2]");
 
-   
-
-    
 
     function typeSet(typeProd) {
         setType(typeProd);
@@ -44,8 +41,7 @@ function CategoryChooser() {
                     МЫ РЕКОМЕНДУЕМ
                 </button>
             </div>
-            {/* <FilteredProducts type={type}/> */}
-            <FilteredProducts/> 
+            <FilteredProducts type={type}/>
         </div>
     );
 }

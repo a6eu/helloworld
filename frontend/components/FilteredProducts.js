@@ -9,10 +9,10 @@ import axios from 'axios';
 
 import '@smastrom/react-rating/style.css'
 
-function FilteredProducts() {
-    // console.log(props.type);
+function FilteredProducts(type) {
     const [products, setProducts] = useState([]);
-
+    
+    
     useEffect(() => {
         const fetchProducts = async () => {
           try {
@@ -21,12 +21,11 @@ function FilteredProducts() {
             const initialProducts = response.data.results.slice(0, 20);
             const shuffledProducts = shuffleArray(initialProducts);
             setProducts(shuffledProducts);
-            // setProducts(response.data.results.slice(0, 20)); 
           } catch (error) {
             console.error('Error fetching products:', error);
           }
         };
-        
+
         const shuffleArray = (array) => {
           for (let i = array.length - 1; i > 0; i--) {
             const j = Math.floor(Math.random() * (i + 1));
