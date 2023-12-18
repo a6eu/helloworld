@@ -26,7 +26,8 @@
           "price": "5000"
         }
       ]
-    },{
+    },
+    {
       "id": "1",
       "created_at": "2023/12/15 08:00:00",
       "updated_at": "2023/12/15 08:30:00",
@@ -79,7 +80,8 @@
           "price": "5000"
         }
       ]
-    },{
+    },
+    {
       "id": "1",
       "created_at": "2023/12/15 08:00:00",
       "updated_at": "2023/12/15 08:30:00",
@@ -105,7 +107,8 @@
           "price": "5000"
         }
       ]
-    },{
+    },
+    {
       "id": "1",
       "created_at": "2023/12/15 08:00:00",
       "updated_at": "2023/12/15 08:30:00",
@@ -131,7 +134,8 @@
           "price": "5000"
         }
       ]
-    },{
+    },
+    {
       "id": "1",
       "created_at": "2023/12/15 08:00:00",
       "updated_at": "2023/12/15 08:30:00",
@@ -157,7 +161,8 @@
           "price": "5000"
         }
       ]
-    },{
+    },
+    {
       "id": "1",
       "created_at": "2023/12/15 08:00:00",
       "updated_at": "2023/12/15 08:30:00",
@@ -183,7 +188,8 @@
           "price": "5000"
         }
       ]
-    },{
+    },
+    {
       "id": "1",
       "created_at": "2023/12/15 08:00:00",
       "updated_at": "2023/12/15 08:30:00",
@@ -209,7 +215,8 @@
           "price": "5000"
         }
       ]
-    },{
+    },
+    {
       "id": "1",
       "created_at": "2023/12/15 08:00:00",
       "updated_at": "2023/12/15 08:30:00",
@@ -235,7 +242,8 @@
           "price": "5000"
         }
       ]
-    },{
+    },
+    {
       "id": "1",
       "created_at": "2023/12/15 08:00:00",
       "updated_at": "2023/12/15 08:30:00",
@@ -259,59 +267,6 @@
           "product_desc": "Precision gaming mouse with customizable RGB lighting.",
           "vendor_image_url": "https://example.com/images/gaming-mouse.jpg",
           "price": "5000"
-        }
-      ]
-    },{
-      "id": "1",
-      "created_at": "2023/12/15 08:00:00",
-      "updated_at": "2023/12/15 08:30:00",
-      "total_price": "120000",
-      "status": "ДОСТАВЛЕНО",
-      "order_items": [
-        {
-          "product_id": "acer-nitro-5",
-          "product_name": "Acer Nitro 5 Gaming Laptop",
-          "quantity": 1,
-          "product_url": "https://example.com/product/acer-nitro-5",
-          "product_desc": "Powerful gaming laptop with Intel Core i5, NVIDIA GeForce GTX, and high-refresh-rate display.",
-          "vendor_image_url": "https://example.com/images/acer-nitro-5.jpg",
-          "price": "120000"
-        },
-        {
-          "product_id": "gaming-mouse",
-          "product_name": "Gaming Mouse",
-          "quantity": 1,
-          "product_url": "https://example.com/product/gaming-mouse",
-          "product_desc": "Precision gaming mouse with customizable RGB lighting.",
-          "vendor_image_url": "https://example.com/images/gaming-mouse.jpg",
-          "price": "5000"
-        },
-        {
-          "id": "1",
-          "created_at": "2023/12/15 08:00:00",
-          "updated_at": "2023/12/15 08:30:00",
-          "total_price": "120000",
-          "status": "ДОСТАВЛЕНО",
-          "order_items": [
-            {
-              "product_id": "acer-nitro-5",
-              "product_name": "Acer Nitro 5 Gaming Laptop",
-              "quantity": 1,
-              "product_url": "https://example.com/product/acer-nitro-5",
-              "product_desc": "Powerful gaming laptop with Intel Core i5, NVIDIA GeForce GTX, and high-refresh-rate display.",
-              "vendor_image_url": "https://example.com/images/acer-nitro-5.jpg",
-              "price": "120000"
-            },
-            {
-              "product_id": "gaming-mouse",
-              "product_name": "Gaming Mouse",
-              "quantity": 1,
-              "product_url": "https://example.com/product/gaming-mouse",
-              "product_desc": "Precision gaming mouse with customizable RGB lighting.",
-              "vendor_image_url": "https://example.com/images/gaming-mouse.jpg",
-              "price": "5000"
-            }
-          ]
         }
       ]
     },
@@ -370,431 +325,6 @@
       ]
     },
     {
-      "id": "1",
-      "created_at": "2023/12/15 08:00:00",
-      "updated_at": "2023/12/15 08:30:00",
-      "total_price": "120000",
-      "status": "ДОСТАВЛЕНО",
-      "order_items": [
-        {
-          "product_id": "acer-nitro-5",
-          "product_name": "Acer Nitro 5 Gaming Laptop",
-          "quantity": 1,
-          "product_url": "https://example.com/product/acer-nitro-5",
-          "product_desc": "Powerful gaming laptop with Intel Core i5, NVIDIA GeForce GTX, and high-refresh-rate display.",
-          "vendor_image_url": "https://example.com/images/acer-nitro-5.jpg",
-          "price": "120000"
-        },
-        {
-          "product_id": "gaming-mouse",
-          "product_name": "Gaming Mouse",
-          "quantity": 1,
-          "product_url": "https://example.com/product/gaming-mouse",
-          "product_desc": "Precision gaming mouse with customizable RGB lighting.",
-          "vendor_image_url": "https://example.com/images/gaming-mouse.jpg",
-          "price": "5000"
-        },
-        {
-          "id": "1",
-          "created_at": "2023/12/15 08:00:00",
-          "updated_at": "2023/12/15 08:30:00",
-          "total_price": "120000",
-          "status": "ДОСТАВЛЕНО",
-          "order_items": [
-            {
-              "product_id": "acer-nitro-5",
-              "product_name": "Acer Nitro 5 Gaming Laptop",
-              "quantity": 1,
-              "product_url": "https://example.com/product/acer-nitro-5",
-              "product_desc": "Powerful gaming laptop with Intel Core i5, NVIDIA GeForce GTX, and high-refresh-rate display.",
-              "vendor_image_url": "https://example.com/images/acer-nitro-5.jpg",
-              "price": "120000"
-            },
-            {
-              "product_id": "gaming-mouse",
-              "product_name": "Gaming Mouse",
-              "quantity": 1,
-              "product_url": "https://example.com/product/gaming-mouse",
-              "product_desc": "Precision gaming mouse with customizable RGB lighting.",
-              "vendor_image_url": "https://example.com/images/gaming-mouse.jpg",
-              "price": "5000"
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "id": "1",
-      "created_at": "2023/12/15 08:00:00",
-      "updated_at": "2023/12/15 08:30:00",
-      "total_price": "120000",
-      "status": "ДОСТАВЛЕНО",
-      "order_items": [
-        {
-          "product_id": "acer-nitro-5",
-          "product_name": "Acer Nitro 5 Gaming Laptop",
-          "quantity": 1,
-          "product_url": "https://example.com/product/acer-nitro-5",
-          "product_desc": "Powerful gaming laptop with Intel Core i5, NVIDIA GeForce GTX, and high-refresh-rate display.",
-          "vendor_image_url": "https://example.com/images/acer-nitro-5.jpg",
-          "price": "120000"
-        },
-        {
-          "product_id": "gaming-mouse",
-          "product_name": "Gaming Mouse",
-          "quantity": 1,
-          "product_url": "https://example.com/product/gaming-mouse",
-          "product_desc": "Precision gaming mouse with customizable RGB lighting.",
-          "vendor_image_url": "https://example.com/images/gaming-mouse.jpg",
-          "price": "5000"
-        },
-        {
-          "id": "1",
-          "created_at": "2023/12/15 08:00:00",
-          "updated_at": "2023/12/15 08:30:00",
-          "total_price": "120000",
-          "status": "ДОСТАВЛЕНО",
-          "order_items": [
-            {
-              "product_id": "acer-nitro-5",
-              "product_name": "Acer Nitro 5 Gaming Laptop",
-              "quantity": 1,
-              "product_url": "https://example.com/product/acer-nitro-5",
-              "product_desc": "Powerful gaming laptop with Intel Core i5, NVIDIA GeForce GTX, and high-refresh-rate display.",
-              "vendor_image_url": "https://example.com/images/acer-nitro-5.jpg",
-              "price": "120000"
-            },
-            {
-              "product_id": "gaming-mouse",
-              "product_name": "Gaming Mouse",
-              "quantity": 1,
-              "product_url": "https://example.com/product/gaming-mouse",
-              "product_desc": "Precision gaming mouse with customizable RGB lighting.",
-              "vendor_image_url": "https://example.com/images/gaming-mouse.jpg",
-              "price": "5000"
-            }
-          ]
-        }
-      ]
-    },{
-      "id": "1",
-      "created_at": "2023/12/15 08:00:00",
-      "updated_at": "2023/12/15 08:30:00",
-      "total_price": "120000",
-      "status": "ДОСТАВЛЕНО",
-      "order_items": [
-        {
-          "product_id": "acer-nitro-5",
-          "product_name": "Acer Nitro 5 Gaming Laptop",
-          "quantity": 1,
-          "product_url": "https://example.com/product/acer-nitro-5",
-          "product_desc": "Powerful gaming laptop with Intel Core i5, NVIDIA GeForce GTX, and high-refresh-rate display.",
-          "vendor_image_url": "https://example.com/images/acer-nitro-5.jpg",
-          "price": "120000"
-        },
-        {
-          "product_id": "gaming-mouse",
-          "product_name": "Gaming Mouse",
-          "quantity": 1,
-          "product_url": "https://example.com/product/gaming-mouse",
-          "product_desc": "Precision gaming mouse with customizable RGB lighting.",
-          "vendor_image_url": "https://example.com/images/gaming-mouse.jpg",
-          "price": "5000"
-        },
-        {
-          "id": "1",
-          "created_at": "2023/12/15 08:00:00",
-          "updated_at": "2023/12/15 08:30:00",
-          "total_price": "120000",
-          "status": "ДОСТАВЛЕНО",
-          "order_items": [
-            {
-              "product_id": "acer-nitro-5",
-              "product_name": "Acer Nitro 5 Gaming Laptop",
-              "quantity": 1,
-              "product_url": "https://example.com/product/acer-nitro-5",
-              "product_desc": "Powerful gaming laptop with Intel Core i5, NVIDIA GeForce GTX, and high-refresh-rate display.",
-              "vendor_image_url": "https://example.com/images/acer-nitro-5.jpg",
-              "price": "120000"
-            },
-            {
-              "product_id": "gaming-mouse",
-              "product_name": "Gaming Mouse",
-              "quantity": 1,
-              "product_url": "https://example.com/product/gaming-mouse",
-              "product_desc": "Precision gaming mouse with customizable RGB lighting.",
-              "vendor_image_url": "https://example.com/images/gaming-mouse.jpg",
-              "price": "5000"
-            }
-          ]
-        }
-      ]
-    },{
-      "id": "1",
-      "created_at": "2023/12/15 08:00:00",
-      "updated_at": "2023/12/15 08:30:00",
-      "total_price": "120000",
-      "status": "ДОСТАВЛЕНО",
-      "order_items": [
-        {
-          "product_id": "acer-nitro-5",
-          "product_name": "Acer Nitro 5 Gaming Laptop",
-          "quantity": 1,
-          "product_url": "https://example.com/product/acer-nitro-5",
-          "product_desc": "Powerful gaming laptop with Intel Core i5, NVIDIA GeForce GTX, and high-refresh-rate display.",
-          "vendor_image_url": "https://example.com/images/acer-nitro-5.jpg",
-          "price": "120000"
-        },
-        {
-          "product_id": "gaming-mouse",
-          "product_name": "Gaming Mouse",
-          "quantity": 1,
-          "product_url": "https://example.com/product/gaming-mouse",
-          "product_desc": "Precision gaming mouse with customizable RGB lighting.",
-          "vendor_image_url": "https://example.com/images/gaming-mouse.jpg",
-          "price": "5000"
-        },
-        {
-          "id": "1",
-          "created_at": "2023/12/15 08:00:00",
-          "updated_at": "2023/12/15 08:30:00",
-          "total_price": "120000",
-          "status": "ДОСТАВЛЕНО",
-          "order_items": [
-            {
-              "product_id": "acer-nitro-5",
-              "product_name": "Acer Nitro 5 Gaming Laptop",
-              "quantity": 1,
-              "product_url": "https://example.com/product/acer-nitro-5",
-              "product_desc": "Powerful gaming laptop with Intel Core i5, NVIDIA GeForce GTX, and high-refresh-rate display.",
-              "vendor_image_url": "https://example.com/images/acer-nitro-5.jpg",
-              "price": "120000"
-            },
-            {
-              "product_id": "gaming-mouse",
-              "product_name": "Gaming Mouse",
-              "quantity": 1,
-              "product_url": "https://example.com/product/gaming-mouse",
-              "product_desc": "Precision gaming mouse with customizable RGB lighting.",
-              "vendor_image_url": "https://example.com/images/gaming-mouse.jpg",
-              "price": "5000"
-            }
-          ]
-        }
-      ]
-    },{
-      "id": "1",
-      "created_at": "2023/12/15 08:00:00",
-      "updated_at": "2023/12/15 08:30:00",
-      "total_price": "120000",
-      "status": "ДОСТАВЛЕНО",
-      "order_items": [
-        {
-          "product_id": "acer-nitro-5",
-          "product_name": "Acer Nitro 5 Gaming Laptop",
-          "quantity": 1,
-          "product_url": "https://example.com/product/acer-nitro-5",
-          "product_desc": "Powerful gaming laptop with Intel Core i5, NVIDIA GeForce GTX, and high-refresh-rate display.",
-          "vendor_image_url": "https://example.com/images/acer-nitro-5.jpg",
-          "price": "120000"
-        },
-        {
-          "product_id": "gaming-mouse",
-          "product_name": "Gaming Mouse",
-          "quantity": 1,
-          "product_url": "https://example.com/product/gaming-mouse",
-          "product_desc": "Precision gaming mouse with customizable RGB lighting.",
-          "vendor_image_url": "https://example.com/images/gaming-mouse.jpg",
-          "price": "5000"
-        },
-        {
-          "id": "1",
-          "created_at": "2023/12/15 08:00:00",
-          "updated_at": "2023/12/15 08:30:00",
-          "total_price": "120000",
-          "status": "ДОСТАВЛЕНО",
-          "order_items": [
-            {
-              "product_id": "acer-nitro-5",
-              "product_name": "Acer Nitro 5 Gaming Laptop",
-              "quantity": 1,
-              "product_url": "https://example.com/product/acer-nitro-5",
-              "product_desc": "Powerful gaming laptop with Intel Core i5, NVIDIA GeForce GTX, and high-refresh-rate display.",
-              "vendor_image_url": "https://example.com/images/acer-nitro-5.jpg",
-              "price": "120000"
-            },
-            {
-              "product_id": "gaming-mouse",
-              "product_name": "Gaming Mouse",
-              "quantity": 1,
-              "product_url": "https://example.com/product/gaming-mouse",
-              "product_desc": "Precision gaming mouse with customizable RGB lighting.",
-              "vendor_image_url": "https://example.com/images/gaming-mouse.jpg",
-              "price": "5000"
-            }
-          ]
-        }
-      ]
-    },{
-      "id": "1",
-      "created_at": "2023/12/15 08:00:00",
-      "updated_at": "2023/12/15 08:30:00",
-      "total_price": "120000",
-      "status": "ДОСТАВЛЕНО",
-      "order_items": [
-        {
-          "product_id": "acer-nitro-5",
-          "product_name": "Acer Nitro 5 Gaming Laptop",
-          "quantity": 1,
-          "product_url": "https://example.com/product/acer-nitro-5",
-          "product_desc": "Powerful gaming laptop with Intel Core i5, NVIDIA GeForce GTX, and high-refresh-rate display.",
-          "vendor_image_url": "https://example.com/images/acer-nitro-5.jpg",
-          "price": "120000"
-        },
-        {
-          "product_id": "gaming-mouse",
-          "product_name": "Gaming Mouse",
-          "quantity": 1,
-          "product_url": "https://example.com/product/gaming-mouse",
-          "product_desc": "Precision gaming mouse with customizable RGB lighting.",
-          "vendor_image_url": "https://example.com/images/gaming-mouse.jpg",
-          "price": "5000"
-        },
-        {
-          "id": "1",
-          "created_at": "2023/12/15 08:00:00",
-          "updated_at": "2023/12/15 08:30:00",
-          "total_price": "120000",
-          "status": "ДОСТАВЛЕНО",
-          "order_items": [
-            {
-              "product_id": "acer-nitro-5",
-              "product_name": "Acer Nitro 5 Gaming Laptop",
-              "quantity": 1,
-              "product_url": "https://example.com/product/acer-nitro-5",
-              "product_desc": "Powerful gaming laptop with Intel Core i5, NVIDIA GeForce GTX, and high-refresh-rate display.",
-              "vendor_image_url": "https://example.com/images/acer-nitro-5.jpg",
-              "price": "120000"
-            },
-            {
-              "product_id": "gaming-mouse",
-              "product_name": "Gaming Mouse",
-              "quantity": 1,
-              "product_url": "https://example.com/product/gaming-mouse",
-              "product_desc": "Precision gaming mouse with customizable RGB lighting.",
-              "vendor_image_url": "https://example.com/images/gaming-mouse.jpg",
-              "price": "5000"
-            }
-          ]
-        }
-      ]
-    },{
-      "id": "1",
-      "created_at": "2023/12/15 08:00:00",
-      "updated_at": "2023/12/15 08:30:00",
-      "total_price": "120000",
-      "status": "ДОСТАВЛЕНО",
-      "order_items": [
-        {
-          "product_id": "acer-nitro-5",
-          "product_name": "Acer Nitro 5 Gaming Laptop",
-          "quantity": 1,
-          "product_url": "https://example.com/product/acer-nitro-5",
-          "product_desc": "Powerful gaming laptop with Intel Core i5, NVIDIA GeForce GTX, and high-refresh-rate display.",
-          "vendor_image_url": "https://example.com/images/acer-nitro-5.jpg",
-          "price": "120000"
-        },
-        {
-          "product_id": "gaming-mouse",
-          "product_name": "Gaming Mouse",
-          "quantity": 1,
-          "product_url": "https://example.com/product/gaming-mouse",
-          "product_desc": "Precision gaming mouse with customizable RGB lighting.",
-          "vendor_image_url": "https://example.com/images/gaming-mouse.jpg",
-          "price": "5000"
-        },
-        {
-          "id": "1",
-          "created_at": "2023/12/15 08:00:00",
-          "updated_at": "2023/12/15 08:30:00",
-          "total_price": "120000",
-          "status": "ДОСТАВЛЕНО",
-          "order_items": [
-            {
-              "product_id": "acer-nitro-5",
-              "product_name": "Acer Nitro 5 Gaming Laptop",
-              "quantity": 1,
-              "product_url": "https://example.com/product/acer-nitro-5",
-              "product_desc": "Powerful gaming laptop with Intel Core i5, NVIDIA GeForce GTX, and high-refresh-rate display.",
-              "vendor_image_url": "https://example.com/images/acer-nitro-5.jpg",
-              "price": "120000"
-            },
-            {
-              "product_id": "gaming-mouse",
-              "product_name": "Gaming Mouse",
-              "quantity": 1,
-              "product_url": "https://example.com/product/gaming-mouse",
-              "product_desc": "Precision gaming mouse with customizable RGB lighting.",
-              "vendor_image_url": "https://example.com/images/gaming-mouse.jpg",
-              "price": "5000"
-            }
-          ]
-        }
-      ]
-    },{
-      "id": "1",
-      "created_at": "2023/12/15 08:00:00",
-      "updated_at": "2023/12/15 08:30:00",
-      "total_price": "120000",
-      "status": "ДОСТАВЛЕНО",
-      "order_items": [
-        {
-          "product_id": "acer-nitro-5",
-          "product_name": "Acer Nitro 5 Gaming Laptop",
-          "quantity": 1,
-          "product_url": "https://example.com/product/acer-nitro-5",
-          "product_desc": "Powerful gaming laptop with Intel Core i5, NVIDIA GeForce GTX, and high-refresh-rate display.",
-          "vendor_image_url": "https://example.com/images/acer-nitro-5.jpg",
-          "price": "120000"
-        },
-        {
-          "product_id": "gaming-mouse",
-          "product_name": "Gaming Mouse",
-          "quantity": 1,
-          "product_url": "https://example.com/product/gaming-mouse",
-          "product_desc": "Precision gaming mouse with customizable RGB lighting.",
-          "vendor_image_url": "https://example.com/images/gaming-mouse.jpg",
-          "price": "5000"
-        },
-        {
-          "id": "1",
-          "created_at": "2023/12/15 08:00:00",
-          "updated_at": "2023/12/15 08:30:00",
-          "total_price": "120000",
-          "status": "ДОСТАВЛЕНО",
-          "order_items": [
-            {
-              "product_id": "acer-nitro-5",
-              "product_name": "Acer Nitro 5 Gaming Laptop",
-              "quantity": 1,
-              "product_url": "https://example.com/product/acer-nitro-5",
-              "product_desc": "Powerful gaming laptop with Intel Core i5, NVIDIA GeForce GTX, and high-refresh-rate display.",
-              "vendor_image_url": "https://example.com/images/acer-nitro-5.jpg",
-              "price": "120000"
-            },
-            {
-              "product_id": "gaming-mouse",
-              "product_name": "Gaming Mouse",
-              "quantity": 1,
-              "product_url": "https://example.com/product/gaming-mouse",
-              "product_desc": "Precision gaming mouse with customizable RGB lighting.",
-              "vendor_image_url": "https://example.com/images/gaming-mouse.jpg",
-              "price": "5000"
-            }
-          ]
-        }
-      ]
-    },{
       "id": "1",
       "created_at": "2023/12/15 08:00:00",
       "updated_at": "2023/12/15 08:30:00",

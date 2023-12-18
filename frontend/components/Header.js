@@ -54,7 +54,6 @@ const Header = () => {
                            alt="logo"
                     />
                 </Link>
-
                 <div className={styles.searchArea}>
                     <CatalogDropdown className={styles.catalogButton}>
                         <HamburgerNav onClick={() => handleHamClick()}/>

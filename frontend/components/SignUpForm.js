@@ -11,7 +11,8 @@ const SignUpForm = ({onLogInClick}) => {
         setPassword(true);
     }
 
-    return (<form className="w-full max-w-lg px-[90px] flex flex-wrap mb-6">
+    return (
+        <form className="w-full max-w-lg px-[90px] flex flex-wrap mb-6">
         <div className="flex w-full justify-between flex-wrap mb-3">
             <div className="w-[47%]">
                 <label

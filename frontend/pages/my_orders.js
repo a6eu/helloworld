@@ -68,7 +68,7 @@ function my_orders(props) {
             <div className="flex justify-center">
                 <div className="flex justify-between w-full">
                     <UserNavbar/>
-                    <div className="w-4/5 mb-[200px] h-[80vh]">
+                    <div className="w-4/5 mb-[200px]">
                         <h3 className="text-[#1075B2] text-[15px] mt-4 uppercase">Мои заказы</h3>
 
                         <p className="font-sans mt-2 text-[#1075B2]">
@@ -76,14 +76,14 @@ function my_orders(props) {
                         </p>
 
                         {orders.length > 0 ? (
-                            <div className="flex flex-col shadow-lg rounded mt-1  bg-white w-full ">
+                            <div className="flex flex-col shadow-lg rounded mt-1 bg-white w-full ">
                                 <div className="flex h-[40px] py-3 shadow z-10 w-full font-sans border-b">
                                     <div className="flex w-1/4 pl-3">Номер заказа</div>
                                     <div className="flex w-1/4">Сумма заказа</div>
                                     <div className="flex w-1/4">Дата</div>
                                     <div className="flex w-1/4">Статус</div>
                                 </div>
-                                <div className="overflow-y-auto h-[80vh]">
+                                <div className="overflow-y-auto max-h-[80vh]">
                                     {orders.map((order, index) => (
                                         <Disclosure key={index}>
                                             {({open}) => (

@@ -1,0 +1,13 @@
+{
+  "User": [
+    {
+      "first_name": "Yerboalt",
+      "last_name": "Mukan",
+      "phone_number": "+77787942004",
+      "email": "test@gmail.com",
+      "gender": "female",
+      "birth_day": "31-01-2004",
+      "role_id": "role_id"
+    }
+  ]
+}
