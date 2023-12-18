@@ -4,10 +4,8 @@ import Price from "@/components/Price";
 import dell from "public/images/DELL.svg"
 import plus from "@/public/images/plus.svg";
 import minus from "@/public/images/minus.svg";
-import styles from "@/styles/Products.module.css";
 import {useEffect, useState} from "react";
 import {useRouter} from 'next/router';
-
 
 
 const ProductInfo = () => {

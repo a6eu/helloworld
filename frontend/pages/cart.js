@@ -36,15 +36,7 @@ function Cart(props) {
     const [fetchingStatus, setFetchingStatus] = useState(true)
     //Recommendations
     useEffect(() => {
-        axios.get(`https://jsonplaceholder.typicode.com/users`)
-            .then(res => {
-                const fetchedProducts = res.data;
-                setProducts(fetchedProducts);
-            })
-            .catch(error => {
-                console.error('Error fetching data:', error);
-                setFetchingStatus(false)
-            });
+        setProducts(imported.products)
     }, []);
 
     const increaseQuantity = (index) => {
