@@ -13,7 +13,7 @@ export default function ProductPage() {
    
     return (
         <MainContainer>
-            <Path />
+            <Path path={["БЕзопасность", "антивирусы",  "Adobe Flashn mnb nmnbnm"]}/>
             <ProductInfo />
             <div className="flex mt-5">
                 <DescriptionChooser />
