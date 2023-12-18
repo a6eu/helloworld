@@ -3,7 +3,7 @@ import Image from "next/image";
 import emptyBox from "../public/images/emptyBox.svg";
 import React from "react";
 
-const CatalogProducts = ({products}) => {
+const ProductsContainer = ({products}) => {
 
     return (
         <div className="flex w-[95%] flex-wrap">
@@ -26,4 +26,4 @@ const CatalogProducts = ({products}) => {
         </div>
     )
 }
-export default CatalogProducts;
+export default ProductsContainer;

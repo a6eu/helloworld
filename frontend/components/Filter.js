@@ -23,7 +23,6 @@ const Filter = ({setProducts, products}) => {
         let inRangeProducts = products.filter((product) => {
             return product.price >= min && product.price <= max;
         })
-
         setFilteredProducts(inRangeProducts)
     };
 
@@ -36,7 +35,9 @@ const Filter = ({setProducts, products}) => {
     };
 
     const applyFilteredProducts = () => {
-        const brandFilter = filteredProducts.filter((product) => {return (pickedBrands.length === 0 ? brands : pickedBrands).has(product.brand)})
+
+        const brandFilter = filteredProducts.filter((product) => {return (pickedBrands.size === 0 ? brands : pickedBrands).has(product.brand)})
+
         setFoundProducts(brandFilter);
         setProducts(brandFilter);
     }

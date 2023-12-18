@@ -7,14 +7,19 @@ import CityDropdownMenu from "@/components/CityDropdownMenu";
 import Link from "next/link";
 import MyDialog from "@/components/ModalDialog";
 import HamburgerNav from "@/components/HamburgerNav";
-import catalogImg from "../public/images/catalog_svg.svg"
+import favIconNonActive from "../public/images/Vector.svg";
+import cartIconNonActive from "../public/images/shoppingCartNormal.svg";
+import profileIconNonActive from "../public/images/person.svg";
+import favIconActive from "../public/images/favorites.svg";
+import cartIconActive from "../public/images/shoppingCartBlue.svg";
+import profileIconActive from "../public/images/profileImg.svg";
 
 
 const Header = () => {
     const [selectedCity, setSelectedCity] = useState('Алматы' || localStorage.getItem('city'));
-    const [favoritesImg, setFavoritesImg] = useState("./images/Vector.svg");
-    const [cartImg, setCartImg] = useState("./images/shoppingCartNormal.svg");
-    const [profileImg, setProfileImg] = useState("./images/person.svg");
+    const [favoritesImg, setFavoritesImg] = useState(favIconNonActive);
+    const [cartImg, setCartImg] = useState(cartIconNonActive);
+    const [profileImg, setProfileImg] = useState(profileIconNonActive);
 
 
     const handleCityChange = (city) => {
@@ -84,8 +89,8 @@ const Header = () => {
                                height={22}
                                width={22}
                                alt="favourites"
-                               onMouseOver={() => setFavoritesImg("./images/favorites.svg")}
-                               onMouseLeave={() => setFavoritesImg("./images/Vector.svg")}
+                               onMouseOver={() => setFavoritesImg(favIconActive)}
+                               onMouseLeave={() => setFavoritesImg(favIconNonActive)}
                         />
                     </Link>
                     <Link className={styles.cart} href={"/cart"}>
@@ -94,8 +99,8 @@ const Header = () => {
                                height={30}
                                width={30}
                                alt="cart"
-                               onMouseOver={() => setCartImg("./images/shoppingCartBlue.svg")}
-                               onMouseLeave={() => setCartImg("./images/shoppingCartNormal.svg")}
+                               onMouseOver={() => setCartImg(cartIconActive)}
+                               onMouseLeave={() => setCartImg(cartIconNonActive)}
                         />
                     </Link>
                     <div className={styles.person}
@@ -104,11 +109,11 @@ const Header = () => {
                         <Image
                             className="cursor-pointer"
                             src={profileImg}
-                            height={35}
+                                height={35}
                             width={35}
                             alt="profile"
-                            onMouseOver={() => setProfileImg("./images/profileImg.svg")}
-                            onMouseLeave={() => setProfileImg("./images/person.svg")}
+                            onMouseOver={() => setProfileImg(profileIconActive)}
+                            onMouseLeave={() => setProfileImg(profileIconNonActive)}
                         />
                     </div>
                 </div>
