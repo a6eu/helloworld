@@ -35,7 +35,7 @@ function FilteredProducts(type) {
         };
 
         fetchProducts();
-      }, []);
+      }, [type]);
 
 
     // console.log(products);
