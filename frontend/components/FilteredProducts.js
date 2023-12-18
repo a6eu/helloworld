@@ -9,10 +9,10 @@ import axios from 'axios';
 
 import '@smastrom/react-rating/style.css'
 
-function FilteredProducts() {
-    // console.log(props.type);
+function FilteredProducts(type) {
     const [products, setProducts] = useState([]);
-
+    
+    
     useEffect(() => {
         const fetchProducts = async () => {
           try {
@@ -21,12 +21,11 @@ function FilteredProducts() {
             const initialProducts = response.data.results.slice(0, 20);
             const shuffledProducts = shuffleArray(initialProducts);
             setProducts(shuffledProducts);
-            // setProducts(response.data.results.slice(0, 20)); 
           } catch (error) {
             console.error('Error fetching products:', error);
           }
         };
-        
+
         const shuffleArray = (array) => {
           for (let i = array.length - 1; i > 0; i--) {
             const j = Math.floor(Math.random() * (i + 1));
@@ -36,10 +35,8 @@ function FilteredProducts() {
         };
 
         fetchProducts();
-      }, []);
+      }, [type]);
 
-
-    // console.log(products);
       return (
         <div className="w-full h-[340px] mt-10 mb-20 flex justify-center">
           <div className={styles.container}>
@@ -66,7 +63,6 @@ function FilteredProducts() {
                     </div>
                     <div className={styles.piecesAndToBucket}>
                       <div className={styles.quantity}>
-                        {/* Add your quantity buttons here */}
                         <button className="bg-[#e9e9e9] border-solid border-1px mr-customMargin rounded-sm w-5 flex justify-center items-center h-6">
                               <Image className="w-3" src={plus} alt="+"/>
                          </button>
