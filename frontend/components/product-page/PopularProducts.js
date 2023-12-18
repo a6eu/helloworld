@@ -5,274 +5,90 @@ import Link from "next/link";
 import plus from "../../public/images/plus.svg"
 import minus from "../../public/images/minus.svg"
 import { Rating } from '@smastrom/react-rating'
+import axios from 'axios';
+
 
 import '@smastrom/react-rating/style.css'
-
-function PopularProducts(props) {
-    console.log(props.type);
+function PopularProducts() {
+    // console.log(props.type);
     const [products, setProducts] = useState([]);
 
-    const new_products = [
-        {
-            "id": 1,
-            "name": "Kaspersky Symphony",
-            "price": "313 200",
-            "description": "Kaspersky Symphony – это линейка решений, которая дает организациям всё необходимое для постепенной или одночастной реализации экосистемного подхода к корпоративной кибербезопасности. Все элементы этой экосистемы дополняют и усиливают друг друга, позволяя обеспечить надежную защиту от кибератак любой сложности и непрерывность",
-            "category_id": "5",
-            "brand_id": "4",
-            "img_url": "https://example.com/kaspersky_symphony.jpg",
-            "quantity": 5,
-            "in_basket": true,
-            "is_favorite": false,
-            "tags": [
-                {
-                    "id": 1,
-                    "tag_name": "popular"
-                }
-            ],
-            "rating": 4.5
-        },
-        {
-            "id": 2,
-            "name": "Zhanik",
-            "price": "313 200",
-            "description": "Kaspersky Symphony – это линейка решений, которая дает организациям всё необходимое для постепенной или одночастной реализации экосистемного подхода к корпоративной кибербезопасности. Все элементы этой экосистемы дополняют и усиливают друг друга, позволяя обеспечить надежную защиту от кибератак любой сложности и непрерывность",
-            "category_id": "5",
-            "brand_id": "4",
-            "img_url": "https://example.com/kaspersky_symphony.jpg",
-            "quantity": 5,
-            "in_basket": true,
-            "is_favorite": false,
-            "tags": [
-                {
-                    "id": 1,
-                    "tag_name": "popular"
-                }
-            ],
-            "rating": 4.5
-        }
-    ]
-
-    const popular = [
-        {
-            "id": 3,
-            "name": "Erbo",
-            "price": "313 200",
-            "description": "Kaspersky Symphony – это линейка решений, которая дает организациям всё необходимое для постепенной или одночастной реализации экосистемного подхода к корпоративной кибербезопасности. Все элементы этой экосистемы дополняют и усиливают друг друга, позволяя обеспечить надежную защиту от кибератак любой сложности и непрерывность",
-            "category_id": "5",
-            "brand_id": "4",
-            "img_url": "https://example.com/kaspersky_symphony.jpg",
-            "quantity": 5,
-            "in_basket": true,
-            "is_favorite": false,
-            "tags": [
-                {
-                    "id": 1,
-                    "tag_name": "popular"
-                }
-            ],
-            "rating": 4.5
-        },
-        {
-            "id": 4,
-            "name": "Zhanbo",
-            "price": "313 200",
-            "description": "Kaspersky Symphony – это линейка решений, которая дает организациям всё необходимое для постепенной или одночастной реализации экосистемного подхода к корпоративной кибербезопасности. Все элементы этой экосистемы дополняют и усиливают друг друга, позволяя обеспечить надежную защиту от кибератак любой сложности и непрерывность",
-            "category_id": "5",
-            "brand_id": "4",
-            "img_url": "https://example.com/kaspersky_symphony.jpg",
-            "quantity": 5,
-            "in_basket": true,
-            "is_favorite": false,
-            "tags": [
-                {
-                    "id": 1,
-                    "tag_name": "popular"
-                }
-            ],
-            "rating": 4.5
-        },
-        {
-            "id": 4,
-            "name": "Yerbo",
-            "price": "500 200",
-            "description": "Kaspersky Symphony – это линейка решений, которая дает организациям всё необходимое для постепенной или одночастной реализации экосистемного подхода к корпоративной кибербезопасности. Все элементы этой экосистемы дополняют и усиливают друг друга, позволяя обеспечить надежную защиту от кибератак любой сложности и непрерывность",
-            "category_id": "5",
-            "brand_id": "4",
-            "img_url": "https://example.com/kaspersky_symphony.jpg",
-            "quantity": 5,
-            "in_basket": true,
-            "is_favorite": false,
-            "tags": [
-                {
-                    "id": 1,
-                    "tag_name": "popular"
-                }
-            ],
-            "rating": 4.5
-        },
-        {
-            "id": 4,
-            "name": "Zhanbo",
-            "price": "313 200",
-            "description": "Kaspersky Symphony – это линейка решений, которая дает организациям всё необходимое для постепенной или одночастной реализации экосистемного подхода к корпоративной кибербезопасности. Все элементы этой экосистемы дополняют и усиливают друг друга, позволяя обеспечить надежную защиту от кибератак любой сложности и непрерывность",
-            "category_id": "5",
-            "brand_id": "4",
-            "img_url": "https://example.com/kaspersky_symphony.jpg",
-            "quantity": 5,
-            "in_basket": true,
-            "is_favorite": false,
-            "tags": [
-                {
-                    "id": 1,
-                    "tag_name": "popular"
-                }
-            ],
-            "rating": 4.5
-        },
-        {
-            "id": 4,
-            "name": "Yerbo",
-            "price": "313 200",
-            "description": "Kaspersky Symphony – это линейка решений, которая дает организациям всё необходимое для постепенной или одночастной реализации экосистемного подхода к корпоративной кибербезопасности. Все элементы этой экосистемы дополняют и усиливают друг друга, позволяя обеспечить надежную защиту от кибератак любой сложности и непрерывность",
-            "category_id": "5",
-            "brand_id": "4",
-            "img_url": "https://example.com/kaspersky_symphony.jpg",
-            "quantity": 5,
-            "in_basket": true,
-            "is_favorite": false,
-            "tags": [
-                {
-                    "id": 1,
-                    "tag_name": "popular"
-                }
-            ],
-            "rating": 5.0
-        },
-        {
-            "id": 4,
-            "name": "Beksh",
-            "price": "313 200",
-            "description": "Kaspersky Symphony – это линейка решений, которая дает организациям всё необходимое для постепенной или одночастной реализации экосистемного подхода к корпоративной кибербезопасности. Все элементы этой экосистемы дополняют и усиливают друг друга, позволяя обеспечить надежную защиту от кибератак любой сложности и непрерывность",
-            "category_id": "5",
-            "brand_id": "4",
-            "img_url": "https://example.com/kaspersky_symphony.jpg",
-            "quantity": 5,
-            "in_basket": true,
-            "is_favorite": false,
-            "tags": [
-                {
-                    "id": 1,
-                    "tag_name": "popular"
-                }
-            ],
-            "rating": 4.5
-        },
-        
-    ]
-
-    const recomended = [
-        {
-            "id": 5,
-            "name": "Syr",
-            "price": "313 200",
-            "description": "Kaspersky Symphony – это линейка решений, которая дает организациям всё необходимое для постепенной или одночастной реализации экосистемного подхода к корпоративной кибербезопасности. Все элементы этой экосистемы дополняют и усиливают друг друга, позволяя обеспечить надежную защиту от кибератак любой сложности и непрерывность",
-            "category_id": "5",
-            "brand_id": "4",
-            "img_url": "https://example.com/kaspersky_symphony.jpg",
-            "quantity": 5,
-            "in_basket": true,
-            "is_favorite": false,
-            "tags": [
-                {
-                    "id": 1,
-                    "tag_name": "popular"
-                }
-            ],
-            "rating": 4.5
-        },
-        {
-            "id": 6,
-            "name": "Adil",
-            "price": "313 200",
-            "description": "Kaspersky Symphony – это линейка решений, которая дает организациям всё необходимое для постепенной или одночастной реализации экосистемного подхода к корпоративной кибербезопасности. Все элементы этой экосистемы дополняют и усиливают друг друга, позволяя обеспечить надежную защиту от кибератак любой сложности и непрерывность",
-            "category_id": "5",
-            "brand_id": "4",
-            "img_url": "https://example.com/kaspersky_symphony.jpg",
-            "quantity": 5,
-            "in_basket": true,
-            "is_favorite": false,
-            "tags": [
-                {
-                    "id": 1,
-                    "tag_name": "popular"
-                }
-            ],
-            "rating": 4.5
-        }
-    ]
-
     useEffect(() => {
-        if (props.type === "new") {
-            setProducts(new_products);
-        } else if (props.type === "popular") {
-            setProducts(popular);
-        } else {
-            setProducts(recomended);
-        }
-    }, [props.type]);
+        const fetchProducts = async () => {
+          try {
+            const response = await axios.get('https://helloworlddjangotestdeploy-production.up.railway.app/api/v1/products/');
+            console.log(response.data);
+            const initialProducts = response.data.results.slice(0, 20);
+            const shuffledProducts = shuffleArray(initialProducts);
+            setProducts(shuffledProducts);
+            // setProducts(response.data.results.slice(0, 20)); 
+          } catch (error) {
+            console.error('Error fetching products:', error);
+          }
+        };
+        
+        const shuffleArray = (array) => {
+          for (let i = array.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [array[i], array[j]] = [array[j], array[i]];
+          }
+          return array;
+        };
 
-    const floatValues = [0.29, 1.44, 2.31, 3.48, 4.52];
+        fetchProducts();
+      }, []);
 
-    console.log(products);
 
-    return (
-                    <div className="w-full h-[22rem] mb-32 flex justify-center">
-                        <div className={styles.container}>
-                            {products.map(product => (
-                                <Link href="" to={`/products/${product.id}`} key={product.id}>
-                                    <div className={styles.productCard}>
-                                        <div className={styles.imageCard}>
-                                        </div>
-                                        <div className="flex w-full ml-3 justify-between">
-                                            <Stars starAvg={floatValues[Math.floor(Math.random()*5)]} />
-                                            <Image
-                                                src="./images/bookmark.svg"
-                                                height={16}
-                                                width={16}
-                                                alt="favourites"
-                                                className="mr-4"
-                                            />
-                                        </div>
-                                        <div className={styles.nameAndPrice}>
-                                            <p className="text-xs w-10/12 ProductSansLight">{product.name}</p>
-                                            <p className="ProductSansMedium">{product.price} ₸</p>
-                                        </div>
-                                        <div className={styles.piecesAndToBucket}>
-                                            <div className={styles.quantity}>
-                                                <button
-                                                    className="bg-[#e9e9e9] border-solid border-1px mr-customMargin rounded-sm w-5 flex justify-center items-center h-6">
-                                                    <Image className="w-3" src={plus} alt="+"/>
-                                                </button>
-                                                <button
-                                                    className="text-white bg-[#1075B2] mr-customMargin border-solid rounded-sm w-5 h-6">1
-                                                </button>
-                                                <button
-                                                    className="bg-[#e9e9e9] border-solid border-1px rounded-sm w-5 flex justify-center items-center h-6">
-                                                    <Image className="w-3" src={minus} alt="-"/>
-                                                </button>
-                                            </div>
-                                            <button className={styles.toBucket}>
-                                                В КОРЗИНУ
-                                            </button>
-                                        </div>
-                                    </div>
-                                </Link>
-                            ))}
-                        </div>
+    // console.log(products);
+      return (
+        <div className="w-full h-[340px] mt-10 mb-20 flex justify-center">
+          <div className={styles.container}>
+            {products.map((product) => (
+              <Link href={`/products/${product.id}`} key={product.id}>
+                {/* <a> */}
+                  <div className={styles.productCard}>
+                    <div className={styles.imageCard}>
+                      <Image objectFit="cover" src={product.img_url} alt={product.name} width={150}  height={150} />
                     </div>
-    );
+                    <div className="flex w-full ml-3 justify-between">
+                      <Stars starAvg={parseFloat(product.rating_total)} />
+                      <Image
+                        src="./images/bookmark.svg"
+                        height={16}
+                        width={16}
+                        alt="favourites"
+                        className="mr-4"
+                      />
+                    </div>
+                    <div className={styles.nameAndPrice}>
+                      <p className="text-xs w-10/12 ProductSansLight">{product.name}</p>
+                      <p className="ProductSansMedium">{product.price} ₸</p>
+                    </div>
+                    <div className={styles.piecesAndToBucket}>
+                      <div className={styles.quantity}>
+                        {/* Add your quantity buttons here */}
+                        <button className="bg-[#e9e9e9] border-solid border-1px mr-customMargin rounded-sm w-5 flex justify-center items-center h-6">
+                              <Image className="w-3" src={plus} alt="+"/>
+                         </button>
+                         <button className="text-white bg-[#1075B2] mr-customMargin border-solid rounded-sm w-5 h-6">1</button>
+                         <button className="bg-[#e9e9e9] border-solid border-1px rounded-sm w-5 flex justify-center items-center h-6">
+                             <Image className="w-3" src={minus} alt="-"/>
+                         </button>
+                      </div>
+                      <button className={styles.toBucket}>
+                        В КОРЗИНУ
+                      </button>
+                    </div>
+                  </div>
+                {/* </a> */}
+              </Link>
+            ))}
+          </div>
+        </div>
+      );
+    
 }
+
 
 function Stars(starAvg) {
     return (
