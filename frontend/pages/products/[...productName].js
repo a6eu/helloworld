@@ -21,8 +21,6 @@ export default function ProductPage() {
                 <p className="text-justify text-[#1075B2] text-[18px] ProductSansLight max-w-[90%]">ПЕРСОНАЛЬНЫЕ РЕКОМЕНДАЦИИ</p>
             </div>
             <PopularProducts type="popular"/>
-
-            
         </MainContainer>
     );
 }

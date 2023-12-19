@@ -23,7 +23,7 @@ function ModalDialog({isModalOpen, setIsModelOpen}) {
 
             <Dialog as="div" className="select-none fixed top-0 left-0 w-full h-full bg-black bg-opacity-20 z-50" open={isModalOpen} onClose={() => {setIsModelOpen(false)}}>
                 {isSignUp ? (
-                    <Dialog.Panel className="fixed flex-wrap justify-center bg-white w-1/3 top-[20%] left-[33%] rounded-lg pt-5 ">
+                    <Dialog.Panel className="fixed flex-wrap flex justify-center bg-white w-1/3 top-[20%] left-[33%] rounded-lg pt-5 ">
                         <Dialog.Title className="flex justify-center w-full text-[#1075B2] text-xl mb-6">
                             Зарегистрируйтесь, чтобы быть круче
                         </Dialog.Title>
@@ -31,7 +31,7 @@ function ModalDialog({isModalOpen, setIsModelOpen}) {
                     </Dialog.Panel>
                 ) : isLogIn ? (
                     <Dialog.Panel
-                        className="fixed flex-wrap justify-center bg-white w-1/3 top-[20%] left-[33%] rounded-lg pt-5">
+                        className="fixed flex-wrap flex  justify-center bg-white w-1/3 top-[20%] left-[33%] rounded-lg pt-5">
                         <Dialog.Title className="flex justify-center text-[#1075B2] text-xl mb-6">
                             Добро пожаловать!
                         </Dialog.Title>

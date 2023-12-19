@@ -50,7 +50,7 @@ const SignUpForm = ({onLogInClick}) => {
     }
 
     return (
-        <form className="w-full max-w-lg px-[90px] flex flex-wrap mb-6">
+        <form className="w-full max-w-lg px-[50px] flex flex-wrap mb-6">
         <div className="flex w-full justify-between flex-wrap mb-3">
             <div className="w-[47%]">
                 <label

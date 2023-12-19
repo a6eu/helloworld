@@ -54,7 +54,7 @@ const LogInForm = ({onSignUpClick, setIsModelOpen}) => {
 
 
     return (
-        <form className="w-full max-w-lg px-[90px] flex flex-wrap mt-10 mb-6">
+        <form className="w-full max-w-lg px-[50px] flex flex-wrap mt-10 mb-6">
             <div className="flex w-full flex-wrap mb-6">
                 <div className="w-full">
                     <label

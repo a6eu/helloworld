@@ -7,10 +7,10 @@ import HamburgerNav from "@/components/HamburgerNav";
 import burger from "@/public/images/catalog_svg.svg";
 import X from "../public/images/X.svg";
 import axios from 'axios';
+import Link from "next/link";
 
 let timeoutId;
-
-export default function CatalogDropdown(isHamOpen) {
+export default function CategoriesDropdown(isHamOpen) {
     const [ctg, setCtg] = useState([]);
     const [selectedCtg, setSelectedCtg] = useState(0);
     const [subCtg, setSubCtg] = useState([])
@@ -25,6 +25,8 @@ export default function CatalogDropdown(isHamOpen) {
             try {
                 const response = await axios.get('https://helloworlddjangotestdeploy-production.up.railway.app/api/v1/categories/');
                 setCtg(response.data);
+                console.log("categories", response.data)
+                setSubCtg(response.data[0].children)
             } catch (error) {
                 console.error('Error fetching data:', error);
             }
@@ -116,10 +118,10 @@ export default function CatalogDropdown(isHamOpen) {
                                         }}>
                                     <span
                                         className={(selectedCtg === index) ? "absolute right-0 w-full h-2.5 bg-white -top-2.5  before:absolute before:top-0 before:right-0 before:w-full before:h-full before:rounded-br-full before:bg-slate-200" : ""}></span>
-                                        <span
-                                            className={(selectedCtg === index) ? "font-thin text-[15px] font-normal cursor-default p-2 block text-[#1075B2]" : "font-thin text-[15px] font-normal cursor-default p-2 block text-[#text-[#000]]"}>
+                                        <Link
+                                            href={"/[...categoryProducts]"} as={`/${encodeURIComponent(item.name)}`} className={(selectedCtg === index) ? "font-thin text-[15px] font-normal cursor-default p-2 block text-[#1075B2]" : "font-thin text-[15px] font-normal cursor-default p-2 block text-[#text-[#000]]"}>
                                         {item.name}
-                                    </span>
+                                    </Link>
                                         <span
                                             className={(selectedCtg === index) ? "absolute left-0 w-full h-2 bg-white before:absolute before:top-0 before:left-0 before:w-full before:h-full before:rounded-tr-full before:bg-slate-200" : ""}></span>
                                     </li>
@@ -144,14 +146,16 @@ export default function CatalogDropdown(isHamOpen) {
                                         }
                                     </div>
                                     <div>
-                                        <span className={"hover:text-[#1075B2] hover:cursor-pointer"}>
+                                        <Link className={"hover:text-[#1075B2] hover:cursor-pointer"} href={"/[...categoryProducts]"} as={`/${encodeURIComponent(ctg[selectedCtg].name)}/${item.name}`}>
                                             {item.name}
-                                        </span>
+                                        </Link>
                                         <ul className={"text-left pl-1 mt-2"}>
                                             {item.children.map((children) => (
                                                 <li key={children.id}
                                                     className={"text-[#606060] hover:text-[#1075B2] hover:cursor-pointer mb-1.5 ProductSansLight"}>
-                                                    {children.name}
+                                                    <Link href={"/[...categoryProducts]"} as={`/${encodeURIComponent(ctg[selectedCtg-1].name)}/${item.name}/${children.name}`}>
+                                                        {children.name}
+                                                    </Link>
                                                 </li>
                                             ))}
                                         </ul>

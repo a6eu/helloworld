@@ -2,7 +2,7 @@
 import styles from "../styles/Home.module.css";
 import Image from "next/image";
 import React, {useEffect, useState} from 'react';
-import CatalogDropdown from "@/components/CatalogDropdown";
+import CategoriesDropdown from "@/components/CategoriesDropdown";
 import CityDropdownMenu from "@/components/CityDropdownMenu";
 import Link from "next/link";
 import ModalDialog from "@/components/ModalDialog";
@@ -92,9 +92,9 @@ const Header = () => {
                     />
                 </Link>
                 <div className={styles.searchArea}>
-                    <CatalogDropdown className={styles.catalogButton}>
+                    <CategoriesDropdown className={styles.catalogButton}>
                         <HamburgerNav onClick={() => handleHamClick()}/>
-                    </CatalogDropdown>
+                    </CategoriesDropdown>
                     <div className={styles.searchBar}>
                         <div className={styles.typeArea}></div>
                         <button className={styles.searchButton}>
