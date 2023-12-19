@@ -5,7 +5,8 @@ import React, {Fragment, useEffect, useState} from "react";
 import imported from "../catalog_data.json"
 import HamburgerNav from "@/components/HamburgerNav";
 import catalogImg from "@/public/images/catalog_svg.svg";
-import X from "../public/images/X.svg"
+import X from "../public/images/X.svg";
+import axios from 'axios';
 
 let timeoutId;
 export default function CatalogDropdown(isHamOpen) {
@@ -15,20 +16,20 @@ export default function CatalogDropdown(isHamOpen) {
     const [changeToX, setChangeToX] = useState(catalogImg);
     const [state, setState] = useState("opened");
     const [focused, setFocused] = useState("focused");
+
+    const [categories, setCategories] = useState([]);
+
     useEffect(() => {
-        const initCtg = async () => {
+        const fetchData = async () => {
             try {
-                const res = await imported
-                setCtg(res);
-                setSubCtg(res[0].children)
+                const response = await axios.get('https://helloworlddjangotestdeploy-production.up.railway.app/api/v1/categories/');
+                setCtg(response.data);
             } catch (error) {
                 console.error('Error fetching data:', error);
             }
         };
 
-        initCtg().then(r => {
-            console.log(r)
-        });
+        fetchData();
     }, []);
 
     function debounce(func, delay) {

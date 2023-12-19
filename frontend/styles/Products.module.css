@@ -60,6 +60,9 @@ box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #
     background-color: #F6F6F6;
     border-radius: 3px;
     transition: 300ms;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .piecesAndToBucket {

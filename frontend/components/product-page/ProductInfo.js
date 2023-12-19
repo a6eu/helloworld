@@ -15,7 +15,7 @@ const ProductInfo = () => {
     const {productName} = router.query;
 
     useEffect(() => {
-        console.log(router.query)
+        console.log("query", router.query)
         console.log(router.query.url)
     }, [])
 

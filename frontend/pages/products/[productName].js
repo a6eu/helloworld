@@ -12,14 +12,12 @@ export default function ProductPage() {
             <ProductInfo />
             <div className="flex mt-5">
                 <DescriptionChooser />
-                {/* <Reviews /> */}
-                {/* <CompanyInfo /> */}
             </div>
             <div className="w-full flex justify-center mt-5">
                 <p className="text-justify text-[#1075B2] text-[18px] ProductSansLight max-w-[90%]">ВАМ МОЖЕТ ПОНРАВИТЬСЯ</p>
             </div>
             <PopularProducts type="popular"/>
-            <div className="w-full flex justify-center mt-[-90px]">
+            <div className="w-full flex justify-center mt-[-50px]">
                 <p className="text-justify text-[#1075B2] text-[18px] ProductSansLight max-w-[90%]">ПЕРСОНАЛЬНЫЕ РЕКОМЕНДАЦИИ</p>
             </div>
             <PopularProducts type="popular"/>

@@ -4,8 +4,6 @@ import Image from "next/image";
 const Product = (props) => {
   return (
     <div className="bg-neutral-100 flex flex-col items-stretch">
-      
-
       <div className="self-center flex w-full max-w-[1112px] flex-col mt-5 px-5 max-md:max-w-full">
         <div className="flex items-start gap-3.5 self-start max-md:max-w-full max-md:flex-wrap max-md:justify-center">
           <div className="justify-center text-sky-700 text-xs font-medium tracking-wide uppercase self-center whitespace-nowrap my-auto">
@@ -544,19 +542,17 @@ const Product = (props) => {
           </div>
           <div className="shadow-sm bg-white self-stretch flex grow basis-[0%] flex-col px-2 py-2.5 rounded-md">
             <Image
-
                 alt={"hi"}
-              loading="lazy"
-              srcSet="..."
-              className="aspect-[1.07] object-contain object-center w-44 overflow-hidden self-center"
+                loading="lazy"
+                srcSet="..."
+                className="aspect-[1.07] object-contain object-center w-44 overflow-hidden self-center"
             />
             <div className="self-stretch flex justify-between gap-5 mt-2 px-px items-start">
               <Image
-
                   alt={"hi"}
-                loading="lazy"
-                src="https://cdn.builder.io/api/v1/image/assets/TEMP/4f46639430b05853b3fdb2c649523f52cba7cdb0263fd18324a795f589de990c?"
-                className="aspect-[6.08] object-contain object-center w-[73px] overflow-hidden shrink-0 max-w-full"
+                  loading="lazy"
+                  src="https://cdn.builder.io/api/v1/image/assets/TEMP/4f46639430b05853b3fdb2c649523f52cba7cdb0263fd18324a795f589de990c?"
+                  className="aspect-[6.08] object-contain object-center w-[73px] overflow-hidden shrink-0 max-w-full"
               />
               <Image
                 loading="lazy"

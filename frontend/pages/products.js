@@ -7,7 +7,7 @@ import Path from "@/components/product-page/Path";
 import {useEffect, useState} from "react";
 
 const Products = () => {
-    const path = ["Название каталога", "Название каталога"];
+    const path = ["Название каталога", "Название каталога"]
     const [products, setProducts] = useState(imported.products);
     const [filterResult, setFilterResult] = useState(imported.products);
     const [selectedOption, setSelectedOption] = useState('без сортировки');

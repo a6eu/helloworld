@@ -13,6 +13,7 @@ import dell from "../public/images/DELL.svg"
 import dellPhoto from "../public/images/dellPowerEdge.svg"
 import {RadioGroup} from "@headlessui/react";
 import axios from "axios";
+import PopularProducts from '@/components/product-page/PopularProducts';
 
 function goToHome() {
     window.location.href = '/';
@@ -72,9 +73,7 @@ function Cart(props) {
                     <div className={styles.containerWithProducts}>
                         <div
                             className="w-full ProductSansLight text-md text-[#1075B2] pl-3 py-3 border-b-1px flex justify-between">
-                            <p>В
-                                КОРЗИНЕ {cartWithProducts.length} {(cartWithProducts.length === 1) ? "ТОВАР" :
-                                    "ТОВАРА"}</p>
+                            <p>Количество товаров в корзине:  <span className="ProductSansMedium">  {cartWithProducts.length}</span> </p>
                             <button
                                 onClick={() => cleanCart()}
                                 className="w-40 h-6 mr-3 text-[11px] bg-[#1075B2] text-white rounded-[6px] flex justify-center items-center">
@@ -170,7 +169,9 @@ function Cart(props) {
                 </div>
                 <h3 className="flex justify-center mt-12 ProductSansLight text-xl text-[#1075B2]">ПЕРСОНАЛЬНЫЕ
                     РЕКОМЕНДАЦИИ</h3>
-                <Products products={products} fetchingStatus={fetchingStatus}/>
+                    <PopularProducts />
+
+                {/* <Products products={products} fetchingStatus={fetchingStatus}/> */}
             </MainContainer>
         )
     } else {
@@ -190,7 +191,8 @@ function Cart(props) {
                 <div>
                     <h3 className="flex justify-center mt-12 ProductSansLight text-xl text-[#1075B2]">ПЕРСОНАЛЬНЫЕ
                         РЕКОМЕНДАЦИИ</h3>
-                    <Products products={products} fetchingStatus={fetchingStatus}/>
+                    {/* <Products products={products} fetchingStatus={fetchingStatus}/> */}
+                    <PopularProducts />
                 </div>
             </MainContainer>
         )

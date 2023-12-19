@@ -35,17 +35,15 @@ const ProductItem = ({ product }) => {
                 </div>
                 <div className="flex w-full ml-3 justify-between">
                     <Stars starAvg={Math.random() * 4+1}/>
-                    <Image
-                        src="./images/bookmark.svg"
-                        height={16}
-                        width={16}
-                        alt="favourites"
-                        className="mr-4"
-                    />
+                    <svg className="mr-4" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path
+                            d="M11.7286 2.21464C12.4619 2.29998 12.9999 2.93264 12.9999 3.67131V14L7.99994 11.5L2.99994 14V3.67131C2.99994 2.93264 3.53727 2.29998 4.27127 2.21464C6.74873 1.92707 9.25115 1.92707 11.7286 2.21464Z"
+                            stroke="#4CC3F2" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
                 </div>
                 <div className={styles.nameAndPrice}>
                     <p className="text-[14px] pr-1 ProductSansLight mb-3">{formatName(product.name)}</p>
-                    <Price price={product.price} fSizeOfDigit={16} fSizeOfCurrency={13} />
+                    <Price price={product.price} fSizeOfDigit={16} fSizeOfCurrency={13}/>
 
                 </div>
                 <div className={styles.piecesAndToBucket}>
