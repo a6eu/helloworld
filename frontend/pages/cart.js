@@ -33,6 +33,35 @@ function Cart(props) {
     let quantity = 0;
     let wholePrice = 0;
 
+
+
+    const [products, setProducts] = useState([]);
+    const [fetchingStatus, setFetchingStatus] = useState(true)
+
+
+    const getBasket = async () => {
+        try {
+            const response = await axios.get('https://helloworlddjangotestdeploy-production.up.railway.app/api/v1/basket\n', {
+                headers: {
+                    Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+                },
+            });
+
+            console.log(response.data)
+            console.log(response.data)
+            setCartWithProducts(response.data.products)
+            setProducts(response.data.products)
+        } catch (error) {
+            console.error('Error fetching products:', error);
+        }
+    };
+
+
+    useEffect(() => {
+        setProducts(imported.products)
+        getBasket()
+    }, []);
+
     const increaseQuantity = (index) => {
         const updatedCart = [...cartWithProducts];
         updatedCart[index].quantity += 1;
@@ -47,14 +76,36 @@ function Cart(props) {
         }
     }
 
-    const removeItem = (index) => {
-        const updatedCart = [...cartWithProducts];
-        updatedCart.splice(index, 1)
-        setCartWithProducts(updatedCart)
-    }
+    const removeItem = async (index) => {
+        try {
+            const response = await axios.delete(`https://helloworlddjangotestdeploy-production.up.railway.app/api/v1/basket/products/${index}`, {
+                headers: {
+                    Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+                },
+            });
 
-    const cleanCart = () => {
-        setCartWithProducts([])
+            console.log(response.data.message);
+            getBasket();
+        } catch (error) {
+            console.error('Error removing product:', error);
+        }
+    };
+
+
+
+    const cleanCart = async () => {
+        try {
+            const response = await axios.delete(`https://helloworlddjangotestdeploy-production.up.railway.app/api/v1/basket`, {
+                headers: {
+                    Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+                },
+            });
+
+            console.log(response.data.message);
+            getBasket();
+        } catch (error) {
+            console.error('Error cleaning bucket', error);
+        }
     }
 
 
@@ -77,26 +128,26 @@ function Cart(props) {
                                 ></Image>ОЧИСТИТЬ КОРЗИНУ
                             </button>
                         </div>
-                        {cartWithProducts.map((product, index) => (
+                        {cartWithProducts.map((result, index) => (
                                 <ul key={index}>
                                     <RadioGroup>
                                         <li>
                                             <div className="hidden">
-                                                {quantity += product.quantity}</div>
+                                                {quantity += result.quantity}</div>
                                             <div className="hidden">
-                                                {wholePrice += product.price * product.quantity}</div>
+                                                {wholePrice += result.product.price * result.quantity}</div>
                                             <div className="h-auto flex align-center pb-6 border-b-1px">
                                                 <Image className="ml-10" src={dellPhoto} alt="Product Photo"></Image>
                                                 <div className="flex-col ProductSansLight ml-10 mt-4">
-                                                    <div className="text-[20px]">{product.name}</div>
-                                                    <div className="ProductSansMedium text-lg">{product.price} ₸</div>
-                                                    <div className="text-[12px] w-2/3 mt-4">{product.description}</div>
+                                                    <div className="text-[20px]">{result.product.name}</div>
+                                                    <div className="ProductSansMedium text-lg">{result.product.price} ₸</div>
+                                                    <div className="text-[12px] w-2/3 mt-4">{result.product.description}</div>
                                                     <div className="flex justify-between items-center">
                                                         {/*---------------------FIX THAT---------------------*/}
                                                         <Image className="mt-4" src={dell}
                                                                alt="Company Logo"></Image>
                                                         <div className="flex items-center pt-6">
-                                                            <button onClick={() => removeItem(index)}><Image
+                                                            <button onClick={() => removeItem(result.product.id)}><Image
                                                                 className="mr-4"
                                                                 src={trashBin}
                                                                 alt="trashBin"></Image>
@@ -109,7 +160,7 @@ function Cart(props) {
                                                             </button>
                                                             <div
                                                                 className="text-white bg-[#1075B2] mx-0.5 text-center mr-customMargin border-solid rounded-[3px] w-5 h-6">
-                                                                {product.quantity}
+                                                                {result.quantity}
                                                             </div>
                                                             <button
                                                                 onClick={() => decreaseQuantity(index)}
@@ -118,7 +169,7 @@ function Cart(props) {
                                                             </button>
 
                                                             <div
-                                                                className="mr-4 ProductSansMedium text-lg w-24">{product.price * product.quantity} ₸
+                                                                className="mr-4 ProductSansMedium text-lg w-24">{result.total_price} ₸
                                                             </div>
                                                         </div>
                                                     </div>
@@ -163,6 +214,8 @@ function Cart(props) {
                 <h3 className="flex justify-center mt-12 ProductSansLight text-xl text-[#1075B2]">ПЕРСОНАЛЬНЫЕ
                     РЕКОМЕНДАЦИИ</h3>
                     <PopularProducts />
+
+                {/* <Products products={products} fetchingStatus={fetchingStatus}/> */}
             </MainContainer>
         )
     } else {
@@ -182,6 +235,7 @@ function Cart(props) {
                 <div>
                     <h3 className="flex justify-center mt-12 ProductSansLight text-xl text-[#1075B2]">ПЕРСОНАЛЬНЫЕ
                         РЕКОМЕНДАЦИИ</h3>
+                    {/* <Products products={products} fetchingStatus={fetchingStatus}/> */}
                     <PopularProducts />
                 </div>
             </MainContainer>
