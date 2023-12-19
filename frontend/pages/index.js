@@ -1,8 +1,7 @@
 import News from '@/components/News';
 import AboutCompany from "@/components/AboutCompany";
 import Companies from '@/components/Companies';
-import Products from '@/components/Products';
-import React, { useState, useEffect } from 'react';
+import React, {useEffect, useState} from 'react';
 import ModalWindow from '@/components/ModalWindow';
 import MainContainer from "@/components/MainContainer";
 import CategoryChooser from "@/components/CategoryChooser";

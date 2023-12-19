@@ -6,7 +6,6 @@ import DescriptionChooser from "@/components/product-page/DescriptionChooser";
 
 
 export default function ProductPage() {
-   
     return (
         <MainContainer>
             <Path path={["Безопасность", "антивирусы",  "Adobe Flash you"]}/>

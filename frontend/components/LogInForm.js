@@ -1,16 +1,58 @@
 import {Dialog} from "@headlessui/react";
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
+import axios from "axios";
 
-const LogInForm = ({onSignUpClick}) =>  {
-    const [isPassword, setPassword] = useState(true);
+const LogInForm = ({onSignUpClick, setIsModelOpen}) => {
+    const [emailOrPhone, setEmailOrPhone] = useState("");
+    const [password, setPassword] = useState("");
+    const [loginError, setLoginError] = useState("");
+    const [isPassword, setIsPassword] = useState(true);
 
     function handleShowClick() {
-        setPassword(false);
+        setIsPassword(false);
     }
 
     function handleHideClick() {
-        setPassword(true);
+        setIsPassword(true);
     }
+
+    const login = (e) => {
+        e.preventDefault();
+
+        const url = 'https://helloworlddjangotestdeploy-production.up.railway.app/auth/users/login/';
+
+        const requestBody = {
+            "email_or_phone": emailOrPhone,
+            "password": password
+        }
+
+        axios.post(url, requestBody)
+            .then((res) => {
+                console.log("response");
+                console.log(res);
+                localStorage.setItem("accessToken", res.data.access);
+                localStorage.setItem("refreshToken", res.data.refresh);
+                setIsModelOpen(false);
+            })
+            .catch((error) => {
+                console.log("ERROR");
+                console.error(error);
+                if (error.response && error.response.data && error.response.data.error) {
+                    setLoginError(error.response.data.error);
+                } else {
+                    console.log("OTHER ERROR")
+                    console.log(error)
+                }
+            });
+
+
+    }
+
+    useEffect(() => {
+        console.log(loginError)
+    }, [loginError])
+
+
     return (
         <form className="w-full max-w-lg px-[90px] flex flex-wrap mt-10 mb-6">
             <div className="flex w-full flex-wrap mb-6">
@@ -22,6 +64,9 @@ const LogInForm = ({onSignUpClick}) =>  {
                     </label>
                     <input
                         className="appearance-none block w-full bg-white text-gray-700 border border-[#1075B2] rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500 hover:shadow-lg transition duration-500"
+                        onChange={(e) => {
+                            setEmailOrPhone(e.target.value)
+                        }}
                     />
                 </div>
             </div>
@@ -39,6 +84,9 @@ const LogInForm = ({onSignUpClick}) =>  {
                             type={isPassword ? ("password") : !isPassword ? ("text") : ("password")}
                             placeholder="••••••••••••••••"
                             className=" appearance-none block w-full bg-white text-gray-700 border border-[#1075B2] rounded py-3 px-4  leading-tight focus:outline-none focus:bg-white focus:border-gray-500 hover:shadow-lg transition duration-500"
+                            onChange={(e) => {
+                                setPassword(e.target.value)
+                            }}
                         />
                         <div
                             className="cursor-pointer absolute inset-y-0 right-0 flex rounded-none items-center px-2 text-gray-700">
@@ -81,10 +129,18 @@ const LogInForm = ({onSignUpClick}) =>  {
                     </div>
                 </div>
             </div>
+            {
+                loginError ?
+                    <div className="flex flex-wrap w-full justify-center">
+                        <p className="flex justify-center mt-3 text-[14px] text-red-400">
+                            {loginError}
+                        </p>
+                    </div> : <></>
+            }
             <div className="flex w-full flex-wrap justify-center">
                 <input
                     className="flex flex-wrap w-[50%] h-8 bg-[#1075B2] justify-center text-white rounded"
-                    type="submit" value="Войти"/>
+                    type="submit" value="Войти" onClick={(e) => {login(e)}}/>
             </div>
             <div className="flex w-full justify-center">
                 <p className="flex mt-7 text-[14px]">

@@ -1,12 +1,14 @@
-import React,{ useState } from 'react'
+import React from 'react'
+import { useState } from 'react'
 import { Dialog } from '@headlessui/react'
 import SignUpForm from '@/components/SignUpForm';
 import LogInForm  from '@/components/LogInForm';
 
 
-function MyDialog({isModalOpen, onClose}) {
+function ModalDialog({isModalOpen, setIsModelOpen}) {
     const [isSignUp, setSignUp] = useState(false)
     const [isLogIn, setLogIn] = useState(false)
+
     function handleSignUpClick() {
         setSignUp(true)
     }
@@ -19,7 +21,7 @@ function MyDialog({isModalOpen, onClose}) {
 
     return (
 
-            <Dialog as="div" className="select-none fixed top-0 left-0 w-full h-full bg-black bg-opacity-20 z-50" open={isModalOpen} onClose={onClose}>
+            <Dialog as="div" className="select-none fixed top-0 left-0 w-full h-full bg-black bg-opacity-20 z-50" open={isModalOpen} onClose={() => {setIsModelOpen(false)}}>
                 {isSignUp ? (
                     <Dialog.Panel className="fixed flex-wrap justify-center bg-white w-1/3 top-[20%] left-[33%] rounded-lg pt-5 ">
                         <Dialog.Title className="flex justify-center w-full text-[#1075B2] text-xl mb-6">
@@ -30,16 +32,17 @@ function MyDialog({isModalOpen, onClose}) {
                 ) : isLogIn ? (
                     <Dialog.Panel
                         className="fixed flex-wrap justify-center bg-white w-1/3 top-[20%] left-[33%] rounded-lg pt-5">
-                        <Dialog.Title className="flex justify-center text-[#1075B2] text-xl mb-6">Добро пожаловать!
+                        <Dialog.Title className="flex justify-center text-[#1075B2] text-xl mb-6">
+                            Добро пожаловать!
                         </Dialog.Title>
-                         <LogInForm onSignUpClick={handleSignUpClick}/>
+                        <LogInForm onSignUpClick={handleSignUpClick} setIsModelOpen={setIsModelOpen}/>
                     </Dialog.Panel>
                 ) : (
                     <Dialog.Panel
                         className="fixed flex-wrap justify-center bg-white w-1/3 top-[20%] left-[33%] rounded-lg pt-5">
                         <Dialog.Title className="flex justify-center text-[#1075B2] text-xl mb-6">ДОБРО ПОЖАЛОВАТЬ!
                         </Dialog.Title>
-                        <LogInForm onSignUpClick={handleSignUpClick}/>
+                        <LogInForm onSignUpClick={handleSignUpClick} setIsModelOpen={setIsModelOpen}/>
                     </Dialog.Panel>
                 )}
             </Dialog>
@@ -47,7 +50,7 @@ function MyDialog({isModalOpen, onClose}) {
     )
 }
 
-export default MyDialog
+export default ModalDialog
 
 
 
