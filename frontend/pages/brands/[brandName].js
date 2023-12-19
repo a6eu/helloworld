@@ -14,7 +14,7 @@ function BrandName() {
 
     useEffect( () => {
         if (brandName) {
-            axios.get(`https://helloworlddjangotestdeploy-production.up.railway.app/api/v1/brands/${brandName.toUpperCase()})}`).then(
+            axios.get(`https://helloworlddjangotestdeploy-production.up.railway.app/api/v1/brands/${brandName}`).then(
                 (response) => {
                     setData(response.data);
 

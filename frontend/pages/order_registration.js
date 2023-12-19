@@ -1,27 +1,46 @@
-'use client'
 import MainContainer from "@/components/MainContainer";
-import React, {useState} from "react";
-import imported from "@/profile.json";
+import React, {useEffect, useState} from "react";
 import Image from "next/image";
 import dellPhoto from "@/public/images/dellPowerEdge.svg";
-import order_reg from "@/order_reg.json"
+import axios from "axios";
 
 export default function order_registration() {
-    const user = imported.User[0];
+    const [profile, setProfile] = useState({});
     const object = order_reg.orders[0].order_items;
 
+    useEffect(() => {
+        const getProfile = async () => {
+            const url = "https://helloworlddjangotestdeploy-production.up.railway.app/auth/users/profile/";
+            const bearerToken = localStorage.getItem("accessToken");
+
+            const config = {
+                headers: {
+                    Authorization: `Bearer ${bearerToken}`,
+                },
+            };
+
+            try {
+                const response = await axios.get(url, config);
+                setProfile(response.data);
+                console.log(response);
+            } catch (error) {
+                console.log("Error");
+                console.log(error);
+            }
+        }
+
+        console.log("reload")
+        getProfile().then(r => {
+            console.log(r);
+        })
+    }, [])
+
     let totalCost = 0;
-    // eslint-disable-next-line react-hooks/rules-of-hooks
     const [name, setName] = useState('');
-    // eslint-disable-next-line react-hooks/rules-of-hooks
     const [phone, setPhone] = useState('');
-    // eslint-disable-next-line react-hooks/rules-of-hooks
     const [field, setField] = useState('')
-    // eslint-disable-next-line react-hooks/rules-of-hooks
     const [fieldError, setFieldError] = useState('')
-    // eslint-disable-next-line react-hooks/rules-of-hooks
     const [nameError, setNameError] = useState('');
-    // eslint-disable-next-line react-hooks/rules-of-hooks
     const [phoneError, setPhoneError] = useState('');
 
     const validateField = () => {
@@ -39,6 +58,7 @@ export default function order_registration() {
             setPhoneError('Введите корректный номер телефона');
             return false;
         }
+
         setPhoneError('');
         return true;
     }
@@ -84,9 +104,9 @@ export default function order_registration() {
                                 <div className="">
                                     <h1 className="text-xl">1. Покупатель</h1>
                                     <div className="mt-5 px-3 flex flex-col gap-1">
-                                        <h2 className=""> {user.phone_number}</h2>
-                                        <h3 className="font-sans"> {user.first_name} {user.last_name}</h3>
-                                        <h3 className="font-sans"> {user.email}</h3>
+                                        <h2 className=""> {profile.phone_number}</h2>
+                                        <h3 className="font-sans"> {profile.first_name} {profile.last_name}</h3>
+                                        <h3 className="font-sans"> {profile.email}</h3>
                                     </div>
                                 </div>
                                 <span className="text-[#1075B2] underline cursor-pointer">Ихменить</span>

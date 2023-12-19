@@ -42,7 +42,7 @@ const SignUpForm = ({onLogInClick}) => {
             } catch (e) {
                 console.log("ERROR")
                 console.error(e);
-                setValidationError(e.response.data.error);
+                setValidationError(e.response.data);
             }
         } else {
             setValidationError("Пароли не совпадают :(   ");
@@ -178,8 +178,9 @@ const SignUpForm = ({onLogInClick}) => {
         {
             validationError ?
                 <div className="flex flex-wrap w-full justify-center">
-                    <p className="flex justify-center mt-3 text-[14px] text-red-400">
-                        {validationError}
+                    <p className="flex justify-center text-center mt-3 text-[14px] text-red-400">
+                        {validationError.error ? validationError.error : ""}
+                        {validationError.phone_number ? validationError.phone_number : ""}
                     </p>
                 </div> : <></>
         }
