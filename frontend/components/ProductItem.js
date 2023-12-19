@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import styles from "@/styles/Products.module.css";
 import Link from "next/link";
 import Image from "next/image";
@@ -10,7 +10,6 @@ import Price from "@/components/Price";
 const floatValues = [0.29, 1.44, 2.31, 3.48, 4.52];
 
 const ProductItem = ({ product }) => {
-
     const formatName = (title) => {
         let words = title.split(" ")
         let formattedTitle = "";
