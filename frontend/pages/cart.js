@@ -33,13 +33,6 @@ function Cart(props) {
     let quantity = 0;
     let wholePrice = 0;
 
-    const [products, setProducts] = useState([]);
-    const [fetchingStatus, setFetchingStatus] = useState(true)
-    //Recommendations
-    useEffect(() => {
-        setProducts(imported.products)
-    }, []);
-
     const increaseQuantity = (index) => {
         const updatedCart = [...cartWithProducts];
         updatedCart[index].quantity += 1;
@@ -170,8 +163,6 @@ function Cart(props) {
                 <h3 className="flex justify-center mt-12 ProductSansLight text-xl text-[#1075B2]">ПЕРСОНАЛЬНЫЕ
                     РЕКОМЕНДАЦИИ</h3>
                     <PopularProducts />
-
-                {/* <Products products={products} fetchingStatus={fetchingStatus}/> */}
             </MainContainer>
         )
     } else {
@@ -191,7 +182,6 @@ function Cart(props) {
                 <div>
                     <h3 className="flex justify-center mt-12 ProductSansLight text-xl text-[#1075B2]">ПЕРСОНАЛЬНЫЕ
                         РЕКОМЕНДАЦИИ</h3>
-                    {/* <Products products={products} fetchingStatus={fetchingStatus}/> */}
                     <PopularProducts />
                 </div>
             </MainContainer>
