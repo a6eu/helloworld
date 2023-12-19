@@ -8,10 +8,12 @@ function Favorites() {
     const [filterResult, setFilterResult] = useState(imported.products);
     return (
         <MainContainer>
-            <div className="flex">
+            <div className="flex w-full">
                 <UserNavbar/>
-                <div className="my-4">
-                    <h1 className="ProductSansLight font-medium ml-3 text-blue-700">ИЗБРАННЫЕ</h1>
+                <div className="my-4 w-3/4 flex flex-col ">
+                    <div className={"w-full flex start"}>
+                        <h1 className="ProductSansLight font-medium ml-3 text-[#1075B2]">ИЗБРАННЫЕ</h1>
+                    </div>
                     <ProductsContainer products={filterResult}/>
                 </div>
             </div>

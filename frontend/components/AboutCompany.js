@@ -10,7 +10,7 @@ const AboutCompany = () => {
             </div>
             <div className="ProductSansLight w-1/3">
                 <div className={styles.toTheLeft}>
-                    <p className="text-blue-500 text-2xl pb-7">О КОМПАНИИ</p>
+                    <p className="text-[#1075b2] text-2xl pb-7">О КОМПАНИИ</p>
                 </div>
                 <p className="text-xl">ASTANA IT GROUP</p>
                 <br/>

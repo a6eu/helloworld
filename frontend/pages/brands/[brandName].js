@@ -13,13 +13,11 @@ function BrandName() {
     const [isLoading, setIsLoading] = useState(false);
 
     useEffect( () => {
-
-
-
         if (brandName) {
-            axios.get(`https://helloworlddjangotestdeploy-production.up.railway.app/api/v1/brands/${brandName}`).then(
+            axios.get(`https://helloworlddjangotestdeploy-production.up.railway.app/api/v1/brands/${brandName.toUpperCase()})}`).then(
                 (response) => {
-                    setData(response.data)
+                    setData(response.data);
+
                 }
             ).catch(
                 (error) => {

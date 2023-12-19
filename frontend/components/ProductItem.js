@@ -15,7 +15,7 @@ const ProductItem = ({ product }) => {
         let words = title.split(" ")
         let formattedTitle = "";
 
-        for (let i = 0; i < words.length && formattedTitle.length < 30; i++) {
+        for (let i = 0; i < words.length && formattedTitle.length < 20; i++) {
             formattedTitle += words[i] + " ";
         }
         if (formattedTitle.length > 30) {
@@ -31,8 +31,7 @@ const ProductItem = ({ product }) => {
             pathname: `/products/${encodeURIComponent(product.naxme)}`
         }} key={product.id}>
             <div className={styles.productCard}>
-                <div className={styles.imageCard}>
-                </div>
+                <Image className={"pt-2"} src={product.img_url} alt={product.name} width={180} height={180}/>
                 <div className="flex w-full ml-3 justify-between">
                     <Stars starAvg={Math.random() * 4+1}/>
                     <svg className="mr-4" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">

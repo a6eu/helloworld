@@ -69,6 +69,7 @@ box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #
     width: 180px;
     justify-content: space-between;
     margin-bottom: 10px;
+    margin-top: 10px;
     visibility: hidden;
     display: flex;
 }

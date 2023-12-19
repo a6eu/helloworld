@@ -36,7 +36,6 @@ const Header = () => {
         const access = localStorage.getItem('accessToken');
         const refresh = localStorage.getItem('refreshToken');
 
-        console.log("REFREEEEESH")
         console.log(access + "\n" + refresh)
         if (access && refresh) {
             setIsLogged(true);
