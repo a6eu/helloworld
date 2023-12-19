@@ -10,8 +10,9 @@ import axios from 'axios';
 
 import '@smastrom/react-rating/style.css'
 function PopularProducts() {
-    // console.log(props.type);
     const [products, setProducts] = useState([]);
+
+
 
     useEffect(() => {
         const fetchProducts = async () => {
@@ -21,7 +22,6 @@ function PopularProducts() {
             const initialProducts = response.data.results.slice(0, 20);
             const shuffledProducts = shuffleArray(initialProducts);
             setProducts(shuffledProducts);
-            // setProducts(response.data.results.slice(0, 20)); 
           } catch (error) {
             console.error('Error fetching products:', error);
           }
@@ -38,8 +38,41 @@ function PopularProducts() {
         fetchProducts();
       }, []);
 
+    const [quantity, setQuantity] = useState(1);
 
-    // console.log(products);
+    const addItemToCart = async (productID, quantity, event) => {
+        event.preventDefault();
+        try {
+            const response = await axios.post(
+                'https://helloworlddjangotestdeploy-production.up.railway.app/api/v1/basket/products/',
+                {
+                    product_id: productID,
+                    quantity: quantity
+                },
+                {
+                    headers: {
+                        'Authorization': `Bearer ${localStorage.getItem('accessToken')}`
+                    }
+                }
+            );
+            console.log("Success")
+
+            console.log(response.data);
+
+        } catch (error) {
+            console.error('Error adding product to cart:', error);
+        }
+    };
+
+    const increaseQuantity = () => {
+        setQuantity(quantity + 1);
+    }
+
+    const decreaseQuantity = () => {
+        if (quantity > 1) {
+            setQuantity(quantity - 1);
+        }
+    }
       return (
         <div className="w-full h-[340px] mt-10 mb-20 flex justify-center">
           <div className={styles.container}>
@@ -66,18 +99,26 @@ function PopularProducts() {
                     </div>
                     <div className={styles.piecesAndToBucket}>
                       <div className={styles.quantity}>
-                        {/* Add your quantity buttons here */}
-                        <button className="bg-[#e9e9e9] border-solid border-1px mr-customMargin rounded-sm w-5 flex justify-center items-center h-6">
-                              <Image className="w-3" src={plus} alt="+"/>
-                         </button>
-                         <button className="text-white bg-[#1075B2] mr-customMargin border-solid rounded-sm w-5 h-6">1</button>
-                         <button className="bg-[#e9e9e9] border-solid border-1px rounded-sm w-5 flex justify-center items-center h-6">
-                             <Image className="w-3" src={minus} alt="-"/>
-                         </button>
-                      </div>
-                      <button className={styles.toBucket}>
+                      <button
+                            onClick={() => increaseQuantity()}
+                            className="bg-[#E9E9E9] border-solid border-1px mr-customMargin rounded-[3px] w-5 flex justify-center items-center h-6"
+                        >
+                            <Image className="w-3" src={plus} alt="+"/>
+                        </button>
+                        <div
+                            className="text-white bg-[#1075B2] mx-0.5 text-center mr-customMargin border-solid rounded-[3px] w-5 h-6">
+                            {quantity}
+                        </div>
+                        <button
+                            onClick={() => decreaseQuantity()}
+                            className="bg-[#E9E9E9] border-solid border-1px rounded-[3px] w-5 flex justify-center items-center h-6 "
+                        >
+                            <Image className="w-3" src={minus} alt="-"/>
+                        </button>
+                    </div>
+                    <button className={styles.toBucket} onClick={(event) => addItemToCart(product.id, quantity, event)}>
                         В КОРЗИНУ
-                      </button>
+                    </button>
                     </div>
                   </div>
                 {/* </a> */}
