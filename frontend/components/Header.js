@@ -5,26 +5,59 @@ import React, {useEffect, useState} from 'react';
 import CatalogDropdown from "@/components/CatalogDropdown";
 import CityDropdownMenu from "@/components/CityDropdownMenu";
 import Link from "next/link";
-import MyDialog from "@/components/ModalDialog";
+import ModalDialog from "@/components/ModalDialog";
 import HamburgerNav from "@/components/HamburgerNav";
 import favIconNonActive from "../public/images/Vector.svg";
 import cartIconNonActive from "../public/images/shoppingCartNormal.svg";
 import profileIconNonActive from "../public/images/person.svg";
+import loginIconNonActive from "../public/images/loginIcon.svg";
 import favIconActive from "../public/images/favorites.svg";
 import cartIconActive from "../public/images/shoppingCartBlue.svg";
 import profileIconActive from "../public/images/profileImg.svg";
+import loginIconActive from "../public/images/loginIconBlue.svg";
+import {useTokenExpirationCheck} from "@/customHooks/useTokenExpirationCheck";
 
 
 const Header = () => {
+    useTokenExpirationCheck()
     const [selectedCity, setSelectedCity] = useState('Алматы' || localStorage.getItem('city'));
     const [favoritesImg, setFavoritesImg] = useState(favIconNonActive);
     const [cartImg, setCartImg] = useState(cartIconNonActive);
     const [profileImg, setProfileImg] = useState(profileIconNonActive);
+    const [loginIconImg, setLoginIconImg] = useState(loginIconNonActive);
+    const [isLogged, setIsLogged] = useState(false);
 
 
     const handleCityChange = (city) => {
         setSelectedCity(city);
     };
+
+    useEffect(() => {
+        const access = localStorage.getItem('accessToken');
+        const refresh = localStorage.getItem('refreshToken');
+
+        console.log("REFREEEEESH")
+        console.log(access + "\n" + refresh)
+        if (access && refresh) {
+            setIsLogged(true);
+            console.log("logged")
+        } else {
+            setIsLogged(false);
+            console.log("not logged")
+
+        }
+    }, [])
+
+    useEffect(() => {
+        if (isLogged) {
+            setProfileImg(profileIconNonActive)
+            setLoginIconImg(profileIconNonActive)
+        } else {
+            setProfileImg(loginIconNonActive)
+            setLoginIconImg(loginIconNonActive)
+        }
+    }, [isLogged])
+
     useEffect(() => {
         const storedCity = localStorage.getItem('city');
         if (storedCity) {
@@ -32,14 +65,14 @@ const Header = () => {
         }
     }, []);
 
-    let [isModalOpen, setisModalOpen] = useState(false)
+    let [isModalOpen, setIsModalOpen] = useState(false)
 
     function closeModal() {
-        setisModalOpen(false)
+        setIsModalOpen(false)
     }
 
     function openModal() {
-        setisModalOpen(true)
+        setIsModalOpen(true)
     }
 
     const [isHamOpen, setIsHamOpen] = useState(false)
@@ -96,7 +129,7 @@ const Header = () => {
                     </Link>
                     <Link className={styles.cart} href={"/cart"}>
                         <Image className="cursor-pointer"
-                               src= {cartImg}
+                               src={cartImg}
                                height={30}
                                width={30}
                                alt="cart"
@@ -104,22 +137,50 @@ const Header = () => {
                                onMouseLeave={() => setCartImg(cartIconNonActive)}
                         />
                     </Link>
-                    <div className={styles.person}
-                         onClick={openModal}
-                    >
-                        <Image
-                            className="cursor-pointer"
-                            src={profileImg}
-                                height={35}
-                            width={35}
-                            alt="profile"
-                            onMouseOver={() => setProfileImg(profileIconActive)}
-                            onMouseLeave={() => setProfileImg(profileIconNonActive)}
-                        />
-                    </div>
+
+                    {
+                        !isLogged ?
+                            <div className={styles.person}
+                                 onClick={openModal}
+                            >
+                                <Image
+                                    className="cursor-pointer"
+                                    src={loginIconImg}
+                                    height={35}
+                                    width={35}
+                                    alt="profile"
+                                    onMouseOver={() => {
+                                        isLogged ?
+                                            setLoginIconImg(profileIconActive)
+                                            :
+                                            setLoginIconImg(loginIconActive)
+                                    }}
+                                    onMouseLeave={() => {
+                                        isLogged ?
+                                            setLoginIconImg(profileIconNonActive)
+                                            :
+                                            setLoginIconImg(loginIconNonActive)
+                                    }}
+                                />
+                            </div>
+                            :
+                            <Link href={"/profile"}>
+                                <Image
+                                    className="cursor-pointer"
+                                    src={profileImg}
+                                    height={35}
+                                    width={35}
+                                    alt="profile"
+                                    onMouseOver={() => setProfileImg(profileIconActive)}
+                                    onMouseLeave={() => setProfileImg(profileIconNonActive)}
+                                />
+                            </Link>
+
+                    }
+
                 </div>
             </div>
-            <MyDialog isModalOpen={isModalOpen} onClose={closeModal}></MyDialog>
+            <ModalDialog isModalOpen={isModalOpen} setIsModelOpen={setIsModalOpen}/>
         </header>
 
 

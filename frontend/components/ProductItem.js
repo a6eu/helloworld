@@ -28,7 +28,7 @@ const ProductItem = ({ product }) => {
 
     return (
         <Link href={{
-            pathname: `/products/${encodeURIComponent(product.name)}`
+            pathname: `/products/${encodeURIComponent(product.naxme)}`
         }} key={product.id}>
             <div className={styles.productCard}>
                 <div className={styles.imageCard}>

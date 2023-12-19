@@ -1,14 +1,52 @@
 import React, {useState} from "react";
+import axios from "axios";
 
 const SignUpForm = ({onLogInClick}) => {
-    const [isPassword, setPassword] = useState(true);
+    const [firstName, setFirstName] =  useState("");
+    const [secondName, setSecondName] =  useState("");
+    const [phoneNumber, setPhoneNumber] =  useState("");
+    const [email, setEmail] =  useState("");
+    const [password, setPassword] =  useState("");
+    const [repeatPasswd, setRepeatPasswd] =  useState("");
+    const [response, setResponse] = useState({});
+    const [isPassword, setIsPassword] = useState(true);
+    const [validationError, setValidationError] = useState("");
 
     function handleShowClick() {
-        setPassword(false);
+        setIsPassword(false);
     }
 
     function handleHideClick() {
-        setPassword(true);
+        setIsPassword(true);
+    }
+
+    const registration = async (e) => {
+        e.preventDefault();
+        const url = 'https://helloworlddjangotestdeploy-production.up.railway.app/auth/users/';
+
+        if (password === repeatPasswd) {
+            const requestBody = {
+                "first_name": firstName,
+                "last_name": secondName,
+                "phone_number": phoneNumber,
+                "email": email,
+                "password": password
+            }
+
+            try {
+               await axios.post(url, requestBody).then((res) => {
+                   setResponse(res);
+                   console.log(res);
+               })
+                onLogInClick();
+            } catch (e) {
+                console.log("ERROR")
+                console.error(e);
+                setValidationError(e.response.data.error);
+            }
+        } else {
+            setValidationError("Пароли не совпадают :(   ");
+        }
     }
 
     return (<form className="w-full max-w-lg px-[90px] flex flex-wrap mb-6">
@@ -22,6 +60,7 @@ const SignUpForm = ({onLogInClick}) => {
                 </label>
                 <input
                     className="appearance-none block w-full bg-white text-gray-700 border border-[#1075B2] rounded py-1 text-s px-2.5 leading-tight focus:outline-none focus:bg-white focus:border-gray-500 hover:shadow-lg transition duration-500"
+                    onChange={(e) => {setFirstName(e.target.value)}}
                 />
             </div>
             <div className="w-[47%]">
@@ -33,6 +72,7 @@ const SignUpForm = ({onLogInClick}) => {
                 </label>
                 <input
                     className="appearance-none block w-full bg-white text-gray-700 border border-[#1075B2] rounded py-1 text-s px-2.5 leading-tight focus:outline-none focus:bg-white focus:border-gray-500 hover:shadow-lg transition duration-500"
+                    onChange={(e) => {setSecondName(e.target.value)}}
                 />
             </div>
         </div>
@@ -42,10 +82,27 @@ const SignUpForm = ({onLogInClick}) => {
                     className="block uppercase tracking-wide text-gray-700 text-[10px] font-bold mb-1"
                     htmlFor="grid-password"
                 >
-                    Номер телефона или e-mail
+                    Номер телефона
                 </label>
                 <input
                     className="appearance-none block w-full bg-white text-gray-700 border border-[#1075B2] rounded py-1 text-s px-2.5 leading-tight focus:outline-none focus:bg-white focus:border-gray-500 hover:shadow-lg transition duration-500"
+                    onChange={(e) => {setPhoneNumber(e.target.value)}}
+
+                />
+            </div>
+        </div>
+        <div className="flex w-full flex-wrap mb-3">
+            <div className="w-full">
+                <label
+                    className="block uppercase tracking-wide text-gray-700 text-[10px] font-bold mb-1"
+                    htmlFor="grid-password"
+                >
+                    E-mail
+                </label>
+                <input
+                    className="appearance-none block w-full bg-white text-gray-700 border border-[#1075B2] rounded py-1 text-s px-2.5 leading-tight focus:outline-none focus:bg-white focus:border-gray-500 hover:shadow-lg transition duration-500"
+                    onChange={(e) => {setEmail(e.target.value)}}
+
                 />
             </div>
         </div>
@@ -62,6 +119,7 @@ const SignUpForm = ({onLogInClick}) => {
                         type={isPassword ? ("password") : !isPassword ? ("text") : ("password")}
                         placeholder="••••••••••••••••"
                         className=" appearance-none block w-full bg-white text-gray-700 border border-[#1075B2] rounded py-1 px-2.5 leading-tight focus:outline-none focus:bg-white focus:border-gray-500 hover:shadow-lg transition duration-500"
+                        onChange={(e) => {setPassword(e.target.value)}}
                     />
                     <div
                         className="cursor-pointer absolute inset-y-0 right-0 flex rounded-none items-center px-2 text-gray-700">
@@ -103,7 +161,6 @@ const SignUpForm = ({onLogInClick}) => {
                 <label
                     className="select-none block uppercase tracking-wide text-gray-700 text-[10px] font-bold mb-1"
                     htmlFor="grid-password"
-
                 >
                     Подтвердите пароль
                 </label>
@@ -112,15 +169,27 @@ const SignUpForm = ({onLogInClick}) => {
                     type={"password"}
                     placeholder="••••••••••••••••"
                     className=" appearance-none block w-full bg-white text-gray-700 border border-[#1075B2] rounded py-1 px-2.5  leading-tight focus:outline-none focus:bg-white focus:border-gray-500 hover:shadow-lg transition duration-500"
+                    onChange={(e) => {setRepeatPasswd(e.target.value)}}
                 />
             </div>
 
         </div>
+        {
+            validationError ?
+                <div className="flex flex-wrap w-full justify-center">
+                    <p className="flex justify-center mt-3 text-[14px] text-red-400">
+                        {validationError}
+                    </p>
+                </div> : <></>
+        }
         <div className="flex flex-wrap justify-center w-full mt-6">
             <input
-                className="flex flex-wrap w-1/2 h-8 bg-[#1075B2] justify-center text-white rounded"
-                type="submit" value="Войти"/>
+                className="flex flex-wrap w-3/4  h-8 bg-[#1075B2] justify-center text-white rounded"
+                type="submit" value="Зарегистрироваться"
+                onClick={(e) => {registration(e)}}
+            />
         </div>
+
         <div className="flex flex-wrap w-full justify-center">
             <p className="flex justify-center mt-7 text-[14px]">
                 У вас есть аккаунт
