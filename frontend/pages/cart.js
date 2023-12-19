@@ -13,6 +13,7 @@ import dell from "../public/images/DELL.svg"
 import dellPhoto from "../public/images/dellPowerEdge.svg"
 import {RadioGroup} from "@headlessui/react";
 import axios from "axios";
+import PopularProducts from '@/components/product-page/PopularProducts';
 
 function goToHome() {
     window.location.href = '/';
@@ -168,7 +169,9 @@ function Cart(props) {
                 </div>
                 <h3 className="flex justify-center mt-12 ProductSansLight text-xl text-[#1075B2]">ПЕРСОНАЛЬНЫЕ
                     РЕКОМЕНДАЦИИ</h3>
-                <Products products={products} fetchingStatus={fetchingStatus}/>
+                    <PopularProducts />
+
+                {/* <Products products={products} fetchingStatus={fetchingStatus}/> */}
             </MainContainer>
         )
     } else {
@@ -188,7 +191,8 @@ function Cart(props) {
                 <div>
                     <h3 className="flex justify-center mt-12 ProductSansLight text-xl text-[#1075B2]">ПЕРСОНАЛЬНЫЕ
                         РЕКОМЕНДАЦИИ</h3>
-                    <Products products={products} fetchingStatus={fetchingStatus}/>
+                    {/* <Products products={products} fetchingStatus={fetchingStatus}/> */}
+                    <PopularProducts />
                 </div>
             </MainContainer>
         )

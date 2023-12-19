@@ -25,13 +25,13 @@ const Footer = () => {
                                         <Image src={mail} alt="Mail"/>
                                         <div className="pl-3 pr-5">
                                             <p className="ProductSansLight">Email</p>
-                                            <a className="ProductSansThin text-blue-500">contact@meagency.io</a></div>
+                                            <a className="ProductSansThin text-[#1075b2]">contact@meagency.io</a></div>
                                     </div>
                                     <div className="flex">
                                         <Image src={phone} alt="Phone"/>
                                         <div className="pl-3 pr-5">
                                             <p className="ProductSansLight">Phone</p>
-                                            <a className="ProductSansThin text-blue-500">+7 (771) 509-3214</a>
+                                            <a className="ProductSansThin text-[#1075b2]">+7 (771) 509-3214</a>
                                         </div>
                                     </div>
                                 </div>

@@ -4,16 +4,17 @@ import styles from "@/styles/Home.module.css";
 import React, {Fragment, useEffect, useState} from "react";
 import imported from "../catalog_data.json"
 import HamburgerNav from "@/components/HamburgerNav";
-import catalogImg from "@/public/images/catalog_svg.svg";
+import burger from "@/public/images/catalog_svg.svg";
 import X from "../public/images/X.svg";
 import axios from 'axios';
 
 let timeoutId;
+
 export default function CatalogDropdown(isHamOpen) {
     const [ctg, setCtg] = useState([]);
     const [selectedCtg, setSelectedCtg] = useState(0);
     const [subCtg, setSubCtg] = useState([])
-    const [changeToX, setChangeToX] = useState(catalogImg);
+    const [changeToX, setChangeToX] = useState(burger);
     const [state, setState] = useState("opened");
     const [focused, setFocused] = useState("focused");
 
@@ -59,7 +60,7 @@ export default function CatalogDropdown(isHamOpen) {
 
     function changer() {
         if (state === "closed") {
-            setChangeToX(catalogImg)
+            setChangeToX(burger)
             setState("opened")
             setFocused("unfocused")
         } else if (state === "opened") {
@@ -80,7 +81,7 @@ export default function CatalogDropdown(isHamOpen) {
                     changer()
                 }}
                 onBlur={() => {
-                    setChangeToX(catalogImg)
+                    setChangeToX(burger)
                     setState("closed")
                 }}
             >

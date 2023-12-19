@@ -17,6 +17,7 @@ export default function order_registration() {
     const [phone, setPhone] = useState('');
     // eslint-disable-next-line react-hooks/rules-of-hooks
     const [field, setField] = useState('')
+    // eslint-disable-next-line react-hooks/rules-of-hooks
     const [fieldError, setFieldError] = useState('')
     // eslint-disable-next-line react-hooks/rules-of-hooks
     const [nameError, setNameError] = useState('');
@@ -230,39 +231,39 @@ export default function order_registration() {
                             </div>
                         </div>
                         <div className="flex py-3 w-[38%] h-min bg-white mt-3 sticky top-[87px] shadow-md rounded-lg">
-                                <div className="w-full " >
-                                    <div className="hidden"></div>
-                                    <div className="px-5">
-                                        <div className="flex flex-row justify-between">
-                                            <h1 className="text-[#1075b2] text-lg font-sans">Сумма к оплате: </h1>
-                                            <div className="text-xl font-sans">{totalCost} ₸</div>
-                                        </div>
-                                        <div className="flex flex-row justify-between">
-                                            <h1 className="text-[#1075b2] font-sans">Промокод: COCKS</h1>
-                                            <div>-300 ₸</div>
-                                        </div>
-                                        <div className="mt-2">Товаров: {object.length}</div>
+                            <div className="w-full " >
+                                <div className="hidden"></div>
+                                <div className="px-5">
+                                    <div className="flex flex-row justify-between">
+                                        <h1 className="text-[#1075b2] text-lg font-sans">Сумма к оплате: </h1>
+                                        <div className="text-xl font-sans">{totalCost} ₸</div>
                                     </div>
-                                    {object.map((item =>(
-                                        <div className="border-dashed flex px-5 justify-around flex-row border-t-2 w-full" key={item}>
-                                            <div>
-                                                <Image width={90} height={80}
-                                                       src={dellPhoto}
-                                                       alt="Product Photo"/>
-                                            </div>
-                                            <div className="flex py-2 flex-col">
-                                                <h1 className="font-sans text-xs">{item.product.name}</h1>
-                                                <div>{item.cost} ₸</div>
-                                            </div>
-                                            <div className="flex flex-row mt-4"><span
-                                                className="text-[#1075b2] flex justify-center">x</span>&nbsp;{item.quantity}шт.
-                                            </div>
-                                        </div>
-                                    )))}
-                                        <div className="flex justify-center text-xs mt-4">Поддержка с 8:00-00:00 по номеру
-                                        1717
-                                        </div>
+                                    <div className="flex flex-row justify-between">
+                                        <h1 className="text-[#1075b2] font-sans">Промокод: COCKS</h1>
+                                        <div>-300 ₸</div>
+                                    </div>
+                                    <div className="mt-2">Товаров: {object.length}</div>
                                 </div>
+                                {object.map((item =>(
+                                    <div className="border-dashed flex px-5 justify-around flex-row border-t-2 w-full" key={item}>
+                                        <div>
+                                            <Image width={90} height={80}
+                                                   src={dellPhoto}
+                                                   alt="Product Photo"/>
+                                        </div>
+                                        <div className="flex py-2 flex-col">
+                                            <h1 className="font-sans text-xs">{item.product.name}</h1>
+                                            <div>{item.cost} ₸</div>
+                                        </div>
+                                        <div className="flex flex-row mt-4"><span
+                                            className="text-[#1075b2] flex justify-center">x</span>&nbsp;{item.quantity}шт.
+                                        </div>
+                                    </div>
+                                )))}
+                                <div className="flex justify-center text-xs mt-4">Поддержка с 8:00-00:00 по номеру
+                                    1717
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
