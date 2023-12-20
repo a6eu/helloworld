@@ -8,6 +8,11 @@ import ProductItem from "@/components/ProductItem";
 
 function FilteredProducts(type) {
     const [products, setProducts] = useState([]);
+    const [token, setToken] = useState(null);
+    useEffect(() => {
+        const accessToken = localStorage.getItem("accessToken");
+        setToken(accessToken);
+    }, []);
 
 
     useEffect(() => {
@@ -37,7 +42,8 @@ function FilteredProducts(type) {
         <div className="w-full h-[340px] mt-10 mb-20 flex justify-center">
             <div className={styles.container}>
                 {products.map((product) => (
-                    <ProductItem key={product.id} product={product}/>
+                    <ProductItem key={product.id} signedIn={token} isFavorite={true}
+                                 product={product}/>
                 ))}
             </div>
         </div>

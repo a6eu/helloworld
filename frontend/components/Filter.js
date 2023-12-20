@@ -12,7 +12,8 @@ const Filter = ({setProducts, products}) => {
     const [clearBrands, setClearBrands] = useState(false)
 
     useEffect(() => {
-        let newBrands = products.map((product) => product.brand);
+        let newBrands = products.map((product) => product.brand.name);
+        console.log("NEW BRANDS", newBrands)
         setBrands(new Set([...newBrands]));
     }, [])
 
@@ -21,7 +22,8 @@ const Filter = ({setProducts, products}) => {
         let max = price.maxPrice;
 
         let inRangeProducts = products.filter((product) => {
-            return product.price >= min && product.price <= max;
+            console.log(product.price)
+            return +product.price >= min && +product.price <= max;
         })
         setFilteredProducts(inRangeProducts)
     };
@@ -36,7 +38,7 @@ const Filter = ({setProducts, products}) => {
 
     const applyFilteredProducts = () => {
 
-        const brandFilter = filteredProducts.filter((product) => {return (pickedBrands.size === 0 ? brands : pickedBrands).has(product.brand)})
+        const brandFilter = filteredProducts.filter((product) => {return (pickedBrands.size === 0 ? brands : pickedBrands).has(product.brand.name)})
 
         setFoundProducts(brandFilter);
         setProducts(brandFilter);
