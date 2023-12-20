@@ -25,7 +25,8 @@ export default function CategoriesDropdown(isHamOpen) {
             try {
                 const response = await axios.get('https://helloworlddjangotestdeploy-production.up.railway.app/api/v1/categories/');
                 setCtg(response.data);
-                console.log("categories", response.data)
+
+
                 setSubCtg(response.data[0].children)
             } catch (error) {
                 console.error('Error fetching data:', error);

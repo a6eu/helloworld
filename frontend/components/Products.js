@@ -2,14 +2,19 @@ import styles from "../styles/Products.module.css"
 
 import '@smastrom/react-rating/style.css'
 import ProductItem from "@/components/ProductItem";
-import {useEffect} from "react";
+import {useEffect, useState} from "react";
 
 const floatValues = [0.29, 1.44, 2.31, 3.48, 4.52];
-const signedIn = localStorage.getItem("accessToken");
-console.log('!!!', signedIn.toString())
+
+
 
 
 function Products({products, fetchingStatus}) {
+    const [token, setToken] = useState('');
+    useEffect(() => {
+        const accessToken = localStorage.getItem("accessToken");
+        setToken(accessToken);
+    }, []);
     return (
         <>
             {(fetchingStatus) ?

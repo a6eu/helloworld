@@ -8,7 +8,8 @@ import ProductItem from "@/components/ProductItem";
 
 function FilteredProducts(type) {
     const [products, setProducts] = useState([]);
-    const [token, setToken] = useState(null);
+    const [token, setToken] = useState('');
+
     useEffect(() => {
         const accessToken = localStorage.getItem("accessToken");
         setToken(accessToken);
