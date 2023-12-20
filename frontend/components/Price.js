@@ -7,9 +7,13 @@ const Price = ({price, fSizeOfDigit, fSizeOfCurrency}) => {
     const [fontSizeOfCurrency, setFontSizeOfCurrency] = useState(16)
 
     function formatNumberWithSpaces(number) {
-        if (typeof number === "string")
-            return number.replace(/\B(?=(\d{3})+(?!\d))/g, ' ');
-        return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ' ');
+        if (number) {
+            if (typeof number === "string")
+                return number.replace(/\B(?=(\d{3})+(?!\d))/g, ' ');
+            return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ' ');
+        } else {
+            return "-";
+        }
     }
 
     useEffect(() => {

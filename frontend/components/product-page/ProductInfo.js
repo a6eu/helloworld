@@ -15,22 +15,22 @@ const ProductInfo = ({product, category, brandName}) => {
     const router = useRouter();
     const {productName} = router.query;
 
-    console.log(brandName)
+    console.log("brand info", brandName)
 
-    useEffect(() => {
-        const fetchData = async () => {
-
-            try {
-                const response = await axios.get(`https://helloworlddjangotestdeploy-production.up.railway.app/api/v1/brands/${brandName}`)
-                setBrandLogo(response.data.results[0].logo_url)
-                console.log(response.data.results[0])
-            } catch (error) {
-                console.error('Error fetching data:', error)
-            }
-
-        }
-        fetchData()
-    }, [brandName])
+    // useEffect(() => {
+    //     const fetchData = async () => {
+    //
+    //         try {
+    //             const response = await axios.get(`https://helloworlddjangotestdeploy-production.up.railway.app/api/v1/brands/${brandName}`)
+    //             setBrandLogo(response.data.results[0].logo_url)
+    //             console.log(response.data.results[0])
+    //         } catch (error) {
+    //             console.error('Error fetching data:', error)
+    //         }
+    //
+    //     }
+    //     fetchData()
+    // }, [brandName])
 
 
 
@@ -103,8 +103,8 @@ const ProductInfo = ({product, category, brandName}) => {
                 <div className={"flex justify-between items-center  "}>
                     <Image
                         className="mt-4"
-                        src={brandLogo}
-                        alt="Company Logo"
+                        src={brandName.logo_url}
+                        alt="Logo"
                         width={53}
                         height={53}
                     />

@@ -2,7 +2,7 @@
 import styles from "../styles/Home.module.css";
 import Image from "next/image";
 import React, {useEffect, useRef, useState} from 'react';
-import CatalogDropdown from "@/components/CatalogDropdown";
+import CategoriesDropdown from "@/components/CategoriesDropdown";
 import CityDropdownMenu from "@/components/CityDropdownMenu";
 import Link from "next/link";
 import ModalDialog from "@/components/ModalDialog";
@@ -146,7 +146,7 @@ const Header = () => {
                     />
                 </Link>
                 <div className={styles.searchArea}>
-                    <CatalogDropdown/>
+                    <CategoriesDropdown/>
                     <div className={"flex items-center"} ref={searchContainerRef}>
                             <div className="flex flex-row relative" >
                                 <input

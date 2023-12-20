@@ -4,7 +4,7 @@ import Descriptions from "./Descriptions";
 import Reviews from './Reviews';
 import CompanyInfo from './CompanyInfo';
 
-function DescriptionChooser(product, brand) {
+function DescriptionChooser({product, brand}) {
     const [type, setType] = useState("Descriptions");
     const [newDesign, setNewDesign] = useState("bg-[#1075B2] text-white");
     const [popularDesign, setPopularDesign] = useState("text-[#1075B2]");
@@ -49,7 +49,7 @@ function DescriptionChooser(product, brand) {
             <div className='flex'>
                 {type === 'Descriptions' && <Descriptions />}
                 {type === 'Reviews' && <Reviews />}
-                <CompanyInfo />
+                <CompanyInfo brandInfo={brand}/>
             </div>
             
         </div>

@@ -21,13 +21,16 @@ export default function ProductPage() {
             let response
             console.log("HFHFHF", router)
             try {
+                setIsLoading(true)
                 response = await axios.get(`https://helloworlddjangotestdeploy-production.up.railway.app/api/v1/products/?search=${productName}`);
                 setProduct(response.data.results[0]);
-                setBrandName(response.data.results[0].brand.name)
+                console.log(response.data.results[0].brand);
+                await getBrand(response.data.results[0].brand.name)
+                setIsLoading(false)
             } catch (error) {
                 console.error('Error fetching data:', error);
             }
-            getBrand(brandName)
+
             try {
                  setCategory(response.data.results[0].category)
             } catch (error) {
@@ -39,11 +42,12 @@ export default function ProductPage() {
         async function getBrand(brandName) {
             let response
             try {
-                setIsLoading(true)
+                console.log("br", brandName)
                 response= await axios.get(`https://helloworlddjangotestdeploy-production.up.railway.app/api/v1/brands/${brandName}`)
-                setIsLoading(false)
+
                 const brandLogo = response.data.results
-                console.log(response.data.results)
+                setBrandName(response.data)
+                console.log("BRAND LOGO", response.data)
                 return brandLogo
             } catch (error) {
                 console.error(error);
@@ -51,6 +55,7 @@ export default function ProductPage() {
         }
 
         fetchData();
+
     }, [productName, router]);
 
 
@@ -58,12 +63,12 @@ export default function ProductPage() {
     return (
         <MainContainer>
             {
-                isLoading ?
+                !isLoading ?
                     <>
                         <Path path={["Безопасность", `${category.name}`, `${product.name}`]}/>
                         <ProductInfo product={product} brandName={brandName}/>
                         <div className="flex mt-5">
-                            <DescriptionChooser />
+                            <DescriptionChooser product={product} brand={brandName}/>
                         </div>
                         <div className="w-full flex justify-center mt-5">
                             <p className="text-justify text-[#1075B2] text-[18px] ProductSansLight max-w-[90%]">ВАМ МОЖЕТ ПОНРАВИТЬСЯ</p>
