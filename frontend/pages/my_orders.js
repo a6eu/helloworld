@@ -183,7 +183,7 @@ function my_orders(props) {
             <div>
                 <h3 className="flex justify-center mt-12 ProductSansLight text-xl text-[#1075B2]">ПЕРСОНАЛЬНЫЕ
                     РЕКОМЕНДАЦИИ</h3>
-                <Products/>
+                <Products fetchingStatus={true} />
             </div>
         </MainContainer>
     )

@@ -27,8 +27,6 @@ const Products = () => {
     useEffect(() => {
         const getCategoryProducts = async () => {
             const lastChild = categoryProducts[categoryProducts.length - 1];
-            console.log(lastChild)
-            console.log(decodeURIComponent(lastChild))
             const url = `https://helloworlddjangotestdeploy-production.up.railway.app/api/v1/products/?category_name_and_parent_name=${lastChild}`;
 
             try {
@@ -36,7 +34,6 @@ const Products = () => {
                 const response = await axios.get(url);
                 setIsLoading(false);
                 setProducts(response.data.results);
-                console.log("RESULTS", response.data.results)
             } catch (e) {
                 console.log("ERROR")
                 console.error(e);

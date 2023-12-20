@@ -1,9 +1,13 @@
 import {Popover, Transition} from '@headlessui/react';
-import Image from 'next/image';
-import React, {Fragment, useEffect, useState} from 'react';
-import burger from '@/public/images/catalog_svg.svg';
-import X from '../public/images/X.svg';
+import Image from "next/image";
+import styles from "@/styles/Home.module.css";
+import React, {Fragment, useEffect, useState} from "react";
+import imported from "../catalog_data.json"
+import HamburgerNav from "@/components/HamburgerNav";
+import burger from "@/public/images/catalog_svg.svg";
+import X from "../public/images/X.svg";
 import axios from 'axios';
+import Link from "next/link";
 
 let timeoutId;
 
@@ -150,4 +154,3 @@ export default function CatalogDropdown() {
         </>)}
     </Popover>);
 }
-

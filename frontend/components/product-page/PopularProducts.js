@@ -14,7 +14,12 @@ import ProductItem from "@/components/ProductItem";
 function PopularProducts() {
     // console.log(props.type);
     const [products, setProducts] = useState([]);
-    const token = localStorage.getItem("accessToken");
+    const [token, setToken] = useState('');
+    useEffect(() => {
+        const accessToken = localStorage.getItem("accessToken");
+        setToken(accessToken);
+    }, []);
+
 
     useEffect(() => {
         const fetchProducts = async () => {
