@@ -1,9 +1,5 @@
 import styles from "../styles/Products.module.css"
 import React, {useEffect, useState} from 'react';
-import Image from "next/image"
-import Link from "next/link";
-import plus from "../public/images/plus.svg"
-import minus from "../public/images/minus.svg"
 import {Rating} from '@smastrom/react-rating'
 import axios from 'axios';
 
@@ -18,7 +14,6 @@ function FilteredProducts(type) {
         const fetchProducts = async () => {
             try {
                 const response = await axios.get('https://helloworlddjangotestdeploy-production.up.railway.app/api/v1/products/');
-                console.log(response.data);
                 const initialProducts = response.data.results.slice(0, 20);
                 const shuffledProducts = shuffleArray(initialProducts);
                 setProducts(shuffledProducts);
@@ -38,8 +33,6 @@ function FilteredProducts(type) {
         fetchProducts();
     }, [type]);
 
-
-    // console.log(products);
     return (
         <div className="w-full h-[340px] mt-10 mb-20 flex justify-center">
             <div className={styles.container}>

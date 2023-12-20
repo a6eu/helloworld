@@ -6,7 +6,7 @@ const News = () => (
             <div className="h-full w-[60%] mr-4 rounded box-border">
                 {/* <div className="h-full w-3/4 mr-4 rounded"> */}
                 <div className="box-border  flex justify-center align-middle">
-                    <Carousel/>
+                    <Carousel leftControl="left" rightControl="right"/>
                 </div>
             </div>
             

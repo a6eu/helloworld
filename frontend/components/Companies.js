@@ -8,7 +8,7 @@ const Companies = () => (
                 <div className="w-full h-1/2 flex ">
                     <Link className="w-1/6  bg-netapp bg-fit bg-no-repeat bg-center rounded cursor-pointer"
                           href={{
-                              pathname: "/brands/2"
+                              pathname: "/brands/netapp"
                           }}>
                     </Link>
                     <Link className="w-1/6  bg-vmware bg-fit  bg-no-repeat bg-center rounded cursor-pointer"
@@ -24,7 +24,7 @@ const Companies = () => (
                           href={"brands/fortinet"}>
                     </Link>
                     <Link className="w-1/6  bg-newlett bg-fit  bg-no-repeat bg-center rounded cursor-pointer"
-                          href={"brands/newlett"}>
+                          href={"brands/hewlett"}>
                     </Link>
                 </div>
                 <div className="w-full h-1/2 flex ">

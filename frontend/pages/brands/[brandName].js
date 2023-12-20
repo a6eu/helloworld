@@ -63,7 +63,7 @@ function BrandName() {
                     {data.name}
                 </div>
             </div>
-            <div className="bg-white p-6 mx-auto my-8 rounded-lg shadow-md ProductSansLight">
+            <div className="bg-white p-6 mx-auto h-[50vh] my-8 rounded-lg shadow-md ProductSansLight">
                 <div className="flex">
                     <div className="flex-1">
                         <h2 className="text-2xl font-bold mb-4">{data.name}</h2>

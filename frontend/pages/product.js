@@ -1,7 +1,10 @@
 import * as React from "react";
 import Image from "next/image";
+import {useEffect, useState} from "react";
+import axios from "axios";
 
 const Product = (props) => {
+
   return (
     <div className="bg-neutral-100 flex flex-col items-stretch">
       <div className="self-center flex w-full max-w-[1112px] flex-col mt-5 px-5 max-md:max-w-full">
