@@ -6,18 +6,34 @@ import plus from "@/public/images/plus.svg";
 import minus from "@/public/images/minus.svg";
 import {useEffect, useState} from "react";
 import {useRouter} from 'next/router';
+import axios from "axios";
 
 
-const ProductInfo = () => {
+const ProductInfo = ({product, category, brandName}) => {
     const [quantity, setQuantity] = useState(1);
-
+    const [brandLogo, setBrandLogo] = useState("")
     const router = useRouter();
     const {productName} = router.query;
 
+    console.log(brandName)
+
     useEffect(() => {
-        console.log("query", router.query)
-        console.log(router.query.url)
-    }, [])
+        const fetchData = async () => {
+
+            try {
+                const response = await axios.get(`https://helloworlddjangotestdeploy-production.up.railway.app/api/v1/brands/${brandName}`)
+                setBrandLogo(response.data.results[0].logo_url)
+                console.log(response.data.results[0])
+            } catch (error) {
+                console.error('Error fetching data:', error)
+            }
+
+        }
+        fetchData()
+    }, [brandName])
+
+
+
 
     const increaseQuantity = () => {
         setQuantity(quantity + 1);
@@ -45,14 +61,16 @@ const ProductInfo = () => {
 
     return (
         <div className="w-full flex mt-3 rounded-[10px] bg-white pl-5">
-            <Image src={"/images/Rectangle 36.svg"} width={310} height={310} />
-            <div className={"m-8"}>
+            <div className="w-1/3">
+                <Image className="object-cover" alt={product.img_url} src={product.img_url} width={310} height={310} />
+            </div>
+            <div className={"m-8 w-2/3"}>
                 <h2
                     className={
                         "text-[30px] ProductSansLight flex w-full justify-between pr-3"
                     }
                 >
-                    {productName}
+                    {product.name}
                     <div className="flex align-middle">
                         <a>
                             <Image
@@ -74,20 +92,18 @@ const ProductInfo = () => {
                 </h2>
                 <Stars starAvg={4} />
                 <div className="mb-5"></div>
-                <Price price={1200000} fSizeOfCurrency={30} fSizeOfDigit={35} />
+                <Price price={product.price} fSizeOfCurrency={30} fSizeOfDigit={35} />
                 <p
                     className={
                         "text-[#636363] text-[15px] ProductSansLight max-w-[70%]"
                     }
                 >
-                    Dr.Web Gateway Security Suite обеспечивает антивирусную
-                    защиту для интернет-шлюзов Unix, Kerio, MIMEsweeper и Qbik
-                    WinGate,MS ISA/Forefront TMG
+                    {product.description}
                 </p>
                 <div className={"flex justify-between items-center  "}>
                     <Image
                         className="mt-4"
-                        src={dell}
+                        src={brandLogo}
                         alt="Company Logo"
                         width={53}
                         height={53}

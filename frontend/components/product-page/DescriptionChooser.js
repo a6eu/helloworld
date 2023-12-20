@@ -4,7 +4,7 @@ import Descriptions from "./Descriptions";
 import Reviews from './Reviews';
 import CompanyInfo from './CompanyInfo';
 
-function DescriptionChooser() {
+function DescriptionChooser(product, brand) {
     const [type, setType] = useState("Descriptions");
     const [newDesign, setNewDesign] = useState("bg-[#1075B2] text-white");
     const [popularDesign, setPopularDesign] = useState("text-[#1075B2]");

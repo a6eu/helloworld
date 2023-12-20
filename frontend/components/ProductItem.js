@@ -48,7 +48,7 @@ const ProductItem = ({product, signedIn}) => {
                          xmlns="http://www.w3.org/2000/svg">
                         <path
                             d="M11.7286 2.21464C12.4619 2.29998 12.9999 2.93264 12.9999 3.67131V14L7.99994 11.5L2.99994 14V3.67131C2.99994 2.93264 3.53727 2.29998 4.27127 2.21464C6.74873 1.92707 9.25115 1.92707 11.7286 2.21464Z"
-                            stroke="#4CC3F2" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                            stroke="#4CC3F2" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
                     </svg>
                 </button>
             </div>
