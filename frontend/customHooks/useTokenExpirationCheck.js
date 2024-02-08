@@ -6,7 +6,7 @@ export const useTokenExpirationCheck = () => {
         const storedRefreshToken = localStorage.getItem('refreshToken');
 
         if (storedRefreshToken) {
-            axios.post('https://helloworlddjangotestdeploy-production.up.railway.app/auth/refresh/', { refresh: storedRefreshToken })
+            axios.post('https://shop-01it-group.up.railway.app/auth/refresh/', { refresh: storedRefreshToken })
                 .then((response) => {
                     const newAccessToken = response.data.access;
 

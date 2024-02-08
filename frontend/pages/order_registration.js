@@ -10,7 +10,7 @@ export default function order_registration() {
 
     useEffect(() => {
         const getProfile = async () => {
-            const url = "https://helloworlddjangotestdeploy-production.up.railway.app/auth/users/profile/";
+            const url = "https://shop-01it-group.up.railway.app/auth/users/profile/";
             const bearerToken = localStorage.getItem("accessToken");
 
             const config = {

@@ -24,7 +24,7 @@ function PopularProducts() {
     useEffect(() => {
         const fetchProducts = async () => {
             try {
-                const response = await axios.get('https://helloworlddjangotestdeploy-production.up.railway.app/api/v1/products/');
+                const response = await axios.get('https://shop-01it-group.up.railway.app/api/v1/products/');
                 console.log(response.data);
                 const initialProducts = response.data.results.slice(0, 20);
                 const shuffledProducts = shuffleArray(initialProducts);
@@ -34,6 +34,7 @@ function PopularProducts() {
                 console.error('Error fetching products:', error);
             }
         };
+
 
         const shuffleArray = (array) => {
             for (let i = array.length - 1; i > 0; i--) {

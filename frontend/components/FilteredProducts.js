@@ -19,7 +19,7 @@ function FilteredProducts(type) {
     useEffect(() => {
         const fetchProducts = async () => {
             try {
-                const response = await axios.get('https://helloworlddjangotestdeploy-production.up.railway.app/api/v1/products/');
+                const response = await axios.get('https://shop-01it-group.up.railway.app/api/v1/products/');
                 const initialProducts = response.data.results.slice(0, 20);
                 const shuffledProducts = shuffleArray(initialProducts);
                 setProducts(shuffledProducts);

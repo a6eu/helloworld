@@ -14,7 +14,7 @@ function BrandName() {
 
     useEffect( () => {
         if (brandName) {
-            axios.get(`https://helloworlddjangotestdeploy-production.up.railway.app/api/v1/brands/${brandName}`).then(
+            axios.get(`https://shop-01it-group.up.railway.app/api/v1/brands/${brandName}`).then(
                 (response) => {
                     setData(response.data);
 
@@ -32,7 +32,7 @@ function BrandName() {
             try {
                 setIsLoading(true)
                 console.log(brandName)
-                let response= await axios.get(`https://helloworlddjangotestdeploy-production.up.railway.app/api/v1/products/?brand__name__iexact=${brandName}`)
+                let response= await axios.get(`https://shop-01it-group.up.railway.app/api/v1/products/?brand__name__iexact=${brandName}`)
                 setIsLoading(false)
                 console.log(response.data)
                 setProds(response.data.results);

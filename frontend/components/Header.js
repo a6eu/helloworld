@@ -29,7 +29,7 @@ const Header = () => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await axios.get('https://helloworlddjangotestdeploy-production.up.railway.app/api/v1/products/');
+                const response = await axios.get('https://shop-01it-group.up.railway.app/api/v1/products/');
                 setAllProducts(response.data.results);
             } catch (error) {
                 console.error('Error fetching data:', error);

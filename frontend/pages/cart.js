@@ -41,7 +41,7 @@ function Cart(props) {
 
     const getBasket = async () => {
         try {
-            const response = await axios.get('https://helloworlddjangotestdeploy-production.up.railway.app/api/v1/basket\n', {
+            const response = await axios.get('https://shop-01it-group.up.railway.app/api/v1/basket\n', {
                 headers: {
                     Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
                 },
@@ -78,7 +78,7 @@ function Cart(props) {
 
     const removeItem = async (index) => {
         try {
-            const response = await axios.delete(`https://helloworlddjangotestdeploy-production.up.railway.app/api/v1/basket/products/${index}`, {
+            const response = await axios.delete(`https://shop-01it-group.up.railway.app/api/v1/basket/products/${index}`, {
                 headers: {
                     Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
                 },
@@ -95,7 +95,7 @@ function Cart(props) {
 
     const cleanCart = async () => {
         try {
-            const response = await axios.delete(`https://helloworlddjangotestdeploy-production.up.railway.app/api/v1/basket`, {
+            const response = await axios.delete(`https://shop-01it-group.up.railway.app/api/v1/basket`, {
                 headers: {
                     Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
                 },

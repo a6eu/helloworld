@@ -22,7 +22,7 @@ const SignUpForm = ({onLogInClick}) => {
 
     const registration = async (e) => {
         e.preventDefault();
-        const url = 'https://helloworlddjangotestdeploy-production.up.railway.app/auth/users/';
+        const url = 'https://shop-01it-group.up.railway.app/auth/users/';
 
         if (password === repeatPasswd) {
             const requestBody = {

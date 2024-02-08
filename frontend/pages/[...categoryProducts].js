@@ -27,7 +27,7 @@ const Products = () => {
     useEffect(() => {
         const getCategoryProducts = async () => {
             const lastChild = categoryProducts[categoryProducts.length - 1];
-            const url = `https://helloworlddjangotestdeploy-production.up.railway.app/api/v1/products/?category_name_and_parent_name=${lastChild}`;
+            const url = `https://shop-01it-group.up.railway.app/api/v1/products/?category_name_and_parent_name=${lastChild}`;
 
             try {
                 setIsLoading(true);

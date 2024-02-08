@@ -19,7 +19,7 @@ const LogInForm = ({onSignUpClick, setIsModelOpen}) => {
     const login = (e) => {
         e.preventDefault();
 
-        const url = 'https://helloworlddjangotestdeploy-production.up.railway.app/auth/users/login/';
+        const url = 'https://shop-01it-group.up.railway.app/auth/users/login/';
 
         const requestBody = {
             "email_or_phone": emailOrPhone,

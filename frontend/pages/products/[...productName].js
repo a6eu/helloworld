@@ -22,7 +22,7 @@ export default function ProductPage() {
             console.log("HFHFHF", router)
             try {
                 setIsLoading(true)
-                response = await axios.get(`https://helloworlddjangotestdeploy-production.up.railway.app/api/v1/products/?search=${productName}`);
+                response = await axios.get(`https://shop-01it-group.up.railway.app/api/v1/products/?search=${productName}`);
                 setProduct(response.data.results[0]);
                 console.log(response.data.results[0].brand);
                 await getBrand(response.data.results[0].brand.name)
@@ -43,7 +43,7 @@ export default function ProductPage() {
             let response
             try {
                 console.log("br", brandName)
-                response= await axios.get(`https://helloworlddjangotestdeploy-production.up.railway.app/api/v1/brands/${brandName}`)
+                response= await axios.get(`https://shop-01it-group.up.railway.app/api/v1/brands/${brandName}`)
 
                 const brandLogo = response.data.results
                 setBrandName(response.data)
