@@ -53,7 +53,7 @@ const ProductItem = ({product, signedIn}) => {
                 </button>
             </div>
             <div className={styles.nameAndPrice}>
-                <p className="text-[14px] pr-1 ProductSansLight mb-3">{formatName(product.name)}</p>
+                <p className="text-[14px] pr-1 ProductSansLight mb-3">{product.name}</p>
                 <Price price={product.price} fSizeOfDigit={16} fSizeOfCurrency={13}/>
 
             </div>

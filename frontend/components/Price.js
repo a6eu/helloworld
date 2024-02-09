@@ -1,7 +1,5 @@
 import React, {useEffect, useState} from 'react';
 
-
-
 const Price = ({price, fSizeOfDigit, fSizeOfCurrency}) => {
     const [fontSizeOfDigit, setFontSizeOfDigit] = useState(20)
     const [fontSizeOfCurrency, setFontSizeOfCurrency] = useState(16)

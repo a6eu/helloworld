@@ -19,25 +19,23 @@ function goToHome() {
     window.location.href = '/';
 }
 
-export const getStaticProps = async () => {
-    const res = await imported;
-    const data = await res.products;
-
-    return {
-        props: {products: data}
-    }
-}
-
 function Cart(props) {
-    const [cartWithProducts, setCartWithProducts] = useState(props.products);
+    const [cartWithProducts, setCartWithProducts] = useState([]);
     let quantity = 0;
     let wholePrice = 0;
-
-
 
     const [products, setProducts] = useState([]);
     const [fetchingStatus, setFetchingStatus] = useState(true)
 
+    function formatNumberWithSpaces(number) {
+        if (number) {
+            if (typeof number === "string")
+                return number.replace(/\B(?=(\d{3})+(?!\d))/g, ' ');
+            return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ' ');
+        } else {
+            return "-";
+        }
+    }
 
     const getBasket = async () => {
         try {
@@ -48,7 +46,6 @@ function Cart(props) {
             });
 
             console.log(response.data)
-            console.log(response.data)
             setCartWithProducts(response.data.products)
             setProducts(response.data.products)
         } catch (error) {
@@ -58,7 +55,6 @@ function Cart(props) {
 
 
     useEffect(() => {
-        setProducts(imported.products)
         getBasket()
     }, []);
 
@@ -137,10 +133,10 @@ function Cart(props) {
                                             <div className="hidden">
                                                 {wholePrice += result.product.price * result.quantity}</div>
                                             <div className="h-auto flex align-center pb-6 border-b-1px">
-                                                <Image className="ml-10" src={dellPhoto} alt="Product Photo"></Image>
+                                                <Image className="ml-10" src={result.product.img_url} width={310} height={310} alt="Product Photo"></Image>
                                                 <div className="flex-col ProductSansLight ml-10 mt-4">
                                                     <div className="text-[20px]">{result.product.name}</div>
-                                                    <div className="ProductSansMedium text-lg">{result.product.price} ₸</div>
+                                                    <div className="ProductSansMedium text-lg">{formatNumberWithSpaces(result.product.price)} ₸</div>
                                                     <div className="text-[12px] w-2/3 mt-4">{result.product.description}</div>
                                                     <div className="flex justify-between items-center">
                                                         {/*---------------------FIX THAT---------------------*/}
@@ -169,7 +165,7 @@ function Cart(props) {
                                                             </button>
 
                                                             <div
-                                                                className="mr-4 ProductSansMedium text-lg w-24">{result.total_price} ₸
+                                                                className="mr-4 ProductSansMedium text-lg w-24">{formatNumberWithSpaces(wholePrice)} ₸
                                                             </div>
                                                         </div>
                                                     </div>
@@ -196,11 +192,11 @@ function Cart(props) {
                             <div className="ProductSansLight flex justify-between px-10">
                                 <div
                                     className="text-[#1075B2]">{quantity} {quantity === 1 ? "товар на сумму:" : quantity >= 2 && quantity <= 4 ? "товара на сумму:" : "товаров на сумму:"}</div>
-                                <div>{wholePrice}</div>
+                                <div>{formatNumberWithSpaces(wholePrice)} ₸</div>
                             </div>
                             <div className="ProductSansLight flex justify-between px-10">
                                 <div className="text-[#1075B2]">Сумма к оплате:</div>
-                                <div className="text-xl">{wholePrice}</div>
+                                <div className="text-xl">{formatNumberWithSpaces(wholePrice)} ₸</div>
                             </div>
                             <div className="flex justify-center">
                                 <button

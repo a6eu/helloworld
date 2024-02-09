@@ -11,7 +11,7 @@ function Favorites() {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await axios.get('https://shop-01it-group.up.railway.app/api/v1/favorites/products?page=1', {
+                const response = await axios.get('https://helloworlddjangotestdeploy-production.up.railway.app/api/v1/favorites/products?page=1', {
                     headers: {
                         'Authorization': `Bearer ${localStorage.getItem("accessToken")}`,
                     }

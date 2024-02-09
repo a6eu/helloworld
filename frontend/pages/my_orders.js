@@ -28,20 +28,6 @@ function my_orders(props) {
         setSelectedOrder((prev) => (prev === orderId ? null : orderId));
     };
 
-    // eslint-disable-next-line react-hooks/rules-of-hooks
-    useEffect(() => {
-        const fetchData = async () => {
-            try {
-                const response = await fetch('your_api_endpoint_here');
-                const data = await response.json();
-                orders(data.order);
-            } catch (error) {
-                console.error('Error fetching orders:', error);
-            }
-        };
-
-        fetchData();
-    }, []);
 
     function getOrdersText(count) {
         if (count >= 11 && count <= 20) {
@@ -180,11 +166,11 @@ function my_orders(props) {
                     </div>
                 </div>
             </div>
-            <div>
-                <h3 className="flex justify-center mt-12 ProductSansLight text-xl text-[#1075B2]">ПЕРСОНАЛЬНЫЕ
-                    РЕКОМЕНДАЦИИ</h3>
-                <Products fetchingStatus={true} />
-            </div>
+            {/*<div>*/}
+            {/*    <h3 className="flex justify-center mt-12 ProductSansLight text-xl text-[#1075B2]">ПЕРСОНАЛЬНЫЕ*/}
+            {/*        РЕКОМЕНДАЦИИ</h3>*/}
+            {/*    <Products products={} fetchingStatus={true} />*/}
+            {/*</div>*/}
         </MainContainer>
     )
 

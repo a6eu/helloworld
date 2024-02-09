@@ -21,7 +21,7 @@ function Products({products, fetchingStatus}) {
                 <>
                     <div className="w-full h-[340px] mt-6 flex justify-center">
                         <div className={styles.container}>
-                            {products.map(product => {
+                            {products.map((product, signedIn) => {
                                 return (
                                     signedIn ?
                                         <ProductItem key={product.id} signedIn={signedIn} isFavorite={true}
