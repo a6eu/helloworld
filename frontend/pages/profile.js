@@ -33,7 +33,6 @@ function Profile() {
             }
         }
 
-        console.log("reload")
         getProfile().then(r => {
             console.log(r);
 
