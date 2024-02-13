@@ -23,6 +23,7 @@ export default function ProductPage() {
             try {
                 setIsLoading(true)
                 response = await axios.get(`https://shop-01it-group.up.railway.app/api/v1/products/?search=${productName}`);
+                console.log(response.data.results[0])
                 setProduct(response.data.results[0]);
                 console.log(response.data.results[0].brand);
                 await getBrand(response.data.results[0].brand.name)
@@ -58,14 +59,14 @@ export default function ProductPage() {
 
     }, [productName, router]);
 
-
+    console.log("product info", productName)
 
     return (
         <MainContainer>
             {
                 !isLoading ?
                     <>
-                        <Path path={["Безопасность", `${category.name}`, `${product.name}`]}/>
+                        <Path path={["Безопасность", `${category.name}`, `${productName}`]}/>
                         <ProductInfo product={product} brandName={brandName}/>
                         <div className="flex mt-5">
                             <DescriptionChooser product={product} brand={brandName}/>

@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import styles from "@/styles/Products.module.css";
 import Link from "next/link";
 import Image from "next/image";
@@ -7,9 +7,12 @@ import minus from "@/public/images/minus.svg";
 import {Rating} from "@smastrom/react-rating";
 import Price from "@/components/Price";
 import ModalDialog from "@/components/ModalDialog";
+import axios from 'axios';
 
 const floatValues = [0.29, 1.44, 2.31, 3.48, 4.52];
 const ProductItem = ({product, signedIn}) => {
+    const [quantity, setQuantity] = useState(1)
+
     const formatName = (title) => {
         let words = title.split(" ")
         let formattedTitle = "";
@@ -31,8 +34,42 @@ const ProductItem = ({product, signedIn}) => {
             setIsModalOpen(true)
         }
     }
+    const handleButtonClick = async (product_id, quantity) => {
+        const url = "https://shop-01it-group.up.railway.app/api/v1/basket/products/";
+    
+        try {
+          const response = await axios.post(
+            url,
+            {
+                product_id: product.id,
+                quantity: quantity,
+            },
+            {
+              headers: {
+                Authorization: "Bearer " + localStorage.getItem("accessToken"),
+              },
+            }
+          );
+    
+          if (response.status === 201) {
+            alert("Success");
+            console.log(response.data);
+          }
+        } catch (error) {
+          console.error(error);
+        }
+      };
 
 
+      const increaseQuantity = () => {
+        setQuantity(quantity + 1)
+      }
+    ;
+    const decreaseQuantity = () => {
+        if(quantity > 1){
+            setQuantity(quantity - 1)
+        }
+    };
     return (
         <div className={styles.productCard}>
             <Link href={{
@@ -60,18 +97,18 @@ const ProductItem = ({product, signedIn}) => {
             <div className={styles.piecesAndToBucket}>
                 <div className={styles.quantity}>
                     <button
-                        className="bg-[#e9e9e9] border-solid border-1px mr-customMargin rounded-sm w-5 flex justify-center items-center h-6">
+                        className="bg-[#e9e9e9] border-solid border-1px mr-customMargin rounded-sm w-5 flex justify-center items-center h-6" onClick={increaseQuantity}>
                         <Image className="w-3" src={plus} alt="+"/>
                     </button>
                     <button
-                        className="text-white bg-[#1075B2] mr-customMargin border-solid rounded-sm w-5 h-6">1
+                        className="text-white bg-[#1075B2] mr-customMargin border-solid rounded-sm w-5 h-6">{quantity}
                     </button>
                     <button
-                        className="bg-[#e9e9e9] border-solid border-1px rounded-sm w-5 flex justify-center items-center h-6">
+                        className="bg-[#e9e9e9] border-solid border-1px rounded-sm w-5 flex justify-center items-center h-6" onClick={decreaseQuantity}>
                         <Image className="w-3" src={minus} alt="-"/>
                     </button>
                 </div>
-                <button className={styles.toBucket}>
+                <button className={styles.toBucket} onClick={() => handleButtonClick(product.id, quantity)} >
                     В КОРЗИНУ
                 </button>
             </div>
