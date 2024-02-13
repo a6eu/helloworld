@@ -33,7 +33,31 @@ const ProductInfo = ({product, category, brandName}) => {
     // }, [brandName])
 
 
-
+    const handleButtonClick = async (quantity) => {
+        const url = "https://shop-01it-group.up.railway.app/api/v1/basket/products/";
+    
+        try {
+          const response = await axios.post(
+            url,
+            {
+                product_id: product.id,
+                quantity: quantity,
+            },
+            {
+              headers: {
+                Authorization: "Bearer " + localStorage.getItem("accessToken"),
+              },
+            }
+          );
+    
+          if (response.status === 201) {
+            alert("success")
+            console.log(response.data);
+          }
+        } catch (error) {
+          console.error(error);
+        }
+      };
 
     const increaseQuantity = () => {
         setQuantity(quantity + 1);
@@ -128,8 +152,7 @@ const ProductInfo = ({product, category, brandName}) => {
                         </div>
                         <button
                             className={
-                                "ProductSansMedium text-[10px] text-[#1075B2] w-[86px] border border-[#1075B2] rounded-[3px] ml-2"
-                            }
+                                "ProductSansMedium text-[10px] text-[#1075B2] w-[86px] border border-[#1075B2] rounded-[3px] ml-2"} onClick={() => handleButtonClick(quantity)} 
                         >
                             В КОРЗИНУ
                         </button>

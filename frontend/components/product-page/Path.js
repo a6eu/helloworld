@@ -3,8 +3,7 @@ import Link from "next/link";
 const Path = ({ path }) => {
     return (
         <div className="flex align-middle mt-4">
-
-            {
+ {
                 path.map((element, index) => {
                     return (
                         <div key={index} className={"flex"}>

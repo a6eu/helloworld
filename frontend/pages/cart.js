@@ -45,7 +45,7 @@ function Cart(props) {
                 },
             });
 
-            console.log(response.data)
+            console.log(response.data.products)
             setCartWithProducts(response.data.products)
             setProducts(response.data.products)
         } catch (error) {
