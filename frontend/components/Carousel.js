@@ -1,28 +1,26 @@
 import React from 'react';
-import Slider from 'react-slick';
-import 'slick-carousel/slick/slick.css';
-import 'slick-carousel/slick/slick-theme.css';
-
-
-
-const Carousel = () => {
-  
-    const settings = {
-      dots: true,
-      infinite: true,
-      speed: 1000,
-      autoplay: true,
-      autoplaySpeed: 6000,
-      slidesToShow: 1,
-      slidesToScroll: 1,
-    };
-    return (
-      <Slider className='h-80 w-[100%] appearance-none' {...settings}>
-        <div className=' h-80 bg-first bg-no-repeat bg-cover bg-center rounded-md'></div>
-        <div className=' h-80 bg-second bg-no-repeat bg-cover bg-center rounded-md'></div>
-        <div className=' h-80 bg-third bg-no-repeat bg-cover bg-center rounded-md'></div>
-      </Slider>
-    );
-  };
-
-export default Carousel;
+import { Carousel } from 'antd';
+const contentStyle = {
+    height: 320,
+    color: '#fff',
+    lineHeight: '160px',
+    textAlign: 'center',
+    background: '#364d79',
+};
+const App = () => (
+    <Carousel autoplay>
+        <div>
+            <h3 style={contentStyle}>1</h3>
+        </div>
+        <div>
+            <h3 style={contentStyle}>2</h3>
+        </div>
+        <div>
+            <h3 style={contentStyle}>3</h3>
+        </div>
+        <div>
+            <h3 style={contentStyle}>4</h3>
+        </div>
+    </Carousel>
+);
+export default App;

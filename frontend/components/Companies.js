@@ -2,7 +2,7 @@ import Link from "next/link";
 
 
 const Companies = () => (
-    <div className="w-full h-44 pl-30 pr-30  flex justify-center mt-5">
+    <div className="w-full h-44 flex justify-center mt-5">
         <div className="w-full flex">
             <div className="w-full h-44 ">
                 <div className="w-full h-1/2 flex ">
@@ -47,7 +47,6 @@ const Companies = () => (
                           href={"brands/grandstream"}>
                     </Link>
                 </div>
-                <div></div>
             </div>
         </div>
     </div>);

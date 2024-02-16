@@ -17,6 +17,7 @@ import loginIconActive from "../public/images/loginIconBlue.svg";
 import {useTokenExpirationCheck} from "@/customHooks/useTokenExpirationCheck";
 import axios from "axios";
 import {Dropdown} from 'antd';
+import {Input} from 'antd';
 
 
 const Header = () => {
@@ -26,6 +27,7 @@ const Header = () => {
     const [searchResults, setSearchResults] = useState([]);
     const [isSearchVisible, setIsSearchVisible] = useState(false);
     const searchContainerRef = useRef(null);
+    const Search = Input;
     const items = [
         {
             label: <a href={"/profile"}>Профиль</a>,
@@ -139,10 +141,6 @@ const Header = () => {
 
     let [isModalOpen, setIsModalOpen] = useState(false)
 
-    function closeModal() {
-        setIsModalOpen(false)
-    }
-
     function openModal() {
         setIsModalOpen(true)
     }
@@ -150,66 +148,51 @@ const Header = () => {
     return (
         <header className={styles.header}>
             <div className={"max-w-screen-xl w-full flex justify-between items-center p-2"}>
-                <Link href={"/"}>
-                    <Image className="cursor-pointer min-w-[60px] min-[320px]:max-[880px]:hidden"
+                <Link href={"/"} className='min-[320px]:max-[880px]:hidden'>
+                    <Image className="cursor-pointer min-w-[60px]"
                            src="/images/image 1.svg"
                            height={60}
                            width={60}
                            alt="logo"
                     />
                 </Link>
-                <div className='flex justify-between w-2/3 items-center min-[320px]:max-[880px]:w-3/4'>
-                    <CategoriesDropdown/>
-                    <div className={"flex items-center "} ref={searchContainerRef}>
-                        <div className="flex flex-row relative">
-                            <input
-                                type="text"
-                                placeholder="Search by product name"
-                                value={searchTerm}
-                                onChange={handleSearchChange}
-                                className="min-[320px]:max-[880px]:w-auto w-auto h-[30px] px-2 rounded border border-[#1075b2] active:border-current"/>
-                            <button className={styles.searchButton}>
-                                <svg width="25" height="25" viewBox="0 0 28 28" fill="none"
-                                     xmlns="http://www.w3.org/2000/svg">
-                                    <path
-                                        d="M18.0833 16.3333H17.15L16.8 15.9833C17.9667 14.7 18.6667 12.95 18.6667 11.0833C18.6667 6.88333 15.2833 3.5 11.0833 3.5C6.88333 3.5 3.5 6.88333 3.5 11.0833C3.5 15.2833 6.88333 18.6667 11.0833 18.6667C12.95 18.6667 14.7 17.9667 15.9833 16.8L16.3333 17.15V18.0833L22.1667 23.9167L23.9167 22.1667L18.0833 16.3333ZM11.0833 16.3333C8.16667 16.3333 5.83333 14 5.83333 11.0833C5.83333 8.16667 8.16667 5.83333 11.0833 5.83333C14 5.83333 16.3333 8.16667 16.3333 11.0833C16.3333 14 14 16.3333 11.0833 16.3333Z"
-                                        fill="#F9F9F9"/>
-                                </svg>
-                            </button>
-                        </div>
-                        {isSearchVisible && searchTerm.trim() !== '' && (
-                            <ul className="absolute max-h-[62vh] overflow-auto bg-white w-[438px] top-[59px] rounded shadow-lg border border-b-blue-200">
-                                {searchResults.map((product) => (
-                                    <Link rel="stylesheet" href={`/products/${product.name}`}>
-                                        <li className="flex  flex-row border justify-between border-t-o border-l-0 border-r-0 py-2 px-2"
-                                            key={product.id}>
-                                            <div className="flex flex-row w-[55%]">
-                                                <Image
-                                                    width={80}
-                                                    height={5}
-                                                    alt={"pic"}
-                                                    src={product.img_url}
-                                                />
-                                                <div className="ml-2">
-                                                    <h3 className="text-[13px]">{truncateDescription(product.name, 20)}</h3>
-                                                    <span>{parseInt(product.price)} ₸</span>
-                                                </div>
+                <CategoriesDropdown/>
+                <div className={"flex items-center"} ref={searchContainerRef}>
+                    <Search placeholder="Поиск"
+                            enterButton
+                            onChange={handleSearchChange}
+                            value={searchTerm}
+                            className='w-[400px] min-[320px]:max-lg:w-auto'
+                    />
+                    {isSearchVisible && searchTerm.trim() !== '' && (
+                        <ul className="absolute max-h-[62vh] overflow-auto z-50 bg-white w-[438px] top-[59px] rounded shadow-lg border border-b-blue-200">
+                            {searchResults.map((product) => (
+                                <Link rel="stylesheet" href={`/products/${product.name}`}>
+                                    <li className="flex flex-row border justify-between border-t-o border-l-0 border-r-0 py-2 px-2"
+                                        key={product.id}>
+                                        <div className="flex flex-row w-[55%]">
+                                            <Image
+                                                width={80}
+                                                height={5}
+                                                alt={"pic"}
+                                                src={product.img_url}
+                                            />
+                                            <div className="ml-2">
+                                                <h3 className="text-[13px]">{truncateDescription(product.name, 20)}</h3>
+                                                <span>{parseInt(product.price)} ₸</span>
                                             </div>
-                                            <p className="text-gray-400 text-xs w-[40%]">{truncateDescription(product.description, 105)}</p>
-                                        </li>
-                                    </Link>
-                                ))}
-                            </ul>
-                        )}
-                    </div>
-                    <div className={styles.cityDiv}>
-                        <CityDropdownMenu
-                            selectedCity={selectedCity}
-                            onCityChange={handleCityChange}
-                        />
-                    </div>
+                                        </div>
+                                        <p className="text-gray-400 text-xs w-[40%]">{truncateDescription(product.description, 105)}</p>
+                                    </li>
+                                </Link>
+                            ))}
+                        </ul>
+                    )}
                 </div>
-
+                <CityDropdownMenu
+                    selectedCity={selectedCity}
+                    onCityChange={handleCityChange}
+                />
 
                 <div className='min-[320px]:max-[880px]:flex hidden pr-2'>
                     <Dropdown
@@ -221,17 +204,11 @@ const Header = () => {
                         <a onClick={(e) => e.preventDefault()}>
                             <svg width="35px" height="35px" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"
                                  fill="#1075b2">
-
-                                <g id="SVGRepo_bgCarrier" stroke-width="0"/>
-
-                                <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"/>
-
                                 <g id="SVGRepo_iconCarrier">
                                     <g>
                                         <path d="M4 19h16v-2H4v2zm16-6H4v2h16v-2zM4 9v2h16V9H4zm16-4H4v2h16V5z"/>
                                     </g>
                                 </g>
-
                             </svg>
                         </a>
                     </Dropdown>
@@ -304,7 +281,6 @@ const Header = () => {
             </div>
             <ModalDialog isModalOpen={isModalOpen} setIsModelOpen={setIsModalOpen}/>
         </header>
-
 
     )
 };

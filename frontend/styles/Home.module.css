@@ -57,22 +57,6 @@
     border-bottom-left-radius: 5px;
 }
 
-.cityDiv {
-    display: flex;
-    align-items: center;
-    background: white;
-    width: 150px;
-    height: 30px;
-    appearance: none;
-}
-
-
-
-.cityButton {
-    border-bottom: 2px solid black;
-    appearance: none;
-}
-
 .toTheLeft {
     margin-left: -35px;
 }

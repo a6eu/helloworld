@@ -1,9 +1,6 @@
 import {Popover, Transition} from '@headlessui/react';
 import Image from "next/image";
-import styles from "@/styles/Home.module.css";
 import React, {Fragment, useEffect, useState} from "react";
-import imported from "../catalog_data.json"
-import HamburgerNav from "@/components/HamburgerNav";
 import burger from "@/public/images/catalog_svg.svg";
 import X from "../public/images/X.svg";
 import axios from 'axios';
@@ -18,8 +15,6 @@ export default function CatalogDropdown() {
     const [changeToX, setChangeToX] = useState(burger);
     const [state, setState] = useState('opened');
     const [focused, setFocused] = useState('unfocused');
-
-    const [categories, setCategories] = useState([]);
 
     useEffect(() => {
         const fetchData = async () => {
@@ -75,7 +70,7 @@ export default function CatalogDropdown() {
         <Popover>
             {({open}) => (<>
                 <Popover.Button
-                    className=" text-[#1075B2] flex items-center justify-center w-[90px] h-[30px] border-1px border-[#1075B2] rounded-[5px] text-[10px] focus:outline-none"
+                    className=" text-[#1075B2] flex items-center justify-center w-full h-[30px] border-1px border-[#1075B2] rounded-[5px] text-[10px] focus:outline-none"
                     onFocus={() => {
                         setState('opened');
                     }}
@@ -86,10 +81,10 @@ export default function CatalogDropdown() {
                         setState('closed');
                     }}
                 >
-
-                    <div className="flex flex-row items-center w-full justify-center">
-                        <Image className="w-5 h-5 pr-1" src={open ? X : burger} alt="X/burger"/>
-                        <p className="">КАТАЛОГ</p></div>
+                    <div className="flex flex-row items-center justify-center p-2">
+                        <Image className="w-5 h-5" src={open ? X : burger} alt="X/burger"/>
+                        <p className='min-[320px]:max-[400px]:hidden pl-1'>КАТАЛОГ</p>
+                    </div>
                 </Popover.Button>
 
                 <Transition
@@ -103,7 +98,7 @@ export default function CatalogDropdown() {
                 >
                     <Popover.Panel className="absolute w-full flex justify-center left-0">
                         <div
-                            className="flex z-10 w-full max-w-screen-xl drop-shadow-[2px_6px_10px_11px_rgba(0,0,0,0.75)] height-[100%] rounded-b-lg mt-5 overflow-hidden">
+                            className="flex z-10 w-full max-w-screen-xl drop-shadow-[2px_6px_10px_11px_rgba(0,0,0,0.75)] h-full rounded-b-lg mt-5 overflow-hidden">
                             <div className="flex-initial w-1/5 py-10 pl-5 bg-slate-200">
                                 <ul className="w-full" onMouseLeave={() => debounce.cancel()}>
                                     {ctg.map((item, index) => (<li
@@ -136,14 +131,16 @@ export default function CatalogDropdown() {
                                         </div>) : (<></>)}
                                     </div>
                                     <div>
-                                                <Link href={`[...categoryProducts]`} as={`/${ctg[selectedCtg].name}/${item.name}`}
-                                                    className="hover:text-[#1075B2] hover:cursor-pointer">{item.name}</Link>
+                                        <Link href={`[...categoryProducts]`}
+                                              as={`/${ctg[selectedCtg].name}/${item.name}`}
+                                              className="hover:text-[#1075B2] hover:cursor-pointer">{item.name}</Link>
                                         <ul className="text-left pl-1 mt-2">
                                             {item.children.map((children) => (<li
                                                 key={children.id}
                                                 className="text-[#606060] hover:text-[#1075B2] hover:cursor-pointer mb-1.5 ProductSansLight"
                                             >
-                                                <Link href={`[...categoryProducts]`} as={`/${ctg[selectedCtg].name}/${item.name}/${children.name}`}>
+                                                <Link href={`[...categoryProducts]`}
+                                                      as={`/${ctg[selectedCtg].name}/${item.name}/${children.name}`}>
                                                     {children.name}
                                                 </Link>
                                             </li>))}
