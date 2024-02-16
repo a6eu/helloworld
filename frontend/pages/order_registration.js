@@ -3,6 +3,7 @@ import React, {useEffect, useState} from "react";
 import Image from "next/image";
 import dellPhoto from "@/public/images/dellPowerEdge.svg";
 import axios from "axios";
+import order_reg from "@/order_reg.json"
 
 export default function order_registration() {
     const [profile, setProfile] = useState({});
@@ -98,8 +99,8 @@ export default function order_registration() {
             <div className="flex w-full">
                 <div className="flex flex-col w-full">
                     <h3 className="text-[#1075B2] text-[15px] mt-4 uppercase">ОФОРМЛЕНИЕ ЗАКАЗА</h3>
-                    <div className="flex w-full justify-between flex-row">
-                        <div className="bg-white w-3/5 flex flex-col py-7 shadow-md rounded-lg mt-3">
+                    <div className="flex w-full justify-between md:flex-row flex-col">
+                        <div className="bg-white md:w-3/5 w-full flex flex-col py-7 shadow-md rounded-lg mt-3">
                             <div className="flex justify-between border-t border-b py-5 px-8">
                                 <div className="">
                                     <h1 className="text-xl">1. Покупатель</h1>

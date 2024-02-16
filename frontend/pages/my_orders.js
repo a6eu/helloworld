@@ -53,7 +53,7 @@ function my_orders(props) {
             <div className="flex justify-center">
                 <div className="flex justify-between w-full">
                     <UserNavbar/>
-                    <div className="w-4/5 mb-[200px]">
+                    <div className="md:w-4/5 w-full mb-[200px]">
                         <h3 className="text-[#1075B2] text-[15px] mt-4 uppercase">Мои заказы</h3>
 
                         <p className="font-sans mt-2 text-[#1075B2]">
@@ -82,7 +82,7 @@ function my_orders(props) {
                                                             <div className="flex w-1/4">{order.updated_at}</div>
                                                             <div
                                                                 className="flex w-[18.75%] text-lime-700">{order.status}</div>
-                                                            <div className="flex w-[6.25%] pt-1 cursor-pointer"
+                                                            <div className="flex w-[6.25%] pt-1 ml-2 md:block hidden cursor-pointer"
                                                                  onClick={handleToggle}>
                                                                 <svg className={`${open ? 'rotate-180 transform' : ''}`}
                                                                      width="16" height="10" viewBox="0 0 16 10"
