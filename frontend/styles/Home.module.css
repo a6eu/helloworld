@@ -89,7 +89,24 @@
     border-bottom-right-radius: 12px;
     border-bottom-left-radius: 12px;
     position: sticky;
-    top: 92px;
+    top:  0px;
+    display: none;
+}
+
+@media (min-width: 640px) {
+    .userNavbar {
+        display: contents;
+        width: 22%;
+        margin-right: 20px;
+        background: white;
+        height: 240px;
+        padding: 40px;
+        display: flex;
+        border-bottom-right-radius: 12px;
+        border-bottom-left-radius: 12px;
+        position: sticky;
+        
+    }
 }
 
 .modalContainer {
