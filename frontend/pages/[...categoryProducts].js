@@ -26,6 +26,10 @@ const Products = () => {
 
     useEffect(() => {
         const getCategoryProducts = async () => {
+            if (!categoryProducts || !Array.isArray(categoryProducts)) {
+                return;
+            }
+
             const lastChild = categoryProducts[categoryProducts.length - 1];
             const url = `https://shop-01it-group.up.railway.app/api/v1/products/?category_name_and_parent_name=${lastChild}`;
 
