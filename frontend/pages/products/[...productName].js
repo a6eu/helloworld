@@ -66,7 +66,7 @@ export default function ProductPage() {
             {
                 !isLoading ?
                     <>
-                        <Path path={["Безопасность", `${category.name}`, `${productName}`]}/>
+                        <Path />
                         <ProductInfo product={product} brandName={brandName}/>
                         <div className="flex mt-5">
                             <DescriptionChooser product={product} brand={brandName}/>

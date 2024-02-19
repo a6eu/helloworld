@@ -133,7 +133,8 @@ export default function CatalogDropdown() {
                                     <div>
                                         <Link href={`[...categoryProducts]`}
                                               as={`/${ctg[selectedCtg].name}/${item.name}`}
-                                              className="hover:text-[#1075B2] hover:cursor-pointer">{item.name}</Link>
+                                              className="hover:text-[#1075B2] hover:cursor-pointer"
+                                        >{item.name}</Link>
                                         <ul className="text-left pl-1 mt-2">
                                             {item.children.map((children) => (<li
                                                 key={children.id}

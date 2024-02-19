@@ -32,6 +32,7 @@ const pages = [
 export default function SidebarWrapper({children}) {
 
     const [breadcrumbItems, setBreadcrumbItems] = useState([{title: 'Dashboard'}]);
+    const [collapsed, setCollapsed] = useState(false);
 
     function onSelect(e) {
         setBreadcrumbItems([pages[e.key - 1]])
@@ -39,7 +40,7 @@ export default function SidebarWrapper({children}) {
 
     return (
         <Layout className={"min-h-[100vh]"}>
-            <Sider>
+            <Sider collapsible collapsed={collapsed} onCollapse={(value) => setCollapsed(value)}>
                 <div className="demo-logo-vertical text-white w-full flex justify-center my-5 text-xl">Astana IT Group
                 </div>
                 <Menu theme="dark" defaultSelectedKeys={['1']} mode="inline" items={items} onSelect={(e) => onSelect(e)}/>

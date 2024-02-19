@@ -2,7 +2,7 @@ import {Dialog} from "@headlessui/react";
 import React, {useEffect, useState} from "react";
 import axios from "axios";
 
-const LogInForm = ({onSignUpClick, setIsModelOpen}) => {
+const LogInForm = ({onSignUpClick, setIsModфlOpen}) => {
     const [emailOrPhone, setEmailOrPhone] = useState("");
     const [password, setPassword] = useState("");
     const [loginError, setLoginError] = useState("");

@@ -71,7 +71,7 @@ const Products = () => {
                             <Filter setProducts={setFilterResult} products={products}/>
                             <div className="w-[1000px] flex justify-center flex-col p-3 ">
                                 <div className="flex justify-between items-center mb-2 ml-[10px]">
-                                    <Path path={categoryProducts}/>
+                                    <Path/>
                                     <FilterDropdown selectedOption={selectedOption} setSelectedOption={setSelectedOption}/>
                                 </div>
                                 <ProductsContainer products={filterResult}/>
