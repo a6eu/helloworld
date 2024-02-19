@@ -5,6 +5,8 @@ import burger from "@/public/images/catalog_svg.svg";
 import X from "../public/images/X.svg";
 import axios from 'axios';
 import Link from "next/link";
+import {useDispatch} from "react-redux";
+import {setPath} from "@/slices/breadcrumbSlice";
 
 let timeoutId;
 
@@ -66,6 +68,8 @@ export default function CatalogDropdown() {
         }
     }
 
+    const dispatch =  useDispatch();
+
     return (
         <Popover>
             {({open}) => (<>
@@ -111,8 +115,8 @@ export default function CatalogDropdown() {
                     <span
                         className={selectedCtg === index ? 'absolute right-0 w-full h-2.5 bg-white -top-2.5  before:absolute before:top-0 before:right-0 before:w-full before:h-full before:rounded-br-full before:bg-slate-200' : ''}
                     ></span>
-                                        <Link
-                                            href={`[...categoryProducts]`} as={`/${item.name}`}
+                                        <Link href={`/${item.name}`}
+                                              onClick={() => dispatch(setPath([item.name]))}
                                             className={selectedCtg === index ? 'text-[15px] font-normal cursor-default p-2 block text-[#1075B2]' : 'text-[15px] font-normal cursor-default p-2 block text-[#text-[#000]]'}
                                         >
                                             {item.name}
@@ -131,17 +135,17 @@ export default function CatalogDropdown() {
                                         </div>) : (<></>)}
                                     </div>
                                     <div>
-                                        <Link href={`[...categoryProducts]`}
-                                              as={`/${ctg[selectedCtg].name}/${item.name}`}
+                                        <Link href={`/${ctg[selectedCtg].name}/${item.name}`}
                                               className="hover:text-[#1075B2] hover:cursor-pointer"
+                                              onClick={() => dispatch(setPath([ctg[selectedCtg].name, item.name]))}
                                         >{item.name}</Link>
                                         <ul className="text-left pl-1 mt-2">
                                             {item.children.map((children) => (<li
                                                 key={children.id}
                                                 className="text-[#606060] hover:text-[#1075B2] hover:cursor-pointer mb-1.5 ProductSansLight"
                                             >
-                                                <Link href={`[...categoryProducts]`}
-                                                      as={`/${ctg[selectedCtg].name}/${item.name}/${children.name}`}>
+                                                <Link href={`/${ctg[selectedCtg].name}/${item.name}/${children.name}`}
+                                                      onClick={() => dispatch(setPath([ctg[selectedCtg].name, item.name, children.name]))}>
                                                     {children.name}
                                                 </Link>
                                             </li>))}

@@ -9,13 +9,11 @@ const breadcrumbSlice = createSlice( {
     name: 'breadcrumb',
     initialState,
     reducers: {
-        upThePath: (state, action) => {state.path.push(action.payload)},
-        backThePath: (state) => {state.path.pop()},
-        resetPath: (state) => {state.path.length = 0}
+        setPath: (state, action) => {state.path = action.payload},
 
     }
 })
 
-export const { upThePath, backThePath, resetPath} = breadcrumbSlice.actions;
+export const { setPath} = breadcrumbSlice.actions;
 
 export default breadcrumbSlice.reducer;
