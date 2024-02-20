@@ -36,7 +36,7 @@ const EditProfile = ({onSaveClick}) => {
   };
 
   const validatePhone = () => {
-    if(phone.length != 10  && !/^[1-10]+$/.test(phone)) {
+    if(phone.length !== 10  && !/^[1-10]+$/.test(phone)) {
       setPhoneError('Введите корректный номер телефона');
       return false;
     }
@@ -93,7 +93,7 @@ const EditProfile = ({onSaveClick}) => {
     };
 
     return (
-        <div className="flex w-3/4 justify-around h-full bg-white p-5  rounded-lg" >
+        <div className="flex sm:w-3/4 w-full justify-around h-full bg-white p-5  rounded-lg" >
             <form className="w-full max-w-lg" onSubmit={handleSubmit}>
               <div className="flex flex-wrap -mx-3 mb-6">
                 <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">

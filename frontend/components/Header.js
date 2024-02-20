@@ -79,15 +79,12 @@ const Header = () => {
     const [loginIconImg, setLoginIconImg] = useState(loginIconNonActive);
     const [isLogged, setIsLogged] = useState(false);
 
-
     const handleCityChange = (city) => {
         setSelectedCity(city);
     };
-
     useEffect(() => {
         const access = localStorage.getItem('accessToken');
         const refresh = localStorage.getItem('refreshToken');
-
         console.log(access + "\n" + refresh)
         if (access && refresh) {
             setIsLogged(true);
@@ -95,10 +92,8 @@ const Header = () => {
         } else {
             setIsLogged(false);
             console.log("not logged")
-
         }
     }, [])
-
     useEffect(() => {
         if (isLogged) {
             setProfileImg(profileIconNonActive)
@@ -108,21 +103,17 @@ const Header = () => {
             setLoginIconImg(loginIconNonActive)
         }
     }, [isLogged])
-
     useEffect(() => {
         const storedCity = localStorage.getItem('city');
         if (storedCity) {
             setSelectedCity(storedCity);
         }
     }, []);
-
     const handleClickOutside = (event) => {
         if (searchContainerRef.current && !searchContainerRef.current.contains(event.target)) {
             setIsSearchVisible(false);
         }
     };
-
-
     const handleKeyDown = (event) => {
         if (event.key === 'Enter' || event.key === 'Escape') {
             setIsSearchVisible(false);
@@ -139,7 +130,7 @@ const Header = () => {
         };
     }, []);
 
-    let [isModalOpen, setIsModalOpen] = useState(false)
+    const [isModalOpen, setIsModalOpen] = useState(false)
 
     function openModal() {
         setIsModalOpen(true)
@@ -274,12 +265,10 @@ const Header = () => {
                                     onMouseLeave={() => setProfileImg(profileIconNonActive)}
                                 />
                             </Link>
-
                     }
-
                 </div>
             </div>
-            <ModalDialog isModalOpen={isModalOpen} setIsModelOpen={setIsModalOpen}/>
+            <ModalDialog isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen}/>
         </header>
 
     )

@@ -52,7 +52,7 @@ function Profile() {
             <div className="flex w-full justify-center ">
                 <div className="flex justify-between w-full">
                     <UserNavbar/>
-                    <div className="w-3/4">
+                    <div className="md:w-3/4 w-full">
                         <h3 className="text-[#1075B2] text-[15px] mt-4">Мой профиль</h3>
                         {
                             !isLoading ?
@@ -64,7 +64,7 @@ function Profile() {
                                     )}
                                 </div>
                                 :
-                                <div className="shadow rounded-md p-4 w-[70%] w-full ">
+                                <div className="shadow rounded-md p-4 w-[70%]">
                                     <div className="animate-pulse flex space-x-4">
                                         <div className="rounded-full bg-slate-700 h-10 w-10"></div>
                                         <div className="flex-1 space-y-6 py-1">

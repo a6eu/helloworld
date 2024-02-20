@@ -251,7 +251,7 @@ export default function order_registration() {
                                 </div>
                             </div>
                         </div>
-                        <div className="flex py-3 w-[38%] h-min bg-white mt-3 sticky top-[87px] shadow-md rounded-lg">
+                        <div className="flex py-3 md:w-[38%] w-full h-min bg-white mt-3 sticky top-[87px] shadow-md rounded-lg">
                             <div className="w-full " >
                                 <div className="hidden"></div>
                                 <div className="px-5">

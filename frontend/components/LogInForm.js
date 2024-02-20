@@ -2,12 +2,25 @@ import {Dialog} from "@headlessui/react";
 import React, {useEffect, useState} from "react";
 import axios from "axios";
 
-const LogInForm = ({onSignUpClick, setIsModфlOpen}) => {
+const LogInForm = ({onSignUpClick, setIsModalOpen}) => {
     const [emailOrPhone, setEmailOrPhone] = useState("");
     const [password, setPassword] = useState("");
     const [loginError, setLoginError] = useState("");
     const [isPassword, setIsPassword] = useState(true);
 
+    const [emailOrPhoneError, setEmailOrPhoneError] = useState("");
+    const [passwordError, setPasswordError] = useState("");
+
+
+    const validateEmailOrPhone = (input) => {
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        const phoneRegex = /^\d{10}$/;
+        return emailRegex.test(input) || phoneRegex.test(input);
+    };
+
+    const validatePassword = (password) => {
+        return password.length > 0;
+    };
     function handleShowClick() {
         setIsPassword(false);
     }
@@ -19,7 +32,38 @@ const LogInForm = ({onSignUpClick, setIsModфlOpen}) => {
     const login = (e) => {
         e.preventDefault();
 
-        const url = 'https://shop-01it-group.up.railway.app/auth/users/login/';
+        const url = 'https://shop-01it-group.up.railway.app/auth/users/login/'
+
+        setEmailOrPhoneError("")
+        setPasswordError("")
+
+        let isValid = true;
+
+        if (!validatePassword(password)) {
+            setPasswordError("Пароль не может быть пустым.")
+            isValid = false;
+        }
+
+        if (!validateEmailOrPhone(emailOrPhone)) {
+            setEmailOrPhoneError("Введите действительный номер телефона или адрес электронной почты.")
+            isValid = false;
+        }
+
+        if (isValid) {
+            const requestBody = {
+                "email_or_phone": emailOrPhone,
+                "password": password
+            };
+
+            axios.post(url, requestBody)
+                .then((res) => {
+                })
+                .catch((error) => {
+                    if (error.response && error.response.data && error.response.data.error) {
+                        setLoginError(error.response.data.error)
+                    }
+                });
+        }
 
         const requestBody = {
             "email_or_phone": emailOrPhone,
@@ -32,7 +76,7 @@ const LogInForm = ({onSignUpClick, setIsModфlOpen}) => {
                 console.log(res);
                 localStorage.setItem("accessToken", res.data.access);
                 localStorage.setItem("refreshToken", res.data.refresh);
-                setIsModelOpen(false);
+                setIsModalOpen(false);
             })
             .catch((error) => {
                 console.log("ERROR");
@@ -63,14 +107,15 @@ const LogInForm = ({onSignUpClick, setIsModфlOpen}) => {
                         Номер телефона или e-mail
                     </label>
                     <input
-                        className="appearance-none block w-full bg-white text-gray-700 border border-[#1075B2] rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500 hover:shadow-lg transition duration-500"
+                        className="appearance-none block w-full bg-white text-gray-700 border border-[#1075B2] rounded py-3 px-4  leading-tight focus:outline-none focus:bg-white focus:border-gray-500 hover:shadow-lg transition duration-500"
                         onChange={(e) => {
                             setEmailOrPhone(e.target.value)
                         }}
                     />
+                    {emailOrPhoneError && <p className="text-sm text-red-500">{emailOrPhoneError}</p>}
                 </div>
             </div>
-            <div className="flex w-full flex-wrap mb-6">
+            <div className="flex w-full flex-wrap mb-10">
                 <div className="w-full">
                     <label
                         className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
@@ -88,6 +133,7 @@ const LogInForm = ({onSignUpClick, setIsModфlOpen}) => {
                                 setPassword(e.target.value)
                             }}
                         />
+                        {passwordError && <p className="absolute text-sm text-red-500">{passwordError}</p>}
                         <div
                             className="cursor-pointer absolute inset-y-0 right-0 flex rounded-none items-center px-2 text-gray-700">
                             {isPassword ? (
@@ -139,7 +185,7 @@ const LogInForm = ({onSignUpClick, setIsModфlOpen}) => {
             }
             <div className="flex w-full flex-wrap justify-center">
                 <input
-                    className="flex flex-wrap w-[50%] h-8 bg-[#1075B2] justify-center text-white rounded"
+                    className="cursor-pointer hover:shadow-xl flex flex-wrap w-[50%] h-8 bg-[#1075B2] justify-center text-white rounded"
                     type="submit" value="Войти" onClick={(e) => {login(e)}}/>
             </div>
             <div className="flex w-full justify-center">

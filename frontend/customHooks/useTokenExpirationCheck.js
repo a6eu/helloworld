@@ -29,7 +29,6 @@ export const useTokenExpirationCheck = () => {
             console.log(tokenData)
             const expirationTime = tokenData.exp * 1000;
             const currentTime = new Date().getTime();
-
             if (currentTime > expirationTime) {
                 refreshToken();
             }
