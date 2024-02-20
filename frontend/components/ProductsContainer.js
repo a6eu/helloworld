@@ -5,8 +5,6 @@ import React from "react";
 
 const ProductsContainer = ({products}) => {
 
-    console.log(products)
-
     return (
         <div className="flex w-[95%] flex-wrap">
             {

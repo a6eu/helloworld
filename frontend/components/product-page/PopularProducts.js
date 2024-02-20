@@ -12,7 +12,6 @@ import '@smastrom/react-rating/style.css'
 import ProductItem from "@/components/ProductItem";
 
 function PopularProducts() {
-    // console.log(props.type);
     const [products, setProducts] = useState([]);
     const [token, setToken] = useState('');
     useEffect(() => {
@@ -25,11 +24,9 @@ function PopularProducts() {
         const fetchProducts = async () => {
             try {
                 const response = await axios.get('https://shop-01it-group.up.railway.app/api/v1/products/');
-                console.log(response.data);
                 const initialProducts = response.data.results.slice(0, 20);
                 const shuffledProducts = shuffleArray(initialProducts);
                 setProducts(shuffledProducts);
-                // setProducts(response.data.results.slice(0, 20));
             } catch (error) {
                 console.error('Error fetching products:', error);
             }

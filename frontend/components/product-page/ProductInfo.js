@@ -15,49 +15,26 @@ const ProductInfo = ({product, category, brandName}) => {
     const router = useRouter();
     const {productName} = router.query;
 
-    console.log("brand info", brandName)
-
-    // useEffect(() => {
-    //     const fetchData = async () => {
-    //
-    //         try {
-    //             const response = await axios.get(`https://shop-01it-group.up.railway.app/api/v1/brands/${brandName}`)
-    //             setBrandLogo(response.data.results[0].logo_url)
-    //             console.log(response.data.results[0])
-    //         } catch (error) {
-    //             console.error('Error fetching data:', error)
-    //         }
-    //
-    //     }
-    //     fetchData()
-    // }, [brandName])
-
-
     const handleButtonClick = async (quantity) => {
         const url = "https://shop-01it-group.up.railway.app/api/v1/basket/products/";
-    
+
         try {
-          const response = await axios.post(
-            url,
-            {
-                product_id: product.id,
-                quantity: quantity,
-            },
-            {
-              headers: {
-                Authorization: "Bearer " + localStorage.getItem("accessToken"),
-              },
-            }
-          );
-    
-          if (response.status === 201) {
-            alert("success")
-            console.log(response.data);
-          }
+            const response = await axios.post(
+                url,
+                {
+                    product_id: product.id,
+                    quantity: quantity,
+                },
+                {
+                    headers: {
+                        Authorization: "Bearer " + localStorage.getItem("accessToken"),
+                    },
+                }
+            );
         } catch (error) {
-          console.error(error);
+            console.error(error);
         }
-      };
+    };
 
     const increaseQuantity = () => {
         setQuantity(quantity + 1);
@@ -68,6 +45,7 @@ const ProductInfo = ({product, category, brandName}) => {
             setQuantity(quantity - 1);
         }
     }
+
     function Stars(starAvg) {
         return (
             <div className="flex items-end text-[#9A9A9A] ProductSansLight">
@@ -81,12 +59,12 @@ const ProductInfo = ({product, category, brandName}) => {
             </div>
         )
     }
-    
+
 
     return (
         <div className="w-full flex mt-3 rounded-[10px] bg-white pl-5">
             <div className="w-1/3">
-                <Image className="object-cover" alt={product.img_url} src={product.img_url} width={310} height={310} />
+                <Image className="object-cover" alt={product.name} src={product.img_url} width={310} height={310}/>
             </div>
             <div className={"m-8 w-2/3"}>
                 <h2
@@ -114,9 +92,9 @@ const ProductInfo = ({product, category, brandName}) => {
                         </a>
                     </div>
                 </h2>
-                <Stars starAvg={4} />
+                <Stars starAvg={4}/>
                 <div className="mb-5"></div>
-                <Price price={product.price} fSizeOfCurrency={30} fSizeOfDigit={35} />
+                <Price price={product.price} fSizeOfCurrency={30} fSizeOfDigit={35}/>
                 <p
                     className={
                         "text-[#636363] text-[15px] ProductSansLight max-w-[70%]"
@@ -138,21 +116,23 @@ const ProductInfo = ({product, category, brandName}) => {
                                 onClick={() => increaseQuantity()}
                                 className="bg-[#E9E9E9] border-solid border-1px mr-customMargin rounded-[3px] w-5 flex justify-center items-center h-6"
                             >
-                                <Image className="w-3" src={plus} alt="+" />
+                                <Image className="w-3" src={plus} alt="+"/>
                             </button>
-                            <div className="text-white bg-[#1075B2] mx-0.5 text-center mr-customMargin border-solid rounded-[3px] w-5 h-6">
+                            <div
+                                className="text-white bg-[#1075B2] mx-0.5 text-center mr-customMargin border-solid rounded-[3px] w-5 h-6">
                                 {quantity}
                             </div>
                             <button
                                 onClick={() => decreaseQuantity()}
                                 className="bg-[#E9E9E9] border-solid border-1px rounded-[3px] w-5 flex justify-center items-center h-6 "
                             >
-                                <Image className="w-3" src={minus} alt="-" />
+                                <Image className="w-3" src={minus} alt="-"/>
                             </button>
                         </div>
                         <button
                             className={
-                                "ProductSansMedium text-[10px] text-[#1075B2] w-[86px] border border-[#1075B2] rounded-[3px] ml-2"} onClick={() => handleButtonClick(quantity)} 
+                                "ProductSansMedium text-[10px] text-[#1075B2] w-[86px] border border-[#1075B2] rounded-[3px] ml-2"}
+                            onClick={() => handleButtonClick(quantity)}
                         >
                             В КОРЗИНУ
                         </button>

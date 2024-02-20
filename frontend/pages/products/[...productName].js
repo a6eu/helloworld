@@ -9,46 +9,33 @@ import {useRouter} from "next/router";
 
 
 export default function ProductPage() {
-    const router = useRouter()
-    const [product, setProduct] = useState("")
-    const {productName} = router.query
-    const [category, setCategory] = useState("")
-    const [isLoading, setIsLoading] = useState(false)
-    const [brandName, setBrandName] = useState([])
+    const router = useRouter();
+    const [product, setProduct] = useState("");
+    const {productName} = router.query;
+    const [isLoading, setIsLoading] = useState(false);
+    const [brandName, setBrandName] = useState([]);
 
     useEffect(() => {
         const fetchData = async () => {
-            let response
-            console.log("HFHFHF", router)
+            let response;
             try {
                 setIsLoading(true)
                 response = await axios.get(`https://shop-01it-group.up.railway.app/api/v1/products/?search=${productName}`);
-                console.log(response.data.results[0])
-                setProduct(response.data.results[0]);
-                console.log(response.data.results[0].brand);
                 await getBrand(response.data.results[0].brand.name)
                 setIsLoading(false)
+                setProduct(response.data.results[0]);
             } catch (error) {
                 console.error('Error fetching data:', error);
             }
-
-            try {
-                 setCategory(response.data.results[0].category)
-            } catch (error) {
-                console.error('Error fetching data:', error
-
-                );
-            }
         };
+
         async function getBrand(brandName) {
             let response
             try {
-                console.log("br", brandName)
-                response= await axios.get(`https://shop-01it-group.up.railway.app/api/v1/brands/${brandName}`)
+                response = await axios.get(`https://shop-01it-group.up.railway.app/api/v1/brands/${brandName}`)
 
                 const brandLogo = response.data.results
                 setBrandName(response.data)
-                console.log("BRAND LOGO", response.data)
                 return brandLogo
             } catch (error) {
                 console.error(error);
@@ -66,25 +53,36 @@ export default function ProductPage() {
             {
                 !isLoading ?
                     <>
-                        <Path />
+                        <Path/>
                         <ProductInfo product={product} brandName={brandName}/>
                         <div className="flex mt-5">
                             <DescriptionChooser product={product} brand={brandName}/>
                         </div>
                         <div className="w-full flex justify-center mt-5">
-                            <p className="text-justify text-[#1075B2] text-[18px] ProductSansLight max-w-[90%]">ВАМ МОЖЕТ ПОНРАВИТЬСЯ</p>
+                            <p className="text-justify text-[#1075B2] text-[18px] ProductSansLight max-w-[90%]">ВАМ
+                                МОЖЕТ ПОНРАВИТЬСЯ</p>
                         </div>
                         <PopularProducts type="popular"/>
                         <div className="w-full flex justify-center mt-[-50px]">
-                            <p className="text-justify text-[#1075B2] text-[18px] ProductSansLight max-w-[90%]">ПЕРСОНАЛЬНЫЕ РЕКОМЕНДАЦИИ</p>
+                            <p className="text-justify text-[#1075B2] text-[18px] ProductSansLight max-w-[90%]">ПЕРСОНАЛЬНЫЕ
+                                РЕКОМЕНДАЦИИ</p>
                         </div>
                         <PopularProducts type="popular"/>
                     </> :
-                    <div>Loading</div>
+                    <div>
+                        <div className="animate-pulse ">
+                            <div className={"w-full mt-3 flex  rounded-[10px] bg-white p-5 "}>
+                                <div className={"w-1/3 h-[400px] rounded-[10px] bg-slate-200 m-3"}></div>
+                                <div className={"w-[50%] m-3"}>
+                                    <div className={'h-[30px] rounded-[10px] bg-slate-200 mb-3'}></div>
+                                    <div className={'h-[150px] rounded-[10px] bg-slate-200'}></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
             }
 
 
-            
         </MainContainer>
     );
 }

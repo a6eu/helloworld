@@ -1,6 +1,5 @@
 import Filter from "@/components/Filter";
 import ProductsContainer from "@/components/ProductsContainer";
-import imported from "../db.json";
 import MainContainer from "@/components/MainContainer";
 import FilterDropdown from "@/components/FilterDropdown";
 import Path from "@/components/product-page/Path";
@@ -12,7 +11,6 @@ const Products = () => {
     const router = useRouter();
     const {categoryProducts} = router.query;
 
-    const path = ["Название каталога", "Название каталога"]
     const [products, setProducts] = useState([]);
     const [filterResult, setFilterResult] = useState([]);
     const [selectedOption, setSelectedOption] = useState('без сортировки');
