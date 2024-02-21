@@ -1,5 +1,4 @@
-import {Dialog} from "@headlessui/react";
-import React, {useEffect, useState} from "react";
+import React, {useState} from "react";
 import axios from "axios";
 
 const LogInForm = ({onSignUpClick, setIsModalOpen}) => {
