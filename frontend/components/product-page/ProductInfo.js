@@ -63,7 +63,7 @@ const ProductInfo = ({product, category, brandName}) => {
 
     return (
         <div className="w-full flex mt-3 rounded-[10px] bg-white pl-5">
-            <div className="w-1/3">
+            <div className="w-1/3 h-full self-center flex justify-center">
                 <Image className="object-cover" alt={product.name} src={product.img_url} width={310} height={310}/>
             </div>
             <div className={"m-8 w-2/3"}>
