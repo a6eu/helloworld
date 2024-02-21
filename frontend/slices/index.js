@@ -13,7 +13,7 @@ const persistedReducer = persistReducer(persistConfig, breadcrumbSlice);
 export default () => {
   const store = configureStore({
     reducer: {
-       breadcrumb: persistedReducer
+       breadcrumb: persistedReducer,
     }
   });
   const persistor = persistStore(store);
