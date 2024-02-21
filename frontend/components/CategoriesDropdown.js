@@ -71,7 +71,7 @@ export default function CatalogDropdown() {
     const dispatch =  useDispatch();
 
     return (
-        <Popover>
+        <Popover className='z-50'>
             {({open}) => (<>
                 <Popover.Button
                     className=" text-[#1075B2] flex items-center justify-center w-full h-[30px] border-1px border-[#1075B2] rounded-[5px] text-[10px] focus:outline-none"

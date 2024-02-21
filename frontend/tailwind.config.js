@@ -12,6 +12,7 @@ module.exports = {
                 'cover': 'cover',
                 'contain': 'contain',
                 '50%': '50%',
+                '70%': '70%',
                 '16': '4rem',
             },
             width: {

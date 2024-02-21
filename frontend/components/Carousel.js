@@ -1,26 +1,17 @@
 import React from 'react';
 import { Carousel } from 'antd';
-const contentStyle = {
-    height: 320,
-    color: '#fff',
-    lineHeight: '160px',
-    textAlign: 'center',
-    background: '#364d79',
-};
+
+const array = [1, 2, 3, 4]
 const App = () => (
     <Carousel autoplay>
-        <div>
-            <h3 style={contentStyle}>1</h3>
-        </div>
-        <div>
-            <h3 style={contentStyle}>2</h3>
-        </div>
-        <div>
-            <h3 style={contentStyle}>3</h3>
-        </div>
-        <div>
-            <h3 style={contentStyle}>4</h3>
-        </div>
+        {array.map(
+            item => (
+                <div>
+                    <h3 className='h-[375px] text-[#fff] leading-[160px] text-center bg-[#364d79] min-[320px]:max-md:h-[250px] min-[320px]:max-lg:h-[300px]'>{item}</h3>
+                </div>
+            )
+        )}
     </Carousel>
 );
 export default App;
+

@@ -28,7 +28,7 @@ const Header = () => {
     const [isSearchVisible, setIsSearchVisible] = useState(false);
     const searchContainerRef = useRef(null);
     const Search = Input;
-    const items = [
+    const hamburgerItems = [
         {
             label: <a href={"/profile"}>Профиль</a>,
             key: '0',
@@ -188,7 +188,7 @@ const Header = () => {
                 <div className='min-[320px]:max-[880px]:flex hidden pr-2'>
                     <Dropdown
                         menu={{
-                            items,
+                            items: hamburgerItems,
                         }}
                         trigger={['click']}
                     >
@@ -231,7 +231,7 @@ const Header = () => {
                         !isLogged ?
                             <div
                                 onClick={openModal}
-                                className='w-[120px]'
+                                className='w-[120px] flex justify-between'
                             >
                                 <Image
                                     className="cursor-pointer min-w-[35px]"
