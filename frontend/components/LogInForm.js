@@ -11,6 +11,7 @@ const LogInForm = ({onSignUpClick, setIsModalOpen}) => {
     const [emailOrPhoneError, setEmailOrPhoneError] = useState("");
     const [passwordError, setPasswordError] = useState("");
 
+    const [isLoading, setIsLoading] = useState(false);
 
     const validateEmailOrPhone = (input) => {
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -54,47 +55,22 @@ const LogInForm = ({onSignUpClick, setIsModalOpen}) => {
                 "email_or_phone": emailOrPhone,
                 "password": password
             };
-
+            setIsLoading(true);
             axios.post(url, requestBody)
                 .then((res) => {
+                    localStorage.setItem("accessToken", res.data.access);
+                    localStorage.setItem("refreshToken", res.data.refresh);
+                    setIsModalOpen(false);
+                    window.location.reload();
                 })
                 .catch((error) => {
                     if (error.response && error.response.data && error.response.data.error) {
                         setLoginError(error.response.data.error)
                     }
                 });
+            setIsLoading(false);
         }
-
-        const requestBody = {
-            "email_or_phone": emailOrPhone,
-            "password": password
-        }
-
-        axios.post(url, requestBody)
-            .then((res) => {
-                console.log("response");
-                console.log(res);
-                localStorage.setItem("accessToken", res.data.access);
-                localStorage.setItem("refreshToken", res.data.refresh);
-                setIsModalOpen(false);
-            })
-            .catch((error) => {
-                console.log("ERROR");
-                console.error(error);
-                if (error.response && error.response.data && error.response.data.error) {
-                    setLoginError(error.response.data.error);
-                } else {
-                    console.log("OTHER ERROR")
-                    console.log(error)
-                }
-            });
-
-
     }
-
-    useEffect(() => {
-        console.log(loginError)
-    }, [loginError])
 
 
     return (
@@ -184,9 +160,15 @@ const LogInForm = ({onSignUpClick, setIsModalOpen}) => {
                     </div> : <></>
             }
             <div className="flex w-full flex-wrap justify-center">
-                <input
-                    className="cursor-pointer hover:shadow-xl flex flex-wrap w-[50%] h-8 bg-[#1075B2] justify-center text-white rounded"
-                    type="submit" value="Войти" onClick={(e) => {login(e)}}/>
+                {!isLoading ?
+                    <input
+                        className="cursor-pointer hover:shadow-xl flex flex-wrap w-[50%] h-8 bg-[#1075B2] justify-center text-white rounded"
+                        type="submit" value="Войти" onClick={(e) => {login(e)}}/>
+                :
+                    <div className="flex flex-wrap w-[50%] h-8 bg-[#1075B2] justify-center items-center text-white rounded">
+                        Проверка...
+                    </div>
+                }
             </div>
             <div className="flex w-full justify-center">
                 <p className="flex mt-7 text-[14px]">

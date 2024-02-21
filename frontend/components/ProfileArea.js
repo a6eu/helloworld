@@ -3,6 +3,7 @@ import Image from "next/image";
 import profile from "@/pages/profile";
 import styles from "@/styles/Products.module.css";
 import Link from "next/link";
+import {useRouter} from "next/navigation";
 
 
 const ProfileArea = ({profile, onEditClick}) => {
@@ -22,6 +23,8 @@ const ProfileArea = ({profile, onEditClick}) => {
     const logout = () => {
         localStorage.removeItem("accessToken");
         localStorage.removeItem("refreshToken");
+        const router = useRouter();
+        router.back()
     }
 
     return (
