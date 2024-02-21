@@ -1,5 +1,4 @@
-import {Dialog} from "@headlessui/react";
-import React, {useEffect, useState} from "react";
+import React, {useState} from "react";
 import axios from "axios";
 
 const LogInForm = ({onSignUpClick, setIsModalOpen}) => {
@@ -74,7 +73,7 @@ const LogInForm = ({onSignUpClick, setIsModalOpen}) => {
 
 
     return (
-        <form className="w-full max-w-lg px-[50px] flex flex-wrap mt-10 mb-6">
+        <form className="w-full max-w-lg px-[50px] flex flex-wrap mt-10 mx-auto mb-6">
             <div className="flex w-full flex-wrap mb-6">
                 <div className="w-full">
                     <label

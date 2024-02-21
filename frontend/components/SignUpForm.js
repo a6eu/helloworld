@@ -18,6 +18,7 @@ const SignUpForm = ({onLogInClick}) => {
     const [repeatPasswdError, setRepeatPasswdError] = useState("");
 
     const [isLoading, setIsLoading] = useState(false);
+    const [signUpError, setSignUpError] = useState("");
 
 
     const validateFirstName = (name) => /^[a-zA-Zа-яА-Я\s]+$/.test(name);
@@ -82,8 +83,17 @@ const SignUpForm = ({onLogInClick}) => {
 
             try {
                 setIsLoading(true);
-                await axios.post('https://shop-01it-group.up.railway.app/auth/users/', requestBody);
-                onLogInClick();
+
+                await axios.post('https://shop-01it-group.up.railway.app/auth/users/', requestBody)
+                    .then(() => {
+                        onLogInClick();
+                    })
+                    .catch((error) => {
+                        if (error.response && error.response.data && error.response.data.error) {
+                            setSignUpError(error.response.data.error)
+                        }
+                    });
+
                 setIsLoading(false);
             } catch (error) {
                 console.error(error);
@@ -196,9 +206,12 @@ const SignUpForm = ({onLogInClick}) => {
         {/* Submit Button */}
         <div className="flex flex-wrap justify-center w-full mt-6">
             {
+                signUpError && <p className="text-red-500 text-[14px] text-center">{signUpError}</p>
+            }
+            {
                 !isLoading ?
                     <input
-                        className="flex flex-wrap w-3/4 h-8 bg-[#1075B2] justify-center text-white rounded cursor-pointer"
+                        className="flex flex-wrap w-3/4 h-8 bg-[#1075B2] justify-center text-white rounded cursor-pointer mt-2"
                         type="submit" value="Зарегистрироваться"/>
                     :
                     <div className="flex flex-wrap w-[50%] h-8 bg-[#1075B2] justify-center items-center text-white rounded">
