@@ -15,7 +15,7 @@ const FilterDropdown = ({ selectedOption, setSelectedOption}) => {
   };
 
   return (
-    <div className="relative z-20 inline-block">
+    <div className="relative z-10 inline-block">
       <button
         className={`border-2 w-[180px] border-[#1075B2] text-[#1075B2] text-[15px] py-1 px-3 ${!isOpen ? "rounded-[10px]" : "rounded-t-[10px]"}  inline-flex  justify-between items-center`}
         onClick={toggleDropdown}

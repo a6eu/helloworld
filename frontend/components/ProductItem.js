@@ -97,13 +97,12 @@ const ProductItem = ({product, signedIn}) => {
                     </svg>
                 </button>
             </div>
-            <div className={styles.nameAndPrice}>
-                <p className="text-[14px] pr-1 ProductSansLight mb-3">{product.name}</p>
+            <div className='pl-[10px] h-[70px] flex-col justify-between self-start transition-[300ms]'>
+                <p className="text-[14px] ProductSansLight mb-3">{product.name}</p>
                 <Price price={product.price} fSizeOfDigit={16} fSizeOfCurrency={13}/>
-
             </div>
             <div className={styles.piecesAndToBucket}>
-                <div className={styles.quantity}>
+                <div className='flex justify-between w-16'>
                     <button
                         className="bg-[#e9e9e9] border-solid border-1px mr-customMargin rounded-sm w-5 flex justify-center items-center h-6"
                         onClick={increaseQuantity}>
@@ -118,7 +117,7 @@ const ProductItem = ({product, signedIn}) => {
                         <Image className="w-3" src={minus} alt="-"/>
                     </button>
                 </div>
-                <button className={styles.toBucket} onClick={() => handleButtonClick(product.id, quantity)}>
+                <button className='ProductSansLight text-[11px] text-[#1075b2] border-1px border-[#1075b2] rounded-[3px] h-[22px] w-[90px] hover:transition-[300ms] hover:bg-[#1075b2] hover:text-white' onClick={() => handleButtonClick(product.id, quantity)}>
                     В КОРЗИНУ
                 </button>
             </div>

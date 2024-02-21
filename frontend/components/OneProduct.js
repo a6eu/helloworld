@@ -1,12 +1,8 @@
 import styles from "../styles/Products.module.css";
-
-import React, { useEffect, useState } from "react";
-import Link from "next/link";
 import plus from "../public/images/plus.svg";
 import minus from "../public/images/minus.svg";
 import { Rating } from "@smastrom/react-rating";
 import Image from "next/image";
-import PropTypes from "prop-types";
 import "@smastrom/react-rating/style.css";
 
 const OneProduct = ({key, img_url, rating, is_favorite, name, price }) => {

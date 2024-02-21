@@ -27,18 +27,18 @@ function CategoryChooser() {
 
     return (
         <div className="w-full flex justify-center mt-20 flex-col items-center">
-            <div className="h-10 p-1 flex rounded-lg justify-center border-2 border-[#1075B2]">
-                <button className={`border-solid ${newDesign} rounded-md w-32 text-xs transition ease-out`}
+            <div className="min-[320px]:max-sm:h-8 h-10 p-1 flex rounded-lg justify-center border-2 border-[#1075B2]">
+                <button className={`border-solid ${newDesign} rounded-md w-1/3 text-xs transition ease-out px-5 min-[320px]:max-sm:break-words`}
                         onClick={() => typeSet("new")}>
-                    НОВИНКИ
+                    <p className='min-[320px]:max-[420px]:text-[9px]'>НОВИНКИ</p>
                 </button>
-                <button className={`border-solid ${popularDesign} rounded-md w-32 text-xs transition ease-out`}
+                <button className={`border-solid ${popularDesign} rounded-md w-1/3 text-xs transition ease-out px-5 min-[320px]:max-sm:break-words`}
                         onClick={() => typeSet("popular")}>
-                    ПОПУЛЯРНЫЕ
+                    <p className='min-[320px]:max-[420px]:text-[9px]'>ПОПУЛЯРНЫЕ</p>
                 </button>
-                <button className={`border-solid ${recommendedDesign} rounded-md w-32 text-xs transition ease-out`}
+                <button className={`border-solid ${recommendedDesign} rounded-md w-2/3 text-xs transition ease-out px-5 min-[320px]:max-sm:break-words`}
                         onClick={() => typeSet("recommended")}>
-                    МЫ РЕКОМЕНДУЕМ
+                    <p className='min-[320px]:max-[420px]:text-[9px]'>МЫ РЕКОМЕНДУЕМ</p>
                 </button>
             </div>
             <FilteredProducts type={type}/>

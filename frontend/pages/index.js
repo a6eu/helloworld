@@ -8,29 +8,29 @@ import CategoryChooser from "@/components/CategoryChooser";
 
 
 const Home = () => {
-        const [showModal, setShowModal] = useState(false);
+    const [showModal, setShowModal] = useState(false);
 
-        const closeModal = () => {
-                setShowModal(false);
-                localStorage.setItem('selected', 'false');
-        };
+    const closeModal = () => {
+        setShowModal(false);
+        localStorage.setItem('selected', 'false');
+    };
 
-        useEffect(() => {
-                const visited = localStorage.getItem('selected');
-                if (!visited) {
-                        setShowModal(true);
-                }
-        }, []);
+    useEffect(() => {
+        const visited = localStorage.getItem('selected');
+        if (!visited) {
+            setShowModal(true);
+        }
+    }, []);
 
-        return (
-            <MainContainer>
-                    {showModal && <ModalWindow closeModal={closeModal} />}
-                    <News />
-                    <Companies />
-                    <CategoryChooser />
-                    <AboutCompany />
-            </MainContainer>
-        );
+    return (
+        <MainContainer>
+            {showModal && <ModalWindow closeModal={closeModal}/>}
+            <News/>
+            <Companies/>
+            <CategoryChooser/>
+            <AboutCompany/>
+        </MainContainer>
+    );
 };
 
 export default Home;
