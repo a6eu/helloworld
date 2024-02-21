@@ -80,9 +80,12 @@ const ProductItem = ({product, signedIn}) => {
                   key={product.id}
                   onClick={() => dispatch(setPath([...path, product.name]))}
             >
-                <Image className={"pt-2"} src={product.img_url} alt={product.name} width={180} height={180}/>
+                <div className='w-full h-44 bg-yellow- flex align-middle justify-center '>
+                    <Image className='w-full h-40 pt-4' src={product.img_url} alt={product.name} width={180} height={180}/>
+
+                </div>
             </Link>
-            <div className="flex w-full ml-3 justify-between">
+            <div className="flex w-full ml-3 justify-between mt-2">
                 <Stars starAvg={Math.random() * 4 + 1}/>
                 <button onClick={statementChecker}>
                     <svg className={`mr-4 hover:fill-[#1075b2]`} width="16" height="16" viewBox="0 0 16 16"
