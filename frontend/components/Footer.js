@@ -15,12 +15,12 @@ const Footer = () => {
                             <p className="pb-5 ProductSansThin">ИНТЕРНЕТ МАГАЗИН</p>
                             <p className="pb-1.5"><a href="">О компании</a></p>
                             <p className="pb-1.5"><a href="">Доставка</a></p>
-                            <p className="pb-1.5"><a href="">Реквизиты</a></p>
+                            <p className=""><a href="">Реквизиты</a></p>
                         </div>
                         <div className="self-center">
                             <p className={"ProductSansThin pb-4"}>СВЯЗАТЬСЯ С НАМИ</p>
                             <div>
-                                <div className="flex flex-col">
+                                <div className="flex flex-col mr-6">
                                     <div className="flex pb-3">
                                         <Image className='mr-3 min-[320px]:max-md:hidden' src={mail} alt="Mail"/>
                                         <div>

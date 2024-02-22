@@ -17,6 +17,7 @@ export default function CatalogDropdown() {
     const [changeToX, setChangeToX] = useState(burger);
     const [state, setState] = useState('opened');
     const [focused, setFocused] = useState('unfocused');
+    let count = 0;
 
     useEffect(() => {
         const fetchData = async () => {
@@ -49,12 +50,19 @@ export default function CatalogDropdown() {
     };
 
     const showCtgItems = debounce((index, item) => {
+        count++;
         setSelectedCtg(index);
         setSubCtg(item.children);
-        console.log(index, item);
-    }, 300);
+    }, 275);
+
+    const defaultCtgItem = debounce((index, item) => {
+        count++;
+        setSelectedCtg(index);
+        setSubCtg(item.children);
+    }, 0);
 
     const debounceRequest = (index, item) => showCtgItems(index, item);
+    const defaultRequest = (index, item) => defaultCtgItem(index, item);
 
     function changer() {
         if (state === 'closed') {
@@ -68,17 +76,18 @@ export default function CatalogDropdown() {
         }
     }
 
-    const dispatch =  useDispatch();
+    const dispatch = useDispatch();
 
     return (
         <Popover className='z-50'>
-            {({open}) => (<>
+            {({open, close}) => (<>
                 <Popover.Button
                     className=" text-[#1075B2] flex items-center justify-center w-full h-[30px] border-1px border-[#1075B2] rounded-[5px] text-[10px] focus:outline-none"
                     onFocus={() => {
                         setState('opened');
                     }}
                     onClick={() => {
+                        defaultRequest(0, ctg[0]);
                         changer();
                     }}
                     onBlur={() => {
@@ -109,6 +118,7 @@ export default function CatalogDropdown() {
                                         key={index}
                                         className={selectedCtg === index ? 'relative bg-white rounded-bl-2xl rounded-tl-2xl duration-500 scale-x-120' : ''}
                                         onMouseOver={() => {
+                                            console.log(index, item)
                                             debounceRequest(index, item);
                                         }}
                                     >
@@ -116,8 +126,12 @@ export default function CatalogDropdown() {
                         className={selectedCtg === index ? 'absolute right-0 w-full h-2.5 bg-white -top-2.5  before:absolute before:top-0 before:right-0 before:w-full before:h-full before:rounded-br-full before:bg-slate-200' : ''}
                     ></span>
                                         <Link href={`/${item.name}`}
-                                              onClick={() => dispatch(setPath([item.name]))}
-                                            className={selectedCtg === index ? 'text-[15px] font-normal cursor-default p-2 block text-[#1075B2]' : 'text-[15px] font-normal cursor-default p-2 block text-[#text-[#000]]'}
+                                              onClick={() => {
+                                                  dispatch(setPath([item.name]));
+                                                  close();
+                                              }
+                                              }
+                                              className={selectedCtg === index ? 'text-[15px] font-normal cursor-default p-2 block text-[#1075B2]' : 'text-[15px] font-normal cursor-default p-2 block text-black'}
                                         >
                                             {item.name}
                                         </Link>
@@ -137,7 +151,11 @@ export default function CatalogDropdown() {
                                     <div>
                                         <Link href={`/${ctg[selectedCtg].name}/${item.name}`}
                                               className="hover:text-[#1075B2] hover:cursor-pointer"
-                                              onClick={() => dispatch(setPath([ctg[selectedCtg].name, item.name]))}
+                                              onClick={() => {
+                                                  dispatch(setPath([ctg[selectedCtg].name, item.name]));
+                                                  close();
+                                                }
+                                              }
                                         >{item.name}</Link>
                                         <ul className="text-left pl-1 mt-2">
                                             {item.children.map((children) => (<li
