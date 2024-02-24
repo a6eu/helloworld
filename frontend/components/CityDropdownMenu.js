@@ -34,7 +34,7 @@ const CityDropdownMenu = ({ selectedCity, onCityChange }) => {
   return (
     <div className='flex items-center min-[320px]:max-sm:hidden'>
       <Image src="/images/location.svg" height={24} width={24} alt="location"/>
-      <select className="bg-white pl-1 select-none outline-0 appearance-none underline tracking-widest underline-offset-4 cursor-pointer" value={selectedCity} onChange={handleCityChange}>
+      <select className="bg-white pl-1 select-none outline-0 appearance-none underline tracking-widest underline-offset-4 cursor-pointer w-[170px]" value={selectedCity} onChange={handleCityChange}>
         {citiesOfKazakhstan.map((city, index) => (
           <option className='border-b-[2px] border-black' key={index} value={city}>
             {city}

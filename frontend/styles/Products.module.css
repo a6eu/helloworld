@@ -21,7 +21,6 @@ box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #
     width: 100%;
     display: flex;
     overflow: auto;
-
 }
 
 .container::-webkit-scrollbar {

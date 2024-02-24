@@ -18,6 +18,7 @@ import {useTokenExpirationCheck} from "@/customHooks/useTokenExpirationCheck";
 import axios from "axios";
 import {Dropdown} from 'antd';
 import {Input} from 'antd';
+import modalDialog from "@/components/ModalDialog";
 
 
 const Header = () => {
@@ -28,9 +29,24 @@ const Header = () => {
     const [isSearchVisible, setIsSearchVisible] = useState(false);
     const searchContainerRef = useRef(null);
     const Search = Input;
-    const hamburgerItems = [
+    const loggedInItems = [
         {
-            label: <a href={"/profile"}>Профиль</a>,
+            label: <a href={'/profile'}>Профиль</a>,
+            key: '0',
+        },
+        {
+            label: <a href={"/cart"}>Корзина</a>,
+            key: '1',
+        },
+        {
+            label: <a href={"/favourites"}>Избранное</a>,
+            key: '2',
+        },
+    ];
+
+    const loggedOutItems = [
+        {
+            label: <a onClick={openModal}>Войти</a> ,
             key: '0',
         },
         {
@@ -85,13 +101,10 @@ const Header = () => {
     useEffect(() => {
         const access = localStorage.getItem('accessToken');
         const refresh = localStorage.getItem('refreshToken');
-        console.log(access + "\n" + refresh)
         if (access && refresh) {
             setIsLogged(true);
-            console.log("logged")
         } else {
             setIsLogged(false);
-            console.log("not logged")
         }
     }, [])
     useEffect(() => {
@@ -188,7 +201,7 @@ const Header = () => {
                 <div className='min-[320px]:max-[880px]:flex hidden pr-2'>
                     <Dropdown
                         menu={{
-                            items: hamburgerItems,
+                            items: isLogged ? loggedInItems : loggedOutItems,
                         }}
                         trigger={['click']}
                     >
@@ -231,7 +244,7 @@ const Header = () => {
                         !isLogged ?
                             <div
                                 onClick={openModal}
-                                className='w-[120px] flex justify-between'
+                                className='flex justify-between'
                             >
                                 <Image
                                     className="cursor-pointer min-w-[35px]"
@@ -256,7 +269,7 @@ const Header = () => {
                             :
                             <Link href={"/profile"}>
                                 <Image
-                                    className="cursor-pointer min-w-[35px]"
+                                    className="cursor-pointer"
                                     src={profileImg}
                                     height={35}
                                     width={35}
