@@ -19,6 +19,7 @@ import axios from "axios";
 import {Dropdown} from 'antd';
 import {Input} from 'antd';
 import modalDialog from "@/components/ModalDialog";
+import product from "@/pages/product";
 
 
 const Header = () => {
@@ -75,6 +76,8 @@ const Header = () => {
     useEffect(() => {
         const filteredProducts = allProducts.filter((product) =>
             product.name.toLowerCase().includes(searchTerm.toLowerCase())
+            ||
+            product.description.toLowerCase().includes(searchTerm.toLowerCase())
         );
         setSearchResults(filteredProducts);
         setIsSearchVisible(true);
