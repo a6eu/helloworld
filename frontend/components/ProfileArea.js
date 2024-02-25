@@ -1,7 +1,6 @@
-import React, {useState} from "react";
+import React from "react";
 import Image from "next/image";
 import profile from "@/pages/profile";
-import styles from "@/styles/Products.module.css";
 import Link from "next/link";
 import {useRouter} from "next/navigation";
 
@@ -44,6 +43,7 @@ const ProfileArea = ({profile, onEditClick}) => {
                                 src="./images/edit.svg"
                                 width={28}
                                 height={28}
+                                alt={"Profile image"}
                             />
                         </button>
                     </div>
@@ -70,7 +70,7 @@ const ProfileArea = ({profile, onEditClick}) => {
                 </Link>
             </div>
         </>
-    );
+    )
 }
 
 

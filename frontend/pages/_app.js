@@ -1,8 +1,8 @@
-import '../styles/globals.css';
-import Layout from '../components/Layout';
+import '../styles/globals.css'
+import Layout from '../components/Layout'
 import  configureStore from '../slices/index.js'
-import { Provider } from 'react-redux';
-import { PersistGate } from 'redux-persist/integration/react';
+import { Provider } from 'react-redux'
+import { PersistGate } from 'redux-persist/integration/react'
 
 const { store, persistor } = configureStore();
 

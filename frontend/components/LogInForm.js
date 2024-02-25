@@ -6,11 +6,13 @@ const LogInForm = ({onSignUpClick, setIsModalOpen}) => {
     const [password, setPassword] = useState("");
     const [loginError, setLoginError] = useState("");
     const [isPassword, setIsPassword] = useState(true);
-
+    const [isEmail, setEmail] = useState(false)
     const [emailOrPhoneError, setEmailOrPhoneError] = useState("");
     const [passwordError, setPasswordError] = useState("");
 
     const [isLoading, setIsLoading] = useState(false);
+
+
 
     const validateEmailOrPhone = (input) => {
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -41,12 +43,12 @@ const LogInForm = ({onSignUpClick, setIsModalOpen}) => {
 
         if (!validatePassword(password)) {
             setPasswordError("Пароль не может быть пустым.")
-            isValid = false;
+            isValid = false
         }
 
         if (!validateEmailOrPhone(emailOrPhone)) {
             setEmailOrPhoneError("Введите действительный номер телефона или адрес электронной почты.")
-            isValid = false;
+            isValid = false
         }
 
         if (isValid) {
@@ -71,6 +73,21 @@ const LogInForm = ({onSignUpClick, setIsModalOpen}) => {
         }
     }
 
+    const handleInputChange = (e) => {
+        const value = e.target.value;
+        setEmailOrPhone(value);
+
+        const containsLetters = /[a-zA-Z]/.test(value);
+        const spanElement = document.getElementById('plus7');
+
+        if (spanElement) {
+            if (containsLetters) {
+                setEmail(true)
+            } else {
+                setEmail(false)
+            }
+        }
+    };
 
     return (
         <form className="w-full max-w-lg px-[50px] flex flex-wrap mt-10 mx-auto mb-6">
@@ -81,12 +98,16 @@ const LogInForm = ({onSignUpClick, setIsModalOpen}) => {
                         htmlFor="grid-password">
                         Номер телефона или e-mail
                     </label>
-                    <input
-                        className="appearance-none block w-full bg-white text-gray-700 border border-[#1075B2] rounded py-3 px-4  leading-tight focus:outline-none focus:bg-white focus:border-gray-500 hover:shadow-lg transition duration-500"
-                        onChange={(e) => {
-                            setEmailOrPhone(e.target.value)
-                        }}
-                    />
+                    <div className="relative">
+                        <span
+                            id={"plus7"}
+                            className={`${isEmail && 'hidden'} absolute inset-y-0 left-0 pl-2 flex items-center w-9 rounded-tl rounded-bl bg-[#1075B2] text-white`}>+7</span>
+                        <input
+                            className={`appearance-none pl-10 ${isEmail && 'pl-2'} block w-full bg-white text-gray-700 border border-[#1075B2] rounded py-3 px-4  leading-tight focus:outline-none focus:bg-white focus:border-gray-500 hover:shadow-lg transition duration-500`}
+                            onChange={handleInputChange}
+                            value={emailOrPhone}
+                        />
+                    </div>
                     {emailOrPhoneError && <p className="text-sm text-red-500">{emailOrPhoneError}</p>}
                 </div>
             </div>

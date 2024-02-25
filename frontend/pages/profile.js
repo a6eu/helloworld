@@ -5,42 +5,43 @@ import EditProfile from '@/components/EditProfile';
 import MainContainer from '@/components/MainContainer';
 import axios from "axios";
 
+
 function Profile() {
+    const [isLoading, setIsLoading] = useState(false);
     const [isEditing, setIsEditing] = useState(false);
     const [profile, setProfile] = useState({})
-    const [isLoading, setIsLoading] = useState(false);
+    let url = "https://shop-01it-group.up.railway.app/auth/users/profile/"
 
     useEffect(() => {
         const getProfile = async () => {
-            const url = "https://shop-01it-group.up.railway.app/auth/users/profile/";
             const bearerToken = localStorage.getItem("accessToken");
-
             const config = {
                 headers: {
                     Authorization: `Bearer ${bearerToken}`,
                 },
-            };
+            }
 
             try {
                 setIsLoading(true);
-                const response = await axios.get(url, config);
-                setIsLoading(false);
-                setProfile(response.data);
-                console.log(response);
+                const response = await axios.get(url, config)
+                setIsLoading(false)
+                setProfile(response.data)
+                console.log(response.data)
             } catch (error) {
-                console.log("Error");
-                console.log(error);
+                console.log("Error")
+                console.log(error)
             }
         }
 
         getProfile().then(r => {
-            console.log(r);
+            console.log(r)
 
         })
     }, [])
 
     const handleSaveClick = () => {
         setIsEditing(false)
+        window.location.reload()
     }
 
     const handleEditClick = () => {
@@ -58,13 +59,13 @@ function Profile() {
                             !isLoading ?
                                 <div className="mt-[20px] w-[100%] justify-start">
                                     {isEditing ? (
-                                        <EditProfile onSaveClick={handleSaveClick}/>
+                                        <EditProfile url={url} profile={profile} onSaveClick={handleSaveClick}/>
                                     ) : (
                                         <ProfileArea profile={profile} onEditClick={handleEditClick}/>
                                     )}
                                 </div>
                                 :
-                                <div className="shadow rounded-md p-4 w-[70%]">
+                                <div className="shadow rounded-md p-4 w-full">
                                     <div className="animate-pulse flex space-x-4">
                                         <div className="rounded-full bg-slate-700 h-10 w-10"></div>
                                         <div className="flex-1 space-y-6 py-1">

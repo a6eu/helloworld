@@ -130,8 +130,9 @@ const SignUpForm = ({onLogInClick}) => {
                 Номер телефона
             </label>
             <input
-                className="appearance-none block w-full bg-white text-gray-700 border border-[#1075B2] rounded py-1 text-s px-2.5 leading-tight focus:outline-none focus:bg-white focus:border-gray-500 hover:shadow-lg transition duration-500"
-                onChange={(e) => setPhoneNumber(e.target.value)}/>
+                onChange={(e) => setPhoneNumber(e.target.value)}
+
+            />
             {phoneNumberError && <p className="text-red-500 text-xs">{phoneNumberError}</p>}
         </div>
 
