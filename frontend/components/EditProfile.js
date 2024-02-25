@@ -1,7 +1,7 @@
 import React, {useState} from "react";
 import axios from 'axios'
 
-const EditProfile = ({ url, profile, onSaveClick }) => {
+const EditProfile = ({url, profile, onSaveClick}) => {
     const [isLoading, setIsLoading] = useState(false);
     const [name, setName] = useState(profile.first_name);
     const [lastName, setLastName] = useState(profile.last_name);
@@ -100,39 +100,38 @@ const EditProfile = ({ url, profile, onSaveClick }) => {
             setIsLoading(true);
 
 
-                const patchProfile = async () => {
-                    const bearerToken = localStorage.getItem("accessToken")
-                    console.log(bearerToken)
-                    const config= {
-                        headers: {
-                            Authorization: `Bearer ${bearerToken}`,
-                        },
-                    }
-
-
-                    const requestData = {
-                        first_name: name,
-                        last_name: lastName,
-                        phone_number: phone,
-                        gender: "мужской",
-                        birth_day: birthday
-                    };
-
-                    try {
-                        const response = await axios.patch(url , requestData, config);
-
-                        console.log(response);
-                        setIsLoading(false);
-                    } catch (error) {
-                        console.error('Error:', error);
-                        setIsLoading(false);
-                    }
+            const patchProfile = async () => {
+                const bearerToken = localStorage.getItem("accessToken")
+                console.log(bearerToken)
+                const config = {
+                    headers: {
+                        Authorization: `Bearer ${bearerToken}`,
+                    },
                 }
-                patchProfile().then(r => {
-                    console.log(r)
 
-                })
-            setTimeout(function() {
+
+                const requestData = {
+                    first_name: name,
+                    last_name: lastName,
+                    phone_number: phone,
+                    birth_day: birthday
+                };
+
+                try {
+                    const response = await axios.patch(url, requestData, config);
+
+                    console.log(response);
+                    setIsLoading(false);
+                } catch (error) {
+                    console.error('Error:', error);
+                    setIsLoading(false);
+                }
+            }
+            patchProfile().then(r => {
+                console.log(r)
+
+            })
+            setTimeout(function () {
                 onSaveClick()
             }, 1000);
 
@@ -187,11 +186,12 @@ const EditProfile = ({ url, profile, onSaveClick }) => {
                         <div className="relative">
                             <span
                                 className="absolute inset-y-0 left-0 pl-2 flex items-center w-9 rounded-tl rounded-bl bg-[#1075B2] text-white">+7</span>
-                            <input
+                            <div>
+                                <input
                                 value={phone}
                                 onChange={(e) => setPhone(e.target.value)}
                                 className="appearance-none block w-[90%] ml-9 bg-white text-gray-700 border border-[#1075B2] rounded-tr rounded-br py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500 hover:shadow-lg transition duration-500"
-                                id="grid-phone" type="text" placeholder="(***) *** ** **"/>
+                                id="grid-phone" type="text" placeholder="(***) *** ** **"/></div>
                         </div>
                         {phoneError && <p className="text-red-500 text-xs italic">{phoneError}</p>}
                     </div>

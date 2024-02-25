@@ -16,10 +16,7 @@ import profileIconActive from "../public/images/profileImg.svg";
 import loginIconActive from "../public/images/loginIconBlue.svg";
 import {useTokenExpirationCheck} from "@/customHooks/useTokenExpirationCheck";
 import axios from "axios";
-import {Dropdown} from 'antd';
-import {Input} from 'antd';
-import modalDialog from "@/components/ModalDialog";
-import product from "@/pages/product";
+import {Dropdown, Input} from 'antd';
 
 
 const Header = () => {
@@ -30,35 +27,21 @@ const Header = () => {
     const [isSearchVisible, setIsSearchVisible] = useState(false);
     const searchContainerRef = useRef(null);
     const Search = Input;
-    const loggedInItems = [
-        {
-            label: <a href={'/profile'}>Профиль</a>,
-            key: '0',
-        },
-        {
-            label: <a href={"/cart"}>Корзина</a>,
-            key: '1',
-        },
-        {
-            label: <a href={"/favourites"}>Избранное</a>,
-            key: '2',
-        },
-    ];
+    const loggedInItems = [{
+        label: <a href={'/profile'}>Профиль</a>, key: '0',
+    }, {
+        label: <a href={"/cart"}>Корзина</a>, key: '1',
+    }, {
+        label: <a href={"/favourites"}>Избранное</a>, key: '2',
+    },];
 
-    const loggedOutItems = [
-        {
-            label: <a onClick={openModal}>Войти</a> ,
-            key: '0',
-        },
-        {
-            label: <a href={"/cart"}>Корзина</a>,
-            key: '1',
-        },
-        {
-            label: <a href={"/favourites"}>Избранное</a>,
-            key: '2',
-        },
-    ];
+    const loggedOutItems = [{
+        label: <a onClick={openModal}>Войти</a>, key: '0',
+    }, {
+        label: <a href={"/cart"}>Корзина</a>, key: '1',
+    }, {
+        label: <a href={"/favourites"}>Избранное</a>, key: '2',
+    },];
 
     useEffect(() => {
         const fetchData = async () => {
@@ -74,11 +57,8 @@ const Header = () => {
     }, []);
 
     useEffect(() => {
-        const filteredProducts = allProducts.filter((product) =>
-            product.name.toLowerCase().includes(searchTerm.toLowerCase())
-            ||
-            product.description.toLowerCase().includes(searchTerm.toLowerCase())
-        );
+        const filteredProducts = allProducts.filter((product) => (
+            product.name.toLowerCase().includes(searchTerm.toLowerCase()) && product.description.toLowerCase().includes(searchTerm.toLowerCase())) || product.description.toLowerCase().includes(searchTerm.toLowerCase()) || product.name.toLowerCase().includes(searchTerm.toLowerCase()));
         setSearchResults(filteredProducts);
         setIsSearchVisible(true);
     }, [searchTerm, allProducts]);
@@ -152,8 +132,7 @@ const Header = () => {
         setIsModalOpen(true)
     }
 
-    return (
-        <header className={styles.header}>
+    return (<header className={styles.header}>
             <div className={"max-w-screen-xl w-full flex justify-between items-center p-2"}>
                 <Link href={"/"} className='min-[320px]:max-[880px]:hidden'>
                     <Image className="cursor-pointer min-w-[60px]"
@@ -173,28 +152,25 @@ const Header = () => {
                     />
                     {isSearchVisible && searchTerm.trim() !== '' && (
                         <ul className="absolute max-h-[62vh] overflow-auto z-50 bg-white w-[438px] top-[59px] rounded shadow-lg border border-b-blue-200">
-                            {searchResults.map((product) => (
-                                <Link rel="stylesheet" href={`/products/${product.name}`}>
-                                    <li className="flex flex-row border justify-between border-t-o border-l-0 border-r-0 py-2 px-2"
-                                        key={product.id}>
-                                        <div className="flex flex-row w-[55%]">
-                                            <Image
-                                                width={80}
-                                                height={5}
-                                                alt={"pic"}
-                                                src={product.img_url}
-                                            />
-                                            <div className="ml-2">
-                                                <h3 className="text-[13px]">{truncateDescription(product.name, 20)}</h3>
-                                                <span>{parseInt(product.price)} ₸</span>
-                                            </div>
+                            {searchResults.map((product) => (<Link rel="stylesheet" href={`/products/${product.name}`}>
+                                <li className="flex flex-row border justify-between border-t-o border-l-0 border-r-0 py-2 px-2"
+                                    key={product.id}>
+                                    <div className="flex flex-row w-[55%]">
+                                        <Image
+                                            width={80}
+                                            height={5}
+                                            alt={"pic"}
+                                            src={product.img_url}
+                                        />
+                                        <div className="ml-2">
+                                            <h3 className="text-[13px]">{truncateDescription(product.name, 20)}</h3>
+                                            <span>{parseInt(product.price)} ₸</span>
                                         </div>
-                                        <p className="text-gray-400 text-xs w-[40%]">{truncateDescription(product.description, 105)}</p>
-                                    </li>
-                                </Link>
-                            ))}
-                        </ul>
-                    )}
+                                    </div>
+                                    <p className="text-gray-400 text-xs w-[40%]">{truncateDescription(product.description, 105)}</p>
+                                </li>
+                            </Link>))}
+                        </ul>)}
                 </div>
                 <CityDropdownMenu
                     selectedCity={selectedCity}
@@ -243,45 +219,34 @@ const Header = () => {
                         />
                     </Link>
 
-                    {
-                        !isLogged ?
-                            <div
-                                onClick={openModal}
-                                className='flex justify-between'
-                            >
-                                <Image
-                                    className="cursor-pointer min-w-[35px]"
-                                    src={loginIconImg}
-                                    height={35}
-                                    width={35}
-                                    alt="profile"
-                                    onMouseOver={() => {
-                                        isLogged ?
-                                            setLoginIconImg(profileIconActive)
-                                            :
-                                            setLoginIconImg(loginIconActive)
-                                    }}
-                                    onMouseLeave={() => {
-                                        isLogged ?
-                                            setLoginIconImg(profileIconNonActive)
-                                            :
-                                            setLoginIconImg(loginIconNonActive)
-                                    }}
-                                />
-                            </div>
-                            :
-                            <Link href={"/profile"}>
-                                <Image
-                                    className="cursor-pointer"
-                                    src={profileImg}
-                                    height={35}
-                                    width={35}
-                                    alt="profile"
-                                    onMouseOver={() => setProfileImg(profileIconActive)}
-                                    onMouseLeave={() => setProfileImg(profileIconNonActive)}
-                                />
-                            </Link>
-                    }
+                    {!isLogged ? <div
+                        onClick={openModal}
+                        className='flex justify-between'
+                    >
+                        <Image
+                            className="cursor-pointer min-w-[35px]"
+                            src={loginIconImg}
+                            height={35}
+                            width={35}
+                            alt="profile"
+                            onMouseOver={() => {
+                                isLogged ? setLoginIconImg(profileIconActive) : setLoginIconImg(loginIconActive)
+                            }}
+                            onMouseLeave={() => {
+                                isLogged ? setLoginIconImg(profileIconNonActive) : setLoginIconImg(loginIconNonActive)
+                            }}
+                        />
+                    </div> : <Link href={"/profile"}>
+                        <Image
+                            className="cursor-pointer"
+                            src={profileImg}
+                            height={35}
+                            width={35}
+                            alt="profile"
+                            onMouseOver={() => setProfileImg(profileIconActive)}
+                            onMouseLeave={() => setProfileImg(profileIconNonActive)}
+                        />
+                    </Link>}
                 </div>
             </div>
             <ModalDialog isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen}/>

@@ -125,23 +125,28 @@ const SignUpForm = ({onLogInClick}) => {
                 {secondNameError && <p className="text-red-500 text-xs">{secondNameError}</p>}
             </div>
         </div>
-        <div className="w-full mb-3">
-            <label className="block uppercase tracking-wide text-gray-700 text-[10px] font-bold mb-1">
-                Номер телефона
-            </label>
-            <input
-                onChange={(e) => setPhoneNumber(e.target.value)}
+            <div className="w-full mb-3">
+                <label className="block uppercase tracking-wide text-gray-700 text-[10px] font-bold mb-1">
+                    Номер телефона
+                </label>
+                <div className={'relative'}>
+                    <span
+                        className="absolute inset-y-0 left-0 pl-2 flex items-center w-9 rounded-tl rounded-bl bg-[#1075B2] text-white">+7</span>
 
-            />
-            {phoneNumberError && <p className="text-red-500 text-xs">{phoneNumberError}</p>}
-        </div>
+                    <input
+                        className={"pl-10fixf appearance-none block w-full bg-white text-gray-700 border border-[#1075B2] rounded py-1 text-s px-2.5 leading-tight focus:outline-none focus:bg-white focus:border-gray-500 hover:shadow-lg transition duration-500"}
+                        onChange={(e) => setPhoneNumber(e.target.value)}
+                    />
+                </div>
+                {phoneNumberError && <p className="text-red-500 text-xs">{phoneNumberError}</p>}
+            </div>
 
-        <div className="w-full mb-3">
-            <label className="block uppercase tracking-wide text-gray-700 text-[10px] font-bold mb-1">
-                E-mail
-            </label>
-            <input
-                className="appearance-none block w-full bg-white text-gray-700 border border-[#1075B2] rounded py-1 text-s px-2.5 leading-tight focus:outline-none focus:bg-white focus:border-gray-500 hover:shadow-lg transition duration-500"
+            <div className="w-full mb-3">
+                <label className="block uppercase tracking-wide text-gray-700 text-[10px] font-bold mb-1">
+                    E-mail
+                </label>
+                <input
+                    className="appearance-none block w-full bg-white text-gray-700 border border-[#1075B2] rounded py-1 text-s px-2.5 leading-tight focus:outline-none focus:bg-white focus:border-gray-500 hover:shadow-lg transition duration-500"
                 onChange={(e) => setEmail(e.target.value)}/>
             {emailError && <p className="text-red-500 text-xs">{emailError}</p>}
         </div>
@@ -204,7 +209,7 @@ const SignUpForm = ({onLogInClick}) => {
                    onChange={(e) => setRepeatPasswd(e.target.value)}/>
             {repeatPasswdError && <p className="text-red-500 text-xs">{repeatPasswdError}</p>}
         </div>
-        {/* Submit Button */}
+
         <div className="flex flex-wrap justify-center w-full mt-6">
             {
                 signUpError && <p className="text-red-500 text-[14px] text-center">{signUpError}</p>

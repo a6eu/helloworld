@@ -4,7 +4,6 @@ import { Dialog } from '@headlessui/react'
 import SignUpForm from '@/components/SignUpForm';
 import LogInForm  from '@/components/LogInForm';
 
-
 function ModalDialog({isModalOpen, setIsModalOpen}) {
     const [isSignUp, setSignUp] = useState(false)
     const [isLogIn, setLogIn] = useState(false)
@@ -18,39 +17,43 @@ function ModalDialog({isModalOpen, setIsModalOpen}) {
         setLogIn(true)
     }
 
-
     return (
-
-            <Dialog as="div" className="select-none fixed top-0 left-0 w-full h-full bg-black bg-opacity-20 z-50" open={isModalOpen} onClose={() => setIsModalOpen(false)}>
-                {isSignUp ? (
-                    <Dialog.Panel className="fixed flex-wrap flex justify-center bg-white w-1/3 top-[20%] left-[33%] rounded-lg pt-5 ">
-                        <Dialog.Title className="flex justify-center w-full text-[#1075B2] text-xl mb-6">
-                            Зарегистрируйтесь, чтобы быть круче
-                        </Dialog.Title>
-                        <SignUpForm onLogInClick={handleLogInClick}/>
-                    </Dialog.Panel>
-                ) : isLogIn ? (
-                    <Dialog.Panel
-                        className="fixed flex-wrap flex  justify-center bg-white w-1/3 top-[20%] left-[33%] rounded-lg pt-5">
-                        <Dialog.Title className="flex justify-center text-[#1075B2] text-xl mb-6">
-                            Добро пожаловать!
-                        </Dialog.Title>
-                        <LogInForm onSignUpClick={handleSignUpClick} setIsModalOpen={setIsModalOpen}/>
-                    </Dialog.Panel>
-                ) : (
-                    <Dialog.Panel
-                        className="fixed flex-wrap justify-center bg-white w-1/3 top-[20%] left-[33%] rounded-lg pt-5">
-                        <Dialog.Title className="flex justify-center text-[#1075B2] text-xl mb-6">ДОБРО ПОЖАЛОВАТЬ!
-                        </Dialog.Title>
-                        <LogInForm onSignUpClick={handleSignUpClick} setIsModalOpen={setIsModalOpen}/>
-                    </Dialog.Panel>
-                )}
-            </Dialog>
-
+        <Dialog
+            as="div"
+            className="fixed top-0 left-0 w-full h-full bg-black bg-opacity-20 z-50"
+            open={isModalOpen}
+            onClose={() => setIsModalOpen(false)}
+        >
+            <Dialog.Panel
+                className="fixed flex justify-center items-center inset-0 overflow-auto"
+            >
+                <div className="bg-white rounded-lg p-5 w-full max-w-md">
+                    {isSignUp ? (
+                        <>
+                            <Dialog.Title className="text-[#1075B2] text-xl mb-6 text-center">
+                                Зарегистрируйтесь, чтобы быть круче
+                            </Dialog.Title>
+                            <SignUpForm onLogInClick={handleLogInClick}/>
+                        </>
+                    ) : isLogIn ? (
+                        <>
+                            <Dialog.Title className="text-[#1075B2] text-xl mb-6 text-center">
+                                Добро пожаловать!
+                            </Dialog.Title>
+                            <LogInForm onSignUpClick={handleSignUpClick} setIsModalOpen={setIsModalOpen}/>
+                        </>
+                    ) : (
+                        <>
+                            <Dialog.Title className="text-[#1075B2] text-xl mb-6 text-center">
+                                ДОБРО ПОЖАЛОВАТЬ!
+                            </Dialog.Title>
+                            <LogInForm onSignUpClick={handleSignUpClick} setIsModalOpen={setIsModalOpen}/>
+                        </>
+                    )}
+                </div>
+            </Dialog.Panel>
+        </Dialog>
     )
 }
 
 export default ModalDialog
-
-
-
