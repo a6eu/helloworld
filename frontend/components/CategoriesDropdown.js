@@ -82,7 +82,7 @@ export default function CatalogDropdown() {
         <Popover className='z-50'>
             {({open, close}) => (<>
                 <Popover.Button
-                    className=" text-[#1075B2] flex items-center justify-center w-full h-[30px] border-1px border-[#1075B2] rounded-[5px] text-[10px] focus:outline-none"
+                    className="text-[#1075B2] flex items-center justify-center w-full h-[30px] border-1px border-[#1075B2] rounded-[5px] text-[10px] focus:outline-none"
                     onFocus={() => {
                         setState('opened');
                     }}
@@ -111,7 +111,7 @@ export default function CatalogDropdown() {
                 >
                     <Popover.Panel className="absolute w-full flex justify-center left-0">
                         <div
-                            className="flex z-10 w-full max-w-screen-xl drop-shadow-[2px_6px_10px_11px_rgba(0,0,0,0.75)] h-full rounded-b-lg mt-5 overflow-hidden">
+                            className="flex z-10 w-full max-w-screen-xl drop-shadow-[2px_6px_10px_11px_rgba(0,0,0,0.75)] h-full rounded-b-lg mt-8 overflow-hidden">
                             <div className="flex-initial w-1/5 py-10 pl-5 bg-slate-200">
                                 <ul className="w-full" onMouseLeave={() => debounce.cancel()}>
                                     {ctg.map((item, index) => (<li
