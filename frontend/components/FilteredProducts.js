@@ -1,30 +1,35 @@
-import styles from "../styles/Products.module.css"
-import React, {useEffect, useState} from 'react';
-import {Rating} from '@smastrom/react-rating'
-import axios from 'axios';
+import styles from "../styles/Products.module.css";
+import React, { useEffect, useState } from "react";
+import { Rating } from "@smastrom/react-rating";
+import axios from "axios";
+import RenderingProduct from "./RenderingProduct";
 
-import '@smastrom/react-rating/style.css'
+import "@smastrom/react-rating/style.css";
 import ProductItem from "@/components/ProductItem";
 
 function FilteredProducts(type) {
     const [products, setProducts] = useState([]);
-    const [token, setToken] = useState('');
+    const [token, setToken] = useState("");
+    const [isLoading, setIsLoading] = useState(false);
 
     useEffect(() => {
         const accessToken = localStorage.getItem("accessToken");
         setToken(accessToken);
     }, []);
 
-
     useEffect(() => {
         const fetchProducts = async () => {
             try {
-                const response = await axios.get('https://shop-01it-group.up.railway.app/api/v1/products/');
+                setIsLoading(true);
+                const response = await axios.get(
+                    "https://shop-01it-group.up.railway.app/api/v1/products/"
+                );
                 const initialProducts = response.data.results.slice(0, 20);
                 const shuffledProducts = shuffleArray(initialProducts);
                 setProducts(shuffledProducts);
+                setIsLoading(false);
             } catch (error) {
-                console.error('Error fetching products:', error);
+                console.error("Error fetching products:", error);
             }
         };
 
@@ -42,19 +47,41 @@ function FilteredProducts(type) {
     return (
         <div className="w-full h-[350px] mt-10 mb-20 flex justify-center">
             <div className={styles.container}>
-                {products.map((product) => (
-                    <ProductItem key={product.id} signedIn={token} isFavorite={true}
-                                 product={product}/>
-                ))}
+                {!isLoading ? (
+                    <>
+                        {products.map((product) => (
+                            <ProductItem
+                                key={product.id}
+                                signedIn={token}
+                                isFavorite={true}
+                                product={product}
+                                isLoading={isLoading}
+                            />
+                        ))}
+                    </>
+                ) : 
+                    <div className="flex">
+                        <RenderingProduct />
+                        <RenderingProduct />
+                        <RenderingProduct />
+                        <RenderingProduct />
+                        <RenderingProduct />
+                        <RenderingProduct />
+                    </div>
+                }
             </div>
         </div>
     );
-
 }
 
 const Stars = (starAvg) => {
-
-    if (starAvg !== 1 || starAvg !== 2 || starAvg !== 3 || starAvg !== 4 || starAvg !== 5) {
+    if (
+        starAvg !== 1 ||
+        starAvg !== 2 ||
+        starAvg !== 3 ||
+        starAvg !== 4 ||
+        starAvg !== 5
+    ) {
         if (starAvg < 1) {
             starAvg = 0.29;
         } else if (starAvg > 1 && starAvg < 2) {
@@ -71,13 +98,13 @@ const Stars = (starAvg) => {
     return (
         <div>
             <Rating
-                style={{maxWidth: 80}}
+                style={{ maxWidth: 80 }}
                 readOnly
                 orientation="horizontal"
                 value={starAvg.starAvg}
             />
         </div>
-    )
-}
+    );
+};
 
 export default FilteredProducts;

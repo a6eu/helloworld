@@ -68,7 +68,7 @@ export default function ProductPage() {
                                 РЕКОМЕНДАЦИИ</p>
                         </div>
                         <PopularProducts type="popular"/>
-                    </> :
+                    </> :  
                     <div>
                         <div className="animate-pulse ">
                             <div className={"w-full mt-3 flex  rounded-[10px] bg-white p-5 "}>
