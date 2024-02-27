@@ -31,7 +31,7 @@ const OneProduct = ({key, img_url, rating, is_favorite, name, price }) => {
                                 className="mr-4"
                             />
                         </div>
-                        <div className={styles.nameAndPrice}>
+                        <div>
                             <p className="text-xs w-10/12 ProductSansLight">
                                 {name}
                             </p>
@@ -40,7 +40,7 @@ const OneProduct = ({key, img_url, rating, is_favorite, name, price }) => {
                             </p>
                         </div>
                         <div className={styles.piecesAndToBucket}>
-                            <div className={styles.quantity}>
+                            <div>
                                 <button className="bg-[#e9e9e9] border-solid border-1px mr-customMargin rounded-sm w-5 flex justify-center h-6">
                                     <Image className="w-3" src={plus} alt="+" />
                                 </button>
@@ -55,7 +55,7 @@ const OneProduct = ({key, img_url, rating, is_favorite, name, price }) => {
                                     />
                                 </button>
                             </div>
-                            <button className={styles.toBucket}>
+                            <button>
                                 В КОРЗИНУ
                             </button>
                         </div>

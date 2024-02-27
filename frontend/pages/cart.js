@@ -1,4 +1,3 @@
-import Products from '@/components/Products';
 import React, {useEffect, useState} from 'react';
 import emptyCart from '../public/images/emptyCart.svg'
 import Image from "next/image"
@@ -8,9 +7,7 @@ import minus from "@/public/images/minus.svg";
 import trashBin from "../public/images/trashBin.svg"
 import trashBinW from "../public/images/trashBin_white.svg"
 import MainContainer from "@/components/MainContainer";
-import imported from "../db.json";
 import dell from "../public/images/DELL.svg"
-import dellPhoto from "../public/images/dellPowerEdge.svg"
 import {RadioGroup} from "@headlessui/react";
 import axios from "axios";
 import PopularProducts from '@/components/product-page/PopularProducts';
@@ -21,11 +18,7 @@ function goToHome() {
 
 function Cart(props) {
     const [cartWithProducts, setCartWithProducts] = useState([]);
-    let quantity = 0;
     let wholePrice = 0;
-
-    const [products, setProducts] = useState([]);
-    const [fetchingStatus, setFetchingStatus] = useState(true)
 
     function formatNumberWithSpaces(number) {
         if (number) {
@@ -39,15 +32,12 @@ function Cart(props) {
 
     const getBasket = async () => {
         try {
-            const response = await axios.get('https://shop-01it-group.up.railway.app/api/v1/basket\n', {
+            const response = await axios.get('https://shop-01it-group.up.railway.app/api/v1/basket', {
                 headers: {
                     Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
                 },
             });
-
-            console.log(response.data.products)
             setCartWithProducts(response.data.products)
-            setProducts(response.data.products)
         } catch (error) {
             console.error('Error fetching products:', error);
         }
@@ -59,9 +49,17 @@ function Cart(props) {
     }, []);
 
     const increaseQuantity = (index) => {
-        const updatedCart = [...cartWithProducts];
-        updatedCart[index].quantity += 1;
-        setCartWithProducts(updatedCart);
+        try {
+            axios.put(`https://shop-01it-group.up.railway.app/api/v1/basket/products/${index}`, {
+
+            }).then(r => setCartWithProducts(r.data.products));
+        } catch (error) {
+            console.error("Error in increasing: ", error);
+        }
+
+        // const updatedCart = [...cartWithProducts];
+        // updatedCart[index].quantity += 1;
+        // setCartWithProducts(updatedCart);
     }
 
     const decreaseQuantity = (index) => {
@@ -88,7 +86,6 @@ function Cart(props) {
     };
 
 
-
     const cleanCart = async () => {
         try {
             const response = await axios.delete(`https://shop-01it-group.up.railway.app/api/v1/basket`, {
@@ -113,7 +110,8 @@ function Cart(props) {
                     <div className={styles.containerWithProducts}>
                         <div
                             className="w-full ProductSansLight text-md text-[#1075B2] pl-3 py-3 border-b-1px flex justify-between">
-                            <p>Количество товаров в корзине:  <span className="ProductSansMedium">  {cartWithProducts.length}</span> </p>
+                            <p>Количество товаров в корзине: <span
+                                className="ProductSansMedium">  {cartWithProducts.length}</span></p>
                             <button
                                 onClick={() => cleanCart()}
                                 className="w-40 h-6 mr-3 text-[11px] bg-[#1075B2] text-white rounded-[6px] flex justify-center items-center">
@@ -133,11 +131,15 @@ function Cart(props) {
                                             <div className="hidden">
                                                 {wholePrice += result.product.price * result.quantity}</div>
                                             <div className="h-auto flex align-center pb-6 border-b-1px">
-                                                <Image className="ml-10" src={result.product.img_url} width={310} height={310} alt="Product Photo"></Image>
+                                                <Image className="ml-10" src={result.product.img_url} width={310}
+                                                       height={310} alt="Product Photo"></Image>
                                                 <div className="flex-col ProductSansLight ml-10 mt-4">
                                                     <div className="text-[20px]">{result.product.name}</div>
-                                                    <div className="ProductSansMedium text-lg">{formatNumberWithSpaces(result.product.price)} ₸</div>
-                                                    <div className="text-[12px] w-2/3 mt-4">{result.product.description}</div>
+                                                    <div
+                                                        className="ProductSansMedium text-lg">{formatNumberWithSpaces(result.product.price)} ₸
+                                                    </div>
+                                                    <div
+                                                        className="text-[12px] w-2/3 mt-4">{result.product.description}</div>
                                                     <div className="flex justify-between items-center">
                                                         {/*---------------------FIX THAT---------------------*/}
                                                         <Image className="mt-4" src={dell}
@@ -209,7 +211,7 @@ function Cart(props) {
                 </div>
                 <h3 className="flex justify-center mt-12 ProductSansLight text-xl text-[#1075B2]">ПЕРСОНАЛЬНЫЕ
                     РЕКОМЕНДАЦИИ</h3>
-                    <PopularProducts />
+                <PopularProducts/>
 
                 {/* <Products products={products} fetchingStatus={fetchingStatus}/> */}
             </MainContainer>
@@ -232,7 +234,7 @@ function Cart(props) {
                     <h3 className="flex justify-center mt-12 ProductSansLight text-xl text-[#1075B2]">ПЕРСОНАЛЬНЫЕ
                         РЕКОМЕНДАЦИИ</h3>
                     {/* <Products products={products} fetchingStatus={fetchingStatus}/> */}
-                    <PopularProducts />
+                    <PopularProducts/>
                 </div>
             </MainContainer>
         )

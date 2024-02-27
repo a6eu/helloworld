@@ -10,6 +10,7 @@ import ModalDialog from "@/components/ModalDialog";
 import axios from 'axios';
 import {useDispatch, useSelector} from "react-redux";
 
+
 const floatValues = [0.29, 1.44, 2.31, 3.48, 4.52];
 const ProductItem = ({product, signedIn}) => {
     const [quantity, setQuantity] = useState(1)
@@ -56,7 +57,7 @@ const ProductItem = ({product, signedIn}) => {
             );
 
             if (response.status === 201) {
-                alert("Success");
+                alert("Success " + product_id + quantity);
                 console.log(response.data);
             }
         } catch (error) {
@@ -116,7 +117,8 @@ const ProductItem = ({product, signedIn}) => {
                         <Image className="w-3" src={minus} alt="-"/>
                     </button>
                 </div>
-                <button className='ProductSansLight text-[11px] text-[#1075b2] border-1px border-[#1075b2] rounded-[3px] h-[22px] w-[90px] hover:transition-[300ms] hover:bg-[#1075b2] hover:text-white' onClick={() => handleButtonClick(product.id, quantity)}>
+                <button
+                    className='ProductSansLight text-[11px] text-[#1075b2] border-1px border-[#1075b2] rounded-[3px] h-[22px] w-[90px] hover:transition-[300ms] hover:bg-[#1075b2] hover:text-white' onClick={() => handleButtonClick(product.id, quantity)}>
                     В КОРЗИНУ
                 </button>
             </div>
