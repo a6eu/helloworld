@@ -13,8 +13,7 @@ import {useDispatch, useSelector} from "react-redux";
 
 const floatValues = [0.29, 1.44, 2.31, 3.48, 4.52];
 const ProductItem = ({product, signedIn}) => {
-    const [quantity, setQuantity] = useState(1)
-
+    const [quantity, setQuantity] = useState(1);
     const dispatch = useDispatch();
     const path = useSelector((state) => state.breadcrumb.path);
 

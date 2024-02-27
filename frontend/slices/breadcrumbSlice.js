@@ -11,7 +11,6 @@ const breadcrumbSlice = createSlice( {
     initialState,
     reducers: {
         setPath: (state, action) => {state.path = action.payload},
-
     }
 })
 

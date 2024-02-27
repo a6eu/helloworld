@@ -11,6 +11,7 @@ import dell from "../public/images/DELL.svg"
 import {RadioGroup} from "@headlessui/react";
 import axios from "axios";
 import PopularProducts from '@/components/product-page/PopularProducts';
+import {useDispatch, useSelector} from "react-redux";
 
 function goToHome() {
     window.location.href = '/';
@@ -19,6 +20,10 @@ function goToHome() {
 function Cart(props) {
     const [cartWithProducts, setCartWithProducts] = useState([]);
     let wholePrice = 0;
+    let quantity = 0;
+    const dispatch = useDispatch();
+    const quantityOfProduct = useSelector(state => state.quantity);
+
 
     function formatNumberWithSpaces(number) {
         if (number) {
@@ -48,18 +53,11 @@ function Cart(props) {
         getBasket()
     }, []);
 
-    const increaseQuantity = (index) => {
-        try {
-            axios.put(`https://shop-01it-group.up.railway.app/api/v1/basket/products/${index}`, {
-
-            }).then(r => setCartWithProducts(r.data.products));
-        } catch (error) {
-            console.error("Error in increasing: ", error);
-        }
-
+    const increaseQuantity = async (index, quantity) => {
         // const updatedCart = [...cartWithProducts];
         // updatedCart[index].quantity += 1;
-        // setCartWithProducts(updatedCart);
+        // getBasket();
+        dispatch({type: 'INCREASE'});
     }
 
     const decreaseQuantity = (index) => {
@@ -152,7 +150,7 @@ function Cart(props) {
                                                             </button>
 
                                                             <button
-                                                                onClick={() => increaseQuantity(index)}
+                                                                onClick={() => increaseQuantity(index, result.quantity)}
                                                                 className="bg-[#E9E9E9] border-solid border-1px mr-customMargin rounded-[3px] w-5 flex justify-center items-center h-6">
                                                                 <Image className="w-3" src={plus} alt="+"/>
                                                             </button>
