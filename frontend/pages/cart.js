@@ -17,7 +17,7 @@ function goToHome() {
     window.location.href = '/';
 }
 
-function Cart(props) {
+function Cart() {
     const [cartWithProducts, setCartWithProducts] = useState([]);
     let wholePrice = 0;
     let quantity = 0;
@@ -93,7 +93,7 @@ function Cart(props) {
             });
 
             console.log(response.data.message);
-            getBasket();
+            await getBasket();
         } catch (error) {
             console.error('Error cleaning bucket', error);
         }
@@ -125,7 +125,7 @@ function Cart(props) {
                                     <RadioGroup>
                                         <li>
                                             <div className="hidden">
-                                                {quantity += result.quantity}</div>
+                                                {result.quantity += result.quantity}</div>
                                             <div className="hidden">
                                                 {wholePrice += result.product.price * result.quantity}</div>
                                             <div className="h-auto flex align-center pb-6 border-b-1px">

@@ -4,9 +4,8 @@ import Link from "next/link";
 
 const CompanyInfo = ({brandInfo}) => {
     return (
-        <div className="w-5/12  h-auto mt-[-40px] ">
-            <div className="h-[4.5rem]"> </div>
-            <div className="flex flex-col items-center bg-white p-5 shadow-md">
+        <div className="md:w-2/5 w-full h-auto md:mt-24">
+            <div className="flex flex-col sm:flex-row md:flex-col gap-5 md:gap-0 lg:flex-row items-center bg-white p-5 shadow-md">
                 <Image
                     className="mb-4"
                     src={brandInfo.logo_url}
@@ -14,13 +13,17 @@ const CompanyInfo = ({brandInfo}) => {
                     width={140}
                     height={140}
                 />
-                <p className="text-justify text-black text-[15px] ProductSansLight max-w-[90%]">
-                    &nbsp;&nbsp;{brandInfo.description}
-                </p>
-                <div className="flex flex-col text-center mt-5 text-[#1075B2] underline cursor-pointer text-[15px] ProductSansLight">
-                    {/* <a>Все товары категории</a> */}
-                    <Link href={`/brands/${brandInfo.name}`}>Все товары бренда {brandInfo.name}</Link>
+                <div>
+                    <p className="text-justify text-black text-[15px] ProductSansLight px-7">
+                        &nbsp;&nbsp;{brandInfo.description}
+                    </p>
+                    <div
+                        className="flex flex-col text-center mt-5 text-[#1075B2] underline cursor-pointer text-[15px] ProductSansLight">
+                        <Link href={`/brands/${brandInfo.name}`}>Все товары бренда {brandInfo.name}</Link>
+                    </div>
+
                 </div>
+
             </div>
         </div>
     );

@@ -145,7 +145,6 @@ const Header = () => {
                 <CategoriesDropdown/>
                 <div className={"flex items-center"} ref={searchContainerRef}>
                     <Search placeholder="Поиск"
-                            enterButton
                             onChange={handleSearchChange}
                             value={searchTerm}
                             className='w-[400px] min-[320px]:max-lg:w-auto'
