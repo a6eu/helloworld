@@ -16,8 +16,7 @@ const Reviews = () => {
         )
     }
     return (
-        <div className="flex flex-col w-7/12  p-3 mr-4 mt-5">
-            {/* <h1>REVIEWS</h1> */}
+        <div className="flex flex-col p-3 mt-5">
             <ul className="h-[600px] overflow-y-auto ">
                 <li className="w-full shadow-md rounded-md bg-white h-auto p-3 mb-4">
                     <div className="flex justify-between items-center">

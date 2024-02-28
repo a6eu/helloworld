@@ -27,6 +27,7 @@ function Profile() {
                 setIsLoading(false)
                 setProfile(response.data)
                 console.log(response.data)
+                console.log(bearerToken)
             } catch (error) {
                 console.log("Error")
                 console.log(error)
