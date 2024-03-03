@@ -4,7 +4,7 @@ import emptyBox from "../public/images/emptyBox.svg";
 import React from "react";
 
 const ProductsContainer = ({products}) => {
-
+        console.log(products + "Nana")
     return (
         <div className="flex w-[95%] flex-wrap">
             {

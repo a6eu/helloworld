@@ -35,7 +35,7 @@ const ProductItem = ({product, signedIn}) => {
     let [isModalOpen, setIsModalOpen] = useState(false)
     const statementChecker = () => {
         if (signedIn) {
-            handleFavClick()
+            addToFav()
         } else {
             setIsModalOpen(true)
         }
@@ -58,6 +58,7 @@ const ProductItem = ({product, signedIn}) => {
             );
 
             if (response.status === 201) {
+                alert("Success " + product_id + quantity);
                 console.log(response.data);
             }
         } catch (error) {
@@ -65,7 +66,10 @@ const ProductItem = ({product, signedIn}) => {
         }
     };
 
-    const handleFavClick = async () => {
+    const deleteToFav = async () => {
+
+    }
+    const addToFav = async () => {
         const url = `https://shop-01it-group.up.railway.app/api/v1/favorites/products/${product.id}`;
 
         try {

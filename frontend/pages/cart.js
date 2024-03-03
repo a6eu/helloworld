@@ -1,3 +1,4 @@
+import Products from '@/components/Products';
 import React, {useEffect, useState} from 'react';
 import emptyCart from '../public/images/emptyCart.svg'
 import Image from "next/image"
@@ -212,7 +213,7 @@ function Cart() {
                 </div>
                 <h3 className="flex justify-center mt-12 ProductSansLight text-xl text-[#1075B2]">ПЕРСОНАЛЬНЫЕ
                     РЕКОМЕНДАЦИИ</h3>
-                <PopularProducts/>
+                    <PopularProducts />
 
                 {/* <Products products={products} fetchingStatus={fetchingStatus}/> */}
             </MainContainer>
@@ -235,7 +236,7 @@ function Cart() {
                     <h3 className="flex justify-center mt-12 ProductSansLight text-xl text-[#1075B2]">ПЕРСОНАЛЬНЫЕ
                         РЕКОМЕНДАЦИИ</h3>
                     {/* <Products products={products} fetchingStatus={fetchingStatus}/> */}
-                    <PopularProducts/>
+                    <PopularProducts />
                 </div>
             </MainContainer>
         )

@@ -47,6 +47,7 @@ export default function ProductPage() {
     }, [productName, router]);
 
     console.log("product info", productName)
+    console.log(product.id)
 
     return (
         <MainContainer>
