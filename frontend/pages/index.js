@@ -29,8 +29,6 @@ const Home = ({ products}) => {
             <News />
             <Companies />
             <CategoryChooser />
-
-          
             <AboutCompany />
         </MainContainer>
     );
