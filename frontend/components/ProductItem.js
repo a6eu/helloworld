@@ -58,7 +58,6 @@ const ProductItem = ({product, signedIn}) => {
             );
 
             if (response.status === 201) {
-                alert("Success " + product_id + quantity);
                 console.log(response.data);
             }
         } catch (error) {

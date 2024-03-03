@@ -1,22 +1,23 @@
-import News from '@/components/News';
+import News from "@/components/News";
 import AboutCompany from "@/components/AboutCompany";
-import Companies from '@/components/Companies';
-import React, {useEffect, useState} from 'react';
-import ModalWindow from '@/components/ModalWindow';
+import Companies from "@/components/Companies";
+import React, { useEffect, useState } from "react";
+import ModalWindow from "@/components/ModalWindow";
 import MainContainer from "@/components/MainContainer";
 import CategoryChooser from "@/components/CategoryChooser";
+import Link from 'next/link';
 
 
-const Home = () => {
+const Home = ({ products}) => {
     const [showModal, setShowModal] = useState(false);
-
+    console.log(products)
     const closeModal = () => {
         setShowModal(false);
-        localStorage.setItem('selected', 'false');
+        localStorage.setItem("selected", "false");
     };
 
     useEffect(() => {
-        const visited = localStorage.getItem('selected');
+        const visited = localStorage.getItem("selected");
         if (!visited) {
             setShowModal(true);
         }
@@ -24,11 +25,11 @@ const Home = () => {
 
     return (
         <MainContainer>
-            {showModal && <ModalWindow closeModal={closeModal}/>}
-            <News/>
-            <Companies/>
-            <CategoryChooser/>
-            <AboutCompany/>
+            {showModal && <ModalWindow closeModal={closeModal} />}
+            <News />
+            <Companies />
+            <CategoryChooser />
+            <AboutCompany />
         </MainContainer>
     );
 };
