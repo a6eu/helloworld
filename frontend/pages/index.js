@@ -8,34 +8,6 @@ import CategoryChooser from "@/components/CategoryChooser";
 import Link from 'next/link';
 
 
-// DELETE ME LATER
-import Pagination from '@etchteam/next-pagination'
-// Above is new pagination logic
-// import ProductListExample from "@/components/ProductListExample";
-// DELETE ME LATER
-
-// TESTING PAGINATION LOWER DELETE LATER
-
-// export async function getServerSideProps(context) {
-//     const { page = 1 } = context.query; // Default to page 1 if no query param is provided
-//     const res = await fetch(
-//         `https://shop-01it-group.up.railway.app/api/v1/products/?page=${page}`
-//     );
-//     const data = await res.json();
-
-//     return {
-//         props: {
-//             products: data.results,
-//             page: parseInt(page, 10),
-//             count: data.count,
-//             next: data.next,
-//             previous: data.previous,
-//         },
-//     };
-// }
-
-// TESTING PAGINATION ABOVE DELETE ME
-
 const Home = ({ products}) => {
     const [showModal, setShowModal] = useState(false);
     console.log(products)
@@ -57,23 +29,6 @@ const Home = ({ products}) => {
             <News />
             <Companies />
             <CategoryChooser />
-
-            {/* PAGINATION BELOW */}
-            {/* <ProductListExample products={products} next={next} previous={previous} totalPages={count} /> */}
-            
-            {/* <div className="flex divide-x-4 mt-6">
-                {page > 1 && (
-                    <Link href={`/?page=${page - 1}`}>
-                        <button className="border-2 solid bg-yellow-200 rounded-md p-2">Previous</button>
-                    </Link>
-                )}
-                {page * products.length < count && (
-                    <Link  href={`/?page=${page + 1}`}>
-                        <button className="border-2 solid bg-yellow-200 rounded-md p-2">Next</button>
-                    </Link>
-                )}
-            </div> */}
-            {/* PAGINATION ABOVE */}
             <AboutCompany />
         </MainContainer>
     );

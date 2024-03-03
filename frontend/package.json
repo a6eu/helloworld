@@ -13,7 +13,6 @@
     "serve-2": "concurrently \"npm run dev\" \"npm run json-server-2\""
   },
   "dependencies": {
-    "@etchteam/next-pagination": "^3.5.5",
     "@headlessui/react": "^1.7.17",
     "@next/font": "^14.0.2",
     "@nextui-org/react": "^2.2.9",
