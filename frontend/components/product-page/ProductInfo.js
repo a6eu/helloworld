@@ -3,14 +3,20 @@ import {Rating} from "@smastrom/react-rating";
 import Price from "@/components/Price";
 import plus from "@/public/images/plus.svg";
 import minus from "@/public/images/minus.svg";
-import {useState} from "react";
+import {useContext, useState} from "react";
 import defaultImage from "@/public/images/picture.png"
 import axios from "axios";
+import {AlertContext} from "@/components/AlertContext";
 
 
-const ProductInfo = ({product, category, brandName}) => {
+const ProductInfo = ({product, brandName}) => {
+    const { showAlert } = useContext(AlertContext);
     const [quantity, setQuantity] = useState(1);
     const [isExpanded, setIsExpanded] = useState(false);
+
+    const handleAddToBasket = () => {
+        showAlert("Товар успешно добавлен в корзину!");
+    };
 
     const handleButtonClick = async (quantity) => {
         const url = "https://shop-01it-group.up.railway.app/api/v1/basket/products/";
@@ -28,6 +34,7 @@ const ProductInfo = ({product, category, brandName}) => {
                     },
                 }
             );
+            handleAddToBasket();
         } catch (error) {
             console.error(error);
         }
@@ -62,23 +69,22 @@ const ProductInfo = ({product, category, brandName}) => {
         <div className="w-full flex mt-3 md:flex-row flex-col rounded-[10px] bg-white md:pl-5">
             <div className="w-1/3 h-full self-center flex justify-center">
                 {product.img_url ?
-                    <Image className="object-cover min-w-[250px]" alt={product.name} src={product.img_url} width={310}
-                           height={310}/>
+                    <Image className="object-cover min-w-[250px]" alt={product.name} src={product.img_url} width={300}
+                           height={300}/>
                     :
-                    <Image className='object-cover min-w-[250px]' src={defaultImage} alt={product.name} width={310}
-                           height={310}/>}
+                    <Image className='object-cover min-w-[250px]' src={defaultImage} alt={product.name} width={300}
+                           height={300}/>}
             </div>
             <div className={"m-8 md:w-2/3 w-9/10 "}>
                 <div className={'w-full flex flex-row'}>
-                    <h2
+                    <h1
                         className={
-                            "w-6/10 text-[30px] ProductSansLight flex justify-between pr-3"
+                            "w-6/10 text-[24px] ProductSansLight flex justify-between pr-3"
                         }
                     >
                         {product.name}
-                    </h2>
-                    <div className="w-4/10 flex gap-3 align-middle pr-5">
-
+                    </h1>
+                    <div className="w-4/10 flex gap-3 align-middle ">
                         <div className={'align-middle mt-0.5 w-[1.5rem]'}>
                             <Image
                             src={"/images/share.svg"}
@@ -101,7 +107,10 @@ const ProductInfo = ({product, category, brandName}) => {
 
                 <Stars starAvg={4}/>
                 <div className="mb-5"></div>
-                <Price price={product.price} fSizeOfCurrency={30} fSizeOfDigit={35}/>
+                <div className='flex justify-between items-center'>
+                    <Price price={product.price} fSizeOfCurrency={30} fSizeOfDigit={35}/>
+                    <div className='ProductSansLight text-sm text-gray-500'>Артикул: {product.article}</div>
+                </div>
                 <div className={`relative max-w-[70%] ${!isExpanded ? 'max-h-24 overflow-hidden' : ''}`}>
                     <p className="text-[#9A9a9a] text-[15px] ProductSansLight">
                         {product.description}
@@ -109,7 +118,6 @@ const ProductInfo = ({product, category, brandName}) => {
                     {!isExpanded && (
                         <div
                             className="absolute bottom-0 left-0 w-full h-12 bg-gradient-to-b from-transparent to-white">
-
                         </div>
                     )}
                 </div>
@@ -117,7 +125,7 @@ const ProductInfo = ({product, category, brandName}) => {
                     {isExpanded ? 'Показать меньше' : 'Показать больше'}
                 </button>
 
-                <div className={"flex justify-between items-center  "}>
+                <div className={"flex justify-between items-center"}>
                     {brandName.logo_url ? <Image
                             className="mt-4"
                             src={brandName.logo_url}
@@ -128,8 +136,8 @@ const ProductInfo = ({product, category, brandName}) => {
                         <Image className='mt-4' src={defaultImage} alt={product.name} width={53}
                                height={53}/>}
 
-                    <div className={"flex justify-around w-[35%]"}>
-                        <div className={"flex"}>
+                    <div className={"flex justify-between w-[35%]"}>
+                        <div className={"flex pl-24"}>
                             <button
                                 onClick={() => increaseQuantity()}
                                 className="bg-[#E9E9E9] border-solid border-1px mr-customMargin rounded-[3px] w-5 flex justify-center items-center h-6"
@@ -149,7 +157,7 @@ const ProductInfo = ({product, category, brandName}) => {
                         </div>
                         <button
                             className={
-                                "ProductSansMedium text-[10px] mx-16  text-[#1075B2] min-w-[86px] border border-[#1075B2] rounded-[3px] ml-2"}
+                                'ProductSansLight text-[11px] text-[#1075b2] border-1px border-[#1075b2] rounded-[3px] h-[25px] w-[90px] hover:transition-[300ms] hover:bg-[#1075b2] hover:text-white'}
                             onClick={() => handleButtonClick(quantity)}
                         >
                             В КОРЗИНУ

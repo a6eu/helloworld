@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import styles from "@/styles/Products.module.css";
 import Link from "next/link";
 import Image from "next/image";
@@ -9,7 +9,8 @@ import Price from "@/components/Price";
 import ModalDialog from "@/components/ModalDialog";
 import axios from 'axios';
 import {useDispatch, useSelector} from "react-redux";
-import defaultImage from "@/public/images/picture.png"
+import defaultImage from "@/public/images/picture.png";
+import {AlertContext} from "@/components/AlertContext";
 
 
 const floatValues = [0.29, 1.44, 2.31, 3.48, 4.52];
@@ -18,6 +19,12 @@ const ProductItem = ({product, signedIn}) => {
     const dispatch = useDispatch();
     const path = useSelector((state) => state.breadcrumb.path);
     const [productName, setProductName] = useState(product.name);
+
+    const { showAlert } = useContext(AlertContext);
+
+    const handleAddToBasket = () => {
+        showAlert("Товар успешно добавлен в корзину!");
+    };
 
     const formatName = (title) => {
         let words = title.split(" ")
@@ -35,7 +42,7 @@ const ProductItem = ({product, signedIn}) => {
     let [isModalOpen, setIsModalOpen] = useState(false)
     const statementChecker = () => {
         if (signedIn) {
-            handleFavClick()
+            handleFavClick();
         } else {
             setIsModalOpen(true)
         }
@@ -58,9 +65,9 @@ const ProductItem = ({product, signedIn}) => {
             );
 
             if (response.status === 201) {
-                alert(product_id + " " + quantity);
                 console.log(response.data);
             }
+            handleAddToBasket();
         } catch (error) {
             console.error(error);
         }

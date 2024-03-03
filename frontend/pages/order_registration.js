@@ -2,11 +2,13 @@ import MainContainer from "@/components/MainContainer";
 import React, {useEffect, useState} from "react";
 import Image from "next/image";
 import axios from "axios";
+import defaultImage from "@/public/images/picture.png"
+import Link from "next/link";
+import PhoneNumberFormatter from "@/components/PhoneNumberFormatter";
 
 export default function order_registration() {
     const [profile, setProfile] = useState({});
     const [basket, setBasket] = useState([]);
-
 
     useEffect(() => {
         const getProfile = async () => {
@@ -132,7 +134,7 @@ export default function order_registration() {
                             <div className="">
                                 <h1 className="text-xl">1. Покупатель</h1>
                                 <div className="mt-5 px-3 flex flex-col gap-1">
-                                    <h2 className="">+7 {profile.phone_number}</h2>
+                                    <h2 className=""><PhoneNumberFormatter phoneNumber={'7'+profile.phone_number}/></h2>
                                     <h3 className="font-sans"> {profile.first_name} {profile.last_name}</h3>
                                     <h3 className="font-sans"> {profile.email}</h3>
                                 </div>
@@ -169,6 +171,7 @@ export default function order_registration() {
                                                           d="M12.7967 18.9935C12.6632 19.0875 12.5389 19.1728 12.4252 19.2493C12.304 19.1721 12.1695 19.0833 12.0236 18.9832C11.336 18.5109 10.4443 17.8176 9.56602 16.9529C7.7646 15.1792 6.25 12.9151 6.25 10.5C6.25 7.18629 9.04822 4.5 12.5 4.5C15.9518 4.5 18.75 7.18629 18.75 10.5C18.75 12.8892 17.1686 15.1468 15.3014 16.9393C14.3954 17.8091 13.4837 18.5099 12.7967 18.9935ZM20.3125 10.5C20.3125 16.5 12.5 21 12.5 21C12.1094 21 4.6875 16.5 4.6875 10.5C4.6875 6.35786 8.18527 3 12.5 3C16.8147 3 20.3125 6.35786 20.3125 10.5ZM14.0625 10.5C14.0625 11.3284 13.3629 12 12.5 12C11.6371 12 10.9375 11.3284 10.9375 10.5C10.9375 9.67157 11.6371 9 12.5 9C13.3629 9 14.0625 9.67157 14.0625 10.5ZM15.625 10.5C15.625 12.1569 14.2259 13.5 12.5 13.5C10.7741 13.5 9.375 12.1569 9.375 10.5C9.375 8.84315 10.7741 7.5 12.5 7.5C14.2259 7.5 15.625 8.84315 15.625 10.5Z"
                                                           fill="#1075B2"/>
                                                 </svg>
+
                                             </div>
                                         </div>
                                         <div className="flex w-full justify-between flex-wrap mb-3">
@@ -246,14 +249,17 @@ export default function order_registration() {
                                     <h1 className="text-xl">3. Способ оплаты</h1>
                                     <div className={'pl-3 w-full space-y-1'}>
                                         <div>
-                                            <input type="radio" name={'payment'} id={'kaspi'}
+                                            <input
+                                                className={'align-middle mr-1'}
+                                                type="radio" name={'payment'} id={'kaspi'}
                                                    onChange={() => setSelectedPaymentMethod('kaspi')}/>
                                             <label htmlFor="kaspi">Kaspi QR</label>
                                             <p className={'text-sm text-[#9a9a9a]'}>Выставить счет через Kaspi и
                                                 оплатить сумму вашего заказа.</p>
                                         </div>
                                         <div>
-                                            <input type="radio" name={'payment'} id={'debit'}
+                                            <input
+                                                className={'align-middle mr-1'} type="radio" name={'payment'} id={'debit'}
                                                    onChange={() => setSelectedPaymentMethod('debit')}/>
                                             <label htmlFor="debit">Оплата картой</label>
                                             <p className={'text-sm text-[#9a9a9a]'}>Оплата с помощью Казахстанской
@@ -276,11 +282,9 @@ export default function order_registration() {
                                 className="flex font-sans border-dashed border-l-0 border-r-none w-full justify-between border-t-2 border-b-2 py-5 px-8">
                                 <div className="flex flex-col">
                                     <div>3 товара на сумму</div>
-                                    <div>Экономия</div>
                                 </div>
                                 <div className="flex flex-col">
                                     <div>{totalCost} ₸</div>
-                                    <div>300 ₸</div>
                                 </div>
                             </div>
                             <div
@@ -310,27 +314,30 @@ export default function order_registration() {
                                     <div className="text-xl font-sans">{totalCost} ₸</div>
                                 </div>
                                 <div className="flex flex-row justify-between">
-                                    <h1 className="text-[#1075b2] font-sans">Промокод: COCKS</h1>
-                                    <div>-300 ₸</div>
                                 </div>
                                 <div className="mt-2">Товаров: {basket.length}</div>
                             </div>
-                            {basket.map((item => (<div
-                                className="border-dashed flex px-5 py-2 justify-around flex-row border-t-2 w-full"
-                                key={item}>
-                                <div className={'flex w-1/4'}>
-                                    <Image width={90} height={80} className={"flex object-contain items-center"}
-                                           src={item.product.img_url}
-                                           alt="Product Photo"/>
-                                </div>
-                                <div className="flex py-2 px-2 w-1/2 flex-col">
-                                    <h1 className="font-sans text-xs">{item.product.name}</h1>
-                                    <div>{item.total_price} ₸</div>
-                                </div>
-                                <div className="flex flex-row w-1/4 mt-4"><span
-                                    className="text-[#1075b2] flex justify-center">x</span>&nbsp;{item.quantity}шт.
-                                </div>
-                            </div>)))}
+                            {basket.map((item => (
+                                <Link href={{pathname: `/products/${encodeURIComponent(item.product.name)}`}}
+                                      className="border-dashed flex px-5 py-2 justify-around flex-row border-t-2 w-full"
+                                      key={item}>
+                                    <div className={'flex w-1/4'}>
+                                        {item.product.img_url ?
+                                            <Image width={90} height={80} className={"flex object-contain items-center"}
+                                                   src={item.product.img_url}
+                                                   alt="Product Photo"/> :
+                                            <Image width={90} height={80} className={"flex object-contain items-center"}
+                                                   src={defaultImage}
+                                                   alt="Product Photo"/>}
+                                    </div>
+                                    <div className="flex py-2 px-2 w-1/2 flex-col">
+                                        <h1 className="font-sans text-xs">{item.product.name}</h1>
+                                        <div>{item.total_price} ₸</div>
+                                    </div>
+                                    <div className="flex flex-row w-1/4 mt-4"><span
+                                        className="text-[#1075b2] flex justify-center">x</span>&nbsp;{item.quantity}шт.
+                                    </div>
+                                </Link>)))}
                             <div className="flex justify-center text-xs mt-4">Поддержка с 8:00-00:00 по номеру
                                 1717
                             </div>

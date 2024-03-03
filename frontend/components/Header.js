@@ -1,7 +1,7 @@
 'use client'
 import styles from "../styles/Home.module.css";
 import Image from "next/image";
-import React, {useEffect, useRef, useState} from 'react';
+import React, {useContext, useEffect, useRef, useState} from 'react';
 import CategoriesDropdown from "@/components/CategoriesDropdown";
 import CityDropdownMenu from "@/components/CityDropdownMenu";
 import Link from "next/link";
@@ -16,12 +16,13 @@ import profileIconActive from "../public/images/profileImg.svg";
 import loginIconActive from "../public/images/loginIconBlue.svg";
 import {useTokenExpirationCheck} from "@/customHooks/useTokenExpirationCheck";
 import axios from "axios";
-import {Dropdown, Input} from 'antd';
+import {Alert, Dropdown, Input} from 'antd';
 import defaultImage from "@/public/images/picture.png";
-
+import {AlertContext} from "@/components/AlertContext";
 
 const Header = () => {
     useTokenExpirationCheck()
+    const {alert, showAlert} = useContext(AlertContext);
     const [searchTerm, setSearchTerm] = useState('');
     const [allProducts, setAllProducts] = useState([]);
     const [searchResults, setSearchResults] = useState([]);
@@ -133,7 +134,8 @@ const Header = () => {
         setIsModalOpen(true)
     }
 
-    return (<header className={styles.header}>
+    return (
+        <header className={styles.header}>
             <div className={"max-w-screen-xl w-full flex justify-between items-center p-2"}>
                 <Link href={"/"} className='min-[320px]:max-[880px]:hidden'>
                     <Image className="cursor-pointer min-w-[60px]"
@@ -164,7 +166,7 @@ const Header = () => {
                                                 alt={"pic"}
                                                 src={product.img_url}
                                             /> :
-                                            <Image  src={defaultImage} alt={product.name}
+                                            <Image src={defaultImage} alt={product.name}
                                                    width={80}
                                                    height={80}/>
                                         }
@@ -255,6 +257,13 @@ const Header = () => {
                     </Link>}
                 </div>
             </div>
+            {alert.show &&
+                <div
+                    className={`fixed z-50 top-5 right-5 transition-opacity duration-300 ease-out transform-gpu ${
+                        alert.show ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-10'
+                    }`}><Alert type={"success"} showIcon
+                               className={'flex flex-row'}
+                               message={alert.message}></Alert></div>}
             <ModalDialog isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen}/>
         </header>
 
