@@ -1,8 +1,16 @@
 "use client"
 
-import {Breadcrumb, Layout, Menu, theme} from "antd";
+import {Breadcrumb, Layout, Menu} from "antd";
 import React, {useState} from 'react';
-import {PieChartOutlined, ProductOutlined, SwitcherOutlined, ApartmentOutlined, ShoppingOutlined, BankOutlined, UserOutlined} from '@ant-design/icons';
+import {
+    ApartmentOutlined,
+    BankOutlined,
+    PieChartOutlined,
+    ProductOutlined,
+    ShoppingOutlined,
+    SwitcherOutlined,
+    UserOutlined
+} from '@ant-design/icons';
 import Link from "next/link";
 
 const {Header, Content, Footer, Sider} = Layout;
