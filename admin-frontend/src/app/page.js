@@ -1,10 +1,10 @@
 "use client"
 
-import {Avatar, Button, Card, Col, Collapse, Row, Skeleton, Statistic, Input, Select, Space} from "antd";
+import {Avatar, Button, Card, Col, Collapse, Row, Skeleton, Statistic} from "antd";
 
 import {useState} from "react";
 import Meta from "antd/es/card/Meta";
-import {EditOutlined, UserOutlined, ShoppingOutlined } from '@ant-design/icons';
+import {EditOutlined, ShoppingOutlined, UserOutlined} from '@ant-design/icons';
 import TextArea from "antd/es/input/TextArea";
 
 const CollapsedItem = ({name, content, productName}) => {
@@ -17,7 +17,7 @@ const CollapsedItem = ({name, content, productName}) => {
     );
 };
 
-const ExpandedItem = ({name, content, productName}) => {
+const ExpandedItem = ({content}) => {
 
     const onChange = (e) => {
         console.log('Change:', e.target.value);
@@ -41,38 +41,41 @@ const ExpandedItem = ({name, content, productName}) => {
         </div>);
 };
 
+const initItems = [
+    {
+        key: '1',
+        label: <CollapsedItem name={"Yerbolat Mukan"}
+                              content={"It is a long established fact that a reader will be distracted by the ..."}
+                              productName={"Dr.Web"}/>,
+        children: <ExpandedItem name={"Yerbolat Mukan"}
+                                content={"It is a long established fact that a reader will be distracted by the established fact that a reader will be distracted by the established fact that a reader will be distracted by the established established fact that a reader will be distracted by the established fact that a reader will be distracted by the established established fact that a reader will be distracted by the established fact that a reader will be distracted by the established established fact that a reader will be distracted by the established fact that a reader will be distracted by the established established fact that a reader will be distracted by the established fact that a reader will be distracted by the established fact that a reader will be distracted by the"}
+                                productName={"Dr.Web"}/>,
+    },
+    {
+        key: '2',
+        label: <CollapsedItem name={"Yerbolat Mukan"}
+                              content={"It is a long established fact that a reader will be distracted by the ..."}
+                              productName={"Dr.Web"}/>,
+        children: <ExpandedItem name={"Yerbolat Mukan"}
+                                content={"It is a long established fact that a reader will be distracted by the established fact that a reader will be distracted by the established fact that a reader will be distracted by the established established fact that a reader will be distracted by the established fact that a reader will be distracted by the established established fact that a reader will be distracted by the established fact that a reader will be distracted by the established established fact that a reader will be distracted by the established fact that a reader will be distracted by the established established fact that a reader will be distracted by the established fact that a reader will be distracted by the established fact that a reader will be distracted by the"}
+                                productName={"Dr.Web"}/>,
+    },
+    {
+        key: '3',
+        label: <CollapsedItem name={"Yerbolat Mukan"}
+                              content={"It is a long established fact that a reader will be distracted by the ..."}
+                              productName={"Dr.Web"}/>,
+        children: <ExpandedItem name={"Yerbolat Mukan"}
+                                content={"It is a long established fact that a reader will be distracted by the established fact that a reader will be distracted by the established fact that a reader will be distracted by the established established fact that a reader will be distracted by the established fact that a reader will be distracted by the established established fact that a reader will be distracted by the established fact that a reader will be distracted by the established established fact that a reader will be distracted by the established fact that a reader will be distracted by the established established fact that a reader will be distracted by the established fact that a reader will be distracted by the established fact that a reader will be distracted by the"}
+                                productName={"Dr.Web"}/>,
+    },
+];
+
 const App = () => {
 
     const [isLoading, setIsLoading] = useState(false);
-    const items = [
-        {
-            key: '1',
-            label: <CollapsedItem name={"Yerbolat Mukan"}
-                                  content={"It is a long established fact that a reader will be distracted by the ..."}
-                                  productName={"Dr.Web"}/>,
-            children: <ExpandedItem name={"Yerbolat Mukan"}
-                                    content={"It is a long established fact that a reader will be distracted by the established fact that a reader will be distracted by the established fact that a reader will be distracted by the established established fact that a reader will be distracted by the established fact that a reader will be distracted by the established established fact that a reader will be distracted by the established fact that a reader will be distracted by the established established fact that a reader will be distracted by the established fact that a reader will be distracted by the established established fact that a reader will be distracted by the established fact that a reader will be distracted by the established fact that a reader will be distracted by the"}
-                                    productName={"Dr.Web"}/>,
-        },
-        {
-            key: '2',
-            label: <CollapsedItem name={"Yerbolat Mukan"}
-                                  content={"It is a long established fact that a reader will be distracted by the ..."}
-                                  productName={"Dr.Web"}/>,
-            children: <ExpandedItem name={"Yerbolat Mukan"}
-                                    content={"It is a long established fact that a reader will be distracted by the established fact that a reader will be distracted by the established fact that a reader will be distracted by the established established fact that a reader will be distracted by the established fact that a reader will be distracted by the established established fact that a reader will be distracted by the established fact that a reader will be distracted by the established established fact that a reader will be distracted by the established fact that a reader will be distracted by the established established fact that a reader will be distracted by the established fact that a reader will be distracted by the established fact that a reader will be distracted by the"}
-                                    productName={"Dr.Web"}/>,
-        },
-        {
-            key: '3',
-            label: <CollapsedItem name={"Yerbolat Mukan"}
-                                  content={"It is a long established fact that a reader will be distracted by the ..."}
-                                  productName={"Dr.Web"}/>,
-            children: <ExpandedItem name={"Yerbolat Mukan"}
-                                    content={"It is a long established fact that a reader will be distracted by the established fact that a reader will be distracted by the established fact that a reader will be distracted by the established established fact that a reader will be distracted by the established fact that a reader will be distracted by the established established fact that a reader will be distracted by the established fact that a reader will be distracted by the established established fact that a reader will be distracted by the established fact that a reader will be distracted by the established established fact that a reader will be distracted by the established fact that a reader will be distracted by the established fact that a reader will be distracted by the"}
-                                    productName={"Dr.Web"}/>,
-        },
-    ];
+    // const [reviews, setReviews] = useState(initItems);
+
 
     const onChange = (key) => {
         console.log(key);
@@ -111,7 +114,7 @@ const App = () => {
             </Row>
 
             <h3 className={'text-lg mb-2 mt-4'} >Последние отзывы</h3>
-            <Collapse style={{marginTop: 16, backgroundColor: '#caddfa', border: '#caddfa'}} items={items} defaultActiveKey={['1']} onChange={onChange}/>
+            <Collapse style={{marginTop: 16, backgroundColor: '#caddfa', border: '#caddfa'}} items={initItems} defaultActiveKey={['1']} onChange={onChange}/>
         </div>)
         ;
 };
