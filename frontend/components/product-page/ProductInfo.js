@@ -4,7 +4,7 @@ import Price from "@/components/Price";
 import plus from "@/public/images/plus.svg";
 import minus from "@/public/images/minus.svg";
 import {useState} from "react";
-import {useRouter} from 'next/router';
+import defaultImage from "@/public/images/picture.png"
 import axios from "axios";
 
 
@@ -61,34 +61,44 @@ const ProductInfo = ({product, category, brandName}) => {
     return (
         <div className="w-full flex mt-3 md:flex-row flex-col rounded-[10px] bg-white md:pl-5">
             <div className="w-1/3 h-full self-center flex justify-center">
-                <Image className="object-cover min-w-[250px]" alt={product.name} src={product.img_url} width={310} height={310}/>
+                {product.img_url ?
+                    <Image className="object-cover min-w-[250px]" alt={product.name} src={product.img_url} width={310}
+                           height={310}/>
+                    :
+                    <Image className='object-cover min-w-[250px]' src={defaultImage} alt={product.name} width={310}
+                           height={310}/>}
             </div>
-            <div className={"m-8 md:w-2/3 w-9/10"}>
-                <h2
-                    className={
-                        "text-[30px] ProductSansLight flex w-full justify-between pr-3"
-                    }
-                >
-                    {product.name}
-                    <div className="flex align-middle">
-                        <a>
+            <div className={"m-8 md:w-2/3 w-9/10 "}>
+                <div className={'w-full flex flex-row'}>
+                    <h2
+                        className={
+                            "w-6/10 text-[30px] ProductSansLight flex justify-between pr-3"
+                        }
+                    >
+                        {product.name}
+                    </h2>
+                    <div className="w-4/10 flex gap-3 align-middle pr-5">
+
+                        <div className={'align-middle mt-0.5 w-[1.5rem]'}>
                             <Image
-                                src={"/images/share.svg"}
-                                height={20}
-                                width={20}
-                                alt="share"
+                            src={"/images/share.svg"}
+                            height={30}
+                            width={30}
+                            alt="share"
                             />
-                        </a>
-                        <a className="ml-2">
+                        </div>
+                        <div className={'w-[1.5rem]'}>
                             <Image
                                 src={"/images/zametki.svg"}
-                                height={18}
-                                width={18}
+                                height={28}
+                                width={28}
                                 alt="share"
                             />
-                        </a>
+                        </div>
+
                     </div>
-                </h2>
+                </div>
+
                 <Stars starAvg={4}/>
                 <div className="mb-5"></div>
                 <Price price={product.price} fSizeOfCurrency={30} fSizeOfDigit={35}/>
@@ -108,13 +118,16 @@ const ProductInfo = ({product, category, brandName}) => {
                 </button>
 
                 <div className={"flex justify-between items-center  "}>
-                    <Image
-                        className="mt-4"
-                        src={brandName.logo_url}
-                        alt="Logo"
-                        width={53}
-                        height={53}
-                    />
+                    {brandName.logo_url ? <Image
+                            className="mt-4"
+                            src={brandName.logo_url}
+                            alt="Logo"
+                            width={53}
+                            height={53}
+                        /> :
+                        <Image className='mt-4' src={defaultImage} alt={product.name} width={53}
+                               height={53}/>}
+
                     <div className={"flex justify-around w-[35%]"}>
                         <div className={"flex"}>
                             <button
