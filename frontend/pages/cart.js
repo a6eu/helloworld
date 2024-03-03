@@ -7,12 +7,10 @@ import minus from "@/public/images/minus.svg";
 import trashBin from "../public/images/trashBin.svg"
 import trashBinW from "../public/images/trashBin_white.svg"
 import MainContainer from "@/components/MainContainer";
-import dell from "../public/images/DELL.svg"
 import {RadioGroup} from "@headlessui/react";
 import axios from "axios";
 import PopularProducts from '@/components/product-page/PopularProducts';
-import {useDispatch, useSelector} from "react-redux";
-import {changer} from "@/slices/changerOfQuantity";
+import defaultImage from '@/public/images/picture.png'
 
 function goToHome() {
     window.location.href = '/';
@@ -22,17 +20,16 @@ function Cart() {
     const [cartWithProducts, setCartWithProducts] = useState([]);
     let wholePrice = 0;
     let quantity = 0;
-    const dispatch = useDispatch();
-    const array = useSelector(state => state.quantityReducer.productsAndQuantities);
     function formatNumberWithSpaces(number) {
         if (number) {
-            if (typeof number === "string")
-                return number.replace(/\B(?=(\d{3})+(?!\d))/g, ' ');
-            return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ' ');
+            let roundedNumber = parseFloat(number).toFixed(2);
+            roundedNumber = roundedNumber.toString();
+            return roundedNumber.replace(/\B(?=(\d{3})+(?!\d))/g, ' ');
         } else {
             return "-";
         }
     }
+
 
     const getBasket = () => {
         axios.get('https://shop-01it-group.up.railway.app/api/v1/basket', {
@@ -41,9 +38,6 @@ function Cart() {
             },
         }).then(response => {
             setCartWithProducts(response.data.products);
-            console.log(response.data.products);
-            dispatch(changer(cartWithProducts));
-            // setArray(useSelector(state => state.quantityReducer.productsAndQuantities))
         }).catch((error) => {
             console.error('Error fetching products:', error);
         });
@@ -53,24 +47,46 @@ function Cart() {
         getBasket()
     }, []);
 
-    const increaseQuantity = async (i, quantity) => {
-        let item = cartWithProducts[i].quantity + 1;
-        let temp = cartWithProducts.map((a, index) => {
-            if (i === index) {
-                a.quantity = item;
+    const increaseQuantity = async (indexOfCartWProducts, idForRequest) => {
+        if (cartWithProducts[indexOfCartWProducts].quantity >= 1) {
+            cartWithProducts[indexOfCartWProducts].quantity += 1;
+            const body = {
+                quantity: cartWithProducts[indexOfCartWProducts].quantity,
+            };
+            const config = {
+                headers: {
+                    'Authorization': `Bearer ${localStorage.getItem('accessToken')}`,
+                },
+            };
+            try {
+                const response = await axios.patch(`https://shop-01it-group.up.railway.app/api/v1/basket/products/${idForRequest}`, body, config);
+                getBasket();
+            } catch (error) {
+                console.error(error);
             }
-            return a;
-        })
-        console.log(array)
-        console.log(temp)
-        dispatch(changer(temp));
+        }
     }
 
-    const decreaseQuantity = (index, quantity) => {
-        dispatch(changer({id: index, quantity: quantity - 1}));
-        console.log(index);
-        console.log(array);
+    const decreaseQuantity = async (indexOfCartWProducts, idForRequest) => {
+        if (cartWithProducts[indexOfCartWProducts].quantity > 1) {
+            cartWithProducts[indexOfCartWProducts].quantity -= 1;
+            const body = {
+                quantity: cartWithProducts[indexOfCartWProducts].quantity,
+            };
+            const config = {
+                headers: {
+                    'Authorization': `Bearer ${localStorage.getItem('accessToken')}`,
+                },
+            };
+            try {
+                const response = await axios.patch(`https://shop-01it-group.up.railway.app/api/v1/basket/products/${idForRequest}`, body, config);
+                getBasket();
+            } catch (error) {
+                console.error(error);
+            }
+        }
     }
+
 
     const removeItem = async (index) => {
         try {
@@ -79,8 +95,6 @@ function Cart() {
                     Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
                 },
             });
-
-            console.log(response.data.message);
             getBasket();
         } catch (error) {
             console.error('Error removing product:', error);
@@ -95,8 +109,6 @@ function Cart() {
                     Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
                 },
             });
-
-            console.log(response.data.message);
             await getBasket();
         } catch (error) {
             console.error('Error cleaning bucket', error);
@@ -123,28 +135,30 @@ function Cart() {
                                 ></Image>ОЧИСТИТЬ КОРЗИНУ
                             </button>
                         </div>
-                        {cartWithProducts.map((result, index) => (
-                                <ul key={index}>
+                        {cartWithProducts.map((result, indexOfCartWProducts) => (
+                                <ul key={indexOfCartWProducts}>
                                     <RadioGroup>
                                         <li>
-                                            {/*<div className="hidden">*/}
-                                            {/*    {result.quantity += result.quantity}</div>*/}
                                             <div className="hidden">
                                                 {wholePrice += result.product.price * result.quantity}</div>
+                                            <div className="hidden">
+                                                {quantity += result.quantity}</div>
                                             <div className="h-auto flex align-center pb-6 border-b-1px">
-                                                <Image className="ml-10" src={result.product.img_url} width={310}
+                                                {result.product.img_url ? <Image className="ml-10" src={result.product.img_url} width={310}
                                                        height={310} alt="Product Photo"></Image>
+                                                : <Image className="ml-10" src={defaultImage} width={310} height={310} alt="Product Photo"></Image>
+                                                }
                                                 <div className="flex-col ProductSansLight ml-10 mt-4">
                                                     <div className="text-[20px]">{result.product.name}</div>
                                                     <div
-                                                        className="ProductSansMedium text-lg">{formatNumberWithSpaces(result.product.price)} ₸
+                                                        className="ProductSansMedium text-lg w-32">{formatNumberWithSpaces(result.product.price)} ₸
                                                     </div>
                                                     <div
                                                         className="text-[12px] w-2/3 mt-4">{result.product.description}</div>
                                                     <div className="flex justify-between items-center">
-                                                        {/*---------------------FIX THAT---------------------*/}
-                                                        <Image className="mt-4" src={dell}
-                                                               alt="Company Logo"></Image>
+                                                        {result.product.logo_url ? <Image className="mt-4 w-[35px] h-[35px]" src={result.product.logo_url}
+                                                               alt="Company Logo"></Image> : <Image className="mt-4 w-[35px] h-[35px]" src={defaultImage}
+                                                                                                    alt="Company Logo"></Image>}
                                                         <div className="flex items-center pt-6">
                                                             <button onClick={() => removeItem(result.product.id)}><Image
                                                                 className="mr-4"
@@ -153,22 +167,21 @@ function Cart() {
                                                             </button>
 
                                                             <button
-                                                                onClick={() => increaseQuantity(index, result.quantity)}
+                                                                onClick={() => increaseQuantity(indexOfCartWProducts, result.product.id)}
                                                                 className="bg-[#E9E9E9] border-solid border-1px mr-customMargin rounded-[3px] w-5 flex justify-center items-center h-6">
                                                                 <Image className="w-3" src={plus} alt="+"/>
                                                             </button>
                                                             <div
                                                                 className="text-white bg-[#1075B2] mx-0.5 text-center mr-customMargin border-solid rounded-[3px] w-5 h-6">
-                                                                {cartWithProducts[index].quantity}
+                                                                {cartWithProducts[indexOfCartWProducts].quantity}
                                                             </div>
                                                             <button
-                                                                onClick={() => decreaseQuantity(result.id, result.quantity)}
+                                                                onClick={() => decreaseQuantity(indexOfCartWProducts, result.product.id)}
                                                                 className="bg-[#E9E9E9] border-solid border-1px rounded-[3px] w-5 flex justify-center items-center h-6 mr-4">
                                                                 <Image className="w-3" src={minus} alt="-"/>
                                                             </button>
-
                                                             <div
-                                                                className="mr-4 ProductSansMedium text-lg w-24">{formatNumberWithSpaces(wholePrice)} ₸
+                                                                className="mr-4 ProductSansMedium text-lg w-28">{formatNumberWithSpaces(wholePrice)} ₸
                                                             </div>
                                                         </div>
                                                     </div>
@@ -203,7 +216,7 @@ function Cart() {
                             </div>
                             <div className="flex justify-center">
                                 <button
-                                    className="ProductSansLight mb-6 text-sm text-[#1075B2] border-1px border-[#1075B2] h-[34px] w-3/4 rounded-md transition ease-in-out delay-50 hover:bg-[#1075B2] hover:text-white">ОФОРМИТЬ
+                                    className="ProductSansLight mt-2 mb-6 text-sm text-[#1075B2] border-1px border-[#1075B2] h-[34px] w-3/4 rounded-md transition ease-in-out delay-50 hover:bg-[#1075B2] hover:text-white">ОФОРМИТЬ
                                     ЗАКАЗ
                                 </button>
                             </div>
@@ -213,8 +226,6 @@ function Cart() {
                 <h3 className="flex justify-center mt-12 ProductSansLight text-xl text-[#1075B2]">ПЕРСОНАЛЬНЫЕ
                     РЕКОМЕНДАЦИИ</h3>
                 <PopularProducts/>
-
-                {/* <Products products={products} fetchingStatus={fetchingStatus}/> */}
             </MainContainer>
         )
     } else {
@@ -234,7 +245,6 @@ function Cart() {
                 <div>
                     <h3 className="flex justify-center mt-12 ProductSansLight text-xl text-[#1075B2]">ПЕРСОНАЛЬНЫЕ
                         РЕКОМЕНДАЦИИ</h3>
-                    {/* <Products products={products} fetchingStatus={fetchingStatus}/> */}
                     <PopularProducts/>
                 </div>
             </MainContainer>
