@@ -1,13 +1,12 @@
 "use client"
 import React, {useEffect, useState} from 'react';
-import {Button, Form, List, Skeleton} from "antd";
+import {Avatar, Button, Form, List, Skeleton} from "antd";
 import axios from 'axios';
 import {DeleteOutlined, EditOutlined, PlusOutlined} from "@ant-design/icons";
 import Search from "antd/es/input/Search";
 import EditProductModal from "@/app/_components/EditProductModal";
 import NewProductModal from "@/app/_components/NewProductModal";
 import DeleteProductModal from "@/app/_components/DeleteProductModal";
-
 
 const apiUrl = 'https://shop-01it-group.up.railway.app/api/v1/products/';
 
@@ -172,7 +171,7 @@ const Page = () => {
                         >
                             <Skeleton avatar title={false} loading={item.loading} active>
                                 <List.Item.Meta className={"break-words"}
-                                    // avatar={<Avatar src={} />}
+                                    avatar={item.img_url ? <Avatar shape="square" size={64}  src={item.img_url} /> : <Avatar shape="square" size={64} src={'/defaultImage.png'} />}
                                     title={<span>{formatItemName(item.name)}</span>}
                                     description={formatItemDescription(item.name, item.description)}
                                 />
