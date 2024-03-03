@@ -7,6 +7,33 @@ import {useEffect, useState} from "react";
 import {useRouter} from "next/router";
 import axios from "axios";
 
+// DELETE ME LATER
+import ProductListExample from "@/components/ProductListExample";
+// DELETE ME LATER
+
+// TESTING PAGINATION LOWER DELETE LATER
+
+export async function getServerSideProps(context) {
+    const { page = 1 } = context.query; // Default to page 1 if no query param is provided
+    const res = await fetch(
+        `https://shop-01it-group.up.railway.app/api/v1/products/?page=${page}`
+    );
+    const data = await res.json();
+
+    return {
+        props: {
+            products: data.results,
+            page: parseInt(page, 10),
+            count: data.count,
+            next: data.next,
+            previous: data.previous,
+        },
+    };
+}
+
+// TESTING PAGINATION ABOVE DELETE ME4
+
+
 const Products = () => {
     const router = useRouter();
     const {categoryProducts} = router.query;
