@@ -1,14 +1,26 @@
 "use client"
 import React, {useEffect, useState} from 'react';
-import {Avatar, List, Modal, Skeleton} from "antd";
+import {Form, Input, InputNumber, List, Modal, Skeleton} from "antd";
 import axios from 'axios';
-import {EditOutlined} from "@ant-design/icons";
+import {DeleteOutlined, EditOutlined} from "@ant-design/icons";
 
 
 const apiUrl = 'https://shop-01it-group.up.railway.app/api/v1/products/';
+const editUrl =  'https://shop-01it-group.up.railway.app/api/v1/products/';
+
+const validateMessages = {
+    required: '${label} обязательно!',
+    types: {
+        number: '${label} некорректная цена!',
+    },
+    number: {
+        range: '${label} цена не должна быть меньше 0',
+    },
+};
 
 const Page = () => {
-    const [data, setData] = useState([]);
+    const [form] = Form.useForm();
+
     const [list, setList] = useState([]);
 
     const [total, setTotal] = useState(0);
@@ -18,17 +30,25 @@ const Page = () => {
     const [open, setOpen] = useState(false);
     const [confirmLoading, setConfirmLoading] = useState(false);
 
+    const [currentItem, setCurrentItem] = useState({});
+
     useEffect(() => {
         fetchData(apiUrl)
     }, []);
+
+    useEffect(() => {
+        if (currentItem) {
+            form.setFieldsValue({name: currentItem.name, description: currentItem.description, price: currentItem.price});
+        }
+    }, [form, currentItem]);
 
     function fetchData(url) {
         setInitLoading(true);
         axios.get(url)
             .then(response => {
-                setData(response.data);
                 setList(response.data.results);
-                setTotal(response.data.count)
+                setTotal(response.data.count);
+                // setCurrentPage(response.data)
                 console.log('response:', response.data);
             })
             .catch(error => {
@@ -37,22 +57,48 @@ const Page = () => {
         setInitLoading(false);
     }
 
-    const showModal = () => {
+    const showModal = (item) => {
+        setCurrentItem(item);
+        console.log(item);
         setOpen(true);
     };
 
-    const handleCancel = () => {
-        setOpen(false);
-    };
-    
     const handleOk = () => {
         setConfirmLoading(true);
         setTimeout(() => {
-            setConfirmLoading(false);
-            setOpen(false)
+            form
+                .validateFields()
+                .then((values) => {
+                    console.log(values);
+                    const body = {
+                        brand: currentItem.brand.id,
+                        name: values.name,
+                        article: currentItem.article,
+                        price: values.price,
+                        description: values.description,
+                        rating_total: currentItem.rating_total,
+                        img_url: currentItem.img_url,
+                        quantity: currentItem.quantity,
+                        category: currentItem.category.id,
+                    }
+                    console.log(body)
+                    axios.put(editUrl + `${currentItem.id}`, body).then((response) => {
+                        console.log(response);
+                    }).catch((error) => {
+                        console.log(error)
+                    })
+
+                    setConfirmLoading(false);
+                    setOpen(false);
+                })
+                .catch((info) => {
+                    console.log("Validate Failed:", info);
+                    setConfirmLoading(false);
+                });
+
         }, 1000);
     };
-    
+
     return (
         <div>
             <>
@@ -68,14 +114,16 @@ const Page = () => {
                             } else {
                                 fetchData(apiUrl + `?page=${page}`);
                             }
+                            setCurrentPage(page);
                         },
-                        pageSize: 4,
+                        pageSize: 24,
                         total: total
                     }}
                     renderItem={(item) => (
                         <List.Item
-                            actions={[<EditOutlined className={"hover:cursor-pointer hover:color-white"} onClick={showModal}/>,
-                                <a key="list-loadmore-more">more</a>]}
+                            actions={[<EditOutlined className={"hover:cursor-pointer hover:color-white"}
+                                                    onClick={() => (showModal(item))}/>,
+                                <DeleteOutlined className={"hover:cursor-pointer hover:color-white"}/>]}
                         >
                             <Skeleton avatar title={false} loading={item.loading} active>
                                 <List.Item.Meta
@@ -83,20 +131,52 @@ const Page = () => {
                                     title={<span>{item.name}</span>}
                                     description={item.description.substring(0, 50) + "..."}
                                 />
-                                <div>content</div>
+
                             </Skeleton>
+
                         </List.Item>
                     )}
                 />
                 <Modal
-                    title="Title"
-                    open={open}
+                    title="Редактирование продукта"
+                    okText={"Редактировать"}
+                    cancelText={"Отмена"}
+                    visible={open}
                     onOk={handleOk}
                     confirmLoading={confirmLoading}
-                    onCancel={handleCancel}
+                    onCancel={() => (setOpen(false))}
                 >
-                    <Input defaultValue={} />
+                    <Form
+                        className={"pt-4"}
+                        layout="vertical"
+                        form={form}
+                        validateMessages={validateMessages}
+                    >
+                        <Form.Item
+                            name='name'
+                            label="Название"
+                        >
+                            <Input defaultValue={currentItem.name}/>
+                        </Form.Item>
+                        <Form.Item
+                            name='price'
+                            label="Цена"
+                            rules={[
+                                {
+                                    type: 'number',
+                                    min: 0,
+                                    max: 10000000000000,
+                                },
+                            ]}
+                        >
+                            <InputNumber defaultValue={currentItem.price}/>
+                        </Form.Item>
+                        <Form.Item name='description' label="Описание">
+                            <Input.TextArea/>
+                        </Form.Item>
+                    </Form>
                 </Modal>
+
             </>
         </div>
     );
