@@ -18,7 +18,7 @@ const ProductsContainer = ({products}) => {
     };
 
     return (
-       
+
         <div>
             <div className="flex w-[95%] flex-wrap">
                 {

@@ -17,7 +17,7 @@ function Favorites() {
                     }
                 });
 
-                console.log(response.data);
+                console.log(response.data.results);
                 setFilterResult(response.data.results);
             } catch (error) {
             }
