@@ -24,6 +24,7 @@ function FilteredProducts(type) {
                 const response = await axios.get(
                     "https://shop-01it-group.up.railway.app/api/v1/products/"
                 );
+                console.log("Products: ", response.data)
                 const initialProducts = response.data.results.slice(0, 20);
                 const shuffledProducts = shuffleArray(initialProducts);
                 setProducts(shuffledProducts);

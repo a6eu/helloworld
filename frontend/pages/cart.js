@@ -34,35 +34,40 @@ function Cart() {
         }
     }
 
-    const getBasket = async () => {
-        try {
-            const response = await axios.get('https://shop-01it-group.up.railway.app/api/v1/basket', {
-                headers: {
-                    Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
-                },
-            });
+    const getBasket = () => {
+        axios.get('https://shop-01it-group.up.railway.app/api/v1/basket', {
+            headers: {
+                Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+            },
+        }).then(response => {
             setCartWithProducts(response.data.products);
-            cartWithProducts.map((product) => {
-                dispatch(cartWithProducts);
-            })
-        } catch (error) {
+            console.log(response.data.products);
+            dispatch(changer(cartWithProducts));
+            // setArray(useSelector(state => state.quantityReducer.productsAndQuantities))
+        }).catch((error) => {
             console.error('Error fetching products:', error);
-        }
+        });
     };
 
-
-    useEffect(() => {
+    useEffect( () => {
         getBasket()
     }, []);
 
-    const increaseQuantity = async (index, quantity) => {
-        dispatch(changer({id: index, quantity: quantity++}));
-        console.log(index);
-        console.log(array);
+    const increaseQuantity = async (i, quantity) => {
+        let item = cartWithProducts[i].quantity + 1;
+        let temp = cartWithProducts.map((a, index) => {
+            if (i === index) {
+                a.quantity = item;
+            }
+            return a;
+        })
+        console.log(array)
+        console.log(temp)
+        dispatch(changer(temp));
     }
 
     const decreaseQuantity = (index, quantity) => {
-        dispatch(changer({id: index, quantity: quantity--}));
+        dispatch(changer({id: index, quantity: quantity - 1}));
         console.log(index);
         console.log(array);
     }
@@ -122,8 +127,8 @@ function Cart() {
                                 <ul key={index}>
                                     <RadioGroup>
                                         <li>
-                                            <div className="hidden">
-                                                {result.quantity += result.quantity}</div>
+                                            {/*<div className="hidden">*/}
+                                            {/*    {result.quantity += result.quantity}</div>*/}
                                             <div className="hidden">
                                                 {wholePrice += result.product.price * result.quantity}</div>
                                             <div className="h-auto flex align-center pb-6 border-b-1px">
@@ -132,7 +137,7 @@ function Cart() {
                                                 <div className="flex-col ProductSansLight ml-10 mt-4">
                                                     <div className="text-[20px]">{result.product.name}</div>
                                                     <div
-                                                        className="ProductSansMedium text-lg">{formatNumberWithSpaces(result.pdcfew.price)} ₸
+                                                        className="ProductSansMedium text-lg">{formatNumberWithSpaces(result.product.price)} ₸
                                                     </div>
                                                     <div
                                                         className="text-[12px] w-2/3 mt-4">{result.product.description}</div>
@@ -148,13 +153,13 @@ function Cart() {
                                                             </button>
 
                                                             <button
-                                                                onClick={() => increaseQuantity(result.id, result.quantity)}
+                                                                onClick={() => increaseQuantity(index, result.quantity)}
                                                                 className="bg-[#E9E9E9] border-solid border-1px mr-customMargin rounded-[3px] w-5 flex justify-center items-center h-6">
                                                                 <Image className="w-3" src={plus} alt="+"/>
                                                             </button>
                                                             <div
                                                                 className="text-white bg-[#1075B2] mx-0.5 text-center mr-customMargin border-solid rounded-[3px] w-5 h-6">
-                                                                {array[result.id]}
+                                                                {cartWithProducts[index].quantity}
                                                             </div>
                                                             <button
                                                                 onClick={() => decreaseQuantity(result.id, result.quantity)}

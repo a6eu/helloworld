@@ -1,7 +1,7 @@
 import {createSlice} from "@reduxjs/toolkit";
 
 const initialState = {
-    productsAndQuantities: []
+    productsAndQuantities: [{id: 1, quantity: 1}]
 };
 
 const quantityChanger = createSlice({
@@ -9,12 +9,9 @@ const quantityChanger = createSlice({
     initialState,
     reducers: {
         changer: (state, action) => {
-            const productId = action.payload.id;
-            state.productsAndQuantities = {
-                ...state.productsAndQuantities,
-                [productId]: action.payload.quantity
-            };
-            console.log(state.productsAndQuantities);
+            console.log("data", action.payload)
+            state.productsAndQuantities = action.payload;
+            console.log(state.productsAndQuantities)
         }
     }
 });
