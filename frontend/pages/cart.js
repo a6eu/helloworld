@@ -33,23 +33,24 @@ const Cart = () => {
         }
     }
 
-
-    const getBasket = () => {
-        setIsLoading(true);
+    const getBasket = (fromWhere) => {
+        if(fromWhere === 'GET')
+            setIsLoading(true);
         axios.get('https://shop-01it-group.up.railway.app/api/v1/basket', {
             headers: {
                 Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
             },
         }).then(response => {
             setCartWithProducts(response.data.products);
-            setIsLoading(false);
+            if(fromWhere === 'GET')
+                setIsLoading(false);
         }).catch((error) => {
             console.error('Error fetching products:', error);
         });
     };
 
     useEffect(() => {
-        getBasket()
+        getBasket('GET')
     }, []);
 
     const increaseQuantity = async (indexOfCartWProducts, idForRequest) => {
@@ -65,7 +66,7 @@ const Cart = () => {
             };
             try {
                 const response = await axios.patch(`https://shop-01it-group.up.railway.app/api/v1/basket/products/${idForRequest}`, body, config);
-                getBasket();
+                getBasket('INCREASE');
             } catch (error) {
                 console.error(error);
             }
@@ -85,7 +86,7 @@ const Cart = () => {
             };
             try {
                 const response = await axios.patch(`https://shop-01it-group.up.railway.app/api/v1/basket/products/${idForRequest}`, body, config);
-                getBasket();
+                getBasket('DECREASE');
             } catch (error) {
                 console.error(error);
             }
@@ -158,14 +159,13 @@ const Cart = () => {
                                                                        height={300}
                                                                        alt="Product Photo"></Image>
                                                             }
-                                                            <div className="flex-col ProductSansLight ml-10 mt-4">
+                                                            <div className="h-full flex-col justify-between ProductSansLight ml-10 mt-4">
                                                                 <Link
                                                                     href={{pathname: `/products/${encodeURIComponent(result.product.name)}`}}
                                                                     key={result.product.id}
                                                                     onClick={() => dispatch(setPath([result.product.name]))}
                                                                 >
-                                                                    <div
-                                                                        className="text-[18px] mr-4">{result.product.name}</div>
+                                                                    <div className="text-[18px] mr-4">{result.product.name}</div>
                                                                 </Link>
                                                                 <div className='flex justify-between items-center'>
                                                                     <div
@@ -174,9 +174,8 @@ const Cart = () => {
                                                                     <div
                                                                         className='mr-4 text-sm text-gray-500'>Артикул: {result.product.article}</div>
                                                                 </div>
-                                                                <div
-                                                                    className="text-[12px] w-2/3 mt-4">{result.product.description}</div>
-                                                                <div className="flex justify-between items-center">
+                                                                <div className="text-[12px] w-2/3 mt-3">{result.product.description}</div>
+                                                                <div className="flex justify-between items-center mt-16">
                                                                     {result.product.logo_url ?
                                                                         <Image className="mt-4 w-[35px] h-[35px]"
                                                                                src={result.product.logo_url}
@@ -184,7 +183,7 @@ const Cart = () => {
                                                                         <Image className="mt-4 w-[35px] h-[35px]"
                                                                                src={defaultImage}
                                                                                alt="Company Logo"></Image>}
-                                                                    <div className="flex items-center pt-6">
+                                                                    <div className="flex items-center pt-4">
                                                                         <button
                                                                             onClick={() => removeItem(result.product.id)}>
                                                                             <Image
@@ -192,7 +191,6 @@ const Cart = () => {
                                                                                 src={trashBin}
                                                                                 alt="trashBin"></Image>
                                                                         </button>
-
                                                                         <button
                                                                             onClick={() => increaseQuantity(indexOfCartWProducts, result.product.id)}
                                                                             className="bg-[#E9E9E9] border-solid border-1px mr-customMargin rounded-[3px] w-5 flex justify-center items-center h-6">
@@ -208,7 +206,7 @@ const Cart = () => {
                                                                             <Image className="w-3" src={minus} alt="-"/>
                                                                         </button>
                                                                         <div
-                                                                            className="mr-4 ProductSansMedium text-lg w-28">{formatNumberWithSpaces(result.product.quantity * result.product.price)} ₸
+                                                                            className="mr-4 ProductSansMedium text-lg w-32">{formatNumberWithSpaces(cartWithProducts[indexOfCartWProducts].quantity * result.product.price)} ₸
                                                                         </div>
                                                                     </div>
                                                                 </div>

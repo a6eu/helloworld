@@ -19,10 +19,10 @@ export default function ProductPage() {
         const fetchData = async () => {
             let response;
             try {
-                setIsLoading(true);
+                setIsLoading(true)
                 response = await axios.get(`https://shop-01it-group.up.railway.app/api/v1/products/?search=${productName}`);
-                await getBrand(response.data.results[0].brand.name);
-                setIsLoading(false);
+                await getBrand(response.data.results[0].brand.name)
+                setIsLoading(false)
                 setProduct(response.data.results[0]);
             } catch (error) {
                 console.error('Error fetching data:', error);
@@ -30,12 +30,13 @@ export default function ProductPage() {
         };
 
         async function getBrand(brandName) {
-            let response;
+            let response
             try {
-                response = await axios.get(`https://shop-01it-group.up.railway.app/api/v1/brands/${brandName}`);
-                const brandLogo = response.data.results;
-                setBrandName(response.data);
-                return brandLogo;
+                response = await axios.get(`https://shop-01it-group.up.railway.app/api/v1/brands/${brandName}`)
+
+                const brandLogo = response.data.results
+                setBrandName(response.data)
+                return brandLogo
             } catch (error) {
                 console.error(error);
             }
@@ -46,7 +47,6 @@ export default function ProductPage() {
     }, [productName, router]);
 
     console.log("product info", productName)
-    console.log(product.id)
 
     return (
         <MainContainer>
@@ -68,7 +68,7 @@ export default function ProductPage() {
                                 РЕКОМЕНДАЦИИ</p>
                         </div>
                         <PopularProducts type="popular"/>
-                    </> :  
+                    </> :
                     <div>
                         <div className="animate-pulse ">
                             <div className={"w-full mt-3 flex  rounded-[10px] bg-white p-5 "}>
@@ -81,6 +81,8 @@ export default function ProductPage() {
                         </div>
                     </div>
             }
+
+
         </MainContainer>
     );
 }
