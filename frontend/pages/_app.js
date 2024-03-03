@@ -3,6 +3,7 @@ import Layout from '../components/Layout'
 import  configureStore from '../slices/index.js'
 import { Provider } from 'react-redux'
 import { PersistGate } from 'redux-persist/integration/react'
+import '@etchteam/next-pagination/dist/index.css'
 
 const { store, persistor } = configureStore();
 
