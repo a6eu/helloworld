@@ -5,8 +5,6 @@ import React, { useEffect, useState } from "react";
 import ModalWindow from "@/components/ModalWindow";
 import MainContainer from "@/components/MainContainer";
 import CategoryChooser from "@/components/CategoryChooser";
-import Link from 'next/link';
-
 
 const Home = ({ products}) => {
     const [showModal, setShowModal] = useState(false);
@@ -24,13 +22,13 @@ const Home = ({ products}) => {
     }, []);
 
     return (
-        <MainContainer>
-            {showModal && <ModalWindow closeModal={closeModal} />}
-            <News />
-            <Companies />
-            <CategoryChooser />
-            <AboutCompany />
-        </MainContainer>
+            <MainContainer>
+                {showModal && <ModalWindow closeModal={closeModal} />}
+                <News />
+                <Companies />
+                <CategoryChooser />
+                <AboutCompany />
+            </MainContainer>
     );
 };
 

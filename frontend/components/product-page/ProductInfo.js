@@ -3,14 +3,20 @@ import {Rating} from "@smastrom/react-rating";
 import Price from "@/components/Price";
 import plus from "@/public/images/plus.svg";
 import minus from "@/public/images/minus.svg";
-import {useState} from "react";
+import {useContext, useState} from "react";
 import defaultImage from "@/public/images/picture.png"
 import axios from "axios";
+import {AlertContext} from "@/components/AlertContext";
 
 
-const ProductInfo = ({product, category, brandName}) => {
+const ProductInfo = ({product, brandName}) => {
+    const { showAlert } = useContext(AlertContext);
     const [quantity, setQuantity] = useState(1);
     const [isExpanded, setIsExpanded] = useState(false);
+
+    const handleAddToBasket = () => {
+        showAlert("Товар успешно добавлен в корзину!");
+    };
 
     const handleButtonClick = async (quantity) => {
         const url = "https://shop-01it-group.up.railway.app/api/v1/basket/products/";
@@ -28,6 +34,7 @@ const ProductInfo = ({product, category, brandName}) => {
                     },
                 }
             );
+            handleAddToBasket();
         } catch (error) {
             console.error(error);
         }
@@ -109,7 +116,6 @@ const ProductInfo = ({product, category, brandName}) => {
                     {!isExpanded && (
                         <div
                             className="absolute bottom-0 left-0 w-full h-12 bg-gradient-to-b from-transparent to-white">
-
                         </div>
                     )}
                 </div>

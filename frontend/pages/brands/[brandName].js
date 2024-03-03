@@ -1,50 +1,47 @@
-import React, {useEffect, useState} from 'react'
-import Products from "@/components/Products"
-import MainContainer from "@/components/MainContainer"
-import axios from "axios"
-import {useRouter} from "next/router"
-import Image from "next/image"
+import React, {useEffect, useState} from "react";
+import Products from "@/components/Products";
+import MainContainer from "@/components/MainContainer";
+import axios from "axios";
+import {useRouter} from "next/router";
+import Image from "next/image";
+import defaultImage from "@/public/images/picture.png";
 
 function BrandName() {
-    const router = useRouter()
-    const {brandName} = router.query
-    const [prods, setProds] = useState([])
-    const [data, setData] = useState({})
+    const router = useRouter();
+    const {brandName} = router.query;
+    const [prods, setProds] = useState([]);
+    const [data, setData] = useState({});
     const [isLoading, setIsLoading] = useState(false);
 
-    useEffect( () => {
+    useEffect(() => {
         if (brandName) {
             axios.get(`https://shop-01it-group.up.railway.app/api/v1/brands/${brandName}`).then(
                 (response) => {
                     setData(response.data);
-
                 }
             ).catch(
                 (error) => {
-                    console.log("Error", error)
+                    console.log("Error", error);
                 }
             )
 
-            getExact(brandName)
+            getExact(brandName);
         }
 
         async function getExact(brandName) {
             try {
-                setIsLoading(true)
-                console.log(brandName)
-                let response= await axios.get(`https://shop-01it-group.up.railway.app/api/v1/products/?brand__name__iexact=${brandName}`)
-                setIsLoading(false)
-                console.log(response.data)
+                setIsLoading(true);
+                console.log(brandName);
+                let response = await axios.get(`https://shop-01it-group.up.railway.app/api/v1/products/?brand__name__iexact=${brandName}`)
+                setIsLoading(false);
+                console.log(response.data);
                 setProds(response.data.results);
             } catch (error) {
                 console.error(error);
             }
-            return prods
+            return prods;
         }
-    }, [brandName, router])
-
-
-
+    }, [brandName, router]);
 
     return (
         <MainContainer>
@@ -69,25 +66,27 @@ function BrandName() {
                         <h2 className="text-2xl font-bold mb-4">{data.name}</h2>
                         <p className="text-gray-700 mb-4 font-normal h-3/5">{data.description}</p>
                         <div className="flex gap-4 mt-[6%] w-auto">
-                            <svg width="18" height="18" viewBox="0 0 18 18" fill="none"
-                                 xmlns="http://www.w3.org/2000/svg">
-                                <path
-                                    d="M9 1.74194C9.48101 1.74194 9.87097 1.35199 9.87097 0.870968C9.87097 0.38995 9.48101 0 9 0V1.74194ZM18 9C18 8.51899 17.61 8.12903 17.129 8.12903C16.648 8.12903 16.2581 8.51899 16.2581 9H18ZM17.129 1.74194C17.61 1.74194 18 1.35199 18 0.870968C18 0.38995 17.61 0 17.129 0V1.74194ZM12.3817 0C11.9007 0 11.5107 0.38995 11.5107 0.870968C11.5107 1.35199 11.9007 1.74194 12.3817 1.74194V0ZM18 0.870968C18 0.38995 17.61 0 17.129 0C16.648 0 16.2581 0.38995 16.2581 0.870968H18ZM16.2581 5.67987C16.2581 6.16088 16.648 6.55084 17.129 6.55084C17.61 6.55084 18 6.16088 18 5.67987H16.2581ZM17.7449 1.48684C18.085 1.1467 18.085 0.595231 17.7449 0.2551C17.4047 -0.0850299 16.8533 -0.0850299 16.5132 0.2551L17.7449 1.48684ZM8.38417 8.38417C8.04403 8.72431 8.04403 9.27569 8.38417 9.61583C8.72431 9.95597 9.27569 9.95597 9.61583 9.61583L8.38417 8.38417ZM9 0H5.51613V1.74194H9V0ZM5.51613 0C2.46966 0 0 2.46966 0 5.51613H1.74194C1.74194 3.43169 3.43169 1.74194 5.51613 1.74194V0ZM0 5.51613V12.4839H1.74194V5.51613H0ZM0 12.4839C0 15.5304 2.46966 18 5.51613 18V16.2581C3.43169 16.2581 1.74194 14.5683 1.74194 12.4839H0ZM5.51613 18H12.4839V16.2581H5.51613V18ZM12.4839 18C15.5304 18 18 15.5304 18 12.4839H16.2581C16.2581 14.5683 14.5683 16.2581 12.4839 16.2581V18ZM18 12.4839V9H16.2581V12.4839H18ZM17.129 0H12.3817V1.74194H17.129V0ZM16.2581 0.870968V5.67987H18V0.870968H16.2581ZM16.5132 0.2551L8.38417 8.38417L9.61583 9.61583L17.7449 1.48684L16.5132 0.2551Z"
-                                    fill="#303030"/>
-                            </svg>
-                            {/*<a href="" className="text-sky-700 hover:text-blue-800">*/}
-                            {/*    Весь список брендов*/}
-                            {/*</a>*/}
+
                         </div>
                     </div>
                     <div className="flex-shrink-0 ml-4">
-                        <Image
-                            height={200}
-                            width={200}
-                            src={data.logo_url}
-                            alt={''}
-                            className="my-20"
-                        />
+                        {data.logo_url ?
+                            <Image
+                                height={200}
+                                width={200}
+                                src={data.logo_url}
+                                alt={''}
+                                className="my-20"
+                            />
+                            :
+                            <Image
+                                height={200}
+                                width={200}
+                                src={defaultImage}
+                                alt={''}
+                                className="my-20"
+                            />
+                        }
                     </div>
                 </div>
             </div>
