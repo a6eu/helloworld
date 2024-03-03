@@ -35,7 +35,7 @@ const ProductItem = ({product, signedIn}) => {
     let [isModalOpen, setIsModalOpen] = useState(false)
     const statementChecker = () => {
         if (signedIn) {
-            console.log("12321")
+            handleFavClick()
         } else {
             setIsModalOpen(true)
         }
@@ -55,6 +55,28 @@ const ProductItem = ({product, signedIn}) => {
                         Authorization: "Bearer " + localStorage.getItem("accessToken"),
                     },
                 }
+            );
+
+            if (response.status === 201) {
+                console.log(response.data);
+            }
+        } catch (error) {
+            console.error(error);
+        }
+    };
+
+    const handleFavClick = async () => {
+        const url = `https://shop-01it-group.up.railway.app/api/v1/favorites/products/${product.id}`;
+
+        try {
+            const bearerToken = localStorage.getItem("accessToken")
+            const config = {
+                headers: {
+                    Authorization: `Bearer ${bearerToken}`,
+                },
+            }
+            const response = await axios.post(
+                url,{},config
             );
 
             if (response.status === 201) {

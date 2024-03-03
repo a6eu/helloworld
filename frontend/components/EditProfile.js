@@ -119,7 +119,7 @@ const EditProfile = ({url, profile, onSaveClick}) => {
                     last_name: lastName,
                     phone_number: phone,
                     birth_day: birthday
-                };
+                }
 
                 try {
                     const response = await axios.patch(url, requestData, config);
