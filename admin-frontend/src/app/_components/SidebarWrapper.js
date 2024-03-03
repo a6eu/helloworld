@@ -1,7 +1,7 @@
 "use client"
 
-import {Breadcrumb, Layout, Menu} from "antd";
-import React, {useState} from 'react';
+import {Layout, Menu} from "antd";
+import React from 'react';
 import {
     ApartmentOutlined,
     BankOutlined,
@@ -13,7 +13,7 @@ import {
 } from '@ant-design/icons';
 import Link from "next/link";
 
-const {Header, Content, Footer, Sider} = Layout;
+const {Header, Content, Footer} = Layout;
 
 function getItem(label, key, icon, children) {
     return {
@@ -34,43 +34,23 @@ const items = [
     getItem((<Link href={"/users"}>Пользователи</Link>), '7', <UserOutlined />),
 ];
 
-const pages = [
-    {title: 'Dashboard'},
-    {title: 'Продукты'},
-    {title: 'Каталог'},
-    {title: 'Заказы'},
-    {title: 'Новости'},
-    {title: 'Бренды'},
-    {title: 'Пользователи'},
-];
-
-
 export default function SidebarWrapper({children}) {
 
-    const [breadcrumbItems, setBreadcrumbItems] = useState([{title: 'Dashboard'}]);
-    const [collapsed, setCollapsed] = useState(false);
-
-    function onSelect(e) {
-        setBreadcrumbItems([pages[e.key - 1]])
-    }
 
     return (
-        <Layout className={"min-h-[100vh]"}>
-            <Sider collapsible collapsed={collapsed} onCollapse={(value) => setCollapsed(value)}>
-                <div className="demo-logo-vertical text-white w-full flex justify-center my-5 text-xl">Astana IT Group
+        <Layout className={"min-h-[100vh] -m-2 p-0"}>
+            <Header className={'w-full  mx-auto'}>
+                <div className={'max-w-screen-lg flex mx-auto'}>
+                    <div className="demo-logo-vertical text-white flex w-1/5 my-5 text-xl">Astana IT Group
+                    </div>
+                    <Menu className={'m-0'} theme="dark" mode="horizontal" items={items}/>
                 </div>
-                <Menu theme="dark" defaultSelectedKeys={['1']} mode="inline" items={items} onSelect={(e) => onSelect(e)}/>
-            </Sider>
+            </Header>
             <Layout>
                 <Content
                     className={"m-8"}
                 >
-                    <Breadcrumb
-                        className={"mx-6 mb-4"}
-                        items={breadcrumbItems}
-                    />
-
-                    <div className={`p-6`}>
+                    <div className={`max-w-screen-lg mx-auto`}>
                         {children}
                     </div>
                 </Content>
@@ -78,7 +58,7 @@ export default function SidebarWrapper({children}) {
                     className={"text-center"}
                 >
                     Astana IT Group ©{new Date().getFullYear()} Created by <span
-                    className={"italic font-bold"}>helloworld</span>
+                    className={"italic font-bold"}>hello-world</span>
                 </Footer>
             </Layout>
         </Layout>

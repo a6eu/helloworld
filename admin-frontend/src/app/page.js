@@ -83,6 +83,7 @@ const App = () => {
 
     return (
         <div>
+            <sapn className={'text-xl font-bold '}>Dashboard</sapn>
             <Row gutter={16}>
                 <Col span={10}>
                     <Card
