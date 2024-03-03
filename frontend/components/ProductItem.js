@@ -18,7 +18,7 @@ const ProductItem = ({product, signedIn}) => {
     const dispatch = useDispatch();
     const path = useSelector((state) => state.breadcrumb.path);
     const [productName, setProductName] = useState(product.name);
-
+    const [favButtonCliccked, setFavButtonClicked] = useState(false)
     const formatName = (title) => {
         let words = title.split(" ")
         let formattedTitle = "";
@@ -34,11 +34,14 @@ const ProductItem = ({product, signedIn}) => {
     }
     let [isModalOpen, setIsModalOpen] = useState(false)
     const statementChecker = () => {
-        if (signedIn) {
-            addToFav()
-        } else {
-            setIsModalOpen(true)
-        }
+        if(signedIn){
+            if (!favButtonCliccked) {
+                handleFavClick()
+                setFavButtonClicked(true)
+            } else {
+                setFavButtonClicked(false)
+            }
+    }
     }
     const handleButtonClick = async (product_id, quantity) => {
         const url = "https://shop-01it-group.up.railway.app/api/v1/basket/products/";
@@ -58,6 +61,7 @@ const ProductItem = ({product, signedIn}) => {
             );
 
             if (response.status === 201) {
+                alert("Success " + product_id + quantity);
                 console.log(response.data);
             }
         } catch (error) {
@@ -65,10 +69,7 @@ const ProductItem = ({product, signedIn}) => {
         }
     };
 
-    const deleteToFav = async () => {
-
-    }
-    const addToFav = async () => {
+    const handleFavClick = async () => {
         const url = `https://shop-01it-group.up.railway.app/api/v1/favorites/products/${product.id}`;
 
         try {
@@ -123,10 +124,10 @@ const ProductItem = ({product, signedIn}) => {
             </Link>
             <div className="flex w-full ml-3 justify-between mt-2">
                 <Stars starAvg={Math.random() * 4 + 1}/>
-                <button onClick={statementChecker}>
+                <button onClick={statementChecker} >
                     <svg className={`mr-4 hover:fill-[#1075b2]`} width="16" height="16" viewBox="0 0 16 16"
-                         fill="white"
-                         xmlns="http://www.w3.org/2000/svg">
+                         xmlns="http://www.w3.org/2000/svg"  fill={favButtonCliccked ? "#1075b2" : "white" }
+                         >
                         <path
                             d="M11.7286 2.21464C12.4619 2.29998 12.9999 2.93264 12.9999 3.67131V14L7.99994 11.5L2.99994 14V3.67131C2.99994 2.93264 3.53727 2.29998 4.27127 2.21464C6.74873 1.92707 9.25115 1.92707 11.7286 2.21464Z"
                             stroke="#4CC3F2" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
