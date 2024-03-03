@@ -20,7 +20,7 @@ const ProductItem = ({product, signedIn}) => {
     const path = useSelector((state) => state.breadcrumb.path);
     const [productName, setProductName] = useState(product.name);
 
-    const { showAlert } = useContext(AlertContext);
+    const {showAlert} = useContext(AlertContext);
 
     const handleAddToBasket = () => {
         showAlert("Товар успешно добавлен в корзину!");
@@ -84,7 +84,7 @@ const ProductItem = ({product, signedIn}) => {
                 },
             }
             const response = await axios.post(
-                url,{},config
+                url, {}, config
             );
 
             if (response.status === 201) {
@@ -103,7 +103,6 @@ const ProductItem = ({product, signedIn}) => {
         return name;
     }
 
-
     const increaseQuantity = () => {
             setQuantity(quantity + 1)
         }
@@ -119,10 +118,12 @@ const ProductItem = ({product, signedIn}) => {
                   key={product.id}
                   onClick={() => dispatch(setPath([...path, product.name]))}
             >
-                <div className='w-full  flex align-middle justify-center '>
-                    {product.img_url ? <Image className='w-full h-40 pt-4' src={product.img_url} alt={product.name} width={180}
-                            height={180}/> : <Image className='w-[90%] h-32 pt-4' src={defaultImage} alt={product.name} width={180}
-                                                    height={180}/>}
+                <div className='w-full flex align-middle justify-center '>
+                    {product.img_url ?
+                        <Image className='w-full h-40 pt-4' src={product.img_url} alt={product.name} width={180}
+                               height={180}/> :
+                        <Image className='w-[90%] h-32 pt-4' src={defaultImage} alt={product.name} width={180}
+                               height={180}/>}
 
                 </div>
             </Link>
@@ -139,7 +140,7 @@ const ProductItem = ({product, signedIn}) => {
                 </button>
             </div>
             <div className='pl-[10px] h-[70px] flex-col justify-between self-start transition-[300ms]'>
-                    <p className="text-[14px] ProductSansLight mb-3">{nameRefactor()}</p>
+                <p className="text-[14px] ProductSansLight mb-3 break-all">{nameRefactor()}</p>
                 <Price price={product.price} fSizeOfDigit={16} fSizeOfCurrency={13}/>
             </div>
             <div className={styles.piecesAndToBucket}>
@@ -159,7 +160,8 @@ const ProductItem = ({product, signedIn}) => {
                     </button>
                 </div>
                 <button
-                    className='ProductSansLight text-[11px] text-[#1075b2] border-1px border-[#1075b2] rounded-[3px] h-[22px] w-[90px] hover:transition-[300ms] hover:bg-[#1075b2] hover:text-white' onClick={() => handleButtonClick(product.id, quantity)}>
+                    className='ProductSansLight text-[11px] text-[#1075b2] border-1px border-[#1075b2] rounded-[3px] h-[22px] w-[90px] hover:transition-[300ms] hover:bg-[#1075b2] hover:text-white'
+                    onClick={() => handleButtonClick(product.id, quantity)}>
                     В КОРЗИНУ
                 </button>
             </div>
