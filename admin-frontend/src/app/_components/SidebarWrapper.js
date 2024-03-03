@@ -2,7 +2,7 @@
 
 import {Breadcrumb, Layout, Menu, theme} from "antd";
 import React, {useState} from 'react';
-import {PieChartOutlined, ProductOutlined, SwitcherOutlined,} from '@ant-design/icons';
+import {PieChartOutlined, ProductOutlined, SwitcherOutlined, ApartmentOutlined, ShoppingOutlined, BankOutlined, UserOutlined} from '@ant-design/icons';
 import Link from "next/link";
 
 const {Header, Content, Footer, Sider} = Layout;
@@ -17,15 +17,23 @@ function getItem(label, key, icon, children) {
 }
 
 const items = [
-    getItem((<Link href={"/dashboard"}>Dashboard</Link>), '1', <PieChartOutlined/>),
-    getItem((<Link href={"/products"}>Products</Link>), '2', <ProductOutlined/>),
-    getItem((<Link href={"/news"}>News</Link>), '3', <SwitcherOutlined/>),
+    getItem((<Link href={"/"}>Dashboard</Link>), '1', <PieChartOutlined/>),
+    getItem((<Link href={"/products"}>Продукты</Link>), '2', <ProductOutlined/>),
+    getItem((<Link href={"/catalog"}>Каталог</Link>), '3', <ApartmentOutlined />),
+    getItem((<Link href={"/orders"}>Заказы</Link>), '4', <ShoppingOutlined />),
+    getItem((<Link href={"/news"}>Новости</Link>), '5', <SwitcherOutlined/>),
+    getItem((<Link href={"/brands"}>Бренды</Link>), '6', <BankOutlined />),
+    getItem((<Link href={"/users"}>Пользователи</Link>), '7', <UserOutlined />),
 ];
 
 const pages = [
     {title: 'Dashboard'},
-    {title: 'Products'},
-    {title: 'News'}
+    {title: 'Продукты'},
+    {title: 'Каталог'},
+    {title: 'Заказы'},
+    {title: 'Новости'},
+    {title: 'Бренды'},
+    {title: 'Пользователи'},
 ];
 
 
@@ -54,7 +62,7 @@ export default function SidebarWrapper({children}) {
                         items={breadcrumbItems}
                     />
 
-                    <div className={`p-6 min-h-[360px] bg-white rounded-[8px]`}>
+                    <div className={`p-6`}>
                         {children}
                     </div>
                 </Content>

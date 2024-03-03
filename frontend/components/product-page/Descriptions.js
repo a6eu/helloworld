@@ -3,8 +3,7 @@ import DescriptionChooser from "@/components/product-page/DescriptionChooser";
 
 const Descriptions = () => {
     return (
-        <div className="flex flex-col w-7/12  p-3 mr-4">
-            {/* <DescriptionChooser /> */}
+        <div className="flex flex-col w-full p-3">
             <ul className="bg-white p-3 shadow-md mt-5">
                 <li className="flex h-12 items-center pl-10 bg-white">
                     <div>Microsoft_UX_Design</div>

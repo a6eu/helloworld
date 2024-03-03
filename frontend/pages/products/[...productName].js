@@ -55,7 +55,7 @@ export default function ProductPage() {
                     <>
                         <Path/>
                         <ProductInfo product={product} brandName={brandName}/>
-                        <div className="flex mt-5">
+                        <div className="flex w-full mt-5">
                             <DescriptionChooser product={product} brand={brandName}/>
                         </div>
                         <div className="w-full flex justify-center mt-5">

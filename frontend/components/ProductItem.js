@@ -9,6 +9,7 @@ import Price from "@/components/Price";
 import ModalDialog from "@/components/ModalDialog";
 import axios from 'axios';
 import {useDispatch, useSelector} from "react-redux";
+import defaultImage from "@/public/images/picture.png"
 
 
 const floatValues = [0.29, 1.44, 2.31, 3.48, 4.52];
@@ -16,6 +17,7 @@ const ProductItem = ({product, signedIn}) => {
     const [quantity, setQuantity] = useState(1);
     const dispatch = useDispatch();
     const path = useSelector((state) => state.breadcrumb.path);
+    const [productName, setProductName] = useState(product.name);
 
     const formatName = (title) => {
         let words = title.split(" ")
@@ -56,13 +58,20 @@ const ProductItem = ({product, signedIn}) => {
             );
 
             if (response.status === 201) {
-                alert("Success " + product_id + quantity);
                 console.log(response.data);
             }
         } catch (error) {
             console.error(error);
         }
     };
+
+    const nameRefactor = () => {
+        const name = productName.split('/')[0];
+        if (name.length > 35) {
+            return name.substring(0, 35) + '...';
+        }
+        return name;
+    }
 
 
     const increaseQuantity = () => {
@@ -81,7 +90,9 @@ const ProductItem = ({product, signedIn}) => {
                   onClick={() => dispatch(setPath([...path, product.name]))}
             >
                 <div className='w-full  flex align-middle justify-center '>
-                    <Image className='w-full h-40 pt-4' src={product.img_url} alt={product.name} width={180} height={180}/>
+                    {product.img_url ? <Image className='w-full h-40 pt-4' src={product.img_url} alt={product.name} width={180}
+                            height={180}/> : <Image className='w-[90%] h-32 pt-4' src={defaultImage} alt={product.name} width={180}
+                                                    height={180}/>}
 
                 </div>
             </Link>
@@ -98,7 +109,7 @@ const ProductItem = ({product, signedIn}) => {
                 </button>
             </div>
             <div className='pl-[10px] h-[70px] flex-col justify-between self-start transition-[300ms]'>
-                <p className="text-[14px] ProductSansLight mb-3">{product.name}</p>
+                    <p className="text-[14px] ProductSansLight mb-3">{nameRefactor()}</p>
                 <Price price={product.price} fSizeOfDigit={16} fSizeOfCurrency={13}/>
             </div>
             <div className={styles.piecesAndToBucket}>

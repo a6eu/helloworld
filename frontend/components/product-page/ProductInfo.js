@@ -1,19 +1,16 @@
 import Image from "next/image";
 import {Rating} from "@smastrom/react-rating";
 import Price from "@/components/Price";
-import dell from "public/images/DELL.svg"
 import plus from "@/public/images/plus.svg";
 import minus from "@/public/images/minus.svg";
-import {useEffect, useState} from "react";
+import {useState} from "react";
 import {useRouter} from 'next/router';
 import axios from "axios";
 
 
 const ProductInfo = ({product, category, brandName}) => {
     const [quantity, setQuantity] = useState(1);
-    const [brandLogo, setBrandLogo] = useState("")
-    const router = useRouter();
-    const {productName} = router.query;
+    const [isExpanded, setIsExpanded] = useState(false);
 
     const handleButtonClick = async (quantity) => {
         const url = "https://shop-01it-group.up.railway.app/api/v1/basket/products/";
@@ -62,11 +59,11 @@ const ProductInfo = ({product, category, brandName}) => {
 
 
     return (
-        <div className="w-full flex mt-3 rounded-[10px] bg-white pl-5">
+        <div className="w-full flex mt-3 md:flex-row flex-col rounded-[10px] bg-white md:pl-5">
             <div className="w-1/3 h-full self-center flex justify-center">
-                <Image className="object-cover" alt={product.name} src={product.img_url} width={310} height={310}/>
+                <Image className="object-cover min-w-[250px]" alt={product.name} src={product.img_url} width={310} height={310}/>
             </div>
-            <div className={"m-8 w-2/3"}>
+            <div className={"m-8 md:w-2/3 w-9/10"}>
                 <h2
                     className={
                         "text-[30px] ProductSansLight flex w-full justify-between pr-3"
@@ -95,13 +92,21 @@ const ProductInfo = ({product, category, brandName}) => {
                 <Stars starAvg={4}/>
                 <div className="mb-5"></div>
                 <Price price={product.price} fSizeOfCurrency={30} fSizeOfDigit={35}/>
-                <p
-                    className={
-                        "text-[#636363] text-[15px] ProductSansLight max-w-[70%]"
-                    }
-                >
-                    {product.description}
-                </p>
+                <div className={`relative max-w-[70%] ${!isExpanded ? 'max-h-24 overflow-hidden' : ''}`}>
+                    <p className="text-[#9A9a9a] text-[15px] ProductSansLight">
+                        {product.description}
+                    </p>
+                    {!isExpanded && (
+                        <div
+                            className="absolute bottom-0 left-0 w-full h-12 bg-gradient-to-b from-transparent to-white">
+
+                        </div>
+                    )}
+                </div>
+                <button onClick={() => setIsExpanded(!isExpanded)} className="text-[#1075B2] mt-2">
+                    {isExpanded ? 'Показать меньше' : 'Показать больше'}
+                </button>
+
                 <div className={"flex justify-between items-center  "}>
                     <Image
                         className="mt-4"
@@ -131,17 +136,10 @@ const ProductInfo = ({product, category, brandName}) => {
                         </div>
                         <button
                             className={
-                                "ProductSansMedium text-[10px] text-[#1075B2] w-[86px] border border-[#1075B2] rounded-[3px] ml-2"}
+                                "ProductSansMedium text-[10px] mx-16  text-[#1075B2] min-w-[86px] border border-[#1075B2] rounded-[3px] ml-2"}
                             onClick={() => handleButtonClick(quantity)}
                         >
                             В КОРЗИНУ
-                        </button>
-                        <button
-                            className={
-                                "ProductSansMedium text-[10px] text-white w-[146px] bg-[#1075B2] border border-[#1075B2] rounded-[3px] ml-2"
-                            }
-                        >
-                            КУПИТЬ В ОДИН КЛИК
                         </button>
                     </div>
                 </div>

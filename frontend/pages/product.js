@@ -106,9 +106,6 @@ const Product = (props) => {
                     <div className="justify-center text-sky-700 text-center text-xs font-medium whitespace-nowrap border grow items-stretch px-7 py-3 rounded border-solid border-sky-700 max-md:px-5">
                       В КОРЗИНУ
                     </div>
-                    <div className="justify-center text-white text-center text-xs font-medium whitespace-nowrap border bg-sky-700 grow items-stretch pl-6 pr-4 py-2.5 rounded border-solid border-sky-700 max-md:pl-5">
-                      КУПИТЬ В ОДИН КЛИК
-                    </div>
                   </div>
                 </div>
               </div>

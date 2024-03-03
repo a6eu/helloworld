@@ -68,6 +68,7 @@ const LogInForm = ({onSignUpClick, setIsModalOpen}) => {
                     if (error.response && error.response.data && error.response.data.error) {
                         setLoginError(error.response.data.error)
                     }
+                    console.log("ERROR", error.response.data.error)
                 });
             setIsLoading(false);
         }

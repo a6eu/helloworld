@@ -59,12 +59,16 @@ const EditProfile = ({url, profile, onSaveClick}) => {
     };
 
     const validateBirthday = () => {
-        const enteredYear = parseInt(birthday.split("-")[0], 10);
-        const currentYear = new Date().getFullYear();
+        try {
+            const enteredYear = parseInt(birthday.split("-")[0], 10);
+            const currentYear = new Date().getFullYear();
 
-        if (currentYear - enteredYear <= 16) {
-            setBirthdayError("Вы должны быть старше 16 лет");
-            return false;
+            if (currentYear - enteredYear <= 16) {
+                setBirthdayError("Вы должны быть старше 16 лет");
+                return false;
+            }
+        } catch {
+            console.log('не введено день рождение')
         }
 
         setBirthdayError("");
@@ -208,7 +212,6 @@ const EditProfile = ({url, profile, onSaveClick}) => {
                                 <option>Мужской</option>
                                 <option>Женский</option>
                             </select>
-                            {console.log(gender)}
                             <div
                                 className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
                                 <svg className="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg"
@@ -263,7 +266,6 @@ const EditProfile = ({url, profile, onSaveClick}) => {
                                 <option key="shymkent" value="Шымкент">Шымкент</option>
                                 {cityError && <p className="text-red-500 text-xs italic">{cityError}</p>}
                             </select>
-
                             <div
                                 className="pointer-events-none absolute inset-y-0 right-0 flex rounded-none items-center px-2 text-gray-700">
                                 <svg className="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg"
@@ -289,7 +291,8 @@ const EditProfile = ({url, profile, onSaveClick}) => {
                 <div className="flex flex-wrap justify-end">
                     <button
                         className="bg-white border text-[#1075B2] border-[#1075B2] rounded-lg p-2 px-5 mr-5 hover:shadow-lg transition duration-500"
-                        type="button" value="Отмена">Отмена
+                        type="button" value="Отмена">
+                        Отмена
                     </button>
                     <input type="submit"
                            className="bg-[#1075B2] rounded-lg p-2 px-5 text-white hover:shadow-xl transition duration-500"

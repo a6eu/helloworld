@@ -12,19 +12,18 @@ import {RadioGroup} from "@headlessui/react";
 import axios from "axios";
 import PopularProducts from '@/components/product-page/PopularProducts';
 import {useDispatch, useSelector} from "react-redux";
+import {changer} from "@/slices/changerOfQuantity";
 
 function goToHome() {
     window.location.href = '/';
 }
 
-function Cart(props) {
+function Cart() {
     const [cartWithProducts, setCartWithProducts] = useState([]);
     let wholePrice = 0;
     let quantity = 0;
     const dispatch = useDispatch();
-    const quantityOfProduct = useSelector(state => state.quantity);
-
-
+    const array = useSelector(state => state.quantityReducer.productsAndQuantities);
     function formatNumberWithSpaces(number) {
         if (number) {
             if (typeof number === "string")
@@ -35,37 +34,42 @@ function Cart(props) {
         }
     }
 
-    const getBasket = async () => {
-        try {
-            const response = await axios.get('https://shop-01it-group.up.railway.app/api/v1/basket', {
-                headers: {
-                    Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
-                },
-            });
-            setCartWithProducts(response.data.products)
-        } catch (error) {
+    const getBasket = () => {
+        axios.get('https://shop-01it-group.up.railway.app/api/v1/basket', {
+            headers: {
+                Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+            },
+        }).then(response => {
+            setCartWithProducts(response.data.products);
+            console.log(response.data.products);
+            dispatch(changer(cartWithProducts));
+            // setArray(useSelector(state => state.quantityReducer.productsAndQuantities))
+        }).catch((error) => {
             console.error('Error fetching products:', error);
-        }
+        });
     };
 
-
-    useEffect(() => {
+    useEffect( () => {
         getBasket()
     }, []);
 
-    const increaseQuantity = async (index, quantity) => {
-        // const updatedCart = [...cartWithProducts];
-        // updatedCart[index].quantity += 1;
-        // getBasket();
-        dispatch({type: 'INCREASE'});
+    const increaseQuantity = async (i, quantity) => {
+        let item = cartWithProducts[i].quantity + 1;
+        let temp = cartWithProducts.map((a, index) => {
+            if (i === index) {
+                a.quantity = item;
+            }
+            return a;
+        })
+        console.log(array)
+        console.log(temp)
+        dispatch(changer(temp));
     }
 
-    const decreaseQuantity = (index) => {
-        if (cartWithProducts[index].quantity > 1) {
-            const updatedCart = [...cartWithProducts];
-            updatedCart[index].quantity -= 1;
-            setCartWithProducts(updatedCart);
-        }
+    const decreaseQuantity = (index, quantity) => {
+        dispatch(changer({id: index, quantity: quantity - 1}));
+        console.log(index);
+        console.log(array);
     }
 
     const removeItem = async (index) => {
@@ -93,12 +97,11 @@ function Cart(props) {
             });
 
             console.log(response.data.message);
-            getBasket();
+            await getBasket();
         } catch (error) {
             console.error('Error cleaning bucket', error);
         }
     }
-
 
     if (cartWithProducts.length !== 0) {
         return (
@@ -124,8 +127,8 @@ function Cart(props) {
                                 <ul key={index}>
                                     <RadioGroup>
                                         <li>
-                                            <div className="hidden">
-                                                {quantity += result.quantity}</div>
+                                            {/*<div className="hidden">*/}
+                                            {/*    {result.quantity += result.quantity}</div>*/}
                                             <div className="hidden">
                                                 {wholePrice += result.product.price * result.quantity}</div>
                                             <div className="h-auto flex align-center pb-6 border-b-1px">
@@ -156,10 +159,10 @@ function Cart(props) {
                                                             </button>
                                                             <div
                                                                 className="text-white bg-[#1075B2] mx-0.5 text-center mr-customMargin border-solid rounded-[3px] w-5 h-6">
-                                                                {result.quantity}
+                                                                {cartWithProducts[index].quantity}
                                                             </div>
                                                             <button
-                                                                onClick={() => decreaseQuantity(index)}
+                                                                onClick={() => decreaseQuantity(result.id, result.quantity)}
                                                                 className="bg-[#E9E9E9] border-solid border-1px rounded-[3px] w-5 flex justify-center items-center h-6 mr-4">
                                                                 <Image className="w-3" src={minus} alt="-"/>
                                                             </button>
