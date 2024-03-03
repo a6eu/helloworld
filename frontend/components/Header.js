@@ -17,6 +17,7 @@ import loginIconActive from "../public/images/loginIconBlue.svg";
 import {useTokenExpirationCheck} from "@/customHooks/useTokenExpirationCheck";
 import axios from "axios";
 import {Dropdown, Input} from 'antd';
+import defaultImage from "@/public/images/picture.png";
 
 
 const Header = () => {
@@ -150,17 +151,23 @@ const Header = () => {
                             className='w-[400px] min-[320px]:max-lg:w-auto'
                     />
                     {isSearchVisible && searchTerm.trim() !== '' && (
+
                         <ul className="absolute max-h-[62vh] overflow-auto z-50 bg-white w-[438px] top-[59px] rounded shadow-lg border border-b-blue-200">
                             {searchResults.map((product) => (<Link rel="stylesheet" href={`/products/${product.name}`}>
                                 <li className="flex flex-row border justify-between border-t-o border-l-0 border-r-0 py-2 px-2"
                                     key={product.id}>
                                     <div className="flex flex-row w-[55%]">
-                                        <Image
-                                            width={80}
-                                            height={5}
-                                            alt={"pic"}
-                                            src={product.img_url}
-                                        />
+                                        {product.img_url ?
+                                            <Image
+                                                width={80}
+                                                height={80}
+                                                alt={"pic"}
+                                                src={product.img_url}
+                                            /> :
+                                            <Image  src={defaultImage} alt={product.name}
+                                                   width={80}
+                                                   height={80}/>
+                                        }
                                         <div className="ml-2">
                                             <h3 className="text-[13px]">{truncateDescription(product.name, 20)}</h3>
                                             <span>{parseInt(product.price)} ₸</span>
