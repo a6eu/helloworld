@@ -7,7 +7,7 @@ import { Pagination } from 'antd';
 const ProductsContainer = ({products}) => {
 
     const [currentPage, setCurrentPage] = useState(1); // Step 2: State for current page
-    const [itemsPerPage, setItemsPerPage] = useState(10); // Items per page (you can adjust this)
+    const [itemsPerPage, setItemsPerPage] = useState(24); // Items per page (you can adjust this)
 
     const indexOfLastItem = currentPage * itemsPerPage;
     const indexOfFirstItem = indexOfLastItem - itemsPerPage;
@@ -18,25 +18,7 @@ const ProductsContainer = ({products}) => {
     };
 
     return (
-        // <div className="flex w-[95%] flex-wrap">
-        //     {
-        //         products.length > 0 ?
-        //         products.map((product) => (
-        //             <ProductItem
-        //                 key={product.id}
-        //                 product={product}
-        //             />
-        //         ))
-        //             :
-        //         <div className={'w-full flex flex-col items-center h-[60vh]'}>
-        //             <div className="flex justify-center mt-20">
-        //                 <Image className="w-28 h-28" src={emptyBox} alt="empty cart"></Image>
-        //             </div>
-        //             <div className="flex justify-center ProductSansLight text-lg">Товары не найдены</div>
-        //         </div>
-        //     }
-            
-        // </div>
+       
         <div>
             <div className="flex w-[95%] flex-wrap">
                 {
