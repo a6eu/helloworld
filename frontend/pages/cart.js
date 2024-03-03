@@ -43,7 +43,7 @@ function Cart() {
             });
             setCartWithProducts(response.data.products);
             cartWithProducts.map((product) => {
-                dispatch(changer({id: product.id, quantity: product.quantity}));
+                dispatch(cartWithProducts);
             })
         } catch (error) {
             console.error('Error fetching products:', error);
@@ -132,7 +132,7 @@ function Cart() {
                                                 <div className="flex-col ProductSansLight ml-10 mt-4">
                                                     <div className="text-[20px]">{result.product.name}</div>
                                                     <div
-                                                        className="ProductSansMedium text-lg">{formatNumberWithSpaces(result.product.price)} ₸
+                                                        className="ProductSansMedium text-lg">{formatNumberWithSpaces(result.pdcfew.price)} ₸
                                                     </div>
                                                     <div
                                                         className="text-[12px] w-2/3 mt-4">{result.product.description}</div>

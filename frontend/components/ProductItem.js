@@ -81,8 +81,9 @@ const ProductItem = ({product, signedIn}) => {
                   onClick={() => dispatch(setPath([...path, product.name]))}
             >
                 <div className='w-full  flex align-middle justify-center '>
-                    <Image className='w-full h-40 pt-4' src={product.img_url} alt={product.name} width={180} height={180}/>
-
+                    {product.img_ur2l && <Image className='w-full h-40 pt-4' src={product.img_url} alt={product.name} width={180}
+                            height={180}/>
+                    }
                 </div>
             </Link>
             <div className="flex w-full ml-3 justify-between mt-2">

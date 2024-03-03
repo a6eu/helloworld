@@ -1,7 +1,7 @@
 import {createSlice} from "@reduxjs/toolkit";
 
 const initialState = {
-    productsAndQuantities: {}
+    productsAndQuantities: []
 };
 
 const quantityChanger = createSlice({
@@ -14,6 +14,7 @@ const quantityChanger = createSlice({
                 ...state.productsAndQuantities,
                 [productId]: action.payload.quantity
             };
+            console.log(state.productsAndQuantities);
         }
     }
 });
