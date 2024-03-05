@@ -1,3 +1,4 @@
+
 import React, { useState } from "react";
 import ProductItem from "./ProductItem";
 import Image from "next/image";
@@ -6,8 +7,8 @@ import { Pagination } from 'antd';
 
 const ProductsContainer = ({products}) => {
 
-    const [currentPage, setCurrentPage] = useState(1); // Step 2: State for current page
-    const [itemsPerPage, setItemsPerPage] = useState(24); // Items per page (you can adjust this)
+    const [currentPage, setCurrentPage] = useState(1); 
+    const [itemsPerPage, setItemsPerPage] = useState(24); 
 
     const indexOfLastItem = currentPage * itemsPerPage;
     const indexOfFirstItem = indexOfLastItem - itemsPerPage;
@@ -43,7 +44,7 @@ const ProductsContainer = ({products}) => {
                 onChange={handlePageChange}
                 total={products.length}
                 pageSize={itemsPerPage}
-                showSizeChanger={false} // Remove this line if you want to allow changing items per page
+                showSizeChanger={false} 
             />
         </div>
     )

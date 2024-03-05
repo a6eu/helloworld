@@ -1,8 +1,7 @@
 import MainContainer from "@/components/MainContainer";
 import UserNavbar from "@/components/UserNavbar";
 import ProductsContainer from "@/components/ProductsContainer";
-import React, {useState, useEffect} from "react";
-import imported from "@/db.json"
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 
 function Favorites() {
@@ -18,32 +17,36 @@ function Favorites() {
                 });
 
                 console.log(response.data.results);
-                setFilterResult(response.data.results);
+                const productsArray = response.data.results.map(product => product.product);
+                setFilterResult(productsArray);
             } catch (error) {
+                console.log(error);
             }
         };
 
         fetchData();
         console.log(localStorage.getItem("accessToken"));
-        console.log(filterResult + "asd");
-
-    }, []);
+    }, []); 
 
     return (
         <MainContainer>
             <div className="flex w-full">
-                <UserNavbar/>
+                <UserNavbar />
                 <div className="my-4 w-3/4 flex flex-col ">
                     <div className={"w-full flex start"}>
                         <h1 className="ProductSansLight font-medium ml-3 text-[#1075B2]">ИЗБРАННЫЕ</h1>
                     </div>
                     {
-                        filterResult ? <div> </div> : <ProductsContainer products={filterResult}/>
+                        Array.isArray(filterResult) && filterResult.length > 0 ? (
+                            <ProductsContainer products={filterResult} />
+                        ) : (
+                            <div> No favorites found. </div>
+                        )
                     }
                 </div>
             </div>
         </MainContainer>
-    )
+    );
 }
 
 export default Favorites;
