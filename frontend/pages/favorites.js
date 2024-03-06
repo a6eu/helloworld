@@ -3,10 +3,12 @@ import UserNavbar from "@/components/UserNavbar";
 import ProductsContainer from "@/components/ProductsContainer";
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import { useDispatch } from "react-redux";
+import { addProduct } from "@/slices/favSlice";
 
 function Favorites() {
     const [filterResult, setFilterResult] = useState([]);
-
+    const dispatch = useDispatch()
     useEffect(() => {
         const fetchData = async () => {
             try {
@@ -18,6 +20,8 @@ function Favorites() {
 
                 console.log(response.data.results);
                 const productsArray = response.data.results.map(product => product.product);
+                productsArray.forEach(product => dispatch(addProduct(product.id)));
+
                 setFilterResult(productsArray);
             } catch (error) {
                 console.log(error);

@@ -23,7 +23,7 @@ const ProductItem = ({ product, signedIn }) => {
     const [favButtonClicked, setFavButtonClicked] = useState(false);
     const [isModalOpen, setIsModalOpen] = useState(false);
 
-    console.log("Price: " + product.price);
+    const ids = useSelector((state) => state.favorite.productIds)
     const handleAddToBasket = () => {
         showAlert("Товар успешно добавлен в корзину!");
     };
@@ -41,9 +41,16 @@ const ProductItem = ({ product, signedIn }) => {
 
         return formattedTitle;
     };
+    useEffect(() => {
+        if (ids.includes(product.id)){
+            setFavButtonClicked(true)
+        }
+    }, []);
 
     const statementChecker = () => {
+        
         if (signedIn) {
+
             if (!favButtonClicked) {
                 handleFavClick();
                 setFavButtonClicked(true);
