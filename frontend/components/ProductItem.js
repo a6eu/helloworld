@@ -11,10 +11,12 @@ import axios from 'axios';
 import { useDispatch, useSelector } from "react-redux";
 import defaultImage from "@/public/images/picture.png";
 import { AlertContext } from "@/components/AlertContext";
+import {useRouter} from "next/router";
 
 const floatValues = [0.29, 1.44, 2.31, 3.48, 4.52];
 
 const ProductItem = ({ product, signedIn }) => {
+    const router = useRouter();
     const [quantity, setQuantity] = useState(1);
     const dispatch = useDispatch();
     const path = useSelector((state) => state.breadcrumb.path);
@@ -48,14 +50,12 @@ const ProductItem = ({ product, signedIn }) => {
     }, []);
 
     const statementChecker = () => {
-        
         if (signedIn) {
-
             if (!favButtonClicked) {
                 handleFavClick();
                 setFavButtonClicked(true);
             } else {
-                deleteFavClick()
+                deleteFavClick();
                 setFavButtonClicked(false);
             }
         }
@@ -80,8 +80,8 @@ const ProductItem = ({ product, signedIn }) => {
 
             if (response.status === 201) {
                 console.log(response.data);
+                handleAddToBasket();
             }
-            handleAddToBasket();
         } catch (error) {
             console.error(error);
         }
@@ -97,8 +97,8 @@ const ProductItem = ({ product, signedIn }) => {
                     Authorization: `Bearer ` + localStorage.getItem("accessToken")
                 }
             })
-            if(response.status === 204){
-                console.log("Success deletion")
+            if(response.status === 204 && router.pathname ==="/favorites"){
+                window.location.reload()
             }
         }catch (error) {
             console.log(error)

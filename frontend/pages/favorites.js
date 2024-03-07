@@ -5,6 +5,8 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useDispatch } from "react-redux";
 import { addProduct } from "@/slices/favSlice";
+import Image from "next/image";
+import emptyBox from "@/public/images/emptyBox.svg";
 
 function Favorites() {
     const [filterResult, setFilterResult] = useState([]);
@@ -14,7 +16,7 @@ function Favorites() {
             try {
                 const response = await axios.get('https://shop-01it-group.up.railway.app/api/v1/favorites/products?page=1', {
                     headers: {
-                        'Authorization': `Bearer ${localStorage.getItem("accessToken")}`,
+                        Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
                     }
                 });
 
@@ -44,7 +46,13 @@ function Favorites() {
                         Array.isArray(filterResult) && filterResult.length > 0 ? (
                             <ProductsContainer products={filterResult} />
                         ) : (
-                            <div> No favorites found. </div>
+                            <div className={'w-full flex flex-col items-center h-[60vh]'}>
+                                <div className="flex justify-center mt-20">
+                                    <Image className="w-28 h-28" src={emptyBox} alt="empty cart"></Image>
+                                </div>
+                                <div className="flex justify-center ProductSansLight text-lg">Товары не найдены
+                                </div>
+                            </div>
                         )
                     }
                 </div>
