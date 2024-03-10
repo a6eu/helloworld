@@ -36,7 +36,7 @@ const Cart = () => {
     const getBasket = (fromWhere) => {
         if(fromWhere === 'GET')
             setIsLoading(true);
-        axios.get('https://shop-01it-group.up.railway.app/api/v1/basket//', {
+        axios.get('https://shop-01it-group.up.railway.app/api/v1/basket/', {
             headers: {
                 Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
             },
