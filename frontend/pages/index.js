@@ -5,6 +5,7 @@ import React, { useEffect, useState } from "react";
 import ModalWindow from "@/components/ModalWindow";
 import MainContainer from "@/components/MainContainer";
 import CategoryChooser from "@/components/CategoryChooser";
+import Demand from "@/components/Demand";
 
 const Home = ({ products}) => {
     const [showModal, setShowModal] = useState(false);
@@ -27,6 +28,7 @@ const Home = ({ products}) => {
                 <News />
                 <Companies />
                 <CategoryChooser />
+                <Demand />
                 <AboutCompany />
             </MainContainer>
     );
