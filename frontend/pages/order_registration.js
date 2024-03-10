@@ -1,10 +1,12 @@
 import MainContainer from "@/components/MainContainer";
-import React, {useEffect, useState} from "react";
+import React, {useEffect, useState, useContext} from "react";
 import Image from "next/image";
 import axios from "axios";
 import defaultImage from "@/public/images/picture.png"
 import Link from "next/link";
 import PhoneNumberFormatter from "@/components/PhoneNumberFormatter";
+import { AlertContext } from "@/components/AlertContext";
+
 
 export default function order_registration() {
     const [profile, setProfile] = useState({});
@@ -55,14 +57,22 @@ export default function order_registration() {
     }, []);
 
     let totalCost = 0;
-    const [name, setName] = useState('');
-    const [phone, setPhone] = useState('');
-    const [field, setField] = useState('');
+    const [name, setName] = useState('');      // recepient's name
+    const [floor, setFloor] = useState('');     // этаж
+    const [flat, setFlat] = useState('');       // квартира
+    const [comment, setComment] = useState('');  // комент курьеру
+    const [phone, setPhone] = useState('');    //phone of recepient
+    const [field, setField] = useState('');   //адресс
     const [fieldError, setFieldError] = useState('')
     const [nameError, setNameError] = useState('');
     const [phoneError, setPhoneError] = useState('');
-    const [selectedPaymentMethod, setSelectedPaymentMethod] = useState('');
+    const [selectedPaymentMethod, setSelectedPaymentMethod] = useState('');    // метод оплаты
     const [paymentMethodError, setPaymentMethodError] = useState('');
+   
+    const { showAlert } = useContext(AlertContext);
+   
+    
+
 
     const validateField = () => {
         setFieldError('')
@@ -75,7 +85,7 @@ export default function order_registration() {
     }
 
     const validatePhone = () => {
-        if (phone.length !== 11 && !/^[1-10]+$/.test(phone)) {
+        if (phone.length !== 10 && !/^[1-10]+$/.test(phone)) {
             setPhoneError('Введите корректный номер телефона');
             return false;
         }
@@ -110,7 +120,7 @@ export default function order_registration() {
         return true;
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
 
         const isNameValid = validateName();
@@ -119,9 +129,37 @@ export default function order_registration() {
         const isPaymentMethodValid = validatePaymentMethod();
 
         if (isNameValid && isPhoneValid && isFieldFilled) {
-            setFieldError('Заказ оформлен')
+            // setFieldError('Заказ оформлен')
+            const orderItems = basket.map(item => ({
+                product_id: item.product.id, 
+                quantity: item.quantity,
+            }));
+            console.log(orderItems);
+            const data = {
+                order_items: orderItems,
+                address: field,
+                floor: parseInt(floor, 10),
+                flat: parseInt(flat, 10),
+                comment_for_address: comment,
+                recipient_name: name,
+                recipient_phone: phone,
+            };
+            console.log(data)
+            try{
+                const response = await axios.post('https://shop-01it-group.up.railway.app/api/v1/orders/', data, {
+                    headers: {
+                        Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+                    },
+                });
+                console.log('Order submitted successfully:', response.data);
+                showAlert("Заказ успешно оформлен!");
+            } catch (error) {
+                console.error('Error submitting order:', error);
+                // Display an error message to the user
+            }
+            
         }
-
+        
     }
 
     return (<MainContainer>
@@ -161,7 +199,9 @@ export default function order_registration() {
                                                     id="address"
                                                     className="pl-6 appearance-none w-full bg-white text-gray-700 border border-[#1075B2] rounded py-1 text-s px-2.5 leading-tight focus:outline-none focus:bg-white focus:border-gray-500 hover:shadow-lg transition duration-500"
                                                     placeholder="Например: ул. Макатаева 14/2"
+                                                    value={field}
                                                     onChange={(e) => setField(e.target.value)}
+                                                    
                                                 />
 
                                                 <svg className="absolute inset top-0.5 " width="25" height="24"
@@ -177,14 +217,21 @@ export default function order_registration() {
                                         <div className="flex w-full justify-between flex-wrap mb-3">
                                             <div className="w-[49.5%]">
                                                 <input
+                                                    id="floor"
                                                     className="appearance-none block w-full bg-white text-gray-700 border border-[#1075B2] rounded py-1 text-s px-2.5 leading-tight focus:outline-none focus:bg-white focus:border-gray-500 hover:shadow-lg transition duration-500"
                                                     placeholder="Этаж"
+                                                    value={floor}
+                                                    onChange={(e) => setFloor(e.target.value)}
                                                 />
                                             </div>
                                             <div className="w-[49.5%]">
                                                 <input
+                                                    id="flat"
                                                     className="appearance-none block w-full bg-white text-gray-700 border border-[#1075B2] rounded py-1 text-s px-2.5 leading-tight focus:outline-none focus:bg-white focus:border-gray-500 hover:shadow-lg transition duration-500"
                                                     placeholder="Квартира"
+                                                    value={flat}
+                                                    onChange={(e) => setFlat(e.target.value)}
+
 
                                                 />
                                                 {fieldError &&
@@ -201,6 +248,8 @@ export default function order_registration() {
                                                 </label>
                                                 <textarea
                                                     className="font-sans appearance-none block w-full bg-white text-gray-700 border border-[#1075B2] rounded py-1 text-s px-2.5 leading-tight focus:outline-none focus:bg-white focus:border-gray-500 hover:shadow-lg transition duration-500"
+                                                    value={comment}
+                                                    onChange={(e) => setComment(e.target.value)}
                                                 />
                                             </div>
                                         </div>
@@ -222,6 +271,7 @@ export default function order_registration() {
                                         </label>
                                         <input
                                             className="appearance-none block w-full bg-white text-gray-700 border border-[#1075B2] rounded py-1 text-s px-2.5 leading-tight focus:outline-none focus:bg-white focus:border-gray-500 hover:shadow-lg transition duration-500"
+                                            value={name}
                                             onChange={(e) => setName(e.target.value)}
                                         />
                                         {nameError && <p className="text-red-500 text-xs italic">{nameError}</p>}
@@ -236,6 +286,7 @@ export default function order_registration() {
                                         <input
                                             className="appearance-none block w-full bg-white text-gray-700 border border-[#1075B2] rounded py-1 text-s px-2.5 leading-tight focus:outline-none focus:bg-white focus:border-gray-500 hover:shadow-lg transition duration-500"
                                             placeholder="87064295529"
+                                            value={phone}
                                             onChange={(e) => setPhone(e.target.value)}
                                         />
                                         {phoneError && <p className="text-red-500 text-xs italic">{phoneError}</p>}
@@ -252,7 +303,7 @@ export default function order_registration() {
                                             <input
                                                 className={'align-middle mr-1'}
                                                 type="radio" name={'payment'} id={'kaspi'}
-                                                   onChange={() => setSelectedPaymentMethod('kaspi')}/>
+                                                onChange={() => setSelectedPaymentMethod('kaspi')}/>
                                             <label htmlFor="kaspi">Kaspi QR</label>
                                             <p className={'text-sm text-[#9a9a9a]'}>Выставить счет через Kaspi и
                                                 оплатить сумму вашего заказа.</p>
@@ -332,6 +383,7 @@ export default function order_registration() {
                                     </div>
                                     <div className="flex py-2 px-2 w-1/2 flex-col">
                                         <h1 className="font-sans text-xs">{item.product.name}</h1>
+
                                         <div>{item.total_price} ₸</div>
                                     </div>
                                     <div className="flex flex-row w-1/4 mt-4"><span

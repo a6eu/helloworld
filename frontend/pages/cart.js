@@ -240,11 +240,10 @@ const Cart = () => {
                                             <div className="text-xl">{formatNumberWithSpaces(wholePrice)} ₸</div>
                                         </div>
                                         <div className="flex justify-center">
-                                            <button
-
-                                                className="ProductSansLight mt-2 mb-6 text-sm text-[#1075B2] border-1px border-[#1075B2] h-[34px] w-3/4 rounded-md transition ease-in-out delay-50 hover:bg-[#1075B2] hover:text-white">ОФОРМИТЬ
-                                                ЗАКАЗ
-                                            </button>
+                                            <Link className="ProductSansLight mt-2 mb-6 text-sm flex justify-center items-center text-[#1075B2] border-1px border-[#1075B2] h-[34px] w-3/4 rounded-md transition ease-in-out delay-50 hover:bg-[#1075B2] hover:text-white" href="/order_registration">
+                                                ОФОРМИТЬ ЗАКАЗ
+                                            </Link>
+                                            
                                         </div>
                                     </div>
                                 </div>
