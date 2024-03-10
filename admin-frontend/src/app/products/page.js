@@ -7,7 +7,9 @@ import Search from "antd/es/input/Search";
 import EditProductModal from "@/app/_components/EditProductModal";
 import NewProductModal from "@/app/_components/NewProductModal";
 import DeleteProductModal from "@/app/_components/DeleteProductModal";
+import withAuth from "@/app/_components/AuthorizationWrapper";
 import useFetchData from "@/app/_components/useFetchData";
+
 
 const apiUrl = 'https://shop-01it-group.up.railway.app/api/v1/products/';
 

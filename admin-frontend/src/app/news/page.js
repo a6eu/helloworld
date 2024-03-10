@@ -1,5 +1,6 @@
 "use client"
-
+import React from 'react';
+import withAuth from "@/app/_components/AuthorizationWrapper";
 import React, {useEffect, useState} from 'react';
 import axios from "axios";
 import useFetchData from "@/app/_components/useFetchData";

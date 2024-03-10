@@ -7,6 +7,7 @@ import Meta from "antd/es/card/Meta";
 import {EditOutlined, ShoppingOutlined, UserOutlined} from '@ant-design/icons';
 import TextArea from "antd/es/input/TextArea";
 import axios from "axios";
+import withAuth from "@/app/_components/AuthorizationWrapper";
 
 const CollapsedItem = ({name, content, productName}) => {
     return (

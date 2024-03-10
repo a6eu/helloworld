@@ -9,7 +9,8 @@ import {
     ProductOutlined,
     ShoppingOutlined,
     SwitcherOutlined,
-    UserOutlined
+    UserOutlined,
+    LoginOutlined
 } from '@ant-design/icons';
 import Link from "next/link";
 
@@ -32,10 +33,9 @@ const items = [
     getItem((<Link href={"/news"}>Новости</Link>), '5', <SwitcherOutlined/>),
     getItem((<Link href={"/brands"}>Бренды</Link>), '6', <BankOutlined />),
     getItem((<Link href={"/users"}>Пользователи</Link>), '7', <UserOutlined />),
+    getItem((<Link href={"/login"}>Войти</Link>), '8', <LoginOutlined />),
 ];
-
-export default function SidebarWrapper({children}) {
-
+function SidebarWrapper({children}) {
 
     return (
         <Layout className={"min-h-[100vh] -m-2 p-0"}>
@@ -64,3 +64,5 @@ export default function SidebarWrapper({children}) {
         </Layout>
     );
 }
+
+export default SidebarWrapper;
