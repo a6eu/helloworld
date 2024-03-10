@@ -1,33 +1,86 @@
 import UserNavbar from "@/components/UserNavbar";
 import MainContainer from "@/components/MainContainer";
 import React, {useEffect, useState} from "react";
-import imported from "@/order.json"
+// import imported from "@/order.json"
+import defaultImage from '@/public/images/picture.png'
+
 import {Disclosure, Transition} from "@headlessui/react";
 import Image from "next/image";
-import dell from "../public/images/DELL.svg"
+// import dell from "../public/images/DELL.svg"
 import dellPhoto from "../public/images/dellPowerEdge.svg"
 import Products from "@/components/Products";
 import emptyBox from "@/public/images/emptyBox.svg";
+import axios from 'axios';
 
-export const getStaticProps = async () => {
-    const res = await imported;
-    const data = await res.orders;
 
-    return {
-        props: {products: data}
-    }
-}
+// export const getStaticProps = async () => {
+//     const res = await imported;
+//     const data = await res.orders;
 
-function my_orders(props) {
+//     return {
+//         props: {products: data}
+//     }
+// }
+
+function my_orders() {
+    const [orders, setOrders] = useState([]);
+
+
+    
+    useEffect(() => {
+        const fetchOrders = async () => {
+            try {
+                const res = await axios.get('https://shop-01it-group.up.railway.app/api/v1/orders/', {
+                    headers: {
+                        Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+                    },
+                });
+                // console.log(res);
+                setOrders(res.data); // Assuming the API response structure matches your needs
+            
+            } catch (error) {
+                console.error('Failed to fetch orders:', error);
+            }
+        };
+
+        fetchOrders();
+    }, []);
+    console.log('orders: ');
+    console.log(orders);
+
     // eslint-disable-next-line react-hooks/rules-of-hooks
     const [selectedOrder, setSelectedOrder] = useState(null);
     // eslint-disable-next-line react-hooks/rules-of-hooks
-    const [orders, setOrder] = useState(props.products);
+    
 
     const handleToggle = (orderId) => {
         setSelectedOrder((prev) => (prev === orderId ? null : orderId));
     };
 
+    function whichStatus(status){
+        if(status=='P'){
+            return 'В обработке'
+        }else if(status=='C'){
+            return 'Доставлено'
+        }else{
+            return 'В пути'
+        }
+    }
+
+    function formatDateString(dateString) {
+        const date = new Date(dateString);
+        const options = {
+          year: 'numeric',
+          month: '2-digit',
+          day: '2-digit',
+          hour: '2-digit',
+          minute: '2-digit',
+          hour12: false,
+        };
+        
+        const formattedDate = new Intl.DateTimeFormat('default', options).format(date).replace(',', '');
+        return formattedDate;
+      }
 
     function getOrdersText(count) {
         if (count >= 11 && count <= 20) {
@@ -56,32 +109,32 @@ function my_orders(props) {
                     <div className="md:w-4/5 w-full mb-[200px]">
                         <h3 className="text-[#1075B2] text-[15px] mt-4 uppercase">Мои заказы</h3>
 
-                        <p className="font-sans mt-2 text-[#1075B2]">
-                            У вас {orders.length} {getOrdersText(orders.length)}
+                        <p className="font-sans mt-2 mb-2 text-[#1075B2]">
+                            У вас {orders.count} {getOrdersText(orders.count)}
                         </p>
 
-                        {orders.length > 0 ? (
+                        {orders.count > 0 ? (
                             <div className="flex flex-col shadow-lg rounded mt-1 bg-white w-full ">
-                                <div className="flex h-[40px] py-3 shadow z-10 w-full font-sans border-b">
-                                    <div className="flex w-1/4 pl-3">Номер заказа</div>
-                                    <div className="flex w-1/4">Сумма заказа</div>
-                                    <div className="flex w-1/4">Дата</div>
-                                    <div className="flex w-1/4">Статус</div>
+                                <div className="flex h-[75px] sm:h-[50px] py-3 shadow z-10 w-full font-sans border-b">
+                                    <div className="flex w-1/4 pl-3 text-[16px] sm:text-[18px] lg:text-lg items-center">Номер заказа</div>
+                                    <div className="flex w-1/4 text-[16px] sm:text-[18px] lg:text-lg items-center">Сумма заказа</div>
+                                    <div className="flex w-1/4 text-[16px] sm:text-[18px] lg:text-lg items-center">Дата</div>
+                                    <div className="flex w-1/4 text-[16px] sm:text-[18px] lg:text-lg items-center">Статус</div>
                                 </div>
                                 <div className="overflow-y-auto max-h-[80vh]">
-                                    {orders.map((order, index) => (
+                                    {orders.results.map((order, index) => (
                                         <Disclosure key={index}>
                                             {({open}) => (
                                                 <>
                                                     <Disclosure.Button
                                                         className="flex flex-col w-full py-2 border-t"
                                                     >
-                                                        <div className="flex w-full">
-                                                            <div className="flex w-1/4 pl-3">№ {order.id}</div>
-                                                            <div className="flex w-1/4">{order.total_price} ₸</div>
-                                                            <div className="flex w-1/4">{order.updated_at}</div>
+                                                        <div className="flex w-full items-center">
+                                                            <div className="flex w-1/4 pl-3 text-sm sm:text-base lg:text-lg">№ {order.id}</div>
+                                                            <div className="flex w-1/4  text-sm sm:text-base">{order.total_cost} ₸</div>
+                                                            <div className="flex w-1/4  text-xs sm:text-base">{formatDateString(order.updated_at)}</div>
                                                             <div
-                                                                className="flex w-[18.75%] text-lime-700">{order.status}</div>
+                                                                className="flex w-[18.75%] text-xs sm:text-base text-lime-700">{whichStatus(order.order_status)}</div>
                                                             <div className="flex w-[6.25%] pt-1 ml-2 md:block hidden cursor-pointer"
                                                                  onClick={handleToggle}>
                                                                 <svg className={`${open ? 'rotate-180 transform' : ''}`}
@@ -109,36 +162,38 @@ function my_orders(props) {
                                                             key={item.product_id}
                                                         >
                                                             <Disclosure.Panel
-                                                                className=" flex flex-col w-full h-[110px] px-4 py-5 р-30 border-2 border-b-0 border-l-0 border-r-0 border-dashed">
+                                                                className=" flex flex-col w-full h-auto px-4 py-5 р-30 border-2 border-b-0 border-l-0 border-r-0 border-dashed">
 
                                                                 <div className="w-full flex flex-row">
                                                                     <div className="flex gap-3 flex-row w-1/2">
                                                                         <div>
                                                                             <Image width={100} height={90}
-                                                                                   src={dellPhoto}
+                                                                                   src={item.product.img_url !== null ? item.product.img_url : defaultImage}
                                                                                    alt="Product Photo"></Image>
                                                                         </div>
                                                                         <div className="flex flex-col">
-                                                                            <h1>{item.product_name}</h1>
+                                                                            <h1 className="text-xs sm:text-base">{item.product.name}</h1>
                                                                             <div className="font-sans mt-3">
-                                                                                <h2>{item.price} ₸<font
+                                                                                <h2 className="sm: text-sm">{item.cost} ₸<font
                                                                                     className="text-[#1075B2] mb-[5px] font-bold"> x </font> {item.quantity}
                                                                                 </h2>
                                                                             </div>
                                                                         </div>
                                                                     </div>
-                                                                    <div className="flex w-1/2 gap-3 mt-5">
-                                                                        <div className=" mb-2">
-                                                                            <Image width={30} height={30} src={dell}
-                                                                                   alt={"Dell_logo"}/>
+                                                                    <div className="flex w-1/2 gap-3 mt-5 flex flex-col items-center ml-8">
+                                                                        <div className="w-[40px] h-[40px] flex justify-center items-start  bg-cover mb-2">
+                                                                            <Image width={80} height={80} 
+                                                                            src={item.product.brand_logo_url !== null ? item.product.brand_logo_url : defaultImage }
+                                                                                //    alt={item.order_items[0].product.brand_logo_url}
+                                                                                   />
                                                                         </div>
-                                                                        <div className="flex gap-2">
+                                                                        <div className="flex gap-2 sm: flex-col sm:flex-row">
                                                                             <button
-                                                                                className="h-8 w-40 rounded-md bg-[#1075B2] bg-opacity-10 text-[#1075B2]">
+                                                                                className="h-8 w-28 text-sm rounded-md bg-[#1075B2] bg-opacity-10 text-[#1075B2] sm:h-10 sm:w-34 lg:h-12 lg:w-40 lg:text-base">
                                                                                 Оставить отзыв
                                                                             </button>
                                                                             <button
-                                                                                className="h-8 w-40 rounded bg-[#1075B2] bg-opacity-10 text-[#1075B2]">
+                                                                                className="h-8 w-28 text-sm rounded bg-[#1075B2] bg-opacity-10 text-[#1075B2] sm:h-10 sm:w-34 lg:h-12 lg:w-40 lg:text-base">
                                                                                 В корзину
                                                                             </button>
                                                                         </div>
