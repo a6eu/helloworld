@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import emptyCart from '../public/images/emptyCart.svg'
-import Image from "next/image"
+import Image from "next/image";
 import plus from "@/public/images/plus.svg";
 import minus from "@/public/images/minus.svg";
 import trashBin from "../public/images/trashBin.svg"
@@ -36,7 +36,7 @@ const Cart = () => {
     const getBasket = (fromWhere) => {
         if(fromWhere === 'GET')
             setIsLoading(true);
-        axios.get('https://shop-01it-group.up.railway.app/api/v1/basket', {
+        axios.get('https://shop-01it-group.up.railway.app/api/v1/basket/', {
             headers: {
                 Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
             },
@@ -108,7 +108,7 @@ const Cart = () => {
 
     const cleanCart = async () => {
         try {
-            const response = await axios.delete(`https://shop-01it-group.up.railway.app/api/v1/basket`, {
+            const response = await axios.delete(`https://shop-01it-group.up.railway.app/api/v1/basket/`, {
                 headers: {
                     Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
                 },
@@ -218,7 +218,7 @@ const Cart = () => {
                                         )
                                     )}
                                 </div>
-                                <div className='w-1/3 h-64 shadow-md rounded-md bg-white flex flex-col justify-between'>
+                                <div className='w-1/3 h-64 sticky top-1 shadow-md rounded-md bg-white flex flex-col justify-between'>
                                     <div className="flex-col">
                                         <div
                                             className="ProductSansLight text-[16px] text-[#1075B2] mb-1 ml-[45px] mt-[25px]">Промокод
@@ -240,10 +240,10 @@ const Cart = () => {
                                             <div className="text-xl">{formatNumberWithSpaces(wholePrice)} ₸</div>
                                         </div>
                                         <div className="flex justify-center">
-                                            <button
-                                                className="ProductSansLight mt-2 mb-6 text-sm text-[#1075B2] border-1px border-[#1075B2] h-[34px] w-3/4 rounded-md transition ease-in-out delay-50 hover:bg-[#1075B2] hover:text-white">ОФОРМИТЬ
-                                                ЗАКАЗ
-                                            </button>
+                                            <Link className="ProductSansLight mt-2 mb-6 text-sm flex justify-center items-center text-[#1075B2] border-1px border-[#1075B2] h-[34px] w-3/4 rounded-md transition ease-in-out delay-50 hover:bg-[#1075B2] hover:text-white" href="/order_registration">
+                                                ОФОРМИТЬ ЗАКАЗ
+                                            </Link>
+                                            
                                         </div>
                                     </div>
                                 </div>

@@ -1,6 +1,5 @@
 import Link from "next/link";
 
-
 const Companies = () => (
     <div className="w-full h-44 flex justify-center mt-5">
         <div className="w-full flex">
