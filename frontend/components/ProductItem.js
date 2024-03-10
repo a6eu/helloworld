@@ -68,6 +68,8 @@ const ProductItem = ({ product, signedIn }) => {
     };
 
     const handleButtonClick = async (product_id, quantity) => {
+        // console.log('product_id: ' + product.id);
+        // console.log('quantity: ' + quantity);
         const url = "https://shop-01it-group.up.railway.app/api/v1/basket/products/";
 
         try {

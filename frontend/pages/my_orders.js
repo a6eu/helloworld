@@ -1,29 +1,17 @@
 import UserNavbar from "@/components/UserNavbar";
 import MainContainer from "@/components/MainContainer";
-import React, {useEffect, useState} from "react";
-// import imported from "@/order.json"
+import React, {useEffect, useState, useContext} from "react";
 import defaultImage from '@/public/images/picture.png'
-
 import {Disclosure, Transition} from "@headlessui/react";
 import Image from "next/image";
-// import dell from "../public/images/DELL.svg"
-import dellPhoto from "../public/images/dellPowerEdge.svg"
-import Products from "@/components/Products";
 import emptyBox from "@/public/images/emptyBox.svg";
 import axios from 'axios';
+import { AlertContext } from "@/components/AlertContext";
 
-
-// export const getStaticProps = async () => {
-//     const res = await imported;
-//     const data = await res.orders;
-
-//     return {
-//         props: {products: data}
-//     }
-// }
 
 function my_orders() {
     const [orders, setOrders] = useState([]);
+    const { showAlert } = useContext(AlertContext);
 
 
     
@@ -35,9 +23,7 @@ function my_orders() {
                         Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
                     },
                 });
-                // console.log(res);
-                setOrders(res.data); // Assuming the API response structure matches your needs
-            
+                setOrders(res.data); 
             } catch (error) {
                 console.error('Failed to fetch orders:', error);
             }
@@ -47,14 +33,42 @@ function my_orders() {
     }, []);
     console.log('orders: ');
     console.log(orders);
-
-    // eslint-disable-next-line react-hooks/rules-of-hooks
-    const [selectedOrder, setSelectedOrder] = useState(null);
-    // eslint-disable-next-line react-hooks/rules-of-hooks
     
+    const [selectedOrder, setSelectedOrder] = useState(null);
 
     const handleToggle = (orderId) => {
         setSelectedOrder((prev) => (prev === orderId ? null : orderId));
+    };
+
+    const handleButtonClick = async (product_id, quantity) => {
+        console.log('in handleButtonClick');
+        console.log('product_id: ' + product_id);
+        console.log('quantity: ' + quantity);
+
+
+        try {
+            const response = await axios.post(
+                "https://shop-01it-group.up.railway.app/api/v1/basket/products/",
+                {
+                    product_id: product_id,
+                    quantity: quantity
+                },
+                {
+                    headers: {
+                        Authorization: "Bearer " + localStorage.getItem("accessToken"),
+                    },
+                }
+            );
+
+            if (response.status === 201) {
+                showAlert('Ваш товар успешно добавлен в корзину!', 'success');
+                
+            }
+
+        } catch (error) {
+            console.error(error);
+            showAlert('Возможно у нас нет столько продуктов, сколько вы хотите добавить!', 'error');
+        }
     };
 
     function whichStatus(status){
@@ -193,7 +207,8 @@ function my_orders() {
                                                                                 Оставить отзыв
                                                                             </button>
                                                                             <button
-                                                                                className="h-8 w-28 text-sm rounded bg-[#1075B2] bg-opacity-10 text-[#1075B2] sm:h-10 sm:w-34 lg:h-12 lg:w-40 lg:text-base">
+                                                                                className="h-8 w-28 text-sm rounded bg-[#1075B2] bg-opacity-10 text-[#1075B2] sm:h-10 sm:w-34 lg:h-12 lg:w-40 lg:text-base"
+                                                                                onClick={() => handleButtonClick(item.product.id, item.quantity)}>
                                                                                 В корзину
                                                                             </button>
                                                                         </div>
