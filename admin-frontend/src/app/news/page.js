@@ -17,16 +17,23 @@ const Page = () => {
     const [total, setTotal] = useState(0);
     const [currentPage, setCurrentPage] = useState(1);
     const [initLoading, setInitLoading] = useState(false);
+    const [reloadData, setReloadData] = useState(false);
+    const [currentItem, setCurrentItem] = useState(null);
+
 
     const [openAddNewsModal, setOpenAddNewsModal] = useState(false);
 
     useEffect(() => {
         fetchData(apiUrl)
-    }, [])
+    }, [reloadData])
 
     function fetchData(url) {
         useFetchData(url, setList, setTotal, setInitLoading)
             .then(r => {console.log(r.data)})
+    }
+
+    const handleReload = () => {
+        setReloadData(!reloadData);
     }
 
     const formatItemTitle = (name) => {
@@ -39,13 +46,25 @@ const Page = () => {
     };
 
     const deleteNewsById = (id) => {
-        axios.delete(apiUrl + `${id}/`).catch(
-            (e) => {
-                console.log(e)
-            }
-        )
+        const accessToken = localStorage.getItem('accessToken');
+        const headers = {
+            "Authorization": `Bearer ${accessToken}`,
+        };
+
+        const deleteUrl = apiUrl + `${id}/`;
+        console.log(deleteUrl)
+        axios.delete(deleteUrl, { headers })
+            .then((r) => {
+                setReloadData(!reloadData);
+            })
+            .catch((e) => {
+                console.error('Error deleting news item:', e);
+            });
     }
 
+    const handleCurrentItem = (item) => {
+        setCurrentItem(item);
+    };
     return (
         <div className={'flex flex-col '}>
             <div className={'flex justify-between w-full'}>
@@ -74,11 +93,11 @@ const Page = () => {
                 renderItem={(item) => (
                     <List.Item
                         actions={[<EditOutlined className={"hover:cursor-pointer hover:color-white"}/>,
-                            <DeleteOutlined className={"hover:cursor-pointer hover:color-white"} onClick={(item) => (deleteNewsById(item.id))}/>]}
+                            <DeleteOutlined className={"hover:cursor-pointer hover:color-white"} onClick={() => (deleteNewsById(item.id))}/>]}
                     >
                         <Skeleton avatar title={false} loading={item.loading} active>
-                            <List.Item.Meta className={"break-words"}
-                                            avatar={item.img_url ? <Avatar shape="square" size={64}  src={item.img_url} /> : <Avatar shape="square" size={64} src={'/defaultImage.png'} />}
+                            <List.Item.Meta className={"break-words"} onClick={() => handleCurrentItem(item)}
+                                            avatar={item.image ? <Avatar shape="square" size={64}  src={item.image} /> : <Avatar shape="square" size={64} src={'/defaultImage.png'} />}
                                             title={<span>{formatItemTitle(item.title)}</span>}
                                             description={item.content}
                             />
@@ -88,7 +107,7 @@ const Page = () => {
                     </List.Item>
                 )}
             />
-            <NewNewsModal open={openAddNewsModal} setOpen={setOpenAddNewsModal}/>
+            <NewNewsModal open={openAddNewsModal} setOpen={setOpenAddNewsModal} setReloadData={handleReload}/>
         </div>
     );
 };

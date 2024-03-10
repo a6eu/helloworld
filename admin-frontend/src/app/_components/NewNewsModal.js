@@ -1,7 +1,9 @@
 import React, {useState} from 'react';
 import {Form, Input, Modal, Upload} from "antd";
 import {PlusOutlined} from "@ant-design/icons";
+import axios from "axios";
 
+const apiUrl = 'https://shop-01it-group.up.railway.app/api/v1/news/'
 const validateMessages = {
     required: '${label} обязательно!',
     types: {
@@ -13,14 +15,13 @@ const validateMessages = {
 };
 
 
-const NewNewsModal = ({open, setOpen}) => {
+const NewNewsModal = ({open, setOpen, setReloadData}) => {
     const [form] = Form.useForm();
     const [confirmLoading, setConfirmLoading] = useState(false);
 
-    const [previewOpen, setPreviewOpen] = useState(false);
-    const [previewImage, setPreviewImage] = useState('');
-    const [previewTitle, setPreviewTitle] = useState('');
     const [fileList, setFileList] = useState([]);
+
+
 
     const handleChange = ({ fileList: newFileList }) => setFileList(newFileList);
 
@@ -48,9 +49,30 @@ const NewNewsModal = ({open, setOpen}) => {
         form.validateFields()
             .then((values) => {
                 console.log(values)
-                const  body = {
+                const accessToken = localStorage.getItem('accessToken');
 
+                const  body = {
+                    "title": values.title,
+                    "content": values.content,
                 }
+
+                const config = {
+                    headers: {
+                        "Authorization": `Bearer ${accessToken}`,
+                        "Content-Type": "application/json"
+                    }}
+
+                axios.post(apiUrl, body, config)
+                    .then((r) => {
+                        console.log(r)}
+                    )
+                    .catch((e) => {
+                        console.log(e)
+                    })
+
+                form.resetFields();
+                setOpen(false);
+                setReloadData()
             })
     }
 
@@ -83,13 +105,6 @@ const NewNewsModal = ({open, setOpen}) => {
                 >
                     <Input.TextArea/>
                 </Form.Item>
-                <Form.Item
-                    name='imageLink'
-                    label="Ссылка картинки"
-                >
-                    <Input/>
-                </Form.Item>
-
                 <Upload
                     action="https://run.mocky.io/v3/435e224c-44fb-4773-9faf-380c5e6a2188"
                     listType="picture-card"
@@ -97,7 +112,7 @@ const NewNewsModal = ({open, setOpen}) => {
                     onChange={handleChange}
                     onSuccess={onSuccess}
                     onError={(e) => {
-                        console.log('error blya: ', e)}}
+                        console.log('error: ', e)}}
                 >
                     {fileList.length >= 1 ? null : uploadButton}
                 </Upload>
