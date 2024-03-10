@@ -2,10 +2,11 @@
 
 import {Avatar, Button, Card, Col, Collapse, Row, Skeleton, Statistic} from "antd";
 
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import Meta from "antd/es/card/Meta";
 import {EditOutlined, ShoppingOutlined, UserOutlined} from '@ant-design/icons';
 import TextArea from "antd/es/input/TextArea";
+import axios from "axios";
 
 const CollapsedItem = ({name, content, productName}) => {
     return (
@@ -18,7 +19,6 @@ const CollapsedItem = ({name, content, productName}) => {
 };
 
 const ExpandedItem = ({content}) => {
-
     const onChange = (e) => {
         console.log('Change:', e.target.value);
     };
@@ -74,7 +74,32 @@ const initItems = [
 const App = () => {
 
     const [isLoading, setIsLoading] = useState(false);
+    const [user, setUser] = useState('');
     // const [reviews, setReviews] = useState(initItems);
+    let url = "https://shop-01it-group.up.railway.app/auth/users/profile/"
+    useEffect(() => {
+        const getProfile = async () => {
+            const bearerToken = localStorage.getItem("accessToken");
+            console.log(bearerToken)
+            const config = {
+                headers: {
+                    Authorization: `Bearer ${bearerToken}`,
+                },
+            }
+            setIsLoading(true);
+            try {
+                const response = await axios.get(url, config);
+                setUser(response.data);
+            } catch (error) {
+                console.log(error)
+            }
+            setIsLoading(false);
+        }
+
+        getProfile().then(r => {
+            console.log(r)
+        })
+    }, []);
 
 
     const onChange = (key) => {
@@ -92,7 +117,7 @@ const App = () => {
                         <Skeleton loading={isLoading} avatar active>
                             <Meta
                                 avatar={<Avatar src="https://api.dicebear.com/7.x/miniavs/svg?seed=1"/>}
-                                title="Ерболат Мукан"
+                                title={user.first_name + " " + user.last_name}
                                 description="Информация об админе"
                             />
                         </Skeleton>
