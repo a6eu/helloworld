@@ -7,6 +7,7 @@ import Search from "antd/es/input/Search";
 import EditProductModal from "@/app/_components/EditProductModal";
 import NewProductModal from "@/app/_components/NewProductModal";
 import DeleteProductModal from "@/app/_components/DeleteProductModal";
+import useFetchData from "@/app/_components/useFetchData";
 
 const apiUrl = 'https://shop-01it-group.up.railway.app/api/v1/products/';
 
@@ -40,18 +41,8 @@ const Page = () => {
     }, [form, currentItem]);
 
     function fetchData(url) {
-        setInitLoading(true);
-        axios.get(url)
-            .then(response => {
-                setList(response.data.results);
-                setTotal(response.data.count);
-                // setCurrentPage(response.data)
-                console.log('response:', response.data);
-            })
-            .catch(error => {
-                console.error('Error fetching products:', error);
-            });
-        setInitLoading(false);
+        useFetchData(url, setList, setTotal, setInitLoading)
+            .then(r => {console.log(r)})
     }
 
     const showModal = (item) => {
