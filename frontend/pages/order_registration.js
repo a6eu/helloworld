@@ -40,7 +40,7 @@ export default function order_registration() {
     useEffect(() => {
         const getBasket = async () => {
             try {
-                const response = await axios.get('https://shop-01it-group.up.railway.app/api/v1/basket', {
+                const response = await axios.get('https://shop-01it-group.up.railway.app/api/v1/basket/', {
                     headers: {
                         Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
                     },
@@ -57,7 +57,7 @@ export default function order_registration() {
     let totalCost = 0;
     const [name, setName] = useState('');
     const [phone, setPhone] = useState('');
-    const [field, setField] = useState('')
+    const [field, setField] = useState('');
     const [fieldError, setFieldError] = useState('')
     const [nameError, setNameError] = useState('');
     const [phoneError, setPhoneError] = useState('');

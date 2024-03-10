@@ -8,7 +8,6 @@ const useJivoWidget = () => {
         document.body.appendChild(script);
 
         return () => {
-            // Cleanup the script when the component unmounts
             document.body.removeChild(script);
         };
     }, []);

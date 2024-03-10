@@ -32,6 +32,10 @@ const ProductItem = ({ product, signedIn }) => {
         showAlert(alert, alertType);
     };
 
+    const handleAddToFavorite = () =>  {
+        showAlert(alert, alertType);
+    }
+
     const formatName = (title) => {
         let words = title.split(" ");
         let formattedTitle = "";
@@ -124,9 +128,11 @@ const ProductItem = ({ product, signedIn }) => {
 
             if (response.status === 201) {
                 console.log(response.data);
+                showAlert('Успешно добавлено в Избранные!', 'success');
             }
         } catch (error) {
             console.error(error);
+            showAlert('Не смогли добавить в Избранное :(', 'error');
         }
     };
 
