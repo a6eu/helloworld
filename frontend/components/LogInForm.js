@@ -9,7 +9,6 @@ const LogInForm = ({onSignUpClick, setIsModalOpen}) => {
     const [isEmail, setEmail] = useState(false)
     const [emailOrPhoneError, setEmailOrPhoneError] = useState("");
     const [passwordError, setPasswordError] = useState("");
-
     const [isLoading, setIsLoading] = useState(false);
 
 
