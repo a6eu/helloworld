@@ -1,13 +1,18 @@
-import React, { useState } from "react";
+
+import React, {useEffect, useState} from "react";
 import ProductItem from "./ProductItem";
 import Image from "next/image";
 import emptyBox from "../public/images/emptyBox.svg";
 import { Pagination } from 'antd';
 
 const ProductsContainer = ({products}) => {
-
-    const [currentPage, setCurrentPage] = useState(1); // Step 2: State for current page
-    const [itemsPerPage, setItemsPerPage] = useState(24); // Items per page (you can adjust this)
+    const [token, setToken] = useState('');
+    useEffect(() => {
+        const accessToken = localStorage.getItem("accessToken");
+        setToken(accessToken);
+    }, []);
+    const [currentPage, setCurrentPage] = useState(1); 
+    const [itemsPerPage, setItemsPerPage] = useState(24); 
 
     const indexOfLastItem = currentPage * itemsPerPage;
     const indexOfFirstItem = indexOfLastItem - itemsPerPage;
@@ -24,9 +29,8 @@ const ProductsContainer = ({products}) => {
                 {
                     currentItems.length > 0 ?
                         currentItems.map((product) => (
-                            <ProductItem
-                                key={product.id}
-                                product={product}
+                            <ProductItem key={product.id} signedIn={token} isFavorite={true}
+                                         product={product}
                             />
                         ))
                         :
@@ -43,7 +47,7 @@ const ProductsContainer = ({products}) => {
                 onChange={handlePageChange}
                 total={products.length}
                 pageSize={itemsPerPage}
-                showSizeChanger={false} // Remove this line if you want to allow changing items per page
+                showSizeChanger={false} 
             />
         </div>
     )

@@ -125,7 +125,7 @@ export default function CatalogDropdown() {
                     <span
                         className={selectedCtg === index ? 'absolute right-0 w-full h-2.5 bg-white -top-2.5  before:absolute before:top-0 before:right-0 before:w-full before:h-full before:rounded-br-full before:bg-slate-200' : ''}
                     ></span>
-                                        <Link href={`/${item.name}`}
+                                        <Link href={`/${item.categoryId}`}
                                               onClick={() => {
                                                   dispatch(setPath([item.name]));
                                                   close();
@@ -142,14 +142,14 @@ export default function CatalogDropdown() {
                                 </ul>
                             </div>
                             <div className="leading-none w-4/5 bg-white py-10 px-10 grid grid-cols-3 gap-10">
-                                {subCtg.map((item) => (<div key={item.id} className="flex">
+                                {subCtg.map((item) => (<div key={item.categoryId} className="flex">
                                     <div className="pt-2 mr-1">
                                         {item.img_url !== undefined ? (<div className="w-[50px] h-[50px] mr-2">
                                             <Image src={item.img_url} height={50} width={50} alt=""/>
                                         </div>) : (<></>)}
                                     </div>
                                     <div>
-                                        <Link href={`/${ctg[selectedCtg].name}/${item.name}`}
+                                        <Link href={`/${ctg[selectedCtg].categoryId}/${item.categoryId}`}
                                               className="hover:text-[#1075B2] hover:cursor-pointer"
                                               onClick={() => {
                                                   dispatch(setPath([ctg[selectedCtg].name, item.name]));
@@ -159,10 +159,10 @@ export default function CatalogDropdown() {
                                         >{item.name}</Link>
                                         <ul className="text-left pl-1 mt-2">
                                             {item.children.map((children) => (<li
-                                                key={children.id}
+                                                key={children.categoryId}
                                                 className="text-[#606060] hover:text-[#1075B2] hover:cursor-pointer mb-1.5 ProductSansLight"
                                             >
-                                                <Link href={`/${ctg[selectedCtg].name}/${item.name}/${children.name}`}
+                                                <Link href={`/${ctg[selectedCtg].categoryId}/${item.categoryId}/${children.categoryId}`}
                                                       onClick={() => dispatch(setPath([ctg[selectedCtg].name, item.name, children.name]))}>
                                                     {children.name}
                                                 </Link>

@@ -13,7 +13,7 @@ const Products = () => {
     const {categoryProducts} = router.query;
 
     const [products, setProducts] = useState([]);
-    const [filterResult, setFilterResult] = useState([]);
+    const [ filterResult, setFilterResult] = useState([]);
     const [selectedOption, setSelectedOption] = useState('без сортировки');
     const [isLoading, setIsLoading] = useState(false);
 
@@ -30,7 +30,8 @@ const Products = () => {
             }
 
             const lastChild = categoryProducts[categoryProducts.length - 1];
-            const url = `https://shop-01it-group.up.railway.app/api/v1/products/?category_name_and_parent_name=${lastChild}`;
+            console.log(lastChild)
+            const url = `https://shop-01it-group.up.railway.app/api/v1/products/?category_id_or_parent_id=${lastChild}`;
 
             try {
                 setIsLoading(true);

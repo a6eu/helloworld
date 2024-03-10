@@ -1,13 +1,7 @@
 import styles from '../../styles/Products.module.css'
 import React, {useEffect, useState} from 'react';
-import Image from "next/image"
-import Link from "next/link";
-import plus from "../../public/images/plus.svg"
-import minus from "../../public/images/minus.svg"
 import {Rating} from '@smastrom/react-rating'
 import axios from 'axios';
-
-
 import '@smastrom/react-rating/style.css'
 import ProductItem from "@/components/ProductItem";
 

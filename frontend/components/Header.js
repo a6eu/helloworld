@@ -19,10 +19,11 @@ import axios from "axios";
 import {Alert, Dropdown, Input} from 'antd';
 import defaultImage from "@/public/images/picture.png";
 import {AlertContext} from "@/components/AlertContext";
+import {debounce} from "lodash";
 
 const Header = () => {
     useTokenExpirationCheck()
-    const {alert, showAlert} = useContext(AlertContext);
+    const {alert, showAlert, alertType} = useContext(AlertContext);
     const [searchTerm, setSearchTerm] = useState('');
     const [allProducts, setAllProducts] = useState([]);
     const [searchResults, setSearchResults] = useState([]);
@@ -45,6 +46,25 @@ const Header = () => {
         label: <a href={"/favourites"}>Избранное</a>, key: '2',
     },];
 
+    const performSearch = async (term) => {
+        if (term.trim() === '') {
+            setSearchResults([]);
+            setIsSearchVisible(false);
+            return;
+        }
+
+        try {
+            const response = await axios.get('https://shop-01it-group.up.railway.app/api/v1/products/', {
+                params: { search: term.trim() }
+            });
+            setSearchResults(response.data.results);
+            setIsSearchVisible(true);
+        } catch (error) {
+            console.error('Error performing search:', error);
+            showAlert('Error performing search', 'error');
+        }
+    };
+
     useEffect(() => {
         const fetchData = async () => {
             try {
@@ -58,15 +78,12 @@ const Header = () => {
         fetchData();
     }, []);
 
-    useEffect(() => {
-        const filteredProducts = allProducts.filter((product) => (
-            product.name.toLowerCase().includes(searchTerm.toLowerCase()) && product.description.toLowerCase().includes(searchTerm.toLowerCase())) || product.description.toLowerCase().includes(searchTerm.toLowerCase()) || product.name.toLowerCase().includes(searchTerm.toLowerCase()));
-        setSearchResults(filteredProducts);
-        setIsSearchVisible(true);
-    }, [searchTerm, allProducts]);
+    const debouncedSearch = useRef(debounce(performSearch, 300)).current;
 
     const handleSearchChange = (event) => {
-        setSearchTerm(event.target.value);
+        const term = event.target.value;
+        setSearchTerm(term);
+        debouncedSearch(term);
     };
 
     const truncateDescription = (description, maxLength) => {
@@ -158,13 +175,14 @@ const Header = () => {
                             {searchResults.map((product) => (<Link rel="stylesheet" href={`/products/${product.name}`}>
                                 <li className="flex flex-row border justify-between border-t-o border-l-0 border-r-0 py-2 px-2"
                                     key={product.id}>
-                                    <div className="flex flex-row w-[55%]">
+                                    <div className="flex flex-row h-[85px] w-[55%]">
                                         {product.img_url ?
                                             <Image
                                                 width={80}
                                                 height={80}
                                                 alt={"pic"}
                                                 src={product.img_url}
+                                                className={`object-contain`}
                                             /> :
                                             <Image src={defaultImage} alt={product.name}
                                                    width={80}
@@ -261,9 +279,9 @@ const Header = () => {
                 <div
                     className={`fixed z-50 top-5 right-5 transition-opacity duration-300 ease-out transform-gpu ${
                         alert.show ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-10'
-                    }`}><Alert type={"success"} showIcon
-                               className={'flex flex-row'}
-                               message={alert.message}></Alert></div>}
+                    }`}><Alert type={alert.type} showIcon
+                               className={'flex flex-row w-[340px]'}
+                               message={alert.message} closable></Alert></div>}
             <ModalDialog isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen}/>
         </header>
 

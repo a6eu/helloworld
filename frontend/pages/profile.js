@@ -26,8 +26,6 @@ function Profile() {
                 const response = await axios.get(url, config)
                 setIsLoading(false)
                 setProfile(response.data)
-                console.log(response.data)
-                console.log(bearerToken)
             } catch (error) {
                 console.log("Error")
                 console.log(error)
@@ -36,7 +34,6 @@ function Profile() {
 
         getProfile().then(r => {
             console.log(r)
-
         })
     }, [])
 

@@ -26,23 +26,30 @@ function CategoryChooser() {
     }
 
     return (
-        <div className="w-full flex justify-center mt-20 flex-col items-center">
-            <div className="min-[320px]:max-sm:h-8 h-10 p-1 flex rounded-lg justify-center border-2 border-[#1075B2]">
-                <button className={`border-solid ${newDesign} rounded-md w-1/3 text-xs transition ease-out px-5 min-[320px]:max-sm:break-words`}
-                        onClick={() => typeSet("new")}>
-                    <p className='min-[320px]:max-[420px]:text-[9px]'>НОВИНКИ</p>
+        <div className="w-full flex flex-col items-center justify-center mt-20">
+            <div className="flex h-10 rounded-lg border-2 border-[#1075B2] p-1 min-w-[460px]">
+                <button
+                    className={`border-solid rounded-md w-1/3 text-xs transition ease-out px-4 ${newDesign}`}
+                    onClick={() => typeSet("new")}
+                >
+                    <p className='text-[9px] sm:text-xs'>НОВИНКИ</p>
                 </button>
-                <button className={`border-solid ${popularDesign} rounded-md w-1/3 text-xs transition ease-out px-5 min-[320px]:max-sm:break-words`}
-                        onClick={() => typeSet("popular")}>
-                    <p className='min-[320px]:max-[420px]:text-[9px]'>ПОПУЛЯРНЫЕ</p>
+                <button
+                    className={`border-solid rounded-md w-1/3 text-xs transition ease-out px-4 ${popularDesign}`}
+                    onClick={() => typeSet("popular")}
+                >
+                    <p className='text-[9px] sm:text-xs'>ПОПУЛЯРНЫЕ</p>
                 </button>
-                <button className={`border-solid ${recommendedDesign} rounded-md w-2/3 text-xs transition ease-out px-5 min-[320px]:max-sm:break-words`}
-                        onClick={() => typeSet("recommended")}>
-                    <p className='min-[320px]:max-[420px]:text-[9px]'>МЫ РЕКОМЕНДУЕМ</p>
+                <button
+                    className={`border-solid rounded-md w-1/3 text-xs transition ease-out px-4 ${recommendedDesign}`}
+                    onClick={() => typeSet("recommended")}
+                >
+                    <p className='text-[9px] sm:text-xs'>МЫ РЕКОМЕНДУЕМ</p>
                 </button>
             </div>
             <FilteredProducts type={type}/>
         </div>
+
     );
 }
 
