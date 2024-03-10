@@ -24,11 +24,17 @@ const ProductItem = ({ product, signedIn }) => {
     const { showAlert } = useContext(AlertContext);
     const [favButtonClicked, setFavButtonClicked] = useState(false);
     const [isModalOpen, setIsModalOpen] = useState(false);
+    const [alert, setAlert] = useState('');
+    const [alertType, setAlertType] = useState('')
 
     const ids = useSelector((state) => state.favorite.productIds)
     const handleAddToBasket = () => {
-        showAlert("Товар успешно добавлен в корзину!");
+        showAlert(alert, alertType);
     };
+
+    const handleAddToFavorite = () =>  {
+        showAlert(alert, alertType);
+    }
 
     const formatName = (title) => {
         let words = title.split(" ");
@@ -62,11 +68,13 @@ const ProductItem = ({ product, signedIn }) => {
     };
 
     const handleButtonClick = async (product_id, quantity) => {
+        // console.log('product_id: ' + product.id);
+        // console.log('quantity: ' + quantity);
         const url = "https://shop-01it-group.up.railway.app/api/v1/basket/products/";
 
         try {
             const response = await axios.post(
-                url,
+                "https://shop-01it-group.up.railway.app/api/v1/basket/products/",
                 {
                     product_id: product.id,
                     quantity: quantity,
@@ -79,11 +87,12 @@ const ProductItem = ({ product, signedIn }) => {
             );
 
             if (response.status === 201) {
-                console.log(response.data);
-                handleAddToBasket();
+                showAlert('Ваш товар успешно добавлен в корзину!', 'success');
             }
+
         } catch (error) {
             console.error(error);
+            showAlert('Возможно у нас нет столько продуктов, сколько вы хотите добавить!', 'error');
         }
     };
 
@@ -121,9 +130,11 @@ const ProductItem = ({ product, signedIn }) => {
 
             if (response.status === 201) {
                 console.log(response.data);
+                showAlert('Успешно добавлено в Избранные!', 'success');
             }
         } catch (error) {
             console.error(error);
+            showAlert('Не смогли добавить в Избранное :(', 'error');
         }
     };
 

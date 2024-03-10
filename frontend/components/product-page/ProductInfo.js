@@ -13,9 +13,10 @@ const ProductInfo = ({product, brandName}) => {
     const { showAlert } = useContext(AlertContext);
     const [quantity, setQuantity] = useState(1);
     const [isExpanded, setIsExpanded] = useState(false);
-
+    const [alert, setAlert] = useState('');
+    const [alertType, setAlertType] = useState('')
     const handleAddToBasket = () => {
-        showAlert("Товар успешно добавлен в корзину!");
+        showAlert(alert, alertType);
     };
 
     const handleButtonClick = async (quantity) => {
@@ -34,9 +35,12 @@ const ProductInfo = ({product, brandName}) => {
                     },
                 }
             );
-            handleAddToBasket();
+            if (response.status === 201) {
+                showAlert('Ваш товар успешно добавлен в корзину!', 'success');
+            }
         } catch (error) {
             console.error(error);
+            showAlert('Возможно у нас нет столько продуктов, сколько вы хотите добавить!', 'error');
         }
     };
 
@@ -136,8 +140,8 @@ const ProductInfo = ({product, brandName}) => {
                         <Image className='mt-4' src={defaultImage} alt={product.name} width={53}
                                height={53}/>}
 
-                    <div className={"flex justify-between w-[35%]"}>
-                        <div className={"flex pl-24"}>
+                    <div className={"flex gap-5 w-[35%]"}>
+                        <div className={"flex"}>
                             <button
                                 onClick={() => increaseQuantity()}
                                 className="bg-[#E9E9E9] border-solid border-1px mr-customMargin rounded-[3px] w-5 flex justify-center items-center h-6"
@@ -157,7 +161,7 @@ const ProductInfo = ({product, brandName}) => {
                         </div>
                         <button
                             className={
-                                'ProductSansLight text-[11px] text-[#1075b2] border-1px border-[#1075b2] rounded-[3px] h-[25px] w-[90px] hover:transition-[300ms] hover:bg-[#1075b2] hover:text-white'}
+                                'ProductSansLight text-[11px] text-[#1075b2] border-1px border-[#1075b2] rounded-[3px] h-[25px] w-[100px] hover:transition-[300ms] hover:bg-[#1075b2] hover:text-white'}
                             onClick={() => handleButtonClick(quantity)}
                         >
                             В КОРЗИНУ

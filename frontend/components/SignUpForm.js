@@ -134,7 +134,7 @@ const SignUpForm = ({onLogInClick}) => {
                         className="absolute inset-y-0 left-0 pl-2 flex items-center w-9 rounded-tl rounded-bl bg-[#1075B2] text-white">+7</span>
 
                     <input
-                        className={"pl-10fixf appearance-none block w-full bg-white text-gray-700 border border-[#1075B2] rounded py-1 text-s px-2.5 leading-tight focus:outline-none focus:bg-white focus:border-gray-500 hover:shadow-lg transition duration-500"}
+                        className={"pl-10 appearance-none block w-full bg-white text-gray-700 border border-[#1075B2] rounded py-1 text-s px-2.5 leading-tight focus:outline-none focus:bg-white focus:border-gray-500 hover:shadow-lg transition duration-500"}
                         onChange={(e) => setPhoneNumber(e.target.value)}
                     />
                 </div>

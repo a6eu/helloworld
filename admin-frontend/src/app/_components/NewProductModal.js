@@ -4,14 +4,14 @@ import {Modal} from "antd";
 const NewProductModal = ({open, setOpen}) => {
     return (
         <Modal
- //           title="Редактирование продукта"
+ //           title="Добавление нового продукта"
             okText={"Понятно"}
             cancelText={"Отмена"}
             visible={open}
             onOk={() => (setOpen(false))}
             onCancel={() => (setOpen(false))}
         >
-            Временно недоступно :/
+            Временно не доступно
         </Modal>
     );
 };
