@@ -7,6 +7,7 @@ import {log} from "next/dist/server/typescript/utils";
 import {Avatar, Button, List, Skeleton} from "antd";
 import {DeleteOutlined, EditOutlined, PlusOutlined} from "@ant-design/icons";
 import NewNewsModal from "@/app/_components/NewNewsModal";
+import NewsModal from "@/app/_components/NewsModal";
 
 
 
@@ -22,6 +23,7 @@ const Page = () => {
 
 
     const [openAddNewsModal, setOpenAddNewsModal] = useState(false);
+    const [openNewsModal, setOpenNewsModal] = useState(false);
 
     useEffect(() => {
         fetchData(apiUrl)
@@ -63,7 +65,9 @@ const Page = () => {
     }
 
     const handleCurrentItem = (item) => {
+        console.log("click", item)
         setCurrentItem(item);
+        setOpenNewsModal(true);
     };
     return (
         <div className={'flex flex-col '}>
@@ -93,11 +97,11 @@ const Page = () => {
                 renderItem={(item) => (
                     <List.Item
                         actions={[<EditOutlined className={"hover:cursor-pointer hover:color-white"}/>,
-                            <DeleteOutlined className={"hover:cursor-pointer hover:color-white"} onClick={() => (deleteNewsById(item.id))}/>]}
+                            <DeleteOutlined onClick={() => (deleteNewsById(item.id))} className={"hover:cursor-pointer hover:color-white"} />]}
                     >
                         <Skeleton avatar title={false} loading={item.loading} active>
-                            <List.Item.Meta className={"break-words"} onClick={() => handleCurrentItem(item)}
-                                            avatar={item.image ? <Avatar shape="square" size={64}  src={item.image} /> : <Avatar shape="square" size={64} src={'/defaultImage.png'} />}
+                            <List.Item.Meta className={"break-words "}
+                                            avatar={item.image ? <Avatar className={'cursor-pointer'} shape="square" size={64}  src={item.image} onClick={() => handleCurrentItem(item)} /> : <Avatar shape="square" size={64} src={'/defaultImage.png'} />}
                                             title={<span>{formatItemTitle(item.title)}</span>}
                                             description={item.content}
                             />
@@ -108,6 +112,7 @@ const Page = () => {
                 )}
             />
             <NewNewsModal open={openAddNewsModal} setOpen={setOpenAddNewsModal} setReloadData={handleReload}/>
+            <NewsModal open={openNewsModal} setOpen={setOpenNewsModal} news={currentItem} />
         </div>
     );
 };
