@@ -1,15 +1,11 @@
 "use client"
-import React from 'react';
-import withAuth from "@/app/_components/AuthorizationWrapper";
 import React, {useEffect, useState} from 'react';
 import axios from "axios";
 import useFetchData from "@/app/_components/useFetchData";
-import {log} from "next/dist/server/typescript/utils";
 import {Avatar, Button, List, Skeleton} from "antd";
 import {DeleteOutlined, EditOutlined, PlusOutlined} from "@ant-design/icons";
-import NewNewsModal from "@/app/_components/NewNewsModal";
-import NewsModal from "@/app/_components/NewsModal";
-
+import NewNewsModal from "@/app/_components/_modals/NewNewsModal";
+import NewsModal from "@/app/_components/_modals/NewsModal";
 
 
 const apiUrl = 'https://shop-01it-group.up.railway.app/api/v1/news/'

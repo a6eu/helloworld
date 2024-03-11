@@ -4,9 +4,9 @@ import {Avatar, Button, Form, List, Skeleton} from "antd";
 import axios from 'axios';
 import {DeleteOutlined, EditOutlined, PlusOutlined} from "@ant-design/icons";
 import Search from "antd/es/input/Search";
-import EditProductModal from "@/app/_components/EditProductModal";
-import NewProductModal from "@/app/_components/NewProductModal";
-import DeleteProductModal from "@/app/_components/DeleteProductModal";
+import EditProductModal from "@/app/_components/_modals/EditProductModal";
+import NewProductModal from "@/app/_components/_modals/NewProductModal";
+import DeleteProductModal from "@/app/_components/_modals/DeleteProductModal";
 import withAuth from "@/app/_components/AuthorizationWrapper";
 import useFetchData from "@/app/_components/useFetchData";
 
