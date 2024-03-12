@@ -88,7 +88,7 @@ const Demand = () => {
                     <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
                         Номер телефона
                     </label>
-                    <div className="relative">
+                    <div className="relative pr-[0.5px]">
                             <span
                                 className="absolute inset-y-0 left-0 pl-2 flex items-center w-9 rounded-tl rounded-bl bg-[#1075B2] text-white">+7</span>
                         <div>
@@ -133,12 +133,11 @@ const Demand = () => {
                         />
                     </div>
                     {fieldError && <p className="text-red-500 text-xs italic">{fieldError}</p>}
-                    <button
-                        className="flex w-full  bg-[#1075B2] rounded-md py-2 text-white justify-center"
-                        onClick={handleSubmit}
+                    <div
+                        className={'w-full px-10 pr-12'}
                     >
-                        ПОДТВЕРДИТЬ ЗАКАЗ
-                    </button>
+                        <button className="flex w-full  bg-[#1075B2] rounded-md py-2 px-4 text-white justify-center" onClick={handleSubmit}>ПОДТВЕРДИТЬ ЗАЯВКУ</button>
+                    </div>
                 </div>
             </div>
         </div>
