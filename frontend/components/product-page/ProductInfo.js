@@ -7,6 +7,7 @@ import {useContext, useState} from "react";
 import defaultImage from "@/public/images/picture.png"
 import axios from "axios";
 import {AlertContext} from "@/components/AlertContext";
+import {Rate} from "antd";
 
 
 const ProductInfo = ({product, brandName}) => {
@@ -109,7 +110,7 @@ const ProductInfo = ({product, brandName}) => {
                     </div>
                 </div>
 
-                <Stars starAvg={4}/>
+                <Rate />
                 <div className="mb-5"></div>
                 <div className='flex justify-between items-center'>
                     <Price price={product.price} fSizeOfCurrency={30} fSizeOfDigit={35}/>

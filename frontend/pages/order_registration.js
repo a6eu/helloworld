@@ -128,8 +128,7 @@ export default function order_registration() {
         const isFieldFilled = validateField();
         const isPaymentMethodValid = validatePaymentMethod();
 
-        if (isNameValid && isPhoneValid && isFieldFilled) {
-            // setFieldError('Заказ оформлен')
+        if (isNameValid && isPhoneValid && isFieldFilled && isPaymentMethodValid) {
             const orderItems = basket.map(item => ({
                 product_id: item.product.id, 
                 quantity: item.quantity,
@@ -152,10 +151,9 @@ export default function order_registration() {
                     },
                 });
                 console.log('Order submitted successfully:', response.data);
-                showAlert("Заказ успешно оформлен!");
+                showAlert("Заказ успешно оформлен!", 'success');
             } catch (error) {
                 console.error('Error submitting order:', error);
-                // Display an error message to the user
             }
             
         }

@@ -1,20 +1,23 @@
-import React from 'react'
-import { useState } from 'react'
-import { Dialog } from '@headlessui/react'
+import React, { useState } from 'react';
+import { Dialog } from '@headlessui/react';
 import SignUpForm from '@/components/SignUpForm';
-import LogInForm  from '@/components/LogInForm';
+import LogInForm from '@/components/LogInForm';
+import ForgotPasswordForm from "@/components/ForgotPasswordForm";
 
-function ModalDialog({isModalOpen, setIsModalOpen}) {
-    const [isSignUp, setSignUp] = useState(false)
-    const [isLogIn, setLogIn] = useState(false)
+function ModalDialog({ isModalOpen, setIsModalOpen }) {
+    const [formType, setFormType] = useState('login');
 
-    function handleSignUpClick() {
-        setSignUp(true)
+    function openSignUpForm() {
+        setFormType('signup');
     }
 
-    function handleLogInClick() {
-        setSignUp(false)
-        setLogIn(true)
+    function openLoginForm() {
+        setFormType('login');
+    }
+
+    function openForgotPasswordForm() {
+        console.log('Opening forgot password form');
+        setFormType('forgot');
     }
 
     return (
@@ -24,36 +27,41 @@ function ModalDialog({isModalOpen, setIsModalOpen}) {
             open={isModalOpen}
             onClose={() => setIsModalOpen(false)}
         >
-            <Dialog.Panel
-                className="fixed flex justify-center items-center inset-0 overflow-auto"
-            >
+            <Dialog.Panel className="fixed flex justify-center items-center inset-0 overflow-auto">
                 <div className="bg-white rounded-lg p-5 w-full max-w-md">
-                    {isSignUp ? (
-                        <>
-                            <Dialog.Title className="text-[#1075B2] text-xl mb-6 text-center">
-                                Зарегистрируйтесь, чтобы быть круче
-                            </Dialog.Title>
-                            <SignUpForm onLogInClick={handleLogInClick}/>
-                        </>
-                    ) : isLogIn ? (
-                        <>
-                            <Dialog.Title className="text-[#1075B2] text-xl mb-6 text-center">
-                                Добро пожаловать!
-                            </Dialog.Title>
-                            <LogInForm onSignUpClick={handleSignUpClick} setIsModalOpen={setIsModalOpen}/>
-                        </>
-                    ) : (
-                        <>
-                            <Dialog.Title className="text-[#1075B2] text-xl mb-6 text-center">
-                                ДОБРО ПОЖАЛОВАТЬ!
-                            </Dialog.Title>
-                            <LogInForm onSignUpClick={handleSignUpClick} setIsModalOpen={setIsModalOpen}/>
-                        </>
-                    )}
+                    {
+                        {
+                            'signup': (
+                                <>
+                                    <Dialog.Title className="text-[#1075B2] text-xl mb-6 text-center">
+                                        Зарегистрируйтесь, чтобы быть круче
+                                    </Dialog.Title>
+                                    <SignUpForm onLogInClick={openLoginForm} />
+                                </>
+                            ),
+                            'login': (
+                                <>
+                                    <Dialog.Title className="text-[#1075B2] text-xl mb-6 text-center">
+                                        Добро пожаловать!
+                                    </Dialog.Title>
+                                    <LogInForm onSignUpClick={openSignUpForm} onForgotClick={openForgotPasswordForm}
+                                               setIsModalOpen={setIsModalOpen} />
+                                </>
+                            ),
+                            'forgot': (
+                                <>
+                                    <Dialog.Title className="text-[#1075B2] text-xl mb-6 text-center">
+                                        Восстановить пароль
+                                    </Dialog.Title>
+                                    <ForgotPasswordForm onLogInClick={openLoginForm} />
+                                </>
+                            )
+                        }[formType]
+                    }
                 </div>
             </Dialog.Panel>
         </Dialog>
-    )
+    );
 }
 
-export default ModalDialog
+export default ModalDialog;

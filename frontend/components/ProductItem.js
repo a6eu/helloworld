@@ -12,6 +12,7 @@ import { useDispatch, useSelector } from "react-redux";
 import defaultImage from "@/public/images/picture.png";
 import { AlertContext } from "@/components/AlertContext";
 import {useRouter} from "next/router";
+import {Rate} from "antd";
 
 const floatValues = [0.29, 1.44, 2.31, 3.48, 4.52];
 
@@ -236,12 +237,7 @@ const Stars = ({ starAvg }) => {
 
     return (
         <div>
-            <Rating
-                style={{ maxWidth: 80 }}
-                readOnly
-                orientation="horizontal"
-                value={starAvg}
-            />
+            <Rate disabled defaultValue={starAvg}/>
         </div>
     );
 };

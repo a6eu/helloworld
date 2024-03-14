@@ -223,7 +223,7 @@ const Header = () => {
                     </Dropdown>
                 </div>
 
-                <div className='flex items-center justify-between w-[120px] min-[320px]:max-[880px]:hidden'>
+                <div className='flex items-center justify-between mr-8 w-[120px] min-[320px]:max-[880px]:hidden'>
                     <Link href={"/favorites"} className='mb-[5px]'>
                         <Image className="cursor-pointer min-w-[22px]"
                                src={favoritesImg}
