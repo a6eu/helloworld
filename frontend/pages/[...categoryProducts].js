@@ -16,7 +16,8 @@ const Products = () => {
     const [ filterResult, setFilterResult] = useState([]);
     const [selectedOption, setSelectedOption] = useState('без сортировки');
     const [isLoading, setIsLoading] = useState(false);
-
+    const [current, setCurrent] = useState(1);
+    const [count, setCount] = useState();
 
     const sortMethods = {
         'сначала дорогие': {method: (a, b) => (b.price - a.price)},
@@ -30,14 +31,15 @@ const Products = () => {
             }
 
             const lastChild = categoryProducts[categoryProducts.length - 1];
-            console.log(lastChild)
-            const url = `https://shop-01it-group.up.railway.app/api/v1/products/?category_id_or_parent_id=${lastChild}`;
-
+            
+            const url = `https://shop-01it-group.up.railway.app/api/v1/products/?category_id_or_parent_id=${lastChild}&page=${current}`;
             try {
                 setIsLoading(true);
                 const response = await axios.get(url);
                 setIsLoading(false);
                 setProducts(response.data.results);
+                let count = response.data.count;
+                setCount(count)
             } catch (e) {
                 console.log("ERROR")
                 console.error(e);
@@ -46,11 +48,11 @@ const Products = () => {
         }
 
         getCategoryProducts()
-    }, [categoryProducts])
-
+    }, [categoryProducts, current])
     useEffect(() => {
         setFilterResult(products)
     }, [products])
+
 
     useEffect(() => {
 
@@ -74,7 +76,7 @@ const Products = () => {
                                     <Path/>
                                     <FilterDropdown selectedOption={selectedOption} setSelectedOption={setSelectedOption}/>
                                 </div>
-                                <ProductsContainer products={filterResult}/>
+                                <ProductsContainer products={filterResult} setCurrent={setCurrent} current={current} count = {count} />
                             </div>
                         </div>
                         :
