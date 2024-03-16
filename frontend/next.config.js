@@ -8,6 +8,7 @@ const nextConfig = {
       'www.ico.kz',
       'aizyldyz-bucket.s3.amazonaws.com',
       'b2b.marvel.kz', // Added this domain as per your requirement
+      'www.google.com',
     ],
   },
   // Include any other configurations you need here
