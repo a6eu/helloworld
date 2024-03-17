@@ -7,7 +7,7 @@ export const useTokenExpirationCheck = () => {
         const storedRefreshToken = localStorage.getItem('refreshToken');
 
         if (storedRefreshToken) {
-            axios.post(`${config.baseUrl}/auth/refresh/`, { refresh: storedRefreshToken })
+            axios.post(`${config.baseUrl}/api/v1/auth/refresh/`, { refresh: storedRefreshToken })
                 .then((response) => {
                     const newAccessToken = response.data.access;
 

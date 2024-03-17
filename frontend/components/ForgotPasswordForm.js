@@ -45,7 +45,7 @@ const ForgotPasswordForm = ({onLogInClick}) => {
         setIsSubmitting(true);
 
         try {
-            await axios.post(`${config.baseUrl}/auth/password-reset-request/`, {
+            await axios.post(`${config.baseUrl}/api/v1/auth/password-reset-request/`, {
                 email: emailOrPhone,
             });
             setIsToken(true);
@@ -69,7 +69,7 @@ const ForgotPasswordForm = ({onLogInClick}) => {
 
         try {
             // Send reset token request
-            await axios.post(`${config.baseUrl}/auth/password-reset-request/`, {
+            await axios.post(`${config.baseUrl}/api/v1/auth/password-reset-request/`, {
                 email: emailOrPhone,
             });
             setIsToken(true); // Update token state after successful request
@@ -93,7 +93,7 @@ const ForgotPasswordForm = ({onLogInClick}) => {
         setIsSubmitting(true);
 
         try {
-            await axios.post(`${config.baseUrl}/auth/password-reset-confirm/`, {
+            await axios.post(`${config.baseUrl}/api/v1/auth/password-reset-confirm/`, {
                 reset_token: resetToken,
                 new_password: password
             })

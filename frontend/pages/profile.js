@@ -11,7 +11,7 @@ function Profile() {
     const [isLoading, setIsLoading] = useState(false);
     const [isEditing, setIsEditing] = useState(false);
     const [profile, setProfile] = useState({})
-    let url = `${config.baseUrl}/auth/users/profile/`
+    let url = `${config.baseUrl}/api/v1/auth/users/profile/`
 
     useEffect(() => {
         const getProfile = async () => {

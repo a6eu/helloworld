@@ -85,7 +85,7 @@ const SignUpForm = ({onLogInClick}) => {
             try {
                 setIsLoading(true);
 
-                await axios.post(`${config.baseUrl}/auth/users/`, requestBody)
+                await axios.post(`${config.baseUrl}/api/v1/auth/users/`, requestBody)
                     .then(() => {
                         onLogInClick();
                     })

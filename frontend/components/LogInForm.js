@@ -32,7 +32,7 @@ const LogInForm = ({onSignUpClick, onForgotClick, setIsModalOpen}) => {
     const login = (e) => {
         e.preventDefault();
 
-        const url = `${config.baseUrl}/auth/users/login/`
+        const url = `${config.baseUrl}/api/v1/auth/users/login/`
 
         setEmailOrPhoneError("")
         setPasswordError("")
