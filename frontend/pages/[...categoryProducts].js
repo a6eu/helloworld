@@ -6,6 +6,7 @@ import Path from "@/components/product-page/Path";
 import {useEffect, useState} from "react";
 import {useRouter} from "next/router";
 import axios from "axios";
+import {config} from "@/config";
 
 
 const Products = () => {
@@ -32,7 +33,7 @@ const Products = () => {
 
             const lastChild = categoryProducts[categoryProducts.length - 1];
             
-            const url = `https://shop-01it-group.up.railway.app/api/v1/products/?category_id_or_parent_id=${lastChild}&page=${current}`;
+            const url = `${config.baseUrl}/api/v1/products/?category_id_or_parent_id=${lastChild}&page=${current}`;
             try {
                 setIsLoading(true);
                 const response = await axios.get(url);

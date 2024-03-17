@@ -6,6 +6,7 @@ import DescriptionChooser from "@/components/product-page/DescriptionChooser";
 import {useEffect, useState} from "react";
 import axios from "axios";
 import {useRouter} from "next/router";
+import {config} from "@/config";
 
 
 export default function ProductPage() {
@@ -20,7 +21,7 @@ export default function ProductPage() {
             let response;
             try {
                 setIsLoading(true)
-                response = await axios.get(`https://shop-01it-group.up.railway.app/api/v1/products/?search=${productName}`);
+                response = await axios.get(`${config.baseUrl}/api/v1/products/?search=${productName}`);
                 await getBrand(response.data.results[0].brand.name)
                 setIsLoading(false)
                 setProduct(response.data.results[0]);
@@ -32,7 +33,7 @@ export default function ProductPage() {
         async function getBrand(brandName) {
             let response
             try {
-                response = await axios.get(`https://shop-01it-group.up.railway.app/api/v1/brands/${brandName}`)
+                response = await axios.get(`${config.baseUrl}/api/v1/brands/${brandName}`)
 
                 const brandLogo = response.data.results
                 setBrandName(response.data)

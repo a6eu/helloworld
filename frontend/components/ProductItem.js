@@ -13,6 +13,7 @@ import defaultImage from "@/public/images/picture.png";
 import { AlertContext } from "@/components/AlertContext";
 import {useRouter} from "next/router";
 import {Rate} from "antd";
+import {config} from "@/config";
 
 const floatValues = [0.29, 1.44, 2.31, 3.48, 4.52];
 
@@ -71,11 +72,11 @@ const ProductItem = ({ product, signedIn }) => {
     const handleButtonClick = async (product_id, quantity) => {
         // console.log('product_id: ' + product.id);
         // console.log('quantity: ' + quantity);
-        const url = "https://shop-01it-group.up.railway.app/api/v1/basket/products/";
+        const url = `${config.baseUrl}/api/v1/basket/products/`;
 
         try {
             const response = await axios.post(
-                "https://shop-01it-group.up.railway.app/api/v1/basket/products/",
+                `${config.baseUrl}/api/v1/basket/products/`,
                 {
                     product_id: product.id,
                     quantity: quantity,
@@ -98,7 +99,7 @@ const ProductItem = ({ product, signedIn }) => {
     };
 
     const deleteFavClick = async () => {
-        const url = `https://shop-01it-group.up.railway.app/api/v1/favorites/products/${product.id}`
+        const url = `${config.baseUrl}/api/v1/favorites/products/${product.id}`
 
         try{
 
@@ -116,7 +117,7 @@ const ProductItem = ({ product, signedIn }) => {
     }
 
     const handleFavClick = async () => {
-        const url = `https://shop-01it-group.up.railway.app/api/v1/favorites/products/${product.id}`;
+        const url = `${config.baseUrl}/api/v1/favorites/products/${product.id}`;
 
         try {
             const bearerToken = localStorage.getItem("accessToken");

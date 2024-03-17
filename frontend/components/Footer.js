@@ -14,7 +14,7 @@ const Footer = () => {
                         <div className="ProductSansLight self-center mb-3">
                             <p className="pb-5 ProductSansThin">ИНТЕРНЕТ МАГАЗИН</p>
                             <p className="pb-1.5"><a href="">О компании</a></p>
-                            <p className="pb-1.5"><a href="">Доставка</a></p>
+                            <p className="pb-1.5"><a href="/delivery">Доставка</a></p>
                             <p className=""><a href="">Реквизиты</a></p>
                         </div>
                         <div className="self-center">

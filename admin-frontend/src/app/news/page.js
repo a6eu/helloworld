@@ -8,7 +8,7 @@ import NewNewsModal from "@/app/_components/_modals/NewNewsModal";
 import NewsModal from "@/app/_components/_modals/NewsModal";
 
 
-const apiUrl = 'https://shop-01it-group.up.railway.app/api/v1/news/'
+const apiUrl = `https://shop-01it-group.up.railway.app/api/v1/news/`
 const Page = () => {
     const [list, setList] = useState([]);
 

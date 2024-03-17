@@ -21,7 +21,7 @@ export default function LoginPage() {
             "password": password
         };
         try {
-            const response = await axios.post('https://shop-01it-group.up.railway.app/auth/users/login/', requestBody);
+            const response = await axios.post(`https://shop-01it-group.up.railway.app/auth/users/login/`, requestBody);
             console.log("response", response);
             localStorage.setItem('accessToken', response.data.access);
             localStorage.setItem("refreshToken", response.data.refresh);

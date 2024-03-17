@@ -1,5 +1,6 @@
 import React, {useState} from 'react';
 import axios from 'axios';
+import {config} from "@/config";
 
 const ForgotPasswordForm = ({onLogInClick}) => {
     const [emailOrPhone, setEmailOrPhone] = useState('');
@@ -44,7 +45,7 @@ const ForgotPasswordForm = ({onLogInClick}) => {
         setIsSubmitting(true);
 
         try {
-            await axios.post('https://shop-01it-group.up.railway.app/auth/password-reset-request/', {
+            await axios.post(`${config.baseUrl}/auth/password-reset-request/`, {
                 email: emailOrPhone,
             });
             setIsToken(true);
@@ -68,7 +69,7 @@ const ForgotPasswordForm = ({onLogInClick}) => {
         setIsSubmitting(true);
 
         try {
-            await axios.post('https://shop-01it-group.up.railway.app/auth/password-reset-confirm/', {
+            await axios.post(`${config.baseUrl}/auth/password-reset-confirm/`, {
                 reset_token: resetToken,
                 new_password: password
             })

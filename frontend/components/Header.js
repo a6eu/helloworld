@@ -20,6 +20,7 @@ import {Alert, Dropdown, Input} from 'antd';
 import defaultImage from "@/public/images/picture.png";
 import {AlertContext} from "@/components/AlertContext";
 import {debounce} from "lodash";
+import {config} from "@/config";
 
 const Header = () => {
     useTokenExpirationCheck()
@@ -54,7 +55,7 @@ const Header = () => {
         }
 
         try {
-            const response = await axios.get('https://shop-01it-group.up.railway.app/api/v1/products/', {
+            const response = await axios.get(`${config.baseUrl}/api/v1/products/`, {
                 params: { search: term.trim() }
             });
             setSearchResults(response.data.results);
@@ -68,7 +69,7 @@ const Header = () => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await axios.get('https://shop-01it-group.up.railway.app/api/v1/products/');
+                const response = await axios.get(`${config.baseUrl}/api/v1/products/`);
                 setAllProducts(response.data.results);
             } catch (error) {
                 console.error('Error fetching data:', error);

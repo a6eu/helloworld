@@ -6,15 +6,17 @@ import defaultImage from "@/public/images/picture.png"
 import Link from "next/link";
 import PhoneNumberFormatter from "@/components/PhoneNumberFormatter";
 import { AlertContext } from "@/components/AlertContext";
+import {config} from '@/config';
 
 
+let baseUrl = config.baseUrl;
 export default function order_registration() {
     const [profile, setProfile] = useState({});
     const [basket, setBasket] = useState([]);
 
     useEffect(() => {
         const getProfile = async () => {
-            const url = "https://shop-01it-group.up.railway.app/auth/users/profile/";
+            const url = `${baseUrl}/auth/users/profile/`;
             const bearerToken = localStorage.getItem("accessToken");
 
             const config = {
@@ -42,7 +44,7 @@ export default function order_registration() {
     useEffect(() => {
         const getBasket = async () => {
             try {
-                const response = await axios.get('https://shop-01it-group.up.railway.app/api/v1/basket/', {
+                const response = await axios.get(`${baseUrl}/api/v1/basket/`, {
                     headers: {
                         Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
                     },
@@ -145,7 +147,7 @@ export default function order_registration() {
             };
             console.log(data)
             try{
-                const response = await axios.post('https://shop-01it-group.up.railway.app/api/v1/orders/', data, {
+                const response = await axios.post(`${config.baseUrl}/api/v1/orders/`, data, {
                     headers: {
                         Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
                     },

@@ -1,5 +1,6 @@
 import React, {useState} from "react";
 import axios from "axios";
+import {config} from "@/config";
 
 const SignUpForm = ({onLogInClick}) => {
     const [firstName, setFirstName] = useState("");
@@ -84,7 +85,7 @@ const SignUpForm = ({onLogInClick}) => {
             try {
                 setIsLoading(true);
 
-                await axios.post('https://shop-01it-group.up.railway.app/auth/users/', requestBody)
+                await axios.post(`${config.baseUrl}/auth/users/`, requestBody)
                     .then(() => {
                         onLogInClick();
                     })

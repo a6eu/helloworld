@@ -1,12 +1,13 @@
 import { useEffect } from 'react';
 import axios from "axios";
+import {config} from "@/config";
 
 export const useTokenExpirationCheck = () => {
     const refreshToken = () => {
         const storedRefreshToken = localStorage.getItem('refreshToken');
 
         if (storedRefreshToken) {
-            axios.post('https://shop-01it-group.up.railway.app/auth/refresh/', { refresh: storedRefreshToken })
+            axios.post(`${config.baseUrl}/auth/refresh/`, { refresh: storedRefreshToken })
                 .then((response) => {
                     const newAccessToken = response.data.access;
 

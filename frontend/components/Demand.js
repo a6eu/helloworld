@@ -69,7 +69,7 @@ const Demand = () => {
                 email: email,
                 description: field,
             }
-            const url = 'https://shop-01it-group.up.railway.app/api/v1/demands/'
+            const url = `${config.baseUrl}/api/v1/demands/`
             try {
                 axios.post(url, data).then(r => showAlert('Ваша заявка успешно оформлена!', 'success'))
             } catch (error) {

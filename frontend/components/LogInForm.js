@@ -1,5 +1,6 @@
 import React, {useState} from "react";
 import axios from "axios";
+import {config} from "@/config";
 
 const LogInForm = ({onSignUpClick, onForgotClick, setIsModalOpen}) => {
     const [emailOrPhone, setEmailOrPhone] = useState("");
@@ -31,7 +32,7 @@ const LogInForm = ({onSignUpClick, onForgotClick, setIsModalOpen}) => {
     const login = (e) => {
         e.preventDefault();
 
-        const url = 'https://shop-01it-group.up.railway.app/auth/users/login/'
+        const url = `${config.baseUrl}/auth/users/login/`
 
         setEmailOrPhoneError("")
         setPasswordError("")

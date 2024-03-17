@@ -3,9 +3,9 @@ import React, { useEffect, useState } from "react";
 import { Rating } from "@smastrom/react-rating";
 import axios from "axios";
 import RenderingProduct from "./RenderingProduct";
-
 import "@smastrom/react-rating/style.css";
 import ProductItem from "@/components/ProductItem";
+import {config} from "@/config";
 
 function FilteredProducts(type) {
     const [products, setProducts] = useState([]);
@@ -22,9 +22,10 @@ function FilteredProducts(type) {
             try {
                 setIsLoading(true);
                 const response = await axios.get(
-                    "https://shop-01it-group.up.railway.app/api/v1/products/"
+                    `${config.baseUrl}/api/v1/products/`
                 );
                 console.log("Products: ", response.data)
+                console.log(`${config.baseUrl}/api/v1/products`)
                 const initialProducts = response.data.results.slice(0, 20);
                 const shuffledProducts = shuffleArray(initialProducts);
                 setProducts(shuffledProducts);

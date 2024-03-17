@@ -77,7 +77,7 @@ const App = () => {
     const [isLoading, setIsLoading] = useState(false);
     const [user, setUser] = useState('');
     // const [reviews, setReviews] = useState(initItems);
-    let url = "https://shop-01it-group.up.railway.app/auth/users/profile/"
+    let url = `https://shop-01it-group.up.railway.app/auth/users/profile/`
     useEffect(() => {
         const getProfile = async () => {
             const bearerToken = localStorage.getItem("accessToken");

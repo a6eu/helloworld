@@ -4,6 +4,7 @@ import {Rating} from '@smastrom/react-rating'
 import axios from 'axios';
 import '@smastrom/react-rating/style.css'
 import ProductItem from "@/components/ProductItem";
+import {config} from "@/config";
 
 function PopularProducts() {
     const [products, setProducts] = useState([]);
@@ -17,7 +18,7 @@ function PopularProducts() {
     useEffect(() => {
         const fetchProducts = async () => {
             try {
-                const response = await axios.get('https://shop-01it-group.up.railway.app/api/v1/products/');
+                const response = await axios.get(`${config.baseUrl}/api/v1/products/`);
                 const initialProducts = response.data.results.slice(0, 20);
                 const shuffledProducts = shuffleArray(initialProducts);
                 setProducts(shuffledProducts);

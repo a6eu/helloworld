@@ -4,13 +4,14 @@ import ProfileArea from "@/components/ProfileArea"
 import EditProfile from '@/components/EditProfile';
 import MainContainer from '@/components/MainContainer';
 import axios from "axios";
+import {config} from "@/config";
 
 
 function Profile() {
     const [isLoading, setIsLoading] = useState(false);
     const [isEditing, setIsEditing] = useState(false);
     const [profile, setProfile] = useState({})
-    let url = "https://shop-01it-group.up.railway.app/auth/users/profile/"
+    let url = `${config.baseUrl}/auth/users/profile/`
 
     useEffect(() => {
         const getProfile = async () => {

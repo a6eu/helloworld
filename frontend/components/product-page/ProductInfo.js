@@ -8,6 +8,7 @@ import defaultImage from "@/public/images/picture.png"
 import axios from "axios";
 import {AlertContext} from "@/components/AlertContext";
 import {Rate} from "antd";
+import {config} from "@/config";
 
 
 const ProductInfo = ({product, brandName}) => {
@@ -21,7 +22,7 @@ const ProductInfo = ({product, brandName}) => {
     };
 
     const handleButtonClick = async (quantity) => {
-        const url = "https://shop-01it-group.up.railway.app/api/v1/basket/products/";
+        const url = `${config.baseUrl}/api/v1/basket/products/`;
 
         try {
             const response = await axios.post(
