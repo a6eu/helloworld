@@ -56,6 +56,30 @@ const ForgotPasswordForm = ({onLogInClick}) => {
         setIsSubmitting(false);
     };
 
+    const handleSendResetToken = async (e) => {
+        e.preventDefault();
+
+        if (!validateInput(emailOrPhone)) {
+            setError('Введите действительный номер телефона или адрес электронной почты.');
+            return;
+        }
+
+        setError('');
+        setIsSubmitting(true);
+
+        try {
+            // Send reset token request
+            await axios.post(`${config.baseUrl}/auth/password-reset-request/`, {
+                email: emailOrPhone,
+            });
+            setIsToken(true); // Update token state after successful request
+        } catch (error) {
+            setError('Ошибка при отправке запроса. Пожалуйста, попробуйте снова.');
+        }
+
+        setIsSubmitting(false);
+    };
+
     const handleSubmitPassword = async () => {
         if (!validatePassword(password)) {
             setPasswordError("Пароль должен быть не менее 6 символов.");
@@ -78,13 +102,6 @@ const ForgotPasswordForm = ({onLogInClick}) => {
         }
     }
 
-    const handleInputChange = (e) => {
-        const value = e.target.value;
-        setEmailOrPhone(value);
-
-        setIsEmail(/[a-zA-Z]/.test(value));
-    };
-
     return (
         <form className="px-5 w-full max-w-md mx-auto space-y-3">
             <div>
@@ -99,11 +116,13 @@ const ForgotPasswordForm = ({onLogInClick}) => {
                             className={`${isEmail && 'hidden'} absolute inset-y-0 left-0 pl-2 flex items-center w-9 rounded-tl rounded-bl bg-[#1075B2] text-white`}>+7</span>
 
                     )}
+                    <span
+                        onClick={handleSendResetToken}
+                        className={`absolute -inset-y-[1.5px] cursor-pointer hover:shadow right-0 pl-2 flex items-center bg-white px-3 h-12 rounded text-[#1075B2] border-2 border-[#1075b2]`}>выслать код</span>
                     <input
                         id="emailOrPhone"
                         type="text"
-                        value={emailOrPhone}
-                        onChange={handleInputChange}
+                        onChange={(e) => {setEmailOrPhone(e.target.value)}}
                         className={`appearance-none pl-10 ${isEmail && 'pl-2'} block w-full bg-white text-gray-700 border border-[#1075B2] rounded py-3 px-4  leading-tight focus:outline-none focus:bg-white focus:border-gray-500 hover:shadow-lg transition duration-500`}
                         placeholder={isEmail ? "example@mail.com" : "1234567890"}
                         required
@@ -112,7 +131,7 @@ const ForgotPasswordForm = ({onLogInClick}) => {
                 {error && <p className="text-xs text-red-500">{error}</p>}
             </div>
             {
-                !isToken &&
+                isToken &&
                 <div className="flex w-full flex-wrap mb-6">
                     <div className="w-full">
                         <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
@@ -122,8 +141,7 @@ const ForgotPasswordForm = ({onLogInClick}) => {
                         <input
                             id="resetToken"
                             type="text"
-                            value={resetToken}
-                            onChange={handleInputChange}
+                            onChange={(e) => {setResetToken(e.target.value)}}
                             className="appearance-none block w-full bg-white text-gray-700 border border-[#1075B2] rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white"
                             required
                         />
@@ -131,7 +149,7 @@ const ForgotPasswordForm = ({onLogInClick}) => {
                 </div>
             }
             <div>
-                {isToken &&
+                {!isToken &&
                     (
                         <>
                             <div className="w-full mb-7">
@@ -198,7 +216,7 @@ const ForgotPasswordForm = ({onLogInClick}) => {
                 }
             </div>
             <div className={`flex flex-row`}>
-                {!isToken ?
+                {isToken ?
                     <button
                         onClick={handleSendClick}
                         className="cursor-pointer hover:shadow-xl flex flex-wrap w-[50%] h-8 bg-[#1075B2] justify-center text-white rounded items-center"
