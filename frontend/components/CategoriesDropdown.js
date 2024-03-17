@@ -126,7 +126,7 @@ export default function CatalogDropdown() {
                     <span
                         className={selectedCtg === index ? 'absolute right-0 w-full h-2.5 bg-white -top-2.5  before:absolute before:top-0 before:right-0 before:w-full before:h-full before:rounded-br-full before:bg-slate-200' : ''}
                     ></span>
-                                        <Link href={`/${item.categoryId}`}
+                                        <Link href={`/${item.categoryId}/`}
                                               onClick={() => {
                                                   dispatch(setPath([item.name]));
                                                   close();
