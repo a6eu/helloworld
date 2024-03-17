@@ -19,7 +19,7 @@ const ProfileArea = ({profile, onEditClick}) => {
         return `+7 ${areaCode} ${firstPart} ${secondPart}`;
     }
 
-    const logout = () => {
+    const LogOut = () => {
         localStorage.removeItem("accessToken");
         localStorage.removeItem("refreshToken");
         const router = useRouter();
@@ -71,7 +71,7 @@ const ProfileArea = ({profile, onEditClick}) => {
             <div className={"flex w-4/5 justify-center mt-5"}>
                 <Link href={"/"}
                       className={"rounded-[5px] hover:bg-red-100 border-red-400 text-red-400 border-2 px-3 py-1 transition duration-150"}
-                      onClick={logout}>
+                      onClick={LogOut}>
                     Выйти
                 </Link>
             </div>

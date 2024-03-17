@@ -10,7 +10,7 @@ import { AlertContext } from "@/components/AlertContext";
 import {config} from "@/config";
 
 
-function my_orders() {
+function MyOrders() {
     const [orders, setOrders] = useState([]);
     const { showAlert } = useContext(AlertContext);
 
@@ -247,4 +247,4 @@ function my_orders() {
 
 }
 
-export default my_orders;
+export default MyOrders;

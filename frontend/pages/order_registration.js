@@ -10,7 +10,7 @@ import {config} from '@/config';
 
 
 let baseUrl = config.baseUrl;
-export default function order_registration() {
+export default function OrderRegistration() {
     const [profile, setProfile] = useState({});
     const [basket, setBasket] = useState([]);
 

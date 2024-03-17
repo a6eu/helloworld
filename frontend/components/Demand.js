@@ -80,7 +80,7 @@ const Demand = () => {
     }
 
     return (
-        <div className={`w-full flex flex-row space-x-3`}>
+        <div className={`w-full flex flex-col md:flex-row space-x-3`}>
             <div
                 className={'md:px-7 sm:px-5 lg:px-10 px-5 w-3/5 mb-8 bg-white justify-center flex flex-col rounded-lg py-10 drop-shadow-md min-h-[400px]'}>
                 <h1 className={'flex justify-center text-gray-700 font-bold'}>Не нашли то, что искали?</h1>

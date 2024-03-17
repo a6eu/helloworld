@@ -56,7 +56,7 @@ const Header = () => {
 
         try {
             const response = await axios.get(`${config.baseUrl}/api/v1/products/`, {
-                params: { search: term.trim() }
+                params: {search: term.trim()}
             });
             setSearchResults(response.data.results);
             setIsSearchVisible(true);
@@ -173,30 +173,31 @@ const Header = () => {
                     {isSearchVisible && searchTerm.trim() !== '' && (
 
                         <ul className="absolute max-h-[62vh] overflow-auto z-50 bg-white w-[438px] top-[59px] rounded shadow-lg border border-b-blue-200">
-                            {searchResults.map((product) => (<Link rel="stylesheet" href={`/products/${product.name}`}>
-                                <li className="flex flex-row border justify-between border-t-o border-l-0 border-r-0 py-2 px-2"
-                                    key={product.id}>
-                                    <div className="flex flex-row h-[85px] w-[55%]">
-                                        {product.img_url ?
-                                            <Image
-                                                width={80}
-                                                height={80}
-                                                alt={"pic"}
-                                                src={product.img_url}
-                                                className={`object-contain`}
-                                            /> :
-                                            <Image src={defaultImage} alt={product.name}
-                                                   width={80}
-                                                   height={80}/>
-                                        }
-                                        <div className="ml-2">
-                                            <h3 className="text-[13px]">{truncateDescription(product.name, 20)}</h3>
-                                            <span>{parseInt(product.price)} ₸</span>
+                            {searchResults.map((product) => (
+                                <Link rel="stylesheet" href={`/products/${product.name}`} key={product.id}>
+                                    <li className="flex flex-row border justify-between border-t-o border-l-0 border-r-0 py-2 px-2"
+                                        >
+                                        <div className="flex flex-row h-[85px] w-[55%]">
+                                            {product.img_url ?
+                                                <Image
+                                                    width={80}
+                                                    height={80}
+                                                    alt={"pic"}
+                                                    src={product.img_url}
+                                                    className={`object-contain`}
+                                                /> :
+                                                <Image src={defaultImage} alt={product.name}
+                                                       width={80}
+                                                       height={80}/>
+                                            }
+                                            <div className="ml-2">
+                                                <h3 className="text-[13px]">{truncateDescription(product.name, 20)}</h3>
+                                                <span>{parseInt(product.price)} ₸</span>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <p className="text-gray-400 text-xs w-[40%]">{truncateDescription(product.description, 105)}</p>
-                                </li>
-                            </Link>))}
+                                        <p className="text-gray-400 text-xs w-[40%]">{truncateDescription(product.description, 105)}</p>
+                                    </li>
+                                </Link>))}
                         </ul>)}
                 </div>
                 <CityDropdownMenu

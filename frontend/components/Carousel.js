@@ -27,12 +27,11 @@ const App = () => {
         <Carousel autoplay>
             {newsList.map(
                 item => (
-                    <div>
-                        {/*<h3 className='h-[375px] text-[#fff] leading-[160px] text-center bg-[#364d79] min-[320px]:max-md:h-[250px] min-[320px]:max-lg:h-[300px]'>{item}</h3>*/}
+                    <div key={item.id}>
                         {item.image ?
-                            <Image preview={false} style={{width: '100%', height: 300}} src={item.image}/>
+                            <Image  preview={false} style={{width: '100%', height: 300}} src={item.image}/>
                         :
-                            <Image preview={false} style={{width: '100%'}} alt={"Banner"}/>
+                            <Image  preview={false} style={{width: '100%'}} alt={"Banner"}/>
                         }
                     </div>
                 )
