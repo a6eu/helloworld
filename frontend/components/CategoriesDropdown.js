@@ -7,6 +7,7 @@ import axios from 'axios';
 import Link from "next/link";
 import {useDispatch} from "react-redux";
 import {setPath} from "@/slices/breadcrumbSlice";
+import {config} from "@/config";
 
 let timeoutId;
 
@@ -22,7 +23,7 @@ export default function CatalogDropdown() {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await axios.get('https://shop-01it-group.up.railway.app/api/v1/categories/');
+                const response = await axios.get(`${config.baseUrl}/api/v1/categories/`);
                 setCtg(response.data);
             } catch (error) {
                 console.error('Error fetching data:', error);
@@ -125,7 +126,7 @@ export default function CatalogDropdown() {
                     <span
                         className={selectedCtg === index ? 'absolute right-0 w-full h-2.5 bg-white -top-2.5  before:absolute before:top-0 before:right-0 before:w-full before:h-full before:rounded-br-full before:bg-slate-200' : ''}
                     ></span>
-                                        <Link href={`/${item.categoryId}`}
+                                        <Link href={`/${item.categoryId}/`}
                                               onClick={() => {
                                                   dispatch(setPath([item.name]));
                                                   close();

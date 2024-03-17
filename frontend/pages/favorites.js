@@ -7,6 +7,7 @@ import { useDispatch } from "react-redux";
 import { addProduct } from "@/slices/favSlice";
 import Image from "next/image";
 import emptyBox from "@/public/images/emptyBox.svg";
+import {config} from "@/config";
 
 function Favorites() {
     const [filterResult, setFilterResult] = useState([]);
@@ -14,7 +15,7 @@ function Favorites() {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await axios.get('https://shop-01it-group.up.railway.app/api/v1/favorites/products?page=1', {
+                const response = await axios.get(`${config.baseUrl}/api/v1/favorites/products?page=1`, {
                     headers: {
                         Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
                     }

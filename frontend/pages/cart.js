@@ -12,10 +12,13 @@ import PopularProducts from '@/components/product-page/PopularProducts';
 import defaultImage from '@/public/images/picture.png'
 import {setPath} from "@/slices/breadcrumbSlice";
 import Link from "next/link";
+import {config} from "@/config";
 
 function goToHome() {
     window.location.href = '/';
 }
+
+let Url = config.baseUrl
 
 const Cart = () => {
     const [cartWithProducts, setCartWithProducts] = useState([]);
@@ -36,7 +39,7 @@ const Cart = () => {
     const getBasket = (fromWhere) => {
         if(fromWhere === 'GET')
             setIsLoading(true);
-        axios.get('https://shop-01it-group.up.railway.app/api/v1/basket/', {
+        axios.get(`${config.baseUrl}/api/v1/basket/`, {
             headers: {
                 Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
             },
@@ -65,7 +68,7 @@ const Cart = () => {
                 },
             };
             try {
-                const response = await axios.patch(`https://shop-01it-group.up.railway.app/api/v1/basket/products/${idForRequest}`, body, config);
+                const response = await axios.patch(`${Url}/api/v1/basket/products/${idForRequest}`, body, config);
                 getBasket('INCREASE');
             } catch (error) {
                 console.error(error);
@@ -85,7 +88,7 @@ const Cart = () => {
                 },
             };
             try {
-                const response = await axios.patch(`https://shop-01it-group.up.railway.app/api/v1/basket/products/${idForRequest}`, body, config);
+                const response = await axios.patch(`${Url}/api/v1/basket/products/${idForRequest}`, body, config);
                 getBasket('DECREASE');
             } catch (error) {
                 console.error(error);
@@ -95,7 +98,7 @@ const Cart = () => {
 
     const removeItem = async (index) => {
         try {
-            const response = await axios.delete(`https://shop-01it-group.up.railway.app/api/v1/basket/products/${index}`, {
+            const response = await axios.delete(`${config.baseUrl}/api/v1/basket/products/${index}`, {
                 headers: {
                     Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
                 },
@@ -108,7 +111,7 @@ const Cart = () => {
 
     const cleanCart = async () => {
         try {
-            const response = await axios.delete(`https://shop-01it-group.up.railway.app/api/v1/basket/`, {
+            const response = await axios.delete(`${config.baseUrl}/api/v1/basket/`, {
                 headers: {
                     Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
                 },

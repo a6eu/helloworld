@@ -5,21 +5,21 @@ import Image from "next/image";
 import emptyBox from "../public/images/emptyBox.svg";
 import { Pagination } from 'antd';
 
-const ProductsContainer = ({products}) => {
+
+const ProductsContainer = ({products, setCurrent, current, count}) => {
+    console.log(count)
     const [token, setToken] = useState('');
     useEffect(() => {
         const accessToken = localStorage.getItem("accessToken");
         setToken(accessToken);
     }, []);
-    const [currentPage, setCurrentPage] = useState(1); 
+    const [currentPage, setCurrentPage] = useState(current);
     const [itemsPerPage, setItemsPerPage] = useState(24); 
 
-    const indexOfLastItem = currentPage * itemsPerPage;
-    const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-    const currentItems = products.slice(indexOfFirstItem, indexOfLastItem);
 
     const handlePageChange = (page) => {
         setCurrentPage(page);
+        setCurrent(page);
     };
 
     return (
@@ -27,8 +27,8 @@ const ProductsContainer = ({products}) => {
         <div>
             <div className="flex w-[95%] flex-wrap">
                 {
-                    currentItems.length > 0 ?
-                        currentItems.map((product) => (
+                    products.length > 0 ?
+                        products.map((product) => (
                             <ProductItem key={product.id} signedIn={token} isFavorite={true}
                                          product={product}
                             />
@@ -43,9 +43,9 @@ const ProductsContainer = ({products}) => {
                 }
             </div>
             <Pagination className="mt-8"
-                current={currentPage}
+                current={current}
                 onChange={handlePageChange}
-                total={products.length}
+                total={Math.ceil(count)}
                 pageSize={itemsPerPage}
                 showSizeChanger={false} 
             />

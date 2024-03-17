@@ -1,6 +1,7 @@
 import React, {useContext, useState} from "react";
 import {AlertContext} from "@/components/AlertContext";
 import axios from "axios";
+import Link from "next/link";
 
 const Demand = () => {
     const [name, setName] = useState('');
@@ -68,7 +69,7 @@ const Demand = () => {
                 email: email,
                 description: field,
             }
-            const url = 'https://shop-01it-group.up.railway.app/api/v1/demands/'
+            const url = `${config.baseUrl}/api/v1/demands/`
             try {
                 axios.post(url, data).then(r => showAlert('Ваша заявка успешно оформлена!', 'success'))
             } catch (error) {
@@ -79,68 +80,98 @@ const Demand = () => {
     }
 
     return (
-        <div
-            className={'w-3/5 mb-8 bg-white justify-center flex flex-col rounded-lg py-10 drop-shadow-md min-h-[400px]'}>
-            <h1 className={'flex justify-center text-gray-700 font-bold'}>Не нашли то, что искали?</h1>
-            <h2 className={'flex justify-center text-gray-700 mb-4'}>- Напишите заявку на персональный заказ!</h2>
-            <div className="flex flex-wrap -mx-3 mb-6 justify-center">
-                <div className="w-full md:w-2/3">
-                    <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
-                        Номер телефона
-                    </label>
-                    <div className="relative pr-[0.5px]">
+        <div className={`w-full flex flex-col md:flex-row space-x-3`}>
+            <div
+                className={'md:px-7 sm:px-5 lg:px-10 px-5 w-3/5 mb-8 bg-white justify-center flex flex-col rounded-lg py-10 drop-shadow-md min-h-[400px]'}>
+                <h1 className={'flex justify-center text-gray-700 font-bold'}>Не нашли то, что искали?</h1>
+                <h2 className={'flex justify-center text-gray-700 mb-4'}>- Напишите заявку на персональный заказ!</h2>
+                <div className="flex flex-wrap -mx-3 mb-6 justify-center">
+                    <div className="w-full md:w-2/3">
+                        <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
+                            Номер телефона
+                        </label>
+                        <div className="relative">
                             <span
                                 className="absolute inset-y-0 left-0 pl-2 flex items-center w-9 rounded-tl rounded-bl bg-[#1075B2] text-white">+7</span>
-                        <div>
-                            <input
-                                className="appearance-none block w-[90%] ml-9 bg-white text-gray-700 border border-[#1075B2] rounded-tr rounded-br py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500 hover:shadow-lg transition duration-500"
-                                id="grid-phone" type="text" placeholder="(***) *** ** **"
-                                onChange={(e) => setPhone(e.target.value)}
-                            />
+                            <div>
+                                <input
+                                    className="pl-10 appearance-none block w-full bg-white text-gray-700 border border-[#1075B2] rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500 hover:shadow-lg transition duration-500"
+                                    id="grid-phone" type="text" placeholder="(***) *** ** **"
+                                    onChange={(e) => setPhone(e.target.value)}
+                                />
+
+                            </div>
 
                         </div>
-
+                        {phoneError && <p className="text-red-500 text-xs italic">{phoneError}</p>}
+                        <div className="w-full">
+                            <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
+                                Имя
+                            </label>
+                            <input
+                                className="appearance-none block w-full bg-white text-gray-700 border border-[#1075B2] rounded py-3 mb-3 text-s px-2.5 leading-tight focus:outline-none focus:bg-white focus:border-gray-500 hover:shadow-lg transition duration-500"
+                                onChange={(e) => setName(e.target.value)}
+                            />
+                        </div>
+                        {nameError && <p className="text-red-500 text-xs italic">{nameError}</p>}
+                        <div className="w-full">
+                            <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
+                                e-mail
+                            </label>
+                            <input
+                                onChange={(e => setEmail(e.target.value))}
+                                className=" appearance-none block w-full bg-white text-gray-700 border border-[#1075B2] rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500 hover:shadow-lg transition duration-500"
+                                type="text"/>
+                        </div>
+                        {emailError && <p className="text-red-500 text-xs italic">{emailError}</p>}
+                        <div className="w-full">
+                            <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
+                                Наименование товара
+                            </label>
+                            <textarea
+                                className="appearance-none block w-full bg-white text-gray-700 border border-[#1075B2] rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500 hover:shadow-lg transition duration-500"
+                                type="text"
+                                onChange={(e => setField(e.target.value))}
+                            />
+                        </div>
+                        {fieldError && <p className="text-red-500 text-xs italic">{fieldError}</p>}
+                        <div
+                            className={'w-full px-10 pr-12'}
+                        >
+                            <button className="flex w-full  bg-[#1075B2] rounded-md py-2 px-4 text-white justify-center"
+                                    onClick={handleSubmit}>ПОДТВЕРДИТЬ ЗАЯВКУ
+                            </button>
+                        </div>
                     </div>
-                    {phoneError && <p className="text-red-500 text-xs italic">{phoneError}</p>}
-                    <div className="w-full pr-3">
-                        <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
-                            Имя
-                        </label>
-                        <input
-                            className="appearance-none block w-full bg-white text-gray-700 border border-[#1075B2] rounded py-3 mb-3 text-s px-2.5 leading-tight focus:outline-none focus:bg-white focus:border-gray-500 hover:shadow-lg transition duration-500"
-                            onChange={(e) => setName(e.target.value)}
-                        />
+                </div>
+            </div>
+            <div
+                className={`w-2/5 justify-between h-100vh mb-8 bg-white md:px-7 sm:px-5 lg:px-10 px-5  flex flex-col rounded-lg py-10 drop-shadow-md min-h-[400px]`}>
+                <div className={`space-y-5`}>
+                    <div className={`flex flex-col`}>
+                        <h1 className={'flex justify-start text-2xl text-gray-700 font-bold'}>Нужна помощь?</h1>
+                        <h2 className={'flex justify-start text-xl text-gray-700 font-bold'}>Мы на связи!</h2>
                     </div>
-                    {nameError && <p className="text-red-500 text-xs italic">{nameError}</p>}
-                    <div className="w-full pr-3">
-                        <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
-                            e-mail
-                        </label>
-                        <input
-                            onChange={(e => setEmail(e.target.value))}
-                            className="appearance-none block w-full bg-white text-gray-700 border border-[#1075B2] rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500 hover:shadow-lg transition duration-500"
-                            type="text"/>
+                    <div className={`w-full`}>
+                        <p className={'flex justify-start text-gray-700 mb-4'}>Обратитесь в службу поддержки клиентов и
+                            мы
+                            обязательно вам поможем</p>
+                        <p className={'flex justify-start text-gray-500 text-sm font-bold mb-4'}>График работы:
+                            09:00-18:00
+                            (Пн-Пт)</p>
                     </div>
-                    {emailError && <p className="text-red-500 text-xs italic">{emailError}</p>}
-                    <div className="w-full pr-3">
-                        <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
-                            Наименование товара
-                        </label>
-                        <textarea
-                            className="appearance-none block w-full bg-white text-gray-700 border border-[#1075B2] rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500 hover:shadow-lg transition duration-500"
-                            type="text"
-                            onChange={(e => setField(e.target.value))}
-                        />
+                    <div>
                     </div>
-                    {fieldError && <p className="text-red-500 text-xs italic">{fieldError}</p>}
-                    <div
-                        className={'w-full px-10 pr-12'}
-                    >
-                        <button className="flex w-full  bg-[#1075B2] rounded-md py-2 px-4 text-white justify-center" onClick={handleSubmit}>ПОДТВЕРДИТЬ ЗАЯВКУ</button>
+                    <div className={'flex'}>
+                        <Link className="flex w-full align-middle bg-[#1075B2] rounded-md py-2 px-4 text-white justify-center mt-56"
+                              href={'#'}>
+                            <span className={`flex justify-center`}>дополнительные услуги</span>
+                        </Link>
                     </div>
                 </div>
             </div>
         </div>
+
     );
 };
 

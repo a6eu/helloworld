@@ -1,7 +1,8 @@
 import React, {useState} from "react";
 import axios from "axios";
+import {config} from "@/config";
 
-const LogInForm = ({onSignUpClick, setIsModalOpen}) => {
+const LogInForm = ({onSignUpClick, onForgotClick, setIsModalOpen}) => {
     const [emailOrPhone, setEmailOrPhone] = useState("");
     const [password, setPassword] = useState("");
     const [loginError, setLoginError] = useState("");
@@ -10,8 +11,6 @@ const LogInForm = ({onSignUpClick, setIsModalOpen}) => {
     const [emailOrPhoneError, setEmailOrPhoneError] = useState("");
     const [passwordError, setPasswordError] = useState("");
     const [isLoading, setIsLoading] = useState(false);
-
-
 
     const validateEmailOrPhone = (input) => {
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -33,7 +32,7 @@ const LogInForm = ({onSignUpClick, setIsModalOpen}) => {
     const login = (e) => {
         e.preventDefault();
 
-        const url = 'https://shop-01it-group.up.railway.app/auth/users/login/'
+        const url = `${config.baseUrl}/auth/users/login/`
 
         setEmailOrPhoneError("")
         setPasswordError("")
@@ -129,6 +128,9 @@ const LogInForm = ({onSignUpClick, setIsModalOpen}) => {
                                 setPassword(e.target.value)
                             }}
                         />
+                        <span className={'underline float-right text-sm cursor-pointer'}
+                                onClick={onForgotClick}>Забыли пароль?
+                        </span>
                         {passwordError && <p className="absolute text-sm text-red-500">{passwordError}</p>}
                         <div
                             className="cursor-pointer absolute inset-y-0 right-0 flex rounded-none items-center px-2 text-gray-700">

@@ -7,9 +7,10 @@ import Image from "next/image";
 import emptyBox from "@/public/images/emptyBox.svg";
 import axios from 'axios';
 import { AlertContext } from "@/components/AlertContext";
+import {config} from "@/config";
 
 
-function my_orders() {
+function MyOrders() {
     const [orders, setOrders] = useState([]);
     const { showAlert } = useContext(AlertContext);
 
@@ -18,7 +19,7 @@ function my_orders() {
     useEffect(() => {
         const fetchOrders = async () => {
             try {
-                const res = await axios.get('https://shop-01it-group.up.railway.app/api/v1/orders/', {
+                const res = await axios.get(`${config.baseUrl}/api/v1/orders/`, {
                     headers: {
                         Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
                     },
@@ -48,7 +49,7 @@ function my_orders() {
 
         try {
             const response = await axios.post(
-                "https://shop-01it-group.up.railway.app/api/v1/basket/products/",
+                `${config.baseUrl}/api/v1/basket/products/`,
                 {
                     product_id: product_id,
                     quantity: quantity
@@ -246,4 +247,4 @@ function my_orders() {
 
 }
 
-export default my_orders;
+export default MyOrders;

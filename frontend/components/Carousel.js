@@ -1,8 +1,10 @@
 import React, {useEffect, useState} from 'react';
 import {Carousel, Image} from 'antd';
 import axios from "axios";
+import banner from "../public/images/banner.png";
+import {config} from "@/config";
 
-const apiUrl = 'https://shop-01it-group.up.railway.app/api/v1/news/'
+const apiUrl = `${config.baseUrl}/api/v1/news/`
 const App = () => {
 
     const [newsList, setNewsList] = useState([]);
@@ -25,11 +27,11 @@ const App = () => {
         <Carousel autoplay>
             {newsList.map(
                 item => (
-                    <div>
+                    <div key={item.id}>
                         {item.image ?
-                            <Image preview={false} style={{width: '100%', height: 300}} src={item.image}/>
+                            <Image  preview={false} style={{width: '100%', height: 300}} src={item.image}/>
                         :
-                            <Image preview={false} style={{width: '100%'}} alt={"Banner"}/>
+                            <Image  preview={false} style={{width: '100%'}} alt={"Banner"}/>
                         }
                     </div>
                 )

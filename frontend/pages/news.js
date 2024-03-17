@@ -7,9 +7,10 @@ import MainContainer from "@/components/MainContainer";
 import axios from "axios";
 import InfiniteScroll from "react-infinite-scroll-component";
 import {Divider, Skeleton} from "antd";
+import {config} from "@/config";
 
 
-const apiUrl = 'https://shop-01it-group.up.railway.app/api/v1/news/'
+const apiUrl = `${config.baseUrl}/api/v1/news/`
 const News = () => {
     const [newsList, setNewsList] = useState([]);
     const [total, setTotal] = useState(0);
