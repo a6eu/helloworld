@@ -1,12 +1,13 @@
 import Carousel from "./Carousel";
 import React from "react";
+import Link from "next/link";
 
 const News = () => (
     <div>
-        <div
+        <Link href={'/news'}
             className="mt-3 h-full w-full rounded">
             <Carousel leftControl="left" rightControl="right"/>
-        </div>
+        </Link>
     </div>
 )
 
