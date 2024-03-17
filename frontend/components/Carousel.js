@@ -1,7 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import {Carousel, Image} from 'antd';
 import axios from "axios";
-import banner from "../public/images/banner.png";
 
 const apiUrl = 'https://shop-01it-group.up.railway.app/api/v1/news/'
 const App = () => {
@@ -27,7 +26,6 @@ const App = () => {
             {newsList.map(
                 item => (
                     <div>
-                        {/*<h3 className='h-[375px] text-[#fff] leading-[160px] text-center bg-[#364d79] min-[320px]:max-md:h-[250px] min-[320px]:max-lg:h-[300px]'>{item}</h3>*/}
                         {item.image ?
                             <Image preview={false} style={{width: '100%', height: 300}} src={item.image}/>
                         :
