@@ -21,7 +21,7 @@ export async function login(values) {
             return { success: false, messageText: response.data.error };
         }
         const user = { accessToken: response.data.access, refreshToken: response.data.refresh };
-        const expires = new Date(Date.now() + 3600 * 1000);
+        const expires = new Date(Date.now() + 1800 * 1000);
         const session = await encrypt({ user, expires });
 
         cookies().set("session", session, { expires, httpOnly: true });
@@ -32,7 +32,6 @@ export async function login(values) {
         return { success: false, messageText: 'Не удалось авторизоваться' };
     }
 }
-
 
 export async function logout() {
     cookies().set("session", "", { expires: new Date(0) });
