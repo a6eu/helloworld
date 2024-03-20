@@ -1,16 +1,14 @@
-"use client"
-
-import {Layout, Menu, Image} from "antd";
+import {Layout, Menu} from "antd";
 import React from 'react';
 import {
     ApartmentOutlined,
     BankOutlined,
+    LoginOutlined,
     PieChartOutlined,
     ProductOutlined,
     ShoppingOutlined,
     SwitcherOutlined,
-    UserOutlined,
-    LoginOutlined
+    UserOutlined
 } from '@ant-design/icons';
 import Link from "next/link";
 
@@ -44,7 +42,7 @@ function SidebarWrapper({children}) {
                     <div className="demo-logo-vertical text-white flex text-l">
                         {/*<Image widt={'65'} src={'logo.svg'} alt={"Astana It Group"} preview={false}/>*/}
                     </div>
-                    <Menu className={'m-0'} inlineCollapsed={false} theme="dark" mode="horizontal" items={items}/>
+                    <Menu className={'m-0'} theme="dark" mode="horizontal" items={items}/>
                 </div>
             </Header>
             <Layout>
