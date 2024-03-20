@@ -26,68 +26,57 @@ export default function Login() {
     }
 
     return (
-        <Form
-            name="basic"
-            labelCol={{
-                span: 8,
-            }}
-            wrapperCol={{
-                span: 16,
-            }}
-            style={{
-                maxWidth: 600,
-            }}
-            initialValues={{
-                remember: true,
-            }}
-            onFinish={(values) => handleSubmit(values)}
-            autoComplete="off"
-        >
-            <Form.Item
-                label="Email or phone"
-                name="username"
-                rules={[
-                    {
-                        required: true,
-                        message: 'Please input your username!',
-                    },
-                ]}
-            >
-                <Input/>
-            </Form.Item>
+        <div className={'w-full h-[100vh] absolute top-0 left-0 flex flex-col justify-center items-center bg-[#f5f5f5]'}>
+            <h1 className={''}>Добро пожаловать!</h1>
+            <Form
+                name="basic"
+                layout={'vertical'}
 
-            <Form.Item
-                label="Password"
-                name="password"
-                rules={[
-                    {
-                        required: true,
-                        message: 'Please input your password!',
-                    },
-                ]}
-            >
-                <Input.Password/>
-            </Form.Item>
-
-            <Form.Item
-                valuePropName="checked"
-                wrapperCol={{
-                    offset: 8,
-                    span: 16,
+                style={{
+                    width:300
                 }}
-            >
-            </Form.Item>
-
-            <Form.Item
-                wrapperCol={{
-                    offset: 8,
-                    span: 16,
+                initialValues={{
+                    remember: true,
                 }}
+                onFinish={(values) => handleSubmit(values)}
+                autoComplete="off"
             >
-                <Button type="primary" htmlType="submit">
-                    Submit
-                </Button>
-            </Form.Item>
-        </Form>
+                <Form.Item
+                    label="Почта или номер телефона"
+                    name="username"
+                    rules={[
+                        {
+                            required: true,
+                            message: 'Введите почту или номер телефона!',
+                        },
+                    ]}
+                >
+                    <Input/>
+                </Form.Item>
+
+                <Form.Item
+                    label="Пароль"
+                    name="password"
+                    rules={[
+                        {
+                            required: true,
+                            message: 'Введите пароль!',
+                        },
+                    ]}
+                >
+                    <Input.Password/>
+                </Form.Item>
+
+                <Form.Item
+                    wrapperCol={{
+                        offset:9
+                    }}
+                >
+                    <Button type="primary" htmlType="submit">
+                        Войти
+                    </Button>
+                </Form.Item>
+            </Form>
+        </div>
     );
 }
