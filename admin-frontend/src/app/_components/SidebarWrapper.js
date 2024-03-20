@@ -3,7 +3,7 @@ import React from 'react';
 import {
     ApartmentOutlined,
     BankOutlined,
-    LoginOutlined,
+    LogoutOutlined,
     PieChartOutlined,
     ProductOutlined,
     ShoppingOutlined,
@@ -11,6 +11,7 @@ import {
     UserOutlined
 } from '@ant-design/icons';
 import Link from "next/link";
+import {logout} from "@/lib";
 
 const {Header, Content, Footer} = Layout;
 
@@ -23,6 +24,9 @@ function getItem(label, key, icon, children) {
     };
 }
 
+const handleLogout = async () => {
+    await logout()
+};
 const items = [
     getItem((<Link href={"/"}>Dashboard</Link>), '1', <PieChartOutlined/>),
     getItem((<Link href={"/products"}>Продукты</Link>), '2', <ProductOutlined/>),
@@ -31,7 +35,7 @@ const items = [
     getItem((<Link href={"/news"}>Новости</Link>), '5', <SwitcherOutlined/>),
     getItem((<Link href={"/brands"}>Бренды</Link>), '6', <BankOutlined />),
     getItem((<Link href={"/users"}>Пользователи</Link>), '7', <UserOutlined />),
-    getItem((<Link href={"/login"}>Войти</Link>), '8', <LoginOutlined />),
+    getItem((<Link onClick={handleLogout} href={'/login'}>Выйти</Link>), '8', <LogoutOutlined />),
 ];
 function SidebarWrapper({children}) {
 
