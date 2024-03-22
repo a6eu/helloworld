@@ -1,16 +1,16 @@
 "use client"
 import React, {useEffect, useState} from 'react';
-import axios from "axios";
 import useFetchData from "@/app/_components/useFetchData";
 import {Avatar, Button, List, Skeleton} from "antd";
 import {DeleteOutlined, EditOutlined, PlusOutlined} from "@ant-design/icons";
 import ItemModal from "@/app/_components/_modals/ItemModal";
 import NewItemModal from "@/app/_components/_modals/NewItemModal";
 import {config} from "@/../config";
-import {getSession} from "@/lib";
-
+import DeleteItemModal from "@/app/_components/_modals/DeleteItemModal";
+import EditItemModal from "@/app/_components/_modals/EditItemModal";
 
 const apiUrl = `${config.baseUrl}/api/v1/news/`
+
 const Page = () => {
     const [list, setList] = useState([]);
 
@@ -23,6 +23,8 @@ const Page = () => {
 
     const [openAddNewsModal, setOpenAddNewsModal] = useState(false);
     const [openNewsModal, setOpenNewsModal] = useState(false);
+    const [openDeleteModal, setOpenDeleteModal] = useState(false);
+    const [openEditModal, setOpenEditModal] = useState(false);
 
     useEffect(() => {
         fetchData(apiUrl)
@@ -41,26 +43,22 @@ const Page = () => {
         return name.split('/')[0];
     }
 
-    const deleteNewsById = async (id) => {
-        const session = await getSession();
-        const headers = {
-            "Authorization": `Bearer ${session.user.accessToken}`,
-        };
-
-        const deleteUrl = apiUrl + `${id}/`;
-        axios.delete(deleteUrl, { headers })
-            .then(() => {
-                setReloadData(!reloadData);
-            })
-            .catch((e) => {
-                console.error('Error deleting news item:', e);
-            });
-    }
-
     const handleCurrentItem = (item) => {
         setCurrentItem(item);
         setOpenNewsModal(true);
     };
+
+    const handleDeleteItem = (item) => {
+        setCurrentItem(item);
+        setOpenDeleteModal(true);
+    };
+
+    const handleEditItem = (item) => {
+        setCurrentItem(item);
+        setOpenEditModal(true);
+    };
+
+
     return (
         <div className={'flex flex-col '}>
             <div className={'flex justify-between w-full'}>
@@ -88,8 +86,9 @@ const Page = () => {
                 }}
                 renderItem={(item) => (
                     <List.Item
-                        actions={[<EditOutlined className={"hover:cursor-pointer hover:color-white"}/>,
-                            <DeleteOutlined onClick={() => (deleteNewsById(item.id))} className={"hover:cursor-pointer hover:color-white"} />]}
+                        actions={[
+                            <EditOutlined onClick={() => handleEditItem(item)} className={"hover:cursor-pointer hover:color-white"}/>,
+                            <DeleteOutlined onClick={() => handleDeleteItem(item)} className={"hover:cursor-pointer hover:color-white"} />]}
                     >
                         <Skeleton avatar title={false} loading={item.loading} active>
                             <List.Item.Meta className={"break-words "}
@@ -105,6 +104,8 @@ const Page = () => {
             />
             <NewItemModal apiUrl={apiUrl} open={openAddNewsModal} setOpen={setOpenAddNewsModal} setReloadData={handleReload}/>
             <ItemModal open={openNewsModal} setOpen={setOpenNewsModal} news={currentItem} />
+            <DeleteItemModal apiUrl={apiUrl} open={openDeleteModal} setOpen={setOpenDeleteModal} item={currentItem} setReloadData={handleReload}/>
+            <EditItemModal apiUrl={apiUrl} open={openEditModal} setOpen={setOpenEditModal} item={currentItem} setReloadData={handleReload}/>
         </div>
     );
 };

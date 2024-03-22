@@ -3,12 +3,12 @@
 import React, {useEffect, useState} from 'react';
 import {Avatar, Button, List, Skeleton} from "antd";
 import {DeleteOutlined, EditOutlined, PlusOutlined} from "@ant-design/icons";
-import axios from "axios";
 import useFetchData from "@/app/_components/useFetchData";
-import {getSession} from "@/lib";
 import {config} from "../../../config";
 import NewItemModal from "@/app/_components/_modals/NewItemModal";
 import ItemModal from "@/app/_components/_modals/ItemModal";
+import DeleteItemModal from "@/app/_components/_modals/DeleteItemModal";
+import EditItemModal from "@/app/_components/_modals/EditItemModal";
 
 const apiUrl = `${config.baseUrl}/api/v1/brands/`
 
@@ -25,6 +25,8 @@ const Page = () => {
 
     const [openAddNewsModal, setOpenAddNewsModal] = useState(false);
     const [openNewsModal, setOpenNewsModal] = useState(false);
+    const [openEditModal, setOpenEditModal] = useState(false);
+    const [openDeleteModal, setOpenDeleteModal] = useState(false);
 
     useEffect(() => {
         useFetchData(apiUrl, setList, setTotal, setInitLoading).then(r => {
@@ -44,25 +46,21 @@ const Page = () => {
         return name?.split('/')[0];
     }
 
-    const deleteNewsById = async (id) => {
-        const session = await getSession();
-        const headers = {
-            "Authorization": `Bearer ${session.user.accessToken}`,
-        };
 
-        const deleteUrl = apiUrl + `${id}/`;
-        axios.delete(deleteUrl, { headers })
-            .then(() => {
-                setReloadData(!reloadData);
-            })
-            .catch((e) => {
-                console.error('Error deleting news item:', e);
-            });
-    }
 
     const handleCurrentItem = (item) => {
         setCurrentItem(item);
         setOpenNewsModal(true);
+    };
+
+    const handleDeleteItem = (item) => {
+        setCurrentItem(item);
+        setOpenDeleteModal(true);
+    };
+
+    const handleEditItem = (item) => {
+        setCurrentItem(item);
+        setOpenEditModal(true);
     };
 
     return (
@@ -92,8 +90,9 @@ const Page = () => {
                 }}
                 renderItem={(item) => (
                     <List.Item
-                        actions={[<EditOutlined className={"hover:cursor-pointer hover:color-white"}/>,
-                            <DeleteOutlined onClick={() => (deleteNewsById(item.id))} className={"hover:cursor-pointer hover:color-white"} />]}
+                        actions={[
+                            <EditOutlined onClick={() => handleEditItem(item)} className={"hover:cursor-pointer hover:color-white"}/>,
+                            <DeleteOutlined onClick={() => handleDeleteItem(item)} className={"hover:cursor-pointer hover:color-white"} />]}
                     >
                         <Skeleton avatar title={false} loading={item.loading} active>
                             <List.Item.Meta className={"break-words "}
@@ -109,6 +108,8 @@ const Page = () => {
             />
             <NewItemModal apiUrl={apiUrl} open={openAddNewsModal} setOpen={setOpenAddNewsModal} setReloadData={handleReload}/>
             <ItemModal open={openNewsModal} setOpen={setOpenNewsModal} news={currentItem} />
+            <DeleteItemModal apiUrl={apiUrl} open={openDeleteModal} setOpen={setOpenDeleteModal} item={currentItem} setReloadData={handleReload}/>
+            <EditItemModal apiUrl={apiUrl} open={openEditModal} setOpen={setOpenEditModal} item={currentItem} setReloadData={handleReload}/>
         </div>
     );
 };
