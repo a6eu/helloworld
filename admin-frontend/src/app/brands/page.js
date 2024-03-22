@@ -1,17 +1,19 @@
-"use client"
+"use client";
+
 import React, {useEffect, useState} from 'react';
-import axios from "axios";
-import useFetchData from "@/app/_components/useFetchData";
 import {Avatar, Button, List, Skeleton} from "antd";
 import {DeleteOutlined, EditOutlined, PlusOutlined} from "@ant-design/icons";
-import ItemModal from "@/app/_components/_modals/ItemModal";
-import NewItemModal from "@/app/_components/_modals/NewItemModal";
-import {config} from "@/../config";
+import axios from "axios";
+import useFetchData from "@/app/_components/useFetchData";
 import {getSession} from "@/lib";
+import {config} from "../../../config";
+import NewItemModal from "@/app/_components/_modals/NewItemModal";
+import ItemModal from "@/app/_components/_modals/ItemModal";
 
+const apiUrl = `${config.baseUrl}/api/v1/brands/`
 
-const apiUrl = `${config.baseUrl}/api/v1/news/`
 const Page = () => {
+
     const [list, setList] = useState([]);
 
     const [total, setTotal] = useState(0);
@@ -25,7 +27,8 @@ const Page = () => {
     const [openNewsModal, setOpenNewsModal] = useState(false);
 
     useEffect(() => {
-        fetchData(apiUrl)
+        useFetchData(apiUrl, setList, setTotal, setInitLoading).then(r => {
+            console.log(r.data)})
     }, [reloadData])
 
     function fetchData(url) {
@@ -38,7 +41,7 @@ const Page = () => {
     }
 
     const formatItemTitle = (name) => {
-        return name.split('/')[0];
+        return name?.split('/')[0];
     }
 
     const deleteNewsById = async (id) => {
@@ -61,12 +64,13 @@ const Page = () => {
         setCurrentItem(item);
         setOpenNewsModal(true);
     };
+
     return (
-        <div className={'flex flex-col '}>
+        <div>
             <div className={'flex justify-between w-full'}>
-                 <h2>Новости</h2>
+                <h2>Бренды</h2>
                 <Button type="primary" icon={<PlusOutlined/>} size={'large'} onClick={() => setOpenAddNewsModal(true)}>
-                    Добавить новость
+                    Добавить бренд
                 </Button>
             </div>
             <List
@@ -93,9 +97,9 @@ const Page = () => {
                     >
                         <Skeleton avatar title={false} loading={item.loading} active>
                             <List.Item.Meta className={"break-words "}
-                                            avatar={item.image ? <Avatar className={'cursor-pointer'} shape="square" size={64}  src={item.image} onClick={() => handleCurrentItem(item)} /> : <Avatar shape="square" size={64} src={'/defaultImage.png'} />}
-                                            title={<span>{formatItemTitle(item.title)}</span>}
-                                            description={item.content}
+                                            avatar={item.logo_url ? <Avatar className={'cursor-pointer'} shape="square" size={64}  src={item.logo_url} onClick={() => handleCurrentItem(item)} /> : <Avatar shape="square" size={64} src={'/defaultImage.png'} />}
+                                            title={<span>{formatItemTitle(item.name)}</span>}
+                                            description={item.description}
                             />
 
                         </Skeleton>

@@ -44,7 +44,6 @@ function SidebarWrapper({children}) {
             <Header className={'w-full  mx-auto'}>
                 <div className={'max-w-screen-lg flex mx-auto'}>
                     <div className="demo-logo-vertical text-white flex text-l">
-                        {/*<Image widt={'65'} src={'logo.svg'} alt={"Astana It Group"} preview={false}/>*/}
                     </div>
                     <Menu className={'m-0'} theme="dark" mode="horizontal" items={items}/>
                 </div>

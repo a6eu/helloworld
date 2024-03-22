@@ -2,8 +2,8 @@ import React, {useState} from 'react';
 import {Form, Input, Modal, Upload} from "antd";
 import {PlusOutlined} from "@ant-design/icons";
 import axios from "axios";
+import {getSession} from "@/lib";
 
-const apiUrl = 'https://shop-01it-group.up.railway.app/api/v1/news/'
 const validateMessages = {
     required: '${label} обязательно!',
     types: {
@@ -15,13 +15,9 @@ const validateMessages = {
 };
 
 
-const NewNewsModal = ({open, setOpen, setReloadData}) => {
+const NewItemModal = ({apiUrl, open, setOpen, setReloadData}) => {
     const [form] = Form.useForm();
-    const [confirmLoading, setConfirmLoading] = useState(false);
-
     const [fileList, setFileList] = useState([]);
-
-
 
     const handleChange = ({ fileList: newFileList }) => setFileList(newFileList);
 
@@ -45,12 +41,10 @@ const NewNewsModal = ({open, setOpen, setReloadData}) => {
     );
 
     const handleOk = () => {
-        setConfirmLoading(true);
         form.validateFields()
-            .then((values) => {
+            .then( async (values) => {
                 console.log(values)
-                const accessToken = localStorage.getItem('accessToken');
-
+                const session = await getSession();
                 const  body = {
                     "title": values.title,
                     "content": values.content,
@@ -58,13 +52,13 @@ const NewNewsModal = ({open, setOpen, setReloadData}) => {
 
                 const config = {
                     headers: {
-                        "Authorization": `Bearer ${accessToken}`,
+                        "Authorization": `Bearer ${session.user.accessToken}`,
                         "Content-Type": "application/json"
                     }}
 
                 axios.post(apiUrl, body, config)
                     .then((r) => {
-                        console.log(r)}
+                        console.log("addition response", r)}
                     )
                     .catch((e) => {
                         console.log(e)
@@ -81,10 +75,10 @@ const NewNewsModal = ({open, setOpen, setReloadData}) => {
     };
     return (
         <Modal
-            title="Добавление новости"
+            title=""
             okText={"Добавить"}
             cancelText={"Отмена"}
-            visible={open}
+            open={open}
             onOk={handleOk}
             onCancel={() => setOpen(false)}>
             <Form
@@ -95,13 +89,25 @@ const NewNewsModal = ({open, setOpen, setReloadData}) => {
             >
                 <Form.Item
                     name='title'
-                    label="Название новости"
+                    label="Название"
+                    rules={[
+                        {
+                            required: true,
+                            message: 'Это обязательное поле!',
+                        },
+                    ]}
                 >
                     <Input/>
                 </Form.Item>
                 <Form.Item
                     name='content'
                     label="Контент"
+                    rules={[
+                        {
+                            required: true,
+                            message: 'Это обязательное поле!',
+                        },
+                    ]}
                 >
                     <Input.TextArea/>
                 </Form.Item>
@@ -121,4 +127,4 @@ const NewNewsModal = ({open, setOpen, setReloadData}) => {
     );
 };
 
-export default NewNewsModal;
+export default NewItemModal;
