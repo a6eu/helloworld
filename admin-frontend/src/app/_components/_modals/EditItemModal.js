@@ -21,7 +21,11 @@ const EditItemModal = ({apiUrl, item, open, setOpen, setReloadData}) => {
 
     useEffect(() => {
         if (item) {
-            let defaultValues = {title: item.name ? item.name : item.title, content: item.description ? item.description : item.content};
+            let defaultValues = {
+                title: item.name ? item.name : item.title,
+                content: item.description ? item.description : item.content
+            };
+            console.log(item)
             form.setFieldsValue(defaultValues);
         }
     }, [form, item])
@@ -55,8 +59,8 @@ const EditItemModal = ({apiUrl, item, open, setOpen, setReloadData}) => {
                 const body = {
                     "title": values.title,
                     "content": values.content,
-                    "image": item.image ? item.image : null
                 }
+
                 console.log(body)
                 const config = {
                     headers: {
