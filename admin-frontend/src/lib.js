@@ -2,6 +2,7 @@
 
 import {cookies} from "next/headers";
 import {jwtVerify, SignJWT} from "jose";
+import {config} from "../config";
 import axios from "axios";
 
 const secretKey = "helloworld";
@@ -14,7 +15,7 @@ export async function login(values) {
     };
 
     try {
-        const response = await axios.post('https://shop-01it-group.up.railway.app/api/v1/auth/users/login/', requestBody);
+        const response = await axios.post(`${config.baseUrl}/api/v1/auth/users/login/`, requestBody);
         console.log("Login response:", response);
 
         if (response.data.error) {
@@ -28,8 +29,8 @@ export async function login(values) {
 
         return { success: true, messageText: 'Вы успешно авторизовались.' };
     } catch (error) {
-        console.log("Login error:", error);
-        return { success: false, messageText: 'Не удалось авторизоваться' };
+        console.log("Login error:", error.response.data);
+        return { success: false, messageText: error.response.data.error };
     }
 }
 

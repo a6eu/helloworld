@@ -6,9 +6,10 @@ import {Avatar, Button, List, Skeleton} from "antd";
 import {DeleteOutlined, EditOutlined, PlusOutlined} from "@ant-design/icons";
 import NewNewsModal from "@/app/_components/_modals/NewNewsModal";
 import NewsModal from "@/app/_components/_modals/NewsModal";
+import {config} from "@/../config";
 
 
-const apiUrl = `https://shop-01it-group.up.railway.app/api/v1/news/`
+const apiUrl = `${config.baseUrl}/api/v1/news/`
 const Page = () => {
     const [list, setList] = useState([]);
 
@@ -39,11 +40,6 @@ const Page = () => {
         return name.split('/')[0];
     }
 
-    const formatItemDescription = (name, description) => {
-        const infoFromName = name.substring(name.indexOf('/'));
-        return infoFromName + "\n" + description;
-    };
-
     const deleteNewsById = (id) => {
         const accessToken = localStorage.getItem('accessToken');
         const headers = {
@@ -53,7 +49,7 @@ const Page = () => {
         const deleteUrl = apiUrl + `${id}/`;
         console.log(deleteUrl)
         axios.delete(deleteUrl, { headers })
-            .then((r) => {
+            .then(() => {
                 setReloadData(!reloadData);
             })
             .catch((e) => {
