@@ -7,7 +7,6 @@ function CategoryChooser() {
     const [popularDesign, setPopularDesign] = useState("text-[#1075B2]");
     const [recommendedDesign, setRecommendedDesign] = useState("text-[#1075B2]");
 
-
     function typeSet(typeProd) {
         setType(typeProd);
         if (typeProd === "new") {
@@ -27,21 +26,21 @@ function CategoryChooser() {
 
     return (
         <div className="w-full flex flex-col items-center justify-center mt-20">
-            <div className="flex h-10 rounded-lg border-2 border-[#1075B2] p-1 min-w-[460px]">
+            <div className="flex flex-wrap justify-center">
                 <button
-                    className={`border-solid rounded-md w-1/3 text-xs transition ease-out px-4 ${newDesign}`}
+                    className={`border-solid rounded-md w-full sm:w-auto sm:max-w-[150px] text-xs transition ease-out px-4 mb-2 sm:mb-0 sm:mr-2 ${newDesign}`}
                     onClick={() => typeSet("new")}
                 >
                     <p className='text-[9px] sm:text-xs'>НОВИНКИ</p>
                 </button>
                 <button
-                    className={`border-solid rounded-md w-1/3 text-xs transition ease-out px-4 ${popularDesign}`}
+                    className={`border-solid rounded-md w-full sm:w-auto sm:max-w-[150px] text-xs transition ease-out px-4 mb-2 sm:mb-0 sm:mx-2 ${popularDesign}`}
                     onClick={() => typeSet("popular")}
                 >
                     <p className='text-[9px] sm:text-xs'>ПОПУЛЯРНЫЕ</p>
                 </button>
                 <button
-                    className={`border-solid rounded-md w-1/3 text-xs transition ease-out px-4 ${recommendedDesign}`}
+                    className={`border-solid rounded-md w-full sm:w-auto sm:max-w-[150px] text-xs transition ease-out px-4 ${recommendedDesign}`}
                     onClick={() => typeSet("recommended")}
                 >
                     <p className='text-[9px] sm:text-xs'>МЫ РЕКОМЕНДУЕМ</p>
@@ -49,7 +48,6 @@ function CategoryChooser() {
             </div>
             <FilteredProducts type={type}/>
         </div>
-
     );
 }
 

@@ -7,10 +7,10 @@ import Link from "next/link";
 
 const Footer = () => {
     return (
-        <div className={" w-full flex justify-center mt-20"}>
+        <footer className={" w-full flex justify-center align-center mt-20 sm:items-center sm:justify-between"}>
             <div className="max-w-screen-xl w-full p-2">
                 <div className="flex justify-center">
-                    <div className="h-44 bg-white flex justify-between min-[320px]:max-md:justify-around rounded-t-[10px] w-full">
+                    <div className="h-44 bg-white flex justify-between min-[320px]:max-md:justify-around rounded-t-[10px] w-full  sm:w-full md:w-full">
                         <Image className="self-center ml-6 min-[320px]:max-md:hidden" src={logo} alt="logo"/>
                         <div className="ProductSansLight self-center mb-3">
                             <p className="pb-5 ProductSansThin">ИНТЕРНЕТ МАГАЗИН</p>
@@ -41,7 +41,7 @@ const Footer = () => {
                     </div>
                 </div>
             </div>
-        </div>
+        </footer>
     )
 }
 

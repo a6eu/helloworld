@@ -80,9 +80,8 @@ const Demand = () => {
     }
 
     return (
-        <div className={`w-full flex flex-col md:flex-row space-x-3`}>
-            <div
-                className={'md:px-7 sm:px-5 lg:px-10 px-5 w-3/5 mb-8 bg-white justify-center flex flex-col rounded-lg py-10 drop-shadow-md min-h-[400px]'}>
+        <div className="flex flex-col md:flex-row justify-center items-center">
+            <div className="w-full md:w-3/5 mb-8 md:mb-0 md:mr-4 bg-white rounded-lg py-10 px-5 shadow-md">
                 <h1 className={'flex justify-center text-gray-700 font-bold'}>Не нашли то, что искали?</h1>
                 <h2 className={'flex justify-center text-gray-700 mb-4'}>- Напишите заявку на персональный заказ!</h2>
                 <div className="flex flex-wrap -mx-3 mb-6 justify-center">
@@ -145,8 +144,7 @@ const Demand = () => {
                     </div>
                 </div>
             </div>
-            <div
-                className={`w-2/5 justify-between h-100vh mb-8 bg-white md:px-7 sm:px-5 lg:px-10 px-5  flex flex-col rounded-lg py-10 drop-shadow-md min-h-[400px]`}>
+            <div className="w-full md:w-2/5 bg-white rounded-lg py-10 px-5 shadow-md mt-4 md:mt-0">
                 <div className={`space-y-5`}>
                     <div className={`flex flex-col`}>
                         <h1 className={'flex justify-start text-2xl text-gray-700 font-bold'}>Нужна помощь?</h1>
