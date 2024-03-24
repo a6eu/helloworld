@@ -1,5 +1,5 @@
 import FilteredProducts from "@/components/FilteredProducts";
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 
 function CategoryChooser() {
     const [type, setType] = useState("new");
@@ -26,21 +26,21 @@ function CategoryChooser() {
 
     return (
         <div className="w-full flex flex-col items-center justify-center mt-20">
-            <div className="flex flex-wrap justify-center">
+            <div className="flex justify-center">
                 <button
-                    className={`border-solid rounded-md w-full sm:w-auto sm:max-w-[150px] text-xs transition ease-out px-4 mb-2 sm:mb-0 sm:mr-2 ${newDesign}`}
+                    className={`h-10 rounded-lg border-2 border-[#1075B2] text-xs transition ease-out px-4 ${newDesign} mr-2`}
                     onClick={() => typeSet("new")}
                 >
                     <p className='text-[9px] sm:text-xs'>НОВИНКИ</p>
                 </button>
                 <button
-                    className={`border-solid rounded-md w-full sm:w-auto sm:max-w-[150px] text-xs transition ease-out px-4 mb-2 sm:mb-0 sm:mx-2 ${popularDesign}`}
+                    className={`h-10 rounded-lg border-2 border-[#1075B2] text-xs transition ease-out px-4 ${popularDesign} mx-2`}
                     onClick={() => typeSet("popular")}
                 >
                     <p className='text-[9px] sm:text-xs'>ПОПУЛЯРНЫЕ</p>
                 </button>
                 <button
-                    className={`border-solid rounded-md w-full sm:w-auto sm:max-w-[150px] text-xs transition ease-out px-4 ${recommendedDesign}`}
+                    className={`h-10 rounded-lg border-2 border-[#1075B2] text-xs transition ease-out px-4 ${recommendedDesign} ml-2`}
                     onClick={() => typeSet("recommended")}
                 >
                     <p className='text-[9px] sm:text-xs'>МЫ РЕКОМЕНДУЕМ</p>

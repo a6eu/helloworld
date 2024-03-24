@@ -144,7 +144,7 @@ const Demand = () => {
                     </div>
                 </div>
             </div>
-            <div className="w-full md:w-2/5 bg-white rounded-lg py-10 px-5 shadow-md mt-4 md:mt-0">
+            <div className="w-full md:w-2/5 bg-white rounded-lg py-10 px-5 shadow-md">
                 <div className={`space-y-5`}>
                     <div className={`flex flex-col`}>
                         <h1 className={'flex justify-start text-2xl text-gray-700 font-bold'}>Нужна помощь?</h1>
