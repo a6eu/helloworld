@@ -44,10 +44,10 @@ const Filter = ({setProducts, products}) => {
         setProducts(brandFilter);
     }
     return (
-        <div className="inline-block w-[300px] bg-white p-1 pt-8 h-min">
+        <div className="inline-block w-full md:w-[25%] bg-white pl-8 md:p-3 pt-8 h-min rounded-b-lg ">
             <p className="text-[#1075B2] text-lg ProductSansMedium mb-5">Фильтры</p>
             <div className={'flex'}>
-                <p className="text-[#1075B2] mr-2 ProductSansLight">Цена </p>
+                <p className="text-[#1075B2] mr-2 ProductSansLight">Цена (₸) </p>
                 <button
                     className={'hover:text-[#1075B2]'}
                     onClick={() => {
@@ -72,9 +72,9 @@ const Filter = ({setProducts, products}) => {
                 <div className="w-full italic font-thin flex justify-end pr-3 mt-3 text-gray-500">Найдено {foundProducts.length} товаров</div>
                 : <div className={"mb-4"}></div>
             }
-            <div className="w-full flex justify-end ml-[-10px] mt-1">
-                <div>
-                    <button className="text-[#1075B2] underline mr-4"
+            <div className="w-full mt-1">
+                <div className={'flex items-center mb-4'}>
+                    <button className="text-[#1075B2] mr-3 md:mr-1 md:w-[50%] underline"
                             onClick={() => {
                             setRefreshPrice(!refreshPrice);
                             setPickedBrands(new Set());
@@ -83,7 +83,8 @@ const Filter = ({setProducts, products}) => {
                             setProducts(products);
                             }}>Сбросить все</button>
                     <button onClick={() => applyFilteredProducts()}
-                            className="text-[#1075B2] border-2 border-[#1075B2] border-solid pr-2 pl-2 rounded-md mb-4">Показать
+                            className="text-[#1075B2] border-2 md:w-1/2 w-[100px] border-[#1075B2] border-solid my-auto rounded-md ">
+                        Показать
                     </button>
                 </div>
             </div>

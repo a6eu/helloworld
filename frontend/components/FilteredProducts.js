@@ -19,7 +19,7 @@ function FilteredProducts(type) {
             if (!session) {
                 console.log("session not found")
             }
-             const accessToken = session.user.accessToken
+             const accessToken = session?.user.accessToken
             setToken(accessToken);
         };
 

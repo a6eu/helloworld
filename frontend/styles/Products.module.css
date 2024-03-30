@@ -16,6 +16,13 @@
 box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
 }
 
+@media (max-width: 485px) {
+    .productCard {
+        width: 90%;
+        height: auto;
+    }
+}
+
 .container {
     -ms-overflow-style: none;
     width: 100%;

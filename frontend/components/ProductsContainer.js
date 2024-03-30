@@ -5,6 +5,7 @@ import Image from "next/image";
 import emptyBox from "../public/images/emptyBox.svg";
 import { Pagination } from 'antd';
 import { useCookies } from "react-cookie";
+import {getSession} from "@/login";
 
 const ProductsContainer = ({products, setCurrent, current, count}) => {
     console.log(count)
@@ -17,7 +18,7 @@ const ProductsContainer = ({products, setCurrent, current, count}) => {
             if (!session) {
                 console.log("session not found")
             }
-            const access = session.user.accessToken
+            const access = session?.user.accessToken
             setToken(access)
 
                 
@@ -36,9 +37,8 @@ const ProductsContainer = ({products, setCurrent, current, count}) => {
     };
 
     return (
-
-        <div>
-            <div className="flex w-[95%] flex-wrap">
+        <div className={'flex flex-col items-center'}>
+            <div className="flex flex-wrap w-[100%] justify-center ">
                 {
                     products.length > 0 ?
                         products.map((product) => (

@@ -110,7 +110,7 @@ const Header = () => {
             if (!session) {
                 console.log("session not found")
             }
-             const accessToken = session.user.accessToken
+             const accessToken = session?.user.accessToken
             if(accessToken){
                 setIsLogged(true);
             }else{

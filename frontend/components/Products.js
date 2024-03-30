@@ -8,8 +8,6 @@ import { getSession } from "@/login";
 const floatValues = [0.29, 1.44, 2.31, 3.48, 4.52];
 
 
-
-
 function Products({products, fetchingStatus}) {
     const [token, setToken] = useState('');
     const[cookies] = useCookies(['session'])
@@ -21,7 +19,7 @@ function Products({products, fetchingStatus}) {
             if (!session) {
                 console.log("session not found")
             }
-            const access = session.user.accessToken
+            const access = session?.user.accessToken
             setToken(access)
 
                 

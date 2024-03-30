@@ -1,8 +1,7 @@
 import Link from "next/link";
-import { useSelector, useDispatch } from "react-redux";
-import { useEffect } from "react";
-import { update } from "lodash";
-import { setPath } from "@/slices/breadcrumbSlice";
+import {useDispatch, useSelector} from "react-redux";
+import {useEffect} from "react";
+import {setPath} from "@/slices/breadcrumbSlice";
 
 const Path = () => {
   const path = useSelector((state) => state.breadcrumb.path);
@@ -26,9 +25,9 @@ const Path = () => {
   
   
   return (
-    <div className="flex align-middle mt-4">
+    <div className="flex align-middle mt-4 mb-3 md:mr-3 md:mb-0">
       {path.map((element, index) => (
-        <div key={index} className="flex">
+        <div key={index} className="flex items-center">
            <Link href={`/${element}`} className="text-[#1075B2] cursor-pointer hover:underline" onClick={() => handleThePath(index)}>
             {element}
           </Link>

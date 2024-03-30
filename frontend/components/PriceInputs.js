@@ -23,24 +23,28 @@ const PriceInputs = ({ refreshPrice, onPriceChange }) => {
   }, [refreshPrice])
 
   return (
-    <div className="w-full mb-3 h-[50px]">
-      <div className="flex align-middle">
-        <input
-          type="number"
-          className="w-[100px] ProductSansLight pl-2 m-2 border-solid border-[1px] border-[#4CC3F2] focus:outline-none focus:border-2 focus:border-[#4CC3F2] bg-gray-200 rounded-lg"
-          placeholder="Min Price"
-          value={minPrice}
-          onChange={handleMinPriceChange}
-        />
-        <h2 className="mt-2">-</h2>
-        <input
-          type="number"
-          className="w-[100px] ProductSansLight pl-1 m-2 border-solid border-[1px] border-[#4CC3F2] focus:outline-none focus:border-2 focus:border-[#4CC3F2] bg-gray-200 rounded-lg"
-          placeholder="Max Price"
-          value={maxPrice}
-          onChange={handleMaxPriceChange}
-        />
-        <h2 className="mt-3">₸</h2>
+    <div className="w-full mb-3 ">
+      <div className="lg:flex align-middle">
+        <div className={'font-thin text-gray-600'}>
+          от
+          <input
+              type="number"
+              className="lg:w-[100px] w-[90%] ProductSansLight pl-2 m-2 border-solid border-[1px] border-[#4CC3F2] focus:outline-none focus:border-2 focus:border-[#4CC3F2] bg-gray-200 rounded-lg"
+              placeholder="Min Price"
+              value={minPrice}
+              onChange={handleMinPriceChange}
+          />
+        </div>
+        <div className={'font-thin text-gray-600'}>
+          до
+          <input
+              type="number"
+              className="lg:w-[100px] w-[90%] ProductSansLight pl-1 m-2 border-solid border-[1px] border-[#4CC3F2] focus:outline-none focus:border-2 focus:border-[#4CC3F2] bg-gray-200 rounded-lg"
+              placeholder="Max Price"
+              value={maxPrice}
+              onChange={handleMaxPriceChange}
+          />
+        </div>
       </div>
 
     </div>
