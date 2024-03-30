@@ -9,7 +9,8 @@ import axios from "axios";
 import {AlertContext} from "@/components/AlertContext";
 import {Rate} from "antd";
 import {config} from "@/config";
-
+import { getSession } from "@/login";
+import { useCookies } from "react-cookie";
 
 const ProductInfo = ({product, brandName}) => {
     const { showAlert } = useContext(AlertContext);
@@ -17,6 +18,7 @@ const ProductInfo = ({product, brandName}) => {
     const [isExpanded, setIsExpanded] = useState(false);
     const [alert, setAlert] = useState('');
     const [alertType, setAlertType] = useState('')
+    const [cookies] = useCookies(['session'])
     const handleAddToBasket = () => {
         showAlert(alert, alertType);
     };
@@ -25,7 +27,12 @@ const ProductInfo = ({product, brandName}) => {
         const url = `${config.baseUrl}/api/v1/basket/products/`;
 
         try {
-            const response = await axios.post(
+            const session = await getSession(cookies);
+            if (!session) {
+                console.log("session not found")
+            }
+            const access = session.user.accessToken
+                const response = await axios.post(
                 url,
                 {
                     product_id: product.id,
@@ -33,7 +40,7 @@ const ProductInfo = ({product, brandName}) => {
                 },
                 {
                     headers: {
-                        Authorization: "Bearer " + localStorage.getItem("accessToken"),
+                        Authorization: "Bearer " + access,
                     },
                 }
             );
@@ -113,7 +120,7 @@ const ProductInfo = ({product, brandName}) => {
 
                 <Rate />
                 <div className="mb-5"></div>
-                <div className='flex justify-between items-center'>
+                <div className='flex flex-col sm:flex-row justify-between items-center'>
                     <Price price={product.price} fSizeOfCurrency={30} fSizeOfDigit={35}/>
                     <div className='ProductSansLight text-sm text-gray-500'>Артикул: {product.article}</div>
                 </div>
@@ -142,7 +149,7 @@ const ProductInfo = ({product, brandName}) => {
                         <Image className='mt-4' src={defaultImage} alt={product.name} width={53}
                                height={53}/>}
 
-                    <div className={"flex gap-5 w-[35%]"}>
+                    <div className={"flex gap-2 mt-4"}>
                         <div className={"flex"}>
                             <button
                                 onClick={() => increaseQuantity()}

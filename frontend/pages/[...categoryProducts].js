@@ -70,14 +70,14 @@ const Products = () => {
             <div className="h-auto w-full pt-1 flex flex-col items-center">
                 {
                     !isLoading ?
-                        <div className="w- h-full flex jus">
+                        <div className="h-full flex jus">
                             <Filter setProducts={setFilterResult} products={products}/>
                             <div className="w-[1000px] flex justify-center flex-col p-3 ">
                                 <div className="flex justify-between items-center mb-2 ml-[10px]">
                                     <Path/>
                                     <FilterDropdown selectedOption={selectedOption} setSelectedOption={setSelectedOption}/>
                                 </div>
-                                <ProductsContainer products={filterResult} setCurrent={setCurrent} current={current} count = {count} />
+                                <ProductsContainer products={filterResult} setCurrent={setCurrent} current={current} count={count} />
                             </div>
                         </div>
                         :

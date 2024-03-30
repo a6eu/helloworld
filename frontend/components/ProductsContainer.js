@@ -4,15 +4,28 @@ import ProductItem from "./ProductItem";
 import Image from "next/image";
 import emptyBox from "../public/images/emptyBox.svg";
 import { Pagination } from 'antd';
-
+import { useCookies } from "react-cookie";
 
 const ProductsContainer = ({products, setCurrent, current, count}) => {
     console.log(count)
     const [token, setToken] = useState('');
+    const[cookies] = useCookies(['session'])
     useEffect(() => {
-        const accessToken = localStorage.getItem("accessToken");
-        setToken(accessToken);
-    }, []);
+        const fetchData = async () => {
+            
+                const session = await getSession(cookies);
+            if (!session) {
+                console.log("session not found")
+            }
+            const access = session.user.accessToken
+            setToken(access)
+
+                
+        };
+
+        fetchData();
+    }, []); 
+
     const [currentPage, setCurrentPage] = useState(current);
     const [itemsPerPage, setItemsPerPage] = useState(24); 
 

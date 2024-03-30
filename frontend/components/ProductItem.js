@@ -14,7 +14,8 @@ import { AlertContext } from "@/components/AlertContext";
 import {useRouter} from "next/router";
 import {Rate} from "antd";
 import {config} from "@/config";
-
+import { useCookies } from 'react-cookie';
+import { getSession } from '@/login';
 const floatValues = [0.29, 1.44, 2.31, 3.48, 4.52];
 
 const ProductItem = ({ product, signedIn }) => {
@@ -28,6 +29,7 @@ const ProductItem = ({ product, signedIn }) => {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [alert, setAlert] = useState('');
     const [alertType, setAlertType] = useState('')
+    const[cookies] = useCookies(['session'])
 
     const ids = useSelector((state) => state.favorite.productIds)
     const handleAddToBasket = () => {
@@ -75,6 +77,11 @@ const ProductItem = ({ product, signedIn }) => {
         const url = `${config.baseUrl}/api/v1/basket/products/`;
 
         try {
+            const session = await getSession(cookies);
+        if (!session) {
+            console.log("session not found")
+        }
+         const access = session.user.accessToken
             const response = await axios.post(
                 `${config.baseUrl}/api/v1/basket/products/`,
                 {
@@ -83,7 +90,7 @@ const ProductItem = ({ product, signedIn }) => {
                 },
                 {
                     headers: {
-                        Authorization: "Bearer " + localStorage.getItem("accessToken"),
+                        Authorization: "Bearer " + access,
                     },
                 }
             );
@@ -102,10 +109,14 @@ const ProductItem = ({ product, signedIn }) => {
         const url = `${config.baseUrl}/api/v1/favorites/products/${product.id}`
 
         try{
-
+            const session = await getSession(cookies);
+            if (!session) {
+                console.log("session not found")
+            }
+            const access = session.user.accessToken
             const response = await axios.delete(url, {
                 headers: {
-                    Authorization: `Bearer ` + localStorage.getItem("accessToken")
+                    Authorization: `Bearer ` + access
                 }
             })
             if(response.status === 204 && router.pathname ==="/favorites"){
@@ -120,7 +131,12 @@ const ProductItem = ({ product, signedIn }) => {
         const url = `${config.baseUrl}/api/v1/favorites/products/${product.id}`;
 
         try {
-            const bearerToken = localStorage.getItem("accessToken");
+            const session = await getSession(cookies);
+            if (!session) {
+                console.log("session not found")
+            }
+            const access = session.user.accessToken
+            const bearerToken = access;
             const config = {
                 headers: {
                     Authorization: `Bearer ${bearerToken}`,

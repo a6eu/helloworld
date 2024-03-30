@@ -6,16 +6,26 @@ import RenderingProduct from "./RenderingProduct";
 import "@smastrom/react-rating/style.css";
 import ProductItem from "@/components/ProductItem";
 import {config} from "@/config";
-
+import { useCookies } from "react-cookie";
+import { getSession } from "@/login";
 function FilteredProducts(type) {
     const [products, setProducts] = useState([]);
     const [token, setToken] = useState("");
+    const [cookies] = useCookies(['session'])
     const [isLoading, setIsLoading] = useState(false);
-
     useEffect(() => {
-        const accessToken = localStorage.getItem("accessToken");
-        setToken(accessToken);
+        const fetchCookie = async () => {
+            const session = await getSession(cookies);
+            if (!session) {
+                console.log("session not found")
+            }
+             const accessToken = session.user.accessToken
+            setToken(accessToken);
+        };
+
+        fetchCookie();
     }, []);
+
 
     useEffect(() => {
         const fetchProducts = async () => {

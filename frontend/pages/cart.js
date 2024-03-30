@@ -12,23 +12,25 @@ import PopularProducts from '@/components/product-page/PopularProducts';
 import defaultImage from '@/public/images/picture.png'
 import {setPath} from "@/slices/breadcrumbSlice";
 import Link from "next/link";
-import {config} from "@/config";
+import styles from "../styles/Home.module.css";
+import { useCookies } from 'react-cookie';
+import { getSession } from '@/login';
+import { linkAnchorClasses } from '@nextui-org/react';
 
 function goToHome() {
     window.location.href = '/';
 }
-
-let Url = config.baseUrl
 
 const Cart = () => {
     const [cartWithProducts, setCartWithProducts] = useState([]);
     let wholePrice = 0;
     let quantity = 0;
     const [isLoading, setIsLoading] = useState(false);
-
+    const [cookies] = useCookies(['session']);
+    const [accessT, setAccessToken] = useState("");
     function formatNumberWithSpaces(number) {
         if (number) {
-            let roundedNumber = parseFloat(number);
+            let roundedNumber = parseFloat(number).toFixed(2);
             roundedNumber = roundedNumber.toString();
             return roundedNumber.replace(/\B(?=(\d{3})+(?!\d))/g, ' ');
         } else {
@@ -36,12 +38,19 @@ const Cart = () => {
         }
     }
 
-    const getBasket = (fromWhere) => {
+    const getBasket = async (fromWhere) => {
         if(fromWhere === 'GET')
             setIsLoading(true);
-        axios.get(`${config.baseUrl}/api/v1/basket/`, {
+        const session = await getSession(cookies);
+            if (!session) {
+                console.log("session not found")
+            }
+        const access = session.user.accessToken
+        console.log("accessToken ", access)
+
+        axios.get('https://shop-01it-group.up.railway.app/api/v1/basket/', {
             headers: {
-                Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+                Authorization: `Bearer ${access}`,
             },
         }).then(response => {
             setCartWithProducts(response.data.products);
@@ -62,19 +71,35 @@ const Cart = () => {
             const body = {
                 quantity: cartWithProducts[indexOfCartWProducts].quantity,
             };
+            const session = await getSession(cookies);
+            if (!session) {
+                console.log("session not found")
+            }
+        const access = session.user.accessToken
+
             const config = {
                 headers: {
-                    'Authorization': `Bearer ${localStorage.getItem('accessToken')}`,
+                    'Authorization': `Bearer ${access}`,
                 },
             };
             try {
-                const response = await axios.patch(`${Url}/api/v1/basket/products/${idForRequest}`, body, config);
+                const response = await axios.patch(`https://shop-01it-group.up.railway.app/api/v1/basket/products/${idForRequest}`, body, config);
                 getBasket('INCREASE');
             } catch (error) {
-                console.error(error);
+                if (error.response && error.response.status === 400) {
+                        console.log(error.response)
+                        showAlert(
+                            'The quantity exceeds the maximum allowed value.',
+                            'error'
+                        );
+                    }
+                 else {
+                    console.error(error);
+                }
             }
         }
-    }
+    };
+
 
     const decreaseQuantity = async (indexOfCartWProducts, idForRequest) => {
         if (cartWithProducts[indexOfCartWProducts].quantity > 1) {
@@ -82,13 +107,19 @@ const Cart = () => {
             const body = {
                 quantity: cartWithProducts[indexOfCartWProducts].quantity,
             };
+            const session = await getSession(cookies);
+            if (!session) {
+                console.log("session not found")
+            }
+        const access = session.user.accessToken
+
             const config = {
                 headers: {
-                    'Authorization': `Bearer ${localStorage.getItem('accessToken')}`,
+                    'Authorization': `Bearer ${access}`,
                 },
             };
             try {
-                const response = await axios.patch(`${Url}/api/v1/basket/products/${idForRequest}`, body, config);
+                const response = await axios.patch(`https://shop-01it-group.up.railway.app/api/v1/basket/products/${idForRequest}`, body, config);
                 getBasket('DECREASE');
             } catch (error) {
                 console.error(error);
@@ -97,10 +128,16 @@ const Cart = () => {
     }
 
     const removeItem = async (index) => {
+        
         try {
-            const response = await axios.delete(`${config.baseUrl}/api/v1/basket/products/${index}`, {
+            const session = await getSession(cookies);
+        if (!session) {
+            console.log("session not found")
+        }
+         const access = session.user.accessToken
+            const response = await axios.delete(`https://shop-01it-group.up.railway.app/api/v1/basket/products/${index}`, {
                 headers: {
-                    Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+                    Authorization: `Bearer ${access}`,
                 },
             });
             getBasket();
@@ -110,10 +147,16 @@ const Cart = () => {
     };
 
     const cleanCart = async () => {
+        
         try {
-            const response = await axios.delete(`${config.baseUrl}/api/v1/basket/`, {
+            const session = await getSession(cookies);
+        if (!session) {
+            console.log("session not found")
+        }
+          const access = session.user.accessToken
+            const response = await axios.delete(`https://shop-01it-group.up.railway.app/api/v1/basket/`, {
                 headers: {
-                    Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+                    Authorization: `Bearer ${access}`,
                 },
             });
             await getBasket();
@@ -128,15 +171,15 @@ const Cart = () => {
                 !isLoading ?
                     cartWithProducts.length !== 0 ?
                         <>
-                            <div className='flex flex-col self-center mt-[25px] lg:flex-row'>
-                                <div className='w-full lg:w-3/4 rounded-md shadow-md mr-6 bg-white'>
+                            <div className='flex lg:flex-row flex-col mt-[25px]'>
+                                <div className='lg:w-3/4 w-full rounded-md shadow-md bg-white'>
                                     <div
-                                        className="w-full ProductSansLight text-md text-[#1075B2] pl-3 py-3 border-b-1px flex justify-between">
-                                        <p className='mr-1'>Количество товаров в корзине: <span
+                                        className="w-full ProductSansLight text-md text-[#1075B2] pl-3 py-3 border-b-1px flex sm:flex-row flex-col justify-between">
+                                        <p>Количество товаров в корзине: <span
                                             className="ProductSansMedium">  {cartWithProducts.length}</span></p>
                                         <button
                                             onClick={() => cleanCart()}
-                                            className="w-40 h-6 mr-3 text-[9px] sm:text-[11px] bg-[#1075B2] text-white rounded-[6px] flex justify-center items-center">
+                                            className="w-40 h-6 mr-3 text-[11px] bg-[#1075B2] text-white rounded-[6px] flex justify-center items-center">
                                             <Image
                                                 src={trashBinW}
                                                 alt="trashBinW"
@@ -152,36 +195,38 @@ const Cart = () => {
                                                             {wholePrice += result.product.price * result.quantity}</div>
                                                         <div className="hidden">
                                                             {quantity += result.quantity}</div>
-                                                        <div className="h-auto flex align-center justify-between pb-6 border-b-1px">
-                                                            <div className='w-1/3 pr-3'>
-                                                                {result.product.img_url ?
-                                                                    <Image className="ml-10" src={result.product.img_url}
-                                                                           width={300}
-                                                                           height={300} alt="Product Photo"/>
-                                                                    :
-                                                                    <Image className="ml-10" src={defaultImage} width={300}
-                                                                           height={300}
-                                                                           alt="Product Photo"/>
-                                                                }
-                                                            </div>
+                                                        <div className="h-auto flex md:flex-row flex-col w-full md:w-full align-center pb-6 border-b-1px">
+                                                            {result.product.img_url ?
+                                                                <Image
+                                                                    className="sm:ml-10 ml-4 ${styles.mobile-image}" // CSS classes applied to the image, including a margin-left of 10 and classes from a 'styles' object for mobile styling
+                                                                    src={result.product.img_url} // Source URL of the image, presumably coming from the 'img_url' property of the 'result.product' object
+                                                                    width={300} // Width of the image, set to 300 pixels
+                                                                    height={300} // Height of the image, set to 300 pixels
+                                                                    alt="Product Photo" // Alternative text for the image, to be displayed if the image fails to load or for accessibility purposes
+/>
 
-                                                            <div className="h-full flex-col justify-between ProductSansLight ml-10 mt-4 w-2/3">
+                                                                :
+                                                                <Image className="sm:ml-10 ml-4" src={defaultImage} width={300}
+                                                                       height={300}
+                                                                       alt="Product Photo"></Image>
+                                                            }
+                                                            <div className="h-full flex-col justify-between ProductSansLight ml-4 sm:ml-10 mt-4">
                                                                 <Link
                                                                     href={{pathname: `/products/${encodeURIComponent(result.product.name)}`}}
                                                                     key={result.product.id}
                                                                     onClick={() => dispatch(setPath([result.product.name]))}
                                                                 >
-                                                                    <div className="text-sm  md:text-[18px] mr-4">{result.product.name}</div>
+                                                                    <div className="text-[18px] mr-4 break-words">{result.product.name}</div>
                                                                 </Link>
                                                                 <div className='flex justify-between items-center'>
                                                                     <div
-                                                                        className="ProductSansMedium text-md md:text-lg w-32">{formatNumberWithSpaces(result.product.price)} ₸
+                                                                        className="ProductSansMedium text-lg w-32">{formatNumberWithSpaces(result.product.price)} ₸
                                                                     </div>
                                                                     <div
                                                                         className='mr-4 text-sm text-gray-500'>Артикул: {result.product.article}</div>
                                                                 </div>
                                                                 <div className="text-[12px] w-2/3 mt-3">{result.product.description}</div>
-                                                                <div className="flex justify-between items-center mt-8 sm:mt-16">
+                                                                <div className="flex justify-between items-center mt-16">
                                                                     {result.product.logo_url ?
                                                                         <Image className="mt-4 w-[35px] h-[35px]"
                                                                                src={result.product.logo_url}
@@ -190,34 +235,29 @@ const Cart = () => {
                                                                                src={defaultImage}
                                                                                alt="Company Logo"></Image>}
                                                                     <div className="flex items-center pt-4">
-                                                                        <div className='flex'>
-                                                                            <button
-                                                                                onClick={() => removeItem(result.product.id)}>
-                                                                                <Image
-                                                                                    className="mr-1 md:mr-4"
-                                                                                    src={trashBin}
-                                                                                    alt="trashBin"></Image>
-                                                                            </button>
-                                                                            <div className='flex'>
-                                                                                <button
-                                                                                    onClick={() => increaseQuantity(indexOfCartWProducts, result.product.id)}
-                                                                                    className="bg-[#E9E9E9] border-solid border-1px mr-customMargin rounded-[3px] w-5 flex justify-center items-center h-6">
-                                                                                    <Image className="w-3" src={plus} alt="+"/>
-                                                                                </button>
-                                                                                <div
-                                                                                    className="text-white bg-[#1075B2] mx-0.5 text-center mr-customMargin border-solid rounded-[3px] w-5 h-6">
-                                                                                    {cartWithProducts[indexOfCartWProducts].quantity}
-                                                                                </div>
-                                                                                <button
-                                                                                    onClick={() => decreaseQuantity(indexOfCartWProducts, result.product.id)}
-                                                                                    className="bg-[#E9E9E9] border-solid border-1px rounded-[3px] w-5 flex justify-center items-center h-6 mr-1 md:mr-4">
-                                                                                    <Image className="w-3" src={minus} alt="-"/>
-                                                                                </button>
-                                                                            </div>
-                                                                        </div>
-                                                                        
+                                                                        <button
+                                                                            onClick={() => removeItem(result.product.id)}>
+                                                                            <Image
+                                                                                className="mr-4"
+                                                                                src={trashBin}
+                                                                                alt="trashBin"></Image>
+                                                                        </button>
+                                                                        <button
+                                                                            onClick={() => increaseQuantity(indexOfCartWProducts, result.product.id)}
+                                                                            className="bg-[#E9E9E9] border-solid border-1px mr-customMargin rounded-[3px] w-5 flex justify-center items-center h-6">
+                                                                            <Image className="w-3" src={plus} alt="+"/>
+                                                                        </button>
                                                                         <div
-                                                                            className="mr-2 sm:mr-4 ProductSansMedium text-md md:text-lg sm:w-32">{formatNumberWithSpaces(Math.ceil(cartWithProducts[indexOfCartWProducts].quantity * result.product.price))} ₸
+                                                                            className="text-white bg-[#1075B2] mx-0.5 text-center mr-customMargin border-solid rounded-[3px] w-5 h-6">
+                                                                            {cartWithProducts[indexOfCartWProducts].quantity}
+                                                                        </div>
+                                                                        <button
+                                                                            onClick={() => decreaseQuantity(indexOfCartWProducts, result.product.id)}
+                                                                            className="bg-[#E9E9E9] border-solid border-1px rounded-[3px] w-5 flex justify-center items-center h-6 mr-4">
+                                                                            <Image className="w-3" src={minus} alt="-"/>
+                                                                        </button>
+                                                                        <div
+                                                                            className="mr-4 ProductSansMedium text-lg w-32">{formatNumberWithSpaces(cartWithProducts[indexOfCartWProducts].quantity * result.product.price)} ₸
                                                                         </div>
                                                                     </div>
                                                                 </div>
@@ -229,7 +269,7 @@ const Cart = () => {
                                         )
                                     )}
                                 </div>
-                                <div className='w-full  self-center h-64 sticky top-1 shadow-md rounded-md bg-white flex flex-col justify-between mt-4 lg:self-start md:w-2/3 lg:mt-0 lg:w-1/3'>
+                                <div className='mt-5 md:mt-0 lg:w-1/3 w-full h-64 sticky top-1 shadow-md rounded-md bg-white flex flex-col justify-between md:m-10'>
                                     <div className="flex-col">
                                         <div
                                             className="ProductSansLight text-[16px] text-[#1075B2] mb-1 ml-[45px] mt-[25px]">Промокод
@@ -259,13 +299,15 @@ const Cart = () => {
                                     </div>
                                 </div>
                             </div>
-                            <h3 className="flex justify-center mt-12 ProductSansLight text-xl text-[#1075B2]">ПЕРСОНАЛЬНЫЕ
-                                РЕКОМЕНДАЦИИ</h3>
+                            <div className={`flex w-full justify-center`}>
+                                <h3 className="flex justify-center mt-12 ProductSansLight text-xl text-[#1075B2]">ПЕРСОНАЛЬНЫЕ
+                                    РЕКОМЕНДАЦИИ</h3>
+                            </div>
                             <PopularProducts/>
                         </>
                         :
                         <>
-                            <div className="flex justify-center mt-10">
+                        <div className="flex justify-center mt-10">
                                 <Image className="w-28 h-28" src={emptyCart} alt="empty cart"></Image>
                             </div>
                             <div className="flex justify-center ProductSansLight text-lg my-[40px]">Ваша корзина пуста.

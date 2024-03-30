@@ -13,7 +13,7 @@ const Footer = () => {
                     <div className="h-44 bg-white flex justify-between min-[320px]:max-md:justify-around rounded-t-[10px] w-full  sm:w-full md:w-full">
                         <Image className="self-center ml-6 min-[320px]:max-md:hidden" src={logo} alt="logo"/>
                         <div className="ProductSansLight self-center mb-3">
-                            <p className="pb-5 ProductSansThin">ИНТЕРНЕТ МАГАЗИН</p>
+                            <p className="pb-5 ProductSansThin ">ИНТЕРНЕТ МАГАЗИН</p>
                             <p className="pb-1.5"><Link href="#">О компании</Link></p>
                             <p className="pb-1.5"><Link href="/delivery">Доставка</Link></p>
                             <p className=""><Link href="#">Реквизиты</Link></p>

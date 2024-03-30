@@ -7,17 +7,24 @@ import Link from "next/link";
 import PhoneNumberFormatter from "@/components/PhoneNumberFormatter";
 import { AlertContext } from "@/components/AlertContext";
 import {config} from '@/config';
-
+import { getSession } from "@/login";
+import { useCookies } from "react-cookie";
 
 let baseUrl = config.baseUrl;
 export default function OrderRegistration() {
     const [profile, setProfile] = useState({});
     const [basket, setBasket] = useState([]);
+    const [cookies] = useCookies(['session'])
 
     useEffect(() => {
         const getProfile = async () => {
+            const session = await getSession(cookies);
+            if (!session) {
+                console.log("session not found")
+            }
+            const access = session.user.accessToken
             const url = `${baseUrl}/auth/users/profile/`;
-            const bearerToken = localStorage.getItem("accessToken");
+            const bearerToken = access;
 
             const config = {
                 headers: {

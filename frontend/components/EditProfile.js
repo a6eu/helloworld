@@ -1,6 +1,7 @@
 import React, {useState} from "react";
 import axios from 'axios'
-
+import { useCookies } from "react-cookie";
+import { getSession } from "@/login";
 const EditProfile = ({url, profile, onSaveClick}) => {
     const [isLoading, setIsLoading] = useState(false);
     const [name, setName] = useState(profile.first_name);
@@ -17,6 +18,7 @@ const EditProfile = ({url, profile, onSaveClick}) => {
     const [birthdayError, setBirthdayError] = useState("");
     const [phoneError, setPhoneError] = useState("");
     const [cityError, setCityError] = useState("");
+    const [cookies] = useCookies(['session'])
 
     const validateName = () => {
         if (!/^[a-zA-Zа-яА-Я]+$/.test(name)) {
@@ -105,8 +107,11 @@ const EditProfile = ({url, profile, onSaveClick}) => {
 
 
             const patchProfile = async () => {
-                const bearerToken = localStorage.getItem("accessToken")
-                console.log(bearerToken)
+                const session = await getSession(cookies);
+                if (!session) {
+                    console.log("session not found")
+                }
+                 const bearerToken = session.user.accessToken               
                 const config = {
                     headers: {
                         Authorization: `Bearer ${bearerToken}`,

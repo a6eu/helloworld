@@ -5,14 +5,28 @@ import axios from 'axios';
 import '@smastrom/react-rating/style.css'
 import ProductItem from "@/components/ProductItem";
 import {config} from "@/config";
-
+import { useCookies } from 'react-cookie';
+import { getSession } from '@/login';
 function PopularProducts() {
     const [products, setProducts] = useState([]);
     const [token, setToken] = useState('');
+    const[cookies] = useCookies(['session'])
+
     useEffect(() => {
-        const accessToken = localStorage.getItem("accessToken");
-        setToken(accessToken);
-    }, []);
+        const fetchData = async () => {
+            
+                const session = await getSession(cookies);
+            if (!session) {
+                console.log("session not found")
+            }
+            const access = session.user.accessToken
+            setToken(access)
+
+                
+        };
+
+        fetchData();
+    }, []); 
 
 
     useEffect(() => {

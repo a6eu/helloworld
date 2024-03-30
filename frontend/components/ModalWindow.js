@@ -16,6 +16,7 @@ const ModalWindow = ({ closeModal }) => {
     const handleCityChange = (e) => {
       const selected = e.target.textContent;
       localStorage.setItem('city', selected);
+      window.location.reload();
       closeModal();
     };
   

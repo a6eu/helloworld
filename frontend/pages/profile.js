@@ -1,50 +1,55 @@
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
 import UserNavbar from "@/components/UserNavbar"
 import ProfileArea from "@/components/ProfileArea"
 import EditProfile from '@/components/EditProfile';
 import MainContainer from '@/components/MainContainer';
 import axios from "axios";
-import {config} from "@/config";
-
-
+import { config } from "@/config";
+import { useCookies } from 'react-cookie'; 
+import { getSession } from '@/login';
 function Profile() {
     const [isLoading, setIsLoading] = useState(false);
     const [isEditing, setIsEditing] = useState(false);
-    const [profile, setProfile] = useState({})
-    let url = `${config.baseUrl}/api/v1/auth/users/profile/`
+    const [profile, setProfile] = useState({});
+    const [cookies] = useCookies(['session']); 
+
+    let url = `${config.baseUrl}/api/v1/auth/users/profile/`;
 
     useEffect(() => {
-        const getProfile = async () => {
-            const bearerToken = localStorage.getItem("accessToken");
+        const fetchData = async () => {
+            const session = await getSession(cookies);
+            if (!session) {
+                console.log("session not found")
+                return;
+            }
+            
+            const accessToken = session.user.accessToken; 
             const config = {
                 headers: {
-                    Authorization: `Bearer ${bearerToken}`,
+                    Authorization: `Bearer ${accessToken}`,
                 },
             }
 
             try {
                 setIsLoading(true);
                 const response = await axios.get(url, config)
-                setIsLoading(false)
-                setProfile(response.data)
+                setIsLoading(false);
+                setProfile(response.data);
             } catch (error) {
-                console.log("Error")
-                console.log(error)
+                console.log("Error fetching profile:", error);
             }
         }
 
-        getProfile().then(r => {
-            console.log(r)
-        })
-    }, [])
+        fetchData();
+    }, [cookies, url]);
 
     const handleSaveClick = () => {
-        setIsEditing(false)
-        window.location.reload()
+        setIsEditing(false);
+        window.location.reload();
     }
 
     const handleEditClick = () => {
-        setIsEditing(true)
+        setIsEditing(true);
     }
 
     return (
@@ -87,4 +92,4 @@ function Profile() {
     )
 }
 
-export default Profile
+export default Profile;

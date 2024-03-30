@@ -8,11 +8,13 @@ import emptyBox from "@/public/images/emptyBox.svg";
 import axios from 'axios';
 import { AlertContext } from "@/components/AlertContext";
 import {config} from "@/config";
-
+import { useCookies } from "react-cookie";
+import { getSession } from "@/login";
 
 function MyOrders() {
     const [orders, setOrders] = useState([]);
     const { showAlert } = useContext(AlertContext);
+    const[cookies] = useCookies(['session'])
 
 
     
@@ -48,6 +50,11 @@ function MyOrders() {
 
 
         try {
+            const session = await getSession(cookies);
+            if (!session) {
+                console.log("session not found")
+            }
+            const access = session.user.accessToken
             const response = await axios.post(
                 `${config.baseUrl}/api/v1/basket/products/`,
                 {
@@ -56,7 +63,7 @@ function MyOrders() {
                 },
                 {
                     headers: {
-                        Authorization: "Bearer " + localStorage.getItem("accessToken"),
+                        Authorization: "Bearer " + access,
                     },
                 }
             );

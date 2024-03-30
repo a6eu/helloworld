@@ -4,7 +4,7 @@ import DescriptionChooser from "@/components/product-page/DescriptionChooser";
 const Descriptions = () => {
     return (
         <div className="flex flex-col w-full p-3">
-            <ul className="bg-white p-3 shadow-md mt-5">
+            <ul className="bg-white p-3 shadow-md mt-5 overflow-auto">
                 <li className="flex h-12 items-center pl-10 bg-white">
                     <div>Microsoft_UX_Design</div>
                     <div className="ml-[20%]">Microsoft_UX_Design</div>

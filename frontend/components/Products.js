@@ -3,7 +3,8 @@ import styles from "../styles/Products.module.css"
 import '@smastrom/react-rating/style.css'
 import ProductItem from "@/components/ProductItem";
 import {useEffect, useState} from "react";
-
+import { useCookies } from "react-cookie";
+import { getSession } from "@/login";
 const floatValues = [0.29, 1.44, 2.31, 3.48, 4.52];
 
 
@@ -11,10 +12,24 @@ const floatValues = [0.29, 1.44, 2.31, 3.48, 4.52];
 
 function Products({products, fetchingStatus}) {
     const [token, setToken] = useState('');
+    const[cookies] = useCookies(['session'])
+
     useEffect(() => {
-        const accessToken = localStorage.getItem("accessToken");
-        setToken(accessToken);
-    }, []);
+        const fetchData = async () => {
+            
+            const session = await getSession(cookies);
+            if (!session) {
+                console.log("session not found")
+            }
+            const access = session.user.accessToken
+            setToken(access)
+
+                
+        };
+
+        fetchData();
+    }, []); 
+
     return (
         <>
             {(fetchingStatus) ?

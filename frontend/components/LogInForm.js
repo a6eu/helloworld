@@ -1,7 +1,8 @@
 import React, {useState} from "react";
 import axios from "axios";
 import {config} from "@/config";
-
+import { useCookies } from "react-cookie";
+import { login_ } from "@/login";
 const LogInForm = ({onSignUpClick, onForgotClick, setIsModalOpen}) => {
     const [emailOrPhone, setEmailOrPhone] = useState("");
     const [password, setPassword] = useState("");
@@ -11,6 +12,7 @@ const LogInForm = ({onSignUpClick, onForgotClick, setIsModalOpen}) => {
     const [emailOrPhoneError, setEmailOrPhoneError] = useState("");
     const [passwordError, setPasswordError] = useState("");
     const [isLoading, setIsLoading] = useState(false);
+    const [cookies, setCookie] = useCookies(['session']); 
 
     const validateEmailOrPhone = (input) => {
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -29,49 +31,42 @@ const LogInForm = ({onSignUpClick, onForgotClick, setIsModalOpen}) => {
         setIsPassword(true);
     }
 
-    const login = (e) => {
+    const login = async (e) => {
         e.preventDefault();
 
-        const url = `${config.baseUrl}/api/v1/auth/users/login/`
-
-        setEmailOrPhoneError("")
-        setPasswordError("")
-
-        let isValid = true;
+        setLoginError("");
+        setIsLoading(true);
 
         if (!validatePassword(password)) {
-            setPasswordError("Пароль не может быть пустым.")
-            isValid = false
+            setLoginError("Пароль не может быть пустым.");
+            setIsLoading(false);
+            return;
         }
 
         if (!validateEmailOrPhone(emailOrPhone)) {
-            setEmailOrPhoneError("Введите действительный номер телефона или адрес электронной почты.")
-            isValid = false
+            setLoginError("Введите действительный номер телефона или адрес электронной почты.");
+            setIsLoading(false);
+            return;
         }
 
-        if (isValid) {
-            const requestBody = {
-                "email_or_phone": emailOrPhone,
-                "password": password
-            };
-            setIsLoading(true);
-            axios.post(url, requestBody)
-                .then((res) => {
-                    localStorage.setItem("accessToken", res.data.access);
-                    localStorage.setItem("refreshToken", res.data.refresh);
-                    setIsModalOpen(false);
-                    window.location.reload();
-                })
-                .catch((error) => {
-                    if (error.response && error.response.data && error.response.data.error) {
-                        setLoginError(error.response.data.error)
-                    }
-                    // console.log("ERROR", error.response.data.error)
-                });
+        const values = { username: emailOrPhone, password }; // Prepare values for login_
+
+        try {
+            const { success, session, messageText } = await login_(values, setCookie); // Call login_ function
+
+            if (success) {
+                setIsModalOpen(false);
+                window.location.reload();
+            } else {
+                setLoginError(messageText);
+            }
+        } catch (error) {
+            console.error("Login error:", error);
+            setLoginError("Не удалось авторизоваться");
+        } finally {
             setIsLoading(false);
         }
-    }
-
+    };
     const handleInputChange = (e) => {
         const value = e.target.value;
         setEmailOrPhone(value);

@@ -8,16 +8,23 @@ import { addProduct } from "@/slices/favSlice";
 import Image from "next/image";
 import emptyBox from "@/public/images/emptyBox.svg";
 import {config} from "@/config";
-
+import { useCookies } from "react-cookie";
+import { getSession } from "@/login";
 function Favorites() {
     const [filterResult, setFilterResult] = useState([]);
     const dispatch = useDispatch()
+    const [cookies] = useCookies(['session']);
     useEffect(() => {
         const fetchData = async () => {
             try {
+                const session = await getSession(cookies);
+            if (!session) {
+                console.log("session not found")
+            }
+            const access = session.user.accessToken
                 const response = await axios.get(`${config.baseUrl}/api/v1/favorites/products?page=1`, {
                     headers: {
-                        Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+                        Authorization: `Bearer ${access}`,
                     }
                 });
 
@@ -32,7 +39,7 @@ function Favorites() {
         };
 
         fetchData();
-        console.log(localStorage.getItem("accessToken"));
+        console.log(access);
     }, []); 
 
     return (

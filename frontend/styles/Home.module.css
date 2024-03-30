@@ -10,6 +10,12 @@
     -moz-box-shadow: -2px 6px 10px -11px rgba(0,0,0,0.75);
     box-shadow: -2px 6px 10px -11px rgba(0,0,0,0.75);
 }
+@media only screen and (max-width: 400px) {
+    .mobile-image {
+        max-width: 200px; 
+        max-height: 200px; 
+    }
+}
 
 .catalogContainer {
     overflow: hidden;

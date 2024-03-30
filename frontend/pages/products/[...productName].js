@@ -33,11 +33,10 @@ export default function ProductPage() {
         async function getBrand(brandName) {
             let response
             try {
-                response = await axios.get(`${config.baseUrl}/api/v1/brands/${brandName}`)
-
-                const brandLogo = response.data.results
-                setBrandName(response.data)
-                return brandLogo
+                response = await axios.get(`${config.baseUrl}/api/v1/brands/${brandName}`);
+                const brandLogo = response.data.results;
+                setBrandName(response.data);
+                return brandLogo;
             } catch (error) {
                 console.error(error);
             }

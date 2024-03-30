@@ -1,11 +1,12 @@
 import React from "react";
 import Image from "next/image";
-import profile from "@/pages/profile";
 import Link from "next/link";
-import {useRouter} from "next/navigation";
+import { useCookies } from "react-cookie";
+import { useRouter } from "next/router"; 
+import { logout } from "@/login";
 
-
-const ProfileArea = ({profile, onEditClick}) => {
+const ProfileArea = ({ profile, onEditClick }) => {
+    const { removeCookie } = useCookies(['session']);
 
     function formatPhoneNumber(phoneNumber) {
         if (!phoneNumber || phoneNumber.length !== 10) {
@@ -19,9 +20,8 @@ const ProfileArea = ({profile, onEditClick}) => {
         return `+7 ${areaCode} ${firstPart} ${secondPart}`;
     }
 
-    const LogOut = () => {
-        localStorage.removeItem("accessToken");
-        localStorage.removeItem("refreshToken");
+    const handleLogout = () => {
+        logout(removeCookie);
         const router = useRouter();
         router.back()
     }
@@ -71,7 +71,7 @@ const ProfileArea = ({profile, onEditClick}) => {
             <div className={"flex w-4/5 justify-center mt-5"}>
                 <Link href={"/"}
                       className={"rounded-[5px] hover:bg-red-100 border-red-400 text-red-400 border-2 px-3 py-1 transition duration-150"}
-                      onClick={LogOut}>
+                      onClick={handleLogout}>
                     Выйти
                 </Link>
             </div>
