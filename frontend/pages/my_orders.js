@@ -21,9 +21,14 @@ function MyOrders() {
     useEffect(() => {
         const fetchOrders = async () => {
             try {
+                const session = await getSession(cookies);
+                if (!session) {
+                    console.log("session not found")
+                }
+                const access = session?.user.accessToken
                 const res = await axios.get(`${config.baseUrl}/api/v1/orders/`, {
                     headers: {
-                        Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+                        Authorization: `Bearer ${access}`,
                     },
                 });
                 setOrders(res.data); 

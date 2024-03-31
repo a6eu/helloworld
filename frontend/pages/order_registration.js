@@ -23,7 +23,7 @@ export default function OrderRegistration() {
                 console.log("session not found")
             }
             const access = session?.user.accessToken
-            const url = `${baseUrl}/auth/users/profile/`;
+            const url = `${baseUrl}/api/v1/auth/users/profile/`;
             const bearerToken = access;
 
             const config = {
@@ -51,9 +51,14 @@ export default function OrderRegistration() {
     useEffect(() => {
         const getBasket = async () => {
             try {
+                const session = await getSession(cookies);
+                if (!session) {
+                    console.log("session not found")
+                }
+                const access = session?.user.accessToken
                 const response = await axios.get(`${baseUrl}/api/v1/basket/`, {
                     headers: {
-                        Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+                        Authorization: `Bearer ${access}`,
                     },
                 });
                 setBasket(response.data.products)
@@ -154,9 +159,14 @@ export default function OrderRegistration() {
             };
             console.log(data)
             try{
+                const session = await getSession(cookies);
+                if (!session) {
+                    console.log("session not found")
+                }
+                const access = session?.user.accessToken
                 const response = await axios.post(`${config.baseUrl}/api/v1/orders/`, data, {
                     headers: {
-                        Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+                        Authorization: `Bearer ${access}`,
                     },
                 });
                 console.log('Order submitted successfully:', response.data);
