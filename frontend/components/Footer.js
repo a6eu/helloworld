@@ -7,7 +7,7 @@ import Link from "next/link";
 
 const Footer = () => {
     return (
-        <footer className={" w-full flex justify-center align-center mt-20 sm:items-center sm:justify-between"}>
+        <footer className={" w-full flex justify-center align-center mt-20 sm:items-center"}>
             <div className="max-w-screen-xl w-full p-2">
                 <div className="flex justify-center">
                     <div className="h-44 bg-white flex justify-between min-[320px]:max-md:justify-around rounded-t-[10px] w-full  sm:w-full md:w-full">

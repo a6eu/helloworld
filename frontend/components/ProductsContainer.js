@@ -1,10 +1,9 @@
-
 import React, {useEffect, useState} from "react";
 import ProductItem from "./ProductItem";
 import Image from "next/image";
 import emptyBox from "../public/images/emptyBox.svg";
-import { Pagination } from 'antd';
-import { useCookies } from "react-cookie";
+import {Pagination} from 'antd';
+import {useCookies} from "react-cookie";
 import {getSession} from "@/login";
 
 const ProductsContainer = ({products, setCurrent, current, count}) => {

@@ -70,7 +70,7 @@ const Products = () => {
             <div className="h-auto w-full pt-1 flex flex-col items-center">
                 {
                     !isLoading ?
-                        <div className="h-full md:flex jus">
+                        <div className="h-full w-full md:flex jus">
                             <Filter setProducts={setFilterResult} products={products}/>
                             <div className="md:w-[75%] flex justify-center flex-col p-3 ">
                                 <div className="md:flex md:justify-between md:items-center mb-2 ml-[10px]">
