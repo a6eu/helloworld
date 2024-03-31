@@ -54,7 +54,7 @@ function MyOrders() {
             if (!session) {
                 console.log("session not found")
             }
-            const access = session.user.accessToken
+            const access = session?.user.accessToken
             const response = await axios.post(
                 `${config.baseUrl}/api/v1/basket/products/`,
                 {

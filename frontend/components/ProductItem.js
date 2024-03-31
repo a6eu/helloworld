@@ -81,7 +81,7 @@ const ProductItem = ({ product, signedIn }) => {
         if (!session) {
             console.log("session not found")
         }
-         const access = session.user.accessToken
+         const access = session?.user.accessToken
             const response = await axios.post(
                 `${config.baseUrl}/api/v1/basket/products/`,
                 {
@@ -113,7 +113,7 @@ const ProductItem = ({ product, signedIn }) => {
             if (!session) {
                 console.log("session not found")
             }
-            const access = session.user.accessToken
+            const access = session?.user.accessToken
             const response = await axios.delete(url, {
                 headers: {
                     Authorization: `Bearer ` + access
@@ -135,7 +135,7 @@ const ProductItem = ({ product, signedIn }) => {
             if (!session) {
                 console.log("session not found")
             }
-            const access = session.user.accessToken
+            const access = session?.user.accessToken
             const bearerToken = access;
             const config = {
                 headers: {

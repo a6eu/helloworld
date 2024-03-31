@@ -22,7 +22,7 @@ export default function OrderRegistration() {
             if (!session) {
                 console.log("session not found")
             }
-            const access = session.user.accessToken
+            const access = session?.user.accessToken
             const url = `${baseUrl}/auth/users/profile/`;
             const bearerToken = access;
 

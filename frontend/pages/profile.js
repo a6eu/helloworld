@@ -23,7 +23,7 @@ function Profile() {
                 return;
             }
             
-            const accessToken = session.user.accessToken; 
+            const accessToken = session?.user.accessToken; 
             const config = {
                 headers: {
                     Authorization: `Bearer ${accessToken}`,
