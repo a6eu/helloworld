@@ -23,7 +23,11 @@ const Home = ({ products}) => {
     }, []);
 
     return (
+
             <MainContainer>
+                <head>
+                    <title>Astana IT group, ваш любимый интернет-магазин</title>
+                </head>
                 {showModal && <ModalWindow closeModal={closeModal} />}
                 <News />
                 <Companies />

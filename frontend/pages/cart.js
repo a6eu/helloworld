@@ -12,10 +12,10 @@ import PopularProducts from '@/components/product-page/PopularProducts';
 import defaultImage from '@/public/images/picture.png'
 import {setPath} from "@/slices/breadcrumbSlice";
 import Link from "next/link";
-import styles from "../styles/Home.module.css";
 import { useCookies } from 'react-cookie';
 import { getSession } from '@/login';
-import { linkAnchorClasses } from '@nextui-org/react';
+import {config} from "@/config";
+
 
 function goToHome() {
     window.location.href = '/';
@@ -48,7 +48,7 @@ const Cart = () => {
         const access = session?.user.accessToken
         console.log("accessToken ", access)
 
-        axios.get('https://shop-01it-group.up.railway.app/api/v1/basket/', {
+        axios.get(`${config.baseUrl}/api/v1/basket/`, {
             headers: {
                 Authorization: `Bearer ${access}`,
             },
@@ -83,7 +83,7 @@ const Cart = () => {
                 },
             };
             try {
-                const response = await axios.patch(`https://shop-01it-group.up.railway.app/api/v1/basket/products/${idForRequest}`, body, config);
+                const response = await axios.patch(`${config.baseUrl}/api/v1/basket/products/${idForRequest}`, body, config);
                 getBasket('INCREASE');
             } catch (error) {
                 if (error.response && error.response.status === 400) {
@@ -119,7 +119,7 @@ const Cart = () => {
                 },
             };
             try {
-                const response = await axios.patch(`https://shop-01it-group.up.railway.app/api/v1/basket/products/${idForRequest}`, body, config);
+                const response = await axios.patch(`${config.baseUrl}/api/v1/basket/products/${idForRequest}`, body, config);
                 getBasket('DECREASE');
             } catch (error) {
                 console.error(error);
@@ -135,7 +135,7 @@ const Cart = () => {
             console.log("session not found")
         }
          const access = session?.user.accessToken
-            const response = await axios.delete(`https://shop-01it-group.up.railway.app/api/v1/basket/products/${index}`, {
+            const response = await axios.delete(`${config.baseUrl}/api/v1/basket/products/${index}`, {
                 headers: {
                     Authorization: `Bearer ${access}`,
                 },
@@ -154,7 +154,7 @@ const Cart = () => {
             console.log("session not found")
         }
           const access = session?.user.accessToken
-            const response = await axios.delete(`https://shop-01it-group.up.railway.app/api/v1/basket/`, {
+            const response = await axios.delete(`${config.baseUrl}/api/v1/basket/`, {
                 headers: {
                     Authorization: `Bearer ${access}`,
                 },

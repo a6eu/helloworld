@@ -188,7 +188,7 @@ const LogInForm = ({onSignUpClick, onForgotClick, setIsModalOpen}) => {
                 }
             </div>
             <div className="flex w-full justify-center">
-                <p className="flex mt-7 text-[14px]">
+                <p className="flex flex-row mt-7 text-[14px]">
                     У вас нет аккаунта?
                     <span className="text-[#1075B2] ml-2 cursor-pointer underline" onClick={onSignUpClick}>
                     Зарегистрироваться

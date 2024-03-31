@@ -5,7 +5,7 @@ import Link from "next/link";
 const News = () => (
     <div>
         <Link href={'/news'}
-            className="mt-3 h-full w-full rounded">
+            className="mt-3 w-full rounded">
             <Carousel leftControl="left" rightControl="right"/>
         </Link>
     </div>

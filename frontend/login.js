@@ -1,7 +1,6 @@
-import { useEffect } from "react";
 import { jwtVerify, SignJWT } from "jose";
 import axios from "axios";
-import { useCookies } from "react-cookie";
+import {config} from "@/config";
 
 const secretKey = "helloworld";
 const key = new TextEncoder().encode(secretKey);
@@ -13,7 +12,7 @@ export async function login_(values, setCookie) {
     };
 
     try {
-        const response = await axios.post('https://shop-01it-group.up.railway.app/api/v1/auth/users/login/', requestBody);
+        const response = await axios.post(`${config.baseUrl}/api/v1/auth/users/login/`, requestBody);
         console.log("Login response:", response);
 
         if (response.status < 200 || response.status >= 300) {

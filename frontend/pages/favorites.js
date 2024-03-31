@@ -43,6 +43,7 @@ function Favorites() {
 
     return (
         <MainContainer>
+            <head><title>Избранные товары</title></head>
             <div className="flex w-full">
                 <UserNavbar />
                 <div className="my-4 w-3/4 flex flex-col ">

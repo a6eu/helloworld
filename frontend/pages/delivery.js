@@ -3,6 +3,7 @@ import Image from "next/image";
 const Delivery = () => {
     return (
         <MainContainer>
+            <head><title>Информация о доставке</title></head>
             <div className="w-full pl-3 pr-3">
                 <h1 className="mt-10 text-2xl md:text-3xl text-[#1075B2]"> Доставка </h1>
                 <div className="flex flex-col items-center w-full mt-4 lg:flex-row-reverse lg: justify-center">
