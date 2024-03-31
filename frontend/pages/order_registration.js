@@ -5,10 +5,10 @@ import axios from "axios";
 import defaultImage from "@/public/images/picture.png"
 import Link from "next/link";
 import PhoneNumberFormatter from "@/components/PhoneNumberFormatter";
-import { AlertContext } from "@/components/AlertContext";
+import {AlertContext} from "@/components/AlertContext";
 import {config} from '@/config';
-import { getSession } from "@/login";
-import { useCookies } from "react-cookie";
+import {getSession} from "@/login";
+import {useCookies} from "react-cookie";
 
 let baseUrl = config.baseUrl;
 export default function OrderRegistration() {
@@ -24,11 +24,10 @@ export default function OrderRegistration() {
             }
             const access = session?.user.accessToken
             const url = `${baseUrl}/api/v1/auth/users/profile/`;
-            const bearerToken = access;
 
             const config = {
                 headers: {
-                    Authorization: `Bearer ${bearerToken}`,
+                    Authorization: `Bearer ${access}`,
                 },
             };
 
@@ -357,10 +356,10 @@ export default function OrderRegistration() {
                             </div>
                             <div
                                 className="flex flex-col border-dashed border-l-0 border-r-none w-full justify-between border-t-0 border-b-2 py-2 px-8">
-                                <div className="flex font-sans text-sm justify-center my-3">Оформляя заказ, вы
+                                <div className="flex font-sans text-sm justify-center my-3"><p>Оформляя заказ, вы
                                     подтверждаете свое согласие с&nbsp;<span
                                         className="text-[#1075B2] underline cursor-pointer">нашими условиями покупки</span>&nbsp;в
-                                    интернет-магазине
+                                    интернет-магазине</p>
                                 </div>
                                 <button
                                     className="bg-[#1075B2] rounded-md py-2 text-white justify-center"
