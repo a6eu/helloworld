@@ -58,6 +58,7 @@ function Favorites() {
 
     return (
         <MainContainer>
+            <head><title>Избранные товары</title></head>
             { isSessionActive ?
             <div className="flex w-full">
                 <UserNavbar />

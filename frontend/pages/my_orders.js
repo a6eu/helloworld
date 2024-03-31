@@ -130,6 +130,7 @@ function MyOrders() {
 
     return (
         <MainContainer>
+            <head><title>Мои заказы</title></head>
             <div className="flex justify-center">
                 <div className="flex justify-between w-full">
                     <UserNavbar/>

@@ -15,6 +15,7 @@ import Link from "next/link";
 import { useCookies } from 'react-cookie';
 import { getSession } from '@/login';
 import {config} from "@/config";
+import ModalDialog from "@/components/ModalDialog";
 
 
 function goToHome() {
@@ -150,6 +151,7 @@ const Cart = () => {
 
     return (
         <MainContainer>
+            <head><title>Корзина с товарами</title></head>
             {isSessionActive ?
                 !isLoading ?
                     cartWithProducts.length !== 0 ?

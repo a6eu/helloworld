@@ -39,6 +39,7 @@ const News = () => {
 
     return (
         <MainContainer>
+            <head><title>Новости</title></head>
             <div className={'w-full flex flex-col items-center'} id={"infiniteScroll"}>
                 <InfiniteScroll
                     dataLength={newsList.length}

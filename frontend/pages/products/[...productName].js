@@ -50,6 +50,7 @@ export default function ProductPage() {
 
     return (
         <MainContainer>
+            <head><title>{productName}</title></head>
             {
                 !isLoading ?
                     <>

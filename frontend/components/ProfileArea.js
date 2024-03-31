@@ -8,7 +8,7 @@ import { logout } from "@/login";
 const ProfileArea = ({ profile, onEditClick }) => {
     const [cookies, setCookie, removeCookie] = useCookies(['session']);
 
-    const logout = () => {
+    const Logout = () => {
         removeCookie('session', { path: '/' });
         const router = useRouter();
         router.back()
@@ -70,7 +70,7 @@ const ProfileArea = ({ profile, onEditClick }) => {
             <div className={"flex w-4/5 justify-center mt-5"}>
                 <Link href={"/"}
                       className={"rounded-[5px] hover:bg-red-100 border-red-400 text-red-400 border-2 px-3 py-1 transition duration-150"}
-                      onClick={logout}>
+                      onClick={Logout}>
                     Выйти
                 </Link>
             </div>

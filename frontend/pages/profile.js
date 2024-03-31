@@ -54,6 +54,7 @@ function Profile() {
 
     return (
         <MainContainer>
+            <head><title>Мой профиль</title></head>
             <div className="flex w-full justify-center ">
                 <div className="flex justify-between w-full">
                     <UserNavbar/>

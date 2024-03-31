@@ -117,6 +117,7 @@ const Products = () => {
 
 
     return (<MainContainer>
+            <head><title>{ctgDescription.name}</title></head>
             <div className="h-auto w-full pt-1 flex flex-col items-center">
                 {
                     !isLoading ?

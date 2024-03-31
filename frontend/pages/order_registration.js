@@ -182,6 +182,7 @@ export default function OrderRegistration() {
     }
 
     return (<MainContainer>
+        <head><title>Оформление заказа</title></head>
         <div className="flex w-full">
             <div className="flex flex-col w-full">
                 <h3 className="text-[#1075B2] text-[15px] mt-4 uppercase">ОФОРМЛЕНИЕ ЗАКАЗА</h3>
