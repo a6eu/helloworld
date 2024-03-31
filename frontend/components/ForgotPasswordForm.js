@@ -5,18 +5,24 @@ import {config} from "@/config";
 const ForgotPasswordForm = ({onLogInClick}) => {
     const [emailOrPhone, setEmailOrPhone] = useState('');
     const [error, setError] = useState('');
+    const [codeError, setCodeError] = useState('');
+    const [confirmError, setConfirmError] = useState('');
+    const [info, setInfo] = useState('');
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [isEmail, setIsEmail] = useState(false);
     const [resetToken, setResetToken] = useState('');
+    const [verificationCode, setVerificationCode] = useState('');
     const [newPassword, setNewPassword] = useState('');
-    const [isToken, setIsToken] = useState(true);
+    const [isToken, setIsToken] = useState(false);
+    const [isSend, setIsSend] = useState(false);
     const [password, setPassword] = useState("");
     const [repeatPasswd, setRepeatPasswd] = useState("");
     const [isPassword, setIsPassword] = useState(true);
+    const [isLoading, setIsLoading] = useState(false);
     const [passwordError, setPasswordError] = useState("");
     const [repeatPasswdError, setRepeatPasswdError] = useState("");
 
-    const validatePassword = (password) => password.length >= 6;
+    const validatePassword = (password) => password.length >= 8;
     const validateRepeatPassword = (password, repeatPassword) => password === repeatPassword;
 
     const handleShowClick = () => {
@@ -29,28 +35,31 @@ const ForgotPasswordForm = ({onLogInClick}) => {
 
     const validateInput = (input) => {
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        const phoneRegex = /^\d{10}$/;
-        return emailRegex.test(input) || phoneRegex.test(input);
+        return emailRegex.test(input);
     };
 
     const handleSendClick = async (e) => {
         e.preventDefault();
 
-        if (!validateInput(emailOrPhone)) {
-            setError('Введите действительный номер телефона или адрес электронной почты.');
+        if (verificationCode.length !== 7) {
+            setCodeError('Введенный код не действителен.');
             return;
         }
 
-        setError('');
+        setCodeError('');
+        setInfo('');
         setIsSubmitting(true);
 
         try {
-            await axios.post(`${config.baseUrl}/api/v1/auth/password-reset-request/`, {
-                email: emailOrPhone,
-            });
+            // axios.post(`${config.baseUrl}/api/v1/auth/password-reset-request/`, {
+            //     email: verificationCode,
+            // }).then((response) => {
+            //     console.log(response.data);
+            // })
             setIsToken(true);
+            setIsSend(false)
         } catch (error) {
-            setError('Ошибка при отправке запроса. Пожалуйста, попробуйте снова.');
+            setCodeError('Ошибка при отправке запроса. Пожалуйста, попробуйте снова.');
         }
 
         setIsSubmitting(false);
@@ -66,23 +75,31 @@ const ForgotPasswordForm = ({onLogInClick}) => {
 
         setError('');
         setIsSubmitting(true);
-
+        setIsLoading(true);
         try {
             // Send reset token request
             await axios.post(`${config.baseUrl}/api/v1/auth/password-reset-request/`, {
                 email: emailOrPhone,
+            }).then((response) => {
+                if (response.data.message == "If an account with that email exists, we've sent an email with a password reset code."){
+                    setInfo("Мы отправили код на указанную почту")
+                }
+                console.log(response.data)
+                setIsSend(true);
+                setIsToken(false);
             });
-            setIsToken(true); // Update token state after successful request
         } catch (error) {
             setError('Ошибка при отправке запроса. Пожалуйста, попробуйте снова.');
         }
-
+        setIsLoading(false);
         setIsSubmitting(false);
     };
 
-    const handleSubmitPassword = async () => {
+    const handleSubmitPassword = async (e) => {
+        e.preventDefault();
+
         if (!validatePassword(password)) {
-            setPasswordError("Пароль должен быть не менее 6 символов.");
+            setPasswordError("Пароль должен быть не менее 8 символов.");
             return;
         }
         if (!validateRepeatPassword(password, repeatPasswd)) {
@@ -90,16 +107,24 @@ const ForgotPasswordForm = ({onLogInClick}) => {
             return;
         }
         setError('');
+        setInfo('');
+        setConfirmError('')
         setIsSubmitting(true);
 
         try {
             await axios.post(`${config.baseUrl}/api/v1/auth/password-reset-confirm/`, {
-                reset_token: resetToken,
+                reset_token: verificationCode,
                 new_password: password
+            }).then((r) => {
+                console.log(r)
+                onLogInClick();
             })
         } catch (error) {
-            setError('Ошибка при отправке запроса. Пожалуйста, попробуйте снова.');
+            if (error.response.data.error == "Invalid token.") {
+                setConfirmError("Неверный код")
+            }
         }
+        setIsSubmitting(false);
     }
 
     return (
@@ -108,30 +133,32 @@ const ForgotPasswordForm = ({onLogInClick}) => {
                 <label
                     className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
                     htmlFor="emailOrPhone">
-                    Номер телефона или e-mail
+                    E-mail
                 </label>
                 <div className="relative">
-                    {!isEmail && (<span
-                            id={"plus7"}
-                            className={`${isEmail && 'hidden'} absolute inset-y-0 left-0 pl-2 flex items-center w-9 rounded-tl rounded-bl bg-[#1075B2] text-white`}>+7</span>
 
-                    )}
                     <span
                         onClick={handleSendResetToken}
                         className={`absolute -inset-y-[1.5px] cursor-pointer hover:shadow right-0 pl-2 flex items-center bg-white px-3 h-12 rounded text-[#1075B2] border-2 border-[#1075b2]`}>выслать код</span>
                     <input
                         id="emailOrPhone"
                         type="text"
-                        onChange={(e) => {setEmailOrPhone(e.target.value)}}
-                        className={`appearance-none pl-10 ${isEmail && 'pl-2'} block w-full bg-white text-gray-700 border border-[#1075B2] rounded py-3 px-4  leading-tight focus:outline-none focus:bg-white focus:border-gray-500 hover:shadow-lg transition duration-500`}
-                        placeholder={isEmail ? "example@mail.com" : "1234567890"}
+                        onChange={(e) => {
+                            setEmailOrPhone(e.target.value)
+                            setError('')
+                            setInfo('')
+                            setConfirmError('')
+                        }}
+                        className={`appearance-none pl-2 block w-full bg-white text-gray-700 border border-[#1075B2] rounded py-3 px-4  leading-tight focus:outline-none focus:bg-white focus:border-gray-500 hover:shadow-lg transition duration-500`}
+                        placeholder={"example@mail.com"}
                         required
                     />
                 </div>
                 {error && <p className="text-xs text-red-500">{error}</p>}
+                {info && <p className="text-xs text-green-500">{info}</p>}
             </div>
             {
-                isToken &&
+                isSend &&
                 <div className="flex w-full flex-wrap mb-6">
                     <div className="w-full">
                         <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
@@ -141,15 +168,20 @@ const ForgotPasswordForm = ({onLogInClick}) => {
                         <input
                             id="resetToken"
                             type="text"
-                            onChange={(e) => {setResetToken(e.target.value)}}
+                            onChange={(e) => {
+                                setVerificationCode(e.target.value)
+                                setCodeError('')
+                                setConfirmError('')
+                            }}
                             className="appearance-none block w-full bg-white text-gray-700 border border-[#1075B2] rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white"
                             required
                         />
+                        {codeError && <p className="text-xs text-red-500">{codeError}</p>}
                     </div>
                 </div>
             }
             <div>
-                {!isToken &&
+                {isToken &&
                     (
                         <>
                             <div className="w-full mb-7">
@@ -164,6 +196,8 @@ const ForgotPasswordForm = ({onLogInClick}) => {
                                         className=" appearance-none block w-full bg-white text-gray-700 border border-[#1075B2] rounded py-1 px-2.5  leading-tight focus:outline-none focus:bg-white focus:border-gray-500 hover:shadow-lg transition duration-500"
                                         onChange={(e) => {
                                             setPassword(e.target.value)
+                                            setPasswordError('')
+                                            setConfirmError('')
                                         }}
                                     />
                                     {passwordError && <p className="text-red-500 text-xs absolute">{passwordError}</p>}
@@ -208,29 +242,41 @@ const ForgotPasswordForm = ({onLogInClick}) => {
                                 </label>
                                 <input type="password"
                                        className="appearance-none block w-full bg-white text-gray-700 border border-[#1075B2] rounded py-1 px-2.5 leading-tight focus:outline-none focus:bg-white focus:border-gray-500 hover:shadow-lg transition duration-500"
-                                       onChange={(e) => setRepeatPasswd(e.target.value)}/>
+                                       onChange={(e) => {
+                                           setRepeatPasswd(e.target.value)
+                                           setRepeatPasswdError('')
+                                           setConfirmError('')
+                                       }}/>
                                 {repeatPasswdError && <p className="text-red-500 text-xs">{repeatPasswdError}</p>}
+                                {confirmError && <p className="text-red-500 w-full text-center mt-5 text-xs">{confirmError}</p>}
+
                             </div>
                         </>
                     )
                 }
             </div>
             <div className={`flex flex-row`}>
-                {isToken ?
+                {isSend &&
                     <button
                         onClick={handleSendClick}
                         className="cursor-pointer hover:shadow-xl flex flex-wrap w-[50%] h-8 bg-[#1075B2] justify-center text-white rounded items-center"
                         disabled={isSubmitting}
                     >
                         {isSubmitting ? 'Отправка...' : 'Отправить код'}
-                    </button> :
-                    <button
-                        onclick={handleSubmitPassword}
-                        className="cursor-pointer hover:shadow-xl flex flex-wrap w-[50%] h-8 bg-[#1075B2] justify-center text-white rounded items-center"
-                        disabled={isSubmitting}
-                    >
-                        {isSubmitting ? 'Проверка...' : 'Подтвердить пароль'}
                     </button>
+                }
+                {   isToken &&
+                    <>
+                        <button
+                            onClick={handleSubmitPassword}
+                            className="cursor-pointer hover:shadow-xl flex flex-wrap w-[50%] h-8 bg-[#1075B2] justify-center text-white rounded items-center"
+                            disabled={isSubmitting}
+                        >
+                            {isSubmitting ? 'Проверка...' : 'Подтвердить пароль'}
+                        </button>
+
+                    </>
+
                 }
                 <div className={`w-1/2 flex justify-center`}>
                     <span

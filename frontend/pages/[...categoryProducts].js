@@ -104,18 +104,22 @@ const Products = () => {
                 let tempCtg = [...ctg];
                 let lastChild = categoryProducts[categoryProducts.length - 1];
 
+                console.log('temp ctg', tempCtg)
                 for (let i = 0; i < tempCtg.length; i++) {
                     if (getResDesc(tempCtg, i, lastChild)) {
                         return;
                     }
 
                     tempCtg = tempCtg[i].children;
+                    console.log("1 child temp", tempCtg)
                     for (let j = 0; j < tempCtg.length; j++) {
                         if (getResDesc(tempCtg, j, lastChild)) {
                             return;
                         }
 
                         tempCtg = tempCtg[j].children;
+                        console.log("2 child temp", tempCtg)
+
                         for (let k = 0; k < tempCtg.length; k++) {
                             if (getResDesc(tempCtg, k, lastChild)) {
                                 return;
