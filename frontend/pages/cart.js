@@ -45,7 +45,7 @@ const Cart = () => {
             if (!session) {
                 console.log("session not found")
             }
-        const access = session.user.accessToken
+        const access = session?.user.accessToken
         console.log("accessToken ", access)
 
         axios.get('https://shop-01it-group.up.railway.app/api/v1/basket/', {
@@ -75,7 +75,7 @@ const Cart = () => {
             if (!session) {
                 console.log("session not found")
             }
-        const access = session.user.accessToken
+        const access = session?.user.accessToken
 
             const config = {
                 headers: {
@@ -111,7 +111,7 @@ const Cart = () => {
             if (!session) {
                 console.log("session not found")
             }
-        const access = session.user.accessToken
+        const access = session?.user.accessToken
 
             const config = {
                 headers: {
@@ -134,7 +134,7 @@ const Cart = () => {
         if (!session) {
             console.log("session not found")
         }
-         const access = session.user.accessToken
+         const access = session?.user.accessToken
             const response = await axios.delete(`https://shop-01it-group.up.railway.app/api/v1/basket/products/${index}`, {
                 headers: {
                     Authorization: `Bearer ${access}`,
@@ -153,7 +153,7 @@ const Cart = () => {
         if (!session) {
             console.log("session not found")
         }
-          const access = session.user.accessToken
+          const access = session?.user.accessToken
             const response = await axios.delete(`https://shop-01it-group.up.railway.app/api/v1/basket/`, {
                 headers: {
                     Authorization: `Bearer ${access}`,

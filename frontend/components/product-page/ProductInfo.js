@@ -31,7 +31,7 @@ const ProductInfo = ({product, brandName}) => {
             if (!session) {
                 console.log("session not found")
             }
-            const access = session.user.accessToken
+            const access = session?.user.accessToken
                 const response = await axios.post(
                 url,
                 {

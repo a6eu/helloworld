@@ -111,7 +111,7 @@ const EditProfile = ({url, profile, onSaveClick}) => {
                 if (!session) {
                     console.log("session not found")
                 }
-                 const bearerToken = session.user.accessToken               
+                 const bearerToken = session?.user.accessToken               
                 const config = {
                     headers: {
                         Authorization: `Bearer ${bearerToken}`,

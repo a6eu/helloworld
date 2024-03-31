@@ -21,7 +21,7 @@ function Favorites() {
             if (!session) {
                 console.log("session not found")
             }
-            const access = session.user.accessToken
+            const access = session?.user.accessToken
                 const response = await axios.get(`${config.baseUrl}/api/v1/favorites/products?page=1`, {
                     headers: {
                         Authorization: `Bearer ${access}`,

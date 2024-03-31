@@ -19,7 +19,7 @@ function PopularProducts() {
             if (!session) {
                 console.log("session not found")
             }
-            const access = session.user.accessToken
+            const access = session?.user.accessToken
             setToken(access)
 
                 
