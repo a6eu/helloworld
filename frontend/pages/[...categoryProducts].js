@@ -86,26 +86,26 @@ const Products = () => {
             description = category[0]?.description;
             setCtgDescription({description: description, name: category[0]?.name});
 
-            if (categoryProducts?.length >= 2) {
-                category = category[0]?.children.filter((item) => item.categoryId === categoryProducts[1])
-                if (category && category[0].description) {
-                    let secDescription = category[0].description ? category[0].description : description;
-                    description = secDescription;
-                    setCtgDescription({description: secDescription, name: category[0]?.name});
-                    console.log('2',category, secDescription, categoryProducts[1])
-                } else {
-                    setCtgDescription({description: description, name: category[0]?.name});
-                }
+            if (categoryProducts) {
+                if (categoryProducts.length >= 2) {
+                    category = category[0]?.children.filter((item) => item.categoryId === categoryProducts[1])
+                    if (category && category[0].description) {
+                        let secDescription = category[0].description ? category[0].description : description;
+                        description = secDescription;
+                        setCtgDescription({description: secDescription, name: category[0]?.name});
+                    } else {
+                        setCtgDescription({description: description, name: category[0].name});
+                    }
 
-            }
-            if (categoryProducts?.length >= 3) {
-                category = category[0].children.filter((item) => item.categoryId === categoryProducts[2])
-                if (category && category[0].description) {
-                    let thirdDescription = category[0].description ? category[0].description : description;
-                    setCtgDescription({description: thirdDescription, name: category[0].name});
-                    console.log('3',category, thirdDescription, categoryProducts[2])
-                } else {
-                    setCtgDescription({description: description, name: category[0].name});
+                }
+                if (categoryProducts.length >= 3) {
+                    category = category[0].children.filter((item) => item.categoryId === categoryProducts[2])
+                    if (category && category[0].description) {
+                        let thirdDescription = category[0].description ? category[0].description : description;
+                        setCtgDescription({description: thirdDescription, name: category[0].name});
+                    } else {
+                        setCtgDescription({description: description, name: category[0].name});
+                    }
                 }
             }
         };
