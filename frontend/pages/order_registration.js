@@ -31,6 +31,9 @@ export default function OrderRegistration() {
                 },
             };
 
+
+
+            
             try {
                 const response = await axios.get(url, config);
                 setProfile(response.data);
