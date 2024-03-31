@@ -6,8 +6,15 @@ import { useRouter } from "next/router";
 import { logout } from "@/login";
 
 const ProfileArea = ({ profile, onEditClick }) => {
-    const { removeCookie } = useCookies(['session']);
+    // const { removeCookie } = useCookies(['session']);
 
+    const [cookies, setCookie, removeCookie] = useCookies(['session']);
+
+    const logout = () => {
+        removeCookie('session', { path: '/' }); // Удаляем куку сессии
+        const router = useRouter();
+        router.back()
+    }
     function formatPhoneNumber(phoneNumber) {
         if (!phoneNumber || phoneNumber.length !== 10) {
             return 'Invalid phone number';
@@ -18,12 +25,6 @@ const ProfileArea = ({ profile, onEditClick }) => {
         const secondPart = phoneNumber.substring(6);
 
         return `+7 ${areaCode} ${firstPart} ${secondPart}`;
-    }
-
-    const handleLogout = () => {
-        logout(removeCookie);
-        const router = useRouter();
-        router.back()
     }
 
     return (
@@ -71,7 +72,7 @@ const ProfileArea = ({ profile, onEditClick }) => {
             <div className={"flex w-4/5 justify-center mt-5"}>
                 <Link href={"/"}
                       className={"rounded-[5px] hover:bg-red-100 border-red-400 text-red-400 border-2 px-3 py-1 transition duration-150"}
-                      onClick={handleLogout}>
+                      onClick={logout}>
                     Выйти
                 </Link>
             </div>

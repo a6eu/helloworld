@@ -39,8 +39,7 @@ function Favorites() {
         };
 
         fetchData();
-        console.log(access);
-    }, []); 
+    }, []);
 
     return (
         <MainContainer>
