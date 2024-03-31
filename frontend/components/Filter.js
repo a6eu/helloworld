@@ -44,7 +44,7 @@ const Filter = ({setProducts, products}) => {
         setProducts(brandFilter);
     }
     return (
-        <div className="inline-block w-full md:w-[25%] bg-white pl-8 md:p-3 pt-8 h-min rounded-b-lg ">
+        <div className="inline-block w-full  bg-white pl-8 md:p-3 pt-8 h-min rounded-b-lg ">
             <p className="text-[#1075B2] text-lg ProductSansMedium mb-5">Фильтры</p>
             <div className={'flex'}>
                 <p className="text-[#1075B2] mr-2 ProductSansLight">Цена (₸) </p>
