@@ -26,8 +26,11 @@ const Cart = () => {
     let wholePrice = 0;
     let quantity = 0;
     const [isLoading, setIsLoading] = useState(false);
+    const [isModalOpen, setIsModalOpen] = useState(true);
     const [cookies] = useCookies(['session']);
     const [accessT, setAccessToken] = useState("");
+    const [isSessionActive, setIsSessionActive] = useState(false);
+
     function formatNumberWithSpaces(number) {
         if (number) {
             let roundedNumber = parseFloat(number).toFixed(2);
@@ -38,136 +41,116 @@ const Cart = () => {
         }
     }
 
-    const getBasket = async (fromWhere) => {
-        if(fromWhere === 'GET')
-            setIsLoading(true);
-        const session = await getSession(cookies);
-            if (!session) {
-                console.log("session not found")
-            }
-        const access = session?.user.accessToken
-        console.log("accessToken ", access)
+    useEffect(() => {
+        const checkSession = async () => {
+            const session = await getSession(cookies);
+            setIsSessionActive(!!session);
+            // Если сессия не активна, открываем модальное окно
+            setIsModalOpen(!session);
+        };
 
-        axios.get(`${config.baseUrl}/api/v1/basket/`, {
-            headers: {
-                Authorization: `Bearer ${access}`,
-            },
-        }).then(response => {
+        checkSession();
+        getBasket('GET'); // Загрузка корзины при монтировании компонента
+    }, [cookies]);
+
+    const getBasket = async () => {
+        if (!isSessionActive) {
+            console.log("session not found");
+            return;
+        }
+        setIsLoading(true);
+        const session = await getSession(cookies);
+        const accessToken = session?.user.accessToken;
+        try {
+            const response = await axios.get(`${config.baseUrl}/api/v1/basket/`, {
+                headers: {
+                    Authorization: `Bearer ${accessToken}`,
+                },
+            });
             setCartWithProducts(response.data.products);
-            if(fromWhere === 'GET')
-                setIsLoading(false);
-        }).catch((error) => {
+            setIsLoading(false);
+        } catch (error) {
             console.error('Error fetching products:', error);
-        });
+            setIsLoading(false);
+        }
     };
 
     useEffect(() => {
         getBasket('GET')
     }, []);
 
-    const increaseQuantity = async (indexOfCartWProducts, idForRequest) => {
-        if (cartWithProducts[indexOfCartWProducts].quantity >= 1) {
-            cartWithProducts[indexOfCartWProducts].quantity += 1;
-            const body = {
-                quantity: cartWithProducts[indexOfCartWProducts].quantity,
-            };
-            const session = await getSession(cookies);
-            if (!session) {
-                console.log("session not found")
-            }
-        const access = session?.user.accessToken
-
-            const config = {
+    const updateQuantity = async (productId, newQuantity) => {
+        if (!isSessionActive) {
+            console.log("session not found");
+            return;
+        }
+        const session = await getSession(cookies);
+        const accessToken = session?.user.accessToken;
+        try {
+            await axios.patch(`https://shop-01it-group.up.railway.app/api/v1/basket/products/${productId}`, {
+                quantity: newQuantity,
+            }, {
                 headers: {
-                    'Authorization': `Bearer ${access}`,
+                    Authorization: `Bearer ${accessToken}`,
                 },
-            };
-            try {
-                const response = await axios.patch(`${config.baseUrl}/api/v1/basket/products/${idForRequest}`, body, config);
-                getBasket('INCREASE');
-            } catch (error) {
-                if (error.response && error.response.status === 400) {
-                        console.log(error.response)
-                        showAlert(
-                            'The quantity exceeds the maximum allowed value.',
-                            'error'
-                        );
-                    }
-                 else {
-                    console.error(error);
-                }
-            }
+            });
+            getBasket(); // Обновляем корзину после изменения количества
+        } catch (error) {
+            console.error('Error updating quantity:', error);
         }
     };
 
+    const increaseQuantity = (productId, currentQuantity) => {
+        updateQuantity(productId, currentQuantity + 1);
+    };
 
-    const decreaseQuantity = async (indexOfCartWProducts, idForRequest) => {
-        if (cartWithProducts[indexOfCartWProducts].quantity > 1) {
-            cartWithProducts[indexOfCartWProducts].quantity -= 1;
-            const body = {
-                quantity: cartWithProducts[indexOfCartWProducts].quantity,
-            };
-            const session = await getSession(cookies);
-            if (!session) {
-                console.log("session not found")
-            }
-        const access = session?.user.accessToken
-
-            const config = {
-                headers: {
-                    'Authorization': `Bearer ${access}`,
-                },
-            };
-            try {
-                const response = await axios.patch(`${config.baseUrl}/api/v1/basket/products/${idForRequest}`, body, config);
-                getBasket('DECREASE');
-            } catch (error) {
-                console.error(error);
-            }
+    const decreaseQuantity = (productId, currentQuantity) => {
+        if (currentQuantity > 1) {
+            updateQuantity(productId, currentQuantity - 1);
         }
-    }
+    };
 
-    const removeItem = async (index) => {
-        
+    const removeItem = async (productId) => {
+        if (!isSessionActive) {
+            console.log("session not found");
+            return;
+        }
+        const session = await getSession(cookies);
+        const accessToken = session?.user.accessToken;
         try {
-            const session = await getSession(cookies);
-        if (!session) {
-            console.log("session not found")
-        }
-         const access = session?.user.accessToken
-            const response = await axios.delete(`${config.baseUrl}/api/v1/basket/products/${index}`, {
+            await axios.delete(`https://shop-01it-group.up.railway.app/api/v1/basket/products/${productId}`, {
                 headers: {
-                    Authorization: `Bearer ${access}`,
+                    Authorization: `Bearer ${accessToken}`,
                 },
             });
-            getBasket();
+            getBasket(); // Обновляем корзину после удаления товара
         } catch (error) {
             console.error('Error removing product:', error);
         }
     };
 
     const cleanCart = async () => {
-        
-        try {
-            const session = await getSession(cookies);
-        if (!session) {
-            console.log("session not found")
+        if (!isSessionActive) {
+            console.log("session not found");
+            return;
         }
-          const access = session?.user.accessToken
-            const response = await axios.delete(`${config.baseUrl}/api/v1/basket/`, {
+        const session = await getSession(cookies);
+        const accessToken = session?.user.accessToken;
+        try {
+            await axios.delete(`https://shop-01it-group.up.railway.app/api/v1/basket/`, {
                 headers: {
-                    Authorization: `Bearer ${access}`,
+                    Authorization: `Bearer ${accessToken}`,
                 },
             });
-            await getBasket();
+            getBasket(); // Обновляем корзину после очистки
         } catch (error) {
-            console.error('Error cleaning bucket', error);
+            console.error('Error cleaning cart', error);
         }
-    }
+    };
 
     return (
         <MainContainer>
-            {
+            {isSessionActive ?
                 !isLoading ?
                     cartWithProducts.length !== 0 ?
                         <>
@@ -195,7 +178,8 @@ const Cart = () => {
                                                             {wholePrice += result.product.price * result.quantity}</div>
                                                         <div className="hidden">
                                                             {quantity += result.quantity}</div>
-                                                        <div className="h-auto flex md:flex-row flex-col w-full md:w-full align-center pb-6 border-b-1px">
+                                                        <div
+                                                            className="h-auto flex md:flex-row flex-col w-full md:w-full align-center pb-6 border-b-1px">
                                                             {result.product.img_url ?
                                                                 <Image
                                                                     className="sm:ml-10 ml-4 ${styles.mobile-image}" // CSS classes applied to the image, including a margin-left of 10 and classes from a 'styles' object for mobile styling
@@ -203,20 +187,23 @@ const Cart = () => {
                                                                     width={300} // Width of the image, set to 300 pixels
                                                                     height={300} // Height of the image, set to 300 pixels
                                                                     alt="Product Photo" // Alternative text for the image, to be displayed if the image fails to load or for accessibility purposes
-/>
+                                                                />
 
                                                                 :
-                                                                <Image className="sm:ml-10 ml-4" src={defaultImage} width={300}
+                                                                <Image className="sm:ml-10 ml-4" src={defaultImage}
+                                                                       width={300}
                                                                        height={300}
                                                                        alt="Product Photo"></Image>
                                                             }
-                                                            <div className="h-full flex-col justify-between ProductSansLight ml-4 sm:ml-10 mt-4">
+                                                            <div
+                                                                className="h-full flex-col justify-between ProductSansLight ml-4 sm:ml-10 mt-4">
                                                                 <Link
                                                                     href={{pathname: `/products/${encodeURIComponent(result.product.name)}`}}
                                                                     key={result.product.id}
                                                                     onClick={() => dispatch(setPath([result.product.name]))}
                                                                 >
-                                                                    <div className="text-[18px] mr-4 break-words">{result.product.name}</div>
+                                                                    <div
+                                                                        className="text-[18px] mr-4 break-words">{result.product.name}</div>
                                                                 </Link>
                                                                 <div className='flex justify-between items-center'>
                                                                     <div
@@ -225,8 +212,10 @@ const Cart = () => {
                                                                     <div
                                                                         className='mr-4 text-sm text-gray-500'>Артикул: {result.product.article}</div>
                                                                 </div>
-                                                                <div className="text-[12px] w-2/3 mt-3">{result.product.description}</div>
-                                                                <div className="flex justify-between items-center mt-16">
+                                                                <div
+                                                                    className="text-[12px] w-2/3 mt-3">{result.product.description}</div>
+                                                                <div
+                                                                    className="flex justify-between items-center mt-16">
                                                                     {result.product.logo_url ?
                                                                         <Image className="mt-4 w-[35px] h-[35px]"
                                                                                src={result.product.logo_url}
@@ -269,7 +258,8 @@ const Cart = () => {
                                         )
                                     )}
                                 </div>
-                                <div className='mt-5 md:mt-0 lg:w-1/3 w-full h-64 sticky top-1 shadow-md rounded-md bg-white flex flex-col justify-between md:m-10'>
+                                <div
+                                    className='mt-5 md:mt-0 lg:w-1/3 w-full h-64 sticky top-1 shadow-md rounded-md bg-white flex flex-col justify-between md:m-10'>
                                     <div className="flex-col">
                                         <div
                                             className="ProductSansLight text-[16px] text-[#1075B2] mb-1 ml-[45px] mt-[25px]">Промокод
@@ -291,10 +281,12 @@ const Cart = () => {
                                             <div className="text-xl">{formatNumberWithSpaces(wholePrice)} ₸</div>
                                         </div>
                                         <div className="flex justify-center">
-                                            <Link className="ProductSansLight mt-2 mb-6 text-sm flex justify-center items-center text-[#1075B2] border-1px border-[#1075B2] h-[34px] w-3/4 rounded-md transition ease-in-out delay-50 hover:bg-[#1075B2] hover:text-white" href="/order_registration">
+                                            <Link
+                                                className="ProductSansLight mt-2 mb-6 text-sm flex justify-center items-center text-[#1075B2] border-1px border-[#1075B2] h-[34px] w-3/4 rounded-md transition ease-in-out delay-50 hover:bg-[#1075B2] hover:text-white"
+                                                href="/order_registration">
                                                 ОФОРМИТЬ ЗАКАЗ
                                             </Link>
-                                            
+
                                         </div>
                                     </div>
                                 </div>
@@ -307,10 +299,11 @@ const Cart = () => {
                         </>
                         :
                         <>
-                        <div className="flex justify-center mt-10">
+                            <div className="flex justify-center mt-10">
                                 <Image className="w-28 h-28" src={emptyCart} alt="empty cart"></Image>
                             </div>
-                            <div className="flex justify-center ProductSansLight text-lg my-[40px]">Ваша корзина пуста.
+                            <div className="flex justify-center ProductSansLight text-lg my-[40px]">Ваша корзина
+                                пуста.
                             </div>
                             <div className="flex justify-center">
                                 <button
@@ -335,6 +328,8 @@ const Cart = () => {
                             </div>
                         </div>
                     </div>
+                :
+                <ModalDialog isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen}/>
             }
         </MainContainer>
     );
