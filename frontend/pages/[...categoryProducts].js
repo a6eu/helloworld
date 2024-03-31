@@ -85,9 +85,8 @@ const Products = () => {
             let category = ctg.filter((item) => item.categoryId === categoryProducts[0]);
             description = category[0]?.description;
             setCtgDescription({description: description, name: category[0]?.name});
-            console.log('1',category, description, categoryProducts[0])
 
-            if (categoryProducts.length >= 2) {
+            if (categoryProducts?.length >= 2) {
                 category = category[0]?.children.filter((item) => item.categoryId === categoryProducts[1])
                 if (category && category[0].description) {
                     let secDescription = category[0].description ? category[0].description : description;
@@ -95,11 +94,11 @@ const Products = () => {
                     setCtgDescription({description: secDescription, name: category[0]?.name});
                     console.log('2',category, secDescription, categoryProducts[1])
                 } else {
-                    setCtgDescription({description: description, name: category[0].name});
+                    setCtgDescription({description: description, name: category[0]?.name});
                 }
 
             }
-            if (categoryProducts.length >= 3) {
+            if (categoryProducts?.length >= 3) {
                 category = category[0].children.filter((item) => item.categoryId === categoryProducts[2])
                 if (category && category[0].description) {
                     let thirdDescription = category[0].description ? category[0].description : description;
