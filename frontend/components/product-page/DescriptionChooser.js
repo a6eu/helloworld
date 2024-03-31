@@ -1,14 +1,44 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import Descriptions from "./Descriptions";
 import Reviews from './Reviews';
 import CompanyInfo from './CompanyInfo';
+import axios from "axios";
+import {config} from "@/config";
+import { useCookies } from 'react-cookie';
+import { getSession } from '@/login';
 
 function DescriptionChooser({product, brand}) {
   const [type, setType] = useState("Descriptions");
   const [newDesign, setNewDesign] = useState("bg-[#1075B2] text-white");
   const [popularDesign, setPopularDesign] = useState("text-[#1075B2]");
   const [recommendedDesign, setRecommendedDesign] = useState("text-[#1075B2]");
+  const [cookies] = useCookies(['session'])
+  const [reviews, setReviews] = useState([]);
 
+  useEffect(() => {
+    const fetchReviews = async () => {
+      try {
+        const session = await getSession(cookies);
+            if (!session) {
+                console.log("session not found")
+            }
+        const accessToken = session?.user.accessToken
+        console.log(product.id)
+        const response = await axios.get(
+          `${config.baseUrl}/api/v1/product/${product.id}/comments/`,
+          {
+            headers: {
+              Authorization: 'Bearer ' + accessToken,
+            },
+          }
+        );
+        setReviews(response.data);
+      } catch (error) {
+        console.error('Error fetching reviews:', error);
+      }
+    };
+    fetchReviews();
+  }, [product.id]);
 
   function typeSet(typeProd) {
     setType(typeProd);
@@ -27,6 +57,9 @@ function DescriptionChooser({product, brand}) {
     }
   }
 
+
+
+
   return (
       <div className="w-full flex justify-center flex-col md:flex-row">
         <div className={'flex flex-col mt-1 w-full md:w-3/5 gap-0 md:gap-5'}>
@@ -43,8 +76,8 @@ function DescriptionChooser({product, brand}) {
             </div>
           </div>
           <div className='flex-col justify-center w-full'>
-            {type === 'Descriptions' && <Descriptions/>}
-            {type === 'Reviews' && <Reviews/>}
+            {type === 'Descriptions' && <Descriptions product={product}/>}
+            {type === 'Reviews' && <Reviews reviews={reviews}/>}
           </div>
         </div>
         <CompanyInfo brandInfo={brand}/>

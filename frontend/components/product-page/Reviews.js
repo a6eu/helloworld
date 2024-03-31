@@ -15,7 +15,7 @@ const Reviews = ({ reviews }) => {
       </div>
     );
   }
-
+  console.log(reviews)
   return (
     <div className="flex flex-col w-7/12 p-3 mr-4 mt-5">
       <ul className="h-[600px] overflow-y-auto">
@@ -43,12 +43,6 @@ const Reviews = ({ reviews }) => {
               <div><Stars starAvg={review.rating} /></div>
             </div>
             <div className="w-[90%] p-3">
-              <p className="text-[14px] ProductSansLight text-justify">
-                <strong><i>Достоинства:</i></strong>&nbsp; {review.content}
-              </p>
-              <p className="text-[14px] ProductSansLight text-justify">
-                <strong><i>Недостатки:</i></strong> {/* Include actual drawbacks if available */}
-              </p>
               <p className="text-[14px] ProductSansLight text-justify">
                 <strong><i>Комментарий:</i></strong> {review.content}
               </p>
