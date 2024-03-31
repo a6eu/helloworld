@@ -88,7 +88,7 @@ const Cart = () => {
         const session = await getSession(cookies);
         const accessToken = session?.user.accessToken;
         try {
-            await axios.patch(`https://shop-01it-group.up.railway.app/api/v1/basket/products/${productId}`, {
+            await axios.patch(`${config.baseUrl}/api/v1/basket/products/${productId}`, {
                 quantity: newQuantity,
             }, {
                 headers: {
@@ -119,7 +119,7 @@ const Cart = () => {
         const session = await getSession(cookies);
         const accessToken = session?.user.accessToken;
         try {
-            await axios.delete(`https://shop-01it-group.up.railway.app/api/v1/basket/products/${productId}`, {
+            await axios.delete(`${config.baseUrl}/api/v1/basket/products/${productId}`, {
                 headers: {
                     Authorization: `Bearer ${accessToken}`,
                 },
@@ -138,7 +138,7 @@ const Cart = () => {
         const session = await getSession(cookies);
         const accessToken = session?.user.accessToken;
         try {
-            await axios.delete(`https://shop-01it-group.up.railway.app/api/v1/basket/`, {
+            await axios.delete(`${config.baseUrl}/api/v1/basket/`, {
                 headers: {
                     Authorization: `Bearer ${accessToken}`,
                 },
