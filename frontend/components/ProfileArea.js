@@ -6,12 +6,10 @@ import { useRouter } from "next/router";
 import { logout } from "@/login";
 
 const ProfileArea = ({ profile, onEditClick }) => {
-    // const { removeCookie } = useCookies(['session']);
-
     const [cookies, setCookie, removeCookie] = useCookies(['session']);
 
     const logout = () => {
-        removeCookie('session', { path: '/' }); // Удаляем куку сессии
+        removeCookie('session', { path: '/' });
         const router = useRouter();
         router.back()
     }
