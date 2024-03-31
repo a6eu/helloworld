@@ -2,6 +2,7 @@ import React, {useContext, useState} from "react";
 import {AlertContext} from "@/components/AlertContext";
 import axios from "axios";
 import Link from "next/link";
+import {config} from "@/config";
 
 const Demand = () => {
     const [name, setName] = useState('');
