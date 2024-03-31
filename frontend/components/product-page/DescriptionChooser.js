@@ -43,7 +43,7 @@ function DescriptionChooser({product, brand}) {
             </div>
           </div>
           <div className='flex-col justify-center w-full'>
-            {type === 'Descriptions' && <Descriptions/>}
+            {type === 'Descriptions' && <Descriptions product={product}/>}
             {type === 'Reviews' && <Reviews/>}
           </div>
         </div>
