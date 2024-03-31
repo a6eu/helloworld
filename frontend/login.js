@@ -1,5 +1,3 @@
-
-
 import { useEffect } from "react";
 import { jwtVerify, SignJWT } from "jose";
 import axios from "axios";
@@ -50,9 +48,10 @@ export async function decrypt(input) {
         return payload;
     } catch (error) {
         console.error("Decrypt error:", error);
-        throw new Error('Невозможно расшифровать токен');
+        return null; 
     }
 }
+
 
 export async function logout(removeCookie) {
     removeCookie('session');
@@ -61,7 +60,14 @@ export async function logout(removeCookie) {
 export async function getSession(cookies) { 
     const session = cookies.session;
     if (!session) return null;
-    return await decrypt(session);
+
+    const decryptedSession = await decrypt(session);
+    if (!decryptedSession) {
+        console.error('Failed to decrypt session token');
+        return null;
+    }
+
+    return decryptedSession;
 }
 
 
