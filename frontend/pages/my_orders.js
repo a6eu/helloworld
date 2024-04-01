@@ -16,22 +16,20 @@ function MyOrders() {
     const { showAlert } = useContext(AlertContext);
     const[cookies] = useCookies(['session'])
 
-
-    
     useEffect(() => {
         const fetchOrders = async () => {
             try {
                 const session = await getSession(cookies);
                 if (!session) {
-                    console.log("session not found")
+                    console.log("session not found");
                 }
-                const access = session?.user.accessToken
+                const access = session?.user.accessToken;
                 const res = await axios.get(`${config.baseUrl}/api/v1/orders/`, {
                     headers: {
                         Authorization: `Bearer ${access}`,
                     },
                 });
-                setOrders(res.data); 
+                setOrders(res.data);
             } catch (error) {
                 console.error('Failed to fetch orders:', error);
             }
@@ -39,9 +37,8 @@ function MyOrders() {
 
         fetchOrders();
     }, []);
-    console.log('orders: ');
-    console.log(orders);
-    
+    console.log('orders: ', orders);
+
     const [selectedOrder, setSelectedOrder] = useState(null);
 
     const handleToggle = (orderId) => {
@@ -140,9 +137,6 @@ function MyOrders() {
                         <p className="font-sans mt-2 mb-2 text-[#1075B2]">
                             У вас {orders.count} {getOrdersText(orders.count)}
                         </p>
-
-
-
 
                         {orders.count > 0 ? (
                             <div className="flex flex-col shadow-lg rounded mt-1 bg-white w-full ">

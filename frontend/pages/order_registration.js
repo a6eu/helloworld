@@ -146,10 +146,13 @@ export default function OrderRegistration() {
 
         if (isNameValid && isPhoneValid && isFieldFilled && isPaymentMethodValid) {
             const orderItems = basket.map(item => ({
-                product_id: item.product.id, 
+                product_id: item.id,
                 quantity: item.quantity,
             }));
-            console.log(orderItems);
+            basket.map((item) => {
+                console.log(item.id);
+                console.log(item.quantity);
+            })
             const data = {
                 order_items: orderItems,
                 address: field,
@@ -159,7 +162,6 @@ export default function OrderRegistration() {
                 recipient_name: name,
                 recipient_phone: phone,
             };
-            console.log(data)
             try{
                 const session = await getSession(cookies);
                 if (!session) {
