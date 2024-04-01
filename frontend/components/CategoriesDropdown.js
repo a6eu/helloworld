@@ -223,7 +223,7 @@ export default function CatalogDropdown() {
                                                             <ChevronUpIcon
                                                                 className={`${
                                                                     open ? 'rotate-180 transform' : ''
-                                                                } h-5 w-5 text-[#1075b2]`}
+                                                                } h-5 w-5 mt-4 text-[#1075b2]`}
                                                             />
                                                         </Disclosure.Button>
                                                         <Disclosure.Panel>

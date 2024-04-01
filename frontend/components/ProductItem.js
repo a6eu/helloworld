@@ -72,14 +72,12 @@ const ProductItem = ({ product, signedIn }) => {
     };
 
     const handleButtonClick = async (product_id, quantity) => {
-        // console.log('product_id: ' + product.id);
-        // console.log('quantity: ' + quantity);
         const url = `${config.baseUrl}/api/v1/basket/products/`;
 
         try {
             const session = await getSession(cookies);
         if (!session) {
-            console.log("session not found")
+            console.log("session not found: NOW")
         }
          const access = session?.user.accessToken
             const response = await axios.post(
@@ -94,8 +92,9 @@ const ProductItem = ({ product, signedIn }) => {
                     },
                 }
             );
-
+                console.log("After post method")
             if (response.status === 201) {
+                console.log('Ваш товар успешно добавлен в корзину!')
                 showAlert('Ваш товар успешно добавлен в корзину!', 'success');
             }
 
@@ -104,6 +103,8 @@ const ProductItem = ({ product, signedIn }) => {
             showAlert('Возможно у нас нет столько продуктов, сколько вы хотите добавить!', 'error');
         }
     };
+
+    
 
     const deleteFavClick = async () => {
         const url = `${config.baseUrl}/api/v1/favorites/products/${product.id}`

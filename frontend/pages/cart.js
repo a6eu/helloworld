@@ -13,7 +13,7 @@ import defaultImage from '@/public/images/picture.png'
 import {setPath} from "@/slices/breadcrumbSlice";
 import Link from "next/link";
 import { useCookies } from 'react-cookie';
-import { getSession } from '@/login';
+import { getSession } from '@/login';   
 import {config} from "@/config";
 import ModalDialog from "@/components/ModalDialog";
 
@@ -30,7 +30,7 @@ const Cart = () => {
     const [isModalOpen, setIsModalOpen] = useState(true);
     const [cookies] = useCookies(['session']);
     const [accessT, setAccessToken] = useState("");
-    const [isSessionActive, setIsSessionActive] = useState(false);
+    const [isSessionActive, setIsSessionActive] = useState(true);
 
     function formatNumberWithSpaces(number) {
         if (number) {
@@ -45,18 +45,20 @@ const Cart = () => {
     useEffect(() => {
         const checkSession = async () => {
             const session = await getSession(cookies);
-            setIsSessionActive(!!session);
+            setIsSessionActive(session);
             // Если сессия не активна, открываем модальное окно
             setIsModalOpen(!session);
         };
 
         checkSession();
-        getBasket('GET'); // Загрузка корзины при монтировании компонента
+        
+        getBasket(); // Загрузка корзины при монтировании компонента
     }, [cookies]);
 
     const getBasket = async () => {
+        console.log("first");
         if (!isSessionActive) {
-            console.log("session not found");
+            console.log("session not found: sp you wont see products(");
             return;
         }
         setIsLoading(true);
@@ -76,10 +78,6 @@ const Cart = () => {
         }
     };
 
-    useEffect(() => {
-        getBasket('GET')
-    }, []);
-
     const updateQuantity = async (productId, newQuantity) => {
         if (!isSessionActive) {
             console.log("session not found");
@@ -88,7 +86,7 @@ const Cart = () => {
         const session = await getSession(cookies);
         const accessToken = session?.user.accessToken;
         try {
-            await axios.patch(`https://shop-01it-group.up.railway.app/api/v1/basket/products/${productId}`, {
+            await axios.patch(`${config.baseUrl}/api/v1/basket/products/${productId}`, {
                 quantity: newQuantity,
             }, {
                 headers: {
@@ -119,7 +117,7 @@ const Cart = () => {
         const session = await getSession(cookies);
         const accessToken = session?.user.accessToken;
         try {
-            await axios.delete(`https://shop-01it-group.up.railway.app/api/v1/basket/products/${productId}`, {
+            await axios.delete(`${config.baseUrl}/api/v1/basket/products/${productId}`, {
                 headers: {
                     Authorization: `Bearer ${accessToken}`,
                 },
@@ -138,7 +136,7 @@ const Cart = () => {
         const session = await getSession(cookies);
         const accessToken = session?.user.accessToken;
         try {
-            await axios.delete(`https://shop-01it-group.up.railway.app/api/v1/basket/`, {
+            await axios.delete(`${config.baseUrl}/api/v1/basket/`, {
                 headers: {
                     Authorization: `Bearer ${accessToken}`,
                 },

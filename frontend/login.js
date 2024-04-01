@@ -20,7 +20,7 @@ export async function login_(values, setCookie) {
         }
 
         const user = { accessToken: response.data.access, refreshToken: response.data.refresh };
-        const expires = new Date(Date.now() + 2 * 3600 * 1000);
+        const expires = new Date(Date.now() + 30 * 60 * 1000);
         const session = await encrypt({ user, expires });
         setCookie('session', session, { expires });
 
@@ -32,10 +32,11 @@ export async function login_(values, setCookie) {
 }
 
 export async function encrypt(payload) {
+    const expires = new Date(Date.now() + 30 * 60 * 1000); 
     return await new SignJWT(payload)
         .setProtectedHeader({ alg: "HS256" })
         .setIssuedAt()
-        .setExpirationTime("120 sec from now")
+        .setExpirationTime(expires)
         .sign(key);
 }
 
