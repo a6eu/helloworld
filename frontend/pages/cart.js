@@ -143,7 +143,7 @@ const Cart = () => {
                     Authorization: `Bearer ${accessToken}`,
                 },
             });
-            getBasket(); // Обновляем корзину после очистки
+            getBasket();
         } catch (error) {
             console.error('Error cleaning cart', error);
         }
