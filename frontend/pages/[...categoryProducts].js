@@ -50,8 +50,19 @@ const Products = () => {
             }
         };
 
+        const fetchData = async () => {
+            try {
+                const response = await axios.get(`${config.baseUrl}/api/v1/categories/`);
+                setCtg(response.data);
+                console.log("CTG", response.data)
+            } catch (error) {
+                console.error('Error fetching data:', error);
+            }
+        };
+
 
         getCategoryProducts();
+        fetchData();
 
     }, [categoryProducts, current])
 
@@ -70,50 +81,59 @@ const Products = () => {
     }, [selectedOption])
 
     useEffect(() => {
-        const fetchData = async () => {
-            try {
-                const response = await axios.get(`${config.baseUrl}/api/v1/categories/`);
-                setCtg(response.data);
-                console.log("CTG", response.data)
-            } catch (error) {
-                console.error('Error fetching data:', error);
+
+        const getResDesc = (tempCtg, i, lastChild) => {
+            console.log("TEST ", i, tempCtg[i].name, lastChild)
+            if (tempCtg[i].name === lastChild) {
+                let res = {};
+                if (tempCtg[i].description){
+                    res.descripion = tempCtg[i].description;
+                }
+                if (tempCtg[i].name) {
+                    res.name = tempCtg[i].name;
+                }
+                console.log("RES", res);
+                setCtgDescription(res);
+                return true;
             }
-        };
+            return false;
+        }
 
         const getCtgDescription = () => {
-            let description;
-            let category = ctg.filter((item) => item.categoryId === categoryProducts[0]);
-            description = category[0]?.description;
-            setCtgDescription({description: description, name: category[0]?.name});
+            if (ctg && ctg.length && categoryProducts) {
+                let tempCtg = [...ctg];
+                let lastChild = categoryProducts[categoryProducts.length - 1];
 
-            if (categoryProducts) {
-                if (categoryProducts.length >= 2) {
-                    category = category[0]?.children.filter((item) => item.categoryId === categoryProducts[1])
-                    if (category && category[0].description) {
-                        let secDescription = category[0].description ? category[0].description : description;
-                        description = secDescription;
-                        setCtgDescription({description: secDescription, name: category[0]?.name});
-                    } else {
-                        setCtgDescription({description: description, name: category[0].name});
+                console.log('temp ctg', tempCtg)
+                for (let i = 0; i < tempCtg.length; i++) {
+                    if (getResDesc(tempCtg, i, lastChild)) {
+                        return;
                     }
 
-                }
-                if (categoryProducts.length >= 3) {
-                    category = category[0].children.filter((item) => item.categoryId === categoryProducts[2])
-                    if (category && category[0].description) {
-                        let thirdDescription = category[0].description ? category[0].description : description;
-                        setCtgDescription({description: thirdDescription, name: category[0].name});
-                    } else {
-                        setCtgDescription({description: description, name: category[0].name});
+                    tempCtg = tempCtg[i].children;
+                    console.log("1 child temp", tempCtg)
+                    for (let j = 0; j < tempCtg.length; j++) {
+                        if (getResDesc(tempCtg, j, lastChild)) {
+                            return;
+                        }
+
+                        tempCtg = tempCtg[j].children;
+                        console.log("2 child temp", tempCtg)
+
+                        for (let k = 0; k < tempCtg.length; k++) {
+                            if (getResDesc(tempCtg, k, lastChild)) {
+                                return;
+                            }
+                        }
                     }
                 }
+
             }
         };
 
-        fetchData();
         getCtgDescription();
-    }, [products])
 
+    }, [ctg, products])
 
 
     return (<MainContainer>

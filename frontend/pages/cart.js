@@ -13,7 +13,7 @@ import defaultImage from '@/public/images/picture.png'
 import {setPath} from "@/slices/breadcrumbSlice";
 import Link from "next/link";
 import { useCookies } from 'react-cookie';
-import { getSession } from '@/login';
+import { getSession } from '@/login';   
 import {config} from "@/config";
 import ModalDialog from "@/components/ModalDialog";
 
@@ -30,7 +30,7 @@ const Cart = () => {
     const [isModalOpen, setIsModalOpen] = useState(true);
     const [cookies] = useCookies(['session']);
     const [accessT, setAccessToken] = useState("");
-    const [isSessionActive, setIsSessionActive] = useState(false);
+    const [isSessionActive, setIsSessionActive] = useState(true);
 
     function formatNumberWithSpaces(number) {
         if (number) {
@@ -45,23 +45,26 @@ const Cart = () => {
     useEffect(() => {
         const checkSession = async () => {
             const session = await getSession(cookies);
-            setIsSessionActive(!!session);
+            setIsSessionActive(session);
             // Если сессия не активна, открываем модальное окно
             setIsModalOpen(!session);
         };
 
         checkSession();
-        getBasket('GET'); // Загрузка корзины при монтировании компонента
+        
+        getBasket(); // Загрузка корзины при монтировании компонента
     }, [cookies]);
 
     const getBasket = async () => {
+        console.log("first");
         if (!isSessionActive) {
-            console.log("session not found");
+            console.log("session not found: sp you wont see products(");
             return;
         }
         setIsLoading(true);
         const session = await getSession(cookies);
         const accessToken = session?.user.accessToken;
+        console.log("token", accessToken)
         try {
             const response = await axios.get(`${config.baseUrl}/api/v1/basket/`, {
                 headers: {
@@ -75,10 +78,6 @@ const Cart = () => {
             setIsLoading(false);
         }
     };
-
-    useEffect(() => {
-        getBasket('GET')
-    }, []);
 
     const updateQuantity = async (productId, newQuantity) => {
         if (!isSessionActive) {
@@ -95,17 +94,18 @@ const Cart = () => {
                     Authorization: `Bearer ${accessToken}`,
                 },
             });
-            getBasket(); // Обновляем корзину после изменения количества
+            getBasket();
         } catch (error) {
             console.error('Error updating quantity:', error);
         }
     };
 
-    const increaseQuantity = (productId, currentQuantity) => {
+    const increaseQuantity = (currentQuantity, productId) => {
         updateQuantity(productId, currentQuantity + 1);
+        console.log(productId, currentQuantity)
     };
 
-    const decreaseQuantity = (productId, currentQuantity) => {
+    const decreaseQuantity = (currentQuantity, productId) => {
         if (currentQuantity > 1) {
             updateQuantity(productId, currentQuantity - 1);
         }
@@ -143,7 +143,7 @@ const Cart = () => {
                     Authorization: `Bearer ${accessToken}`,
                 },
             });
-            getBasket(); // Обновляем корзину после очистки
+            getBasket();
         } catch (error) {
             console.error('Error cleaning cart', error);
         }
@@ -234,7 +234,7 @@ const Cart = () => {
                                                                                 alt="trashBin"></Image>
                                                                         </button>
                                                                         <button
-                                                                            onClick={() => increaseQuantity(indexOfCartWProducts, result.product.id)}
+                                                                            onClick={() => increaseQuantity(cartWithProducts[indexOfCartWProducts].quantity, result.product.id)}
                                                                             className="bg-[#E9E9E9] border-solid border-1px mr-customMargin rounded-[3px] w-5 flex justify-center items-center h-6">
                                                                             <Image className="w-3" src={plus} alt="+"/>
                                                                         </button>
@@ -243,7 +243,7 @@ const Cart = () => {
                                                                             {cartWithProducts[indexOfCartWProducts].quantity}
                                                                         </div>
                                                                         <button
-                                                                            onClick={() => decreaseQuantity(indexOfCartWProducts, result.product.id)}
+                                                                            onClick={() => decreaseQuantity(cartWithProducts[indexOfCartWProducts].quantity, result.product.id)}
                                                                             className="bg-[#E9E9E9] border-solid border-1px rounded-[3px] w-5 flex justify-center items-center h-6 mr-4">
                                                                             <Image className="w-3" src={minus} alt="-"/>
                                                                         </button>
