@@ -9,6 +9,7 @@ const nextConfig = {
       'aizyldyz-bucket.s3.amazonaws.com',
       'b2b.marvel.kz', // Added this domain as per your requirement
       'www.google.com',
+      '01itgroup.s3.amazonaws.com'
     ],
   },
   // Include any other configurations you need here
