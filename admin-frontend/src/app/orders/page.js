@@ -175,12 +175,12 @@ const Page = () => {
                                             label: 'В обработке',
                                         },
                                         {
-                                            value: 'Payment',
-                                            label: 'Ожидает оплаты',
+                                            value: 'C',
+                                            label: 'Доставлен',
                                         },
                                         {
-                                            value: 'Delivering',
-                                            label: 'В доставке',
+                                            value: 'O',
+                                            label: 'В пути',
                                         },
                                     ]}
                             />
