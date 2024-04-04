@@ -126,6 +126,9 @@ const Page = () => {
     };
     return (
         <div>
+            <h2>
+                Продукты
+            </h2>
             <>
                 <div className={"w-full flex justify-between mb-10"}>
                     <div className={"w-[70%] flex"}>
