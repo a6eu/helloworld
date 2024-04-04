@@ -15,7 +15,7 @@ const validateMessages = {
 };
 
 
-const EditItemModal = ({apiUrl, item, open, setOpen, setReloadData}) => {
+const EditBrandModal = ({apiUrl, item, open, setOpen, setReloadData}) => {
     const [form] = Form.useForm();
     const [fileList, setFileList] = useState([]);
 
@@ -56,11 +56,11 @@ const EditItemModal = ({apiUrl, item, open, setOpen, setReloadData}) => {
             .then(async (values) => {
                 const session = await getSession();
                 const formData = new FormData();
-                formData.append("title", values.title);
-                formData.append("content", values.content);
+                formData.append("name", values.name);
+                formData.append("description", values.description);
                 if (fileList.length > 0) {
                     const file = fileList[0].originFileObj;
-                    formData.append("image", file);
+                    formData.append("logo_url", file);
                 }
                 const config = {
                     headers: {
@@ -103,8 +103,8 @@ const EditItemModal = ({apiUrl, item, open, setOpen, setReloadData}) => {
                     validateMessages={validateMessages}
                 >
                     <Form.Item
-                        name='title'
-                        label="Название"
+                        name='name'
+                        label="Название продукта"
                         rules={[
                             {
                                 required: true,
@@ -115,8 +115,8 @@ const EditItemModal = ({apiUrl, item, open, setOpen, setReloadData}) => {
                         <Input/>
                     </Form.Item>
                     <Form.Item
-                        name='content'
-                        label="Контент"
+                        name='description'
+                        label="Описание"
                         rules={[
                             {
                                 required: true,
@@ -142,4 +142,4 @@ const EditItemModal = ({apiUrl, item, open, setOpen, setReloadData}) => {
     );
 };
 
-export default EditItemModal;
+export default EditBrandModal;

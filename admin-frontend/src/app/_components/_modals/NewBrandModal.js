@@ -15,7 +15,7 @@ const validateMessages = {
 };
 
 
-const NewItemModal = ({apiUrl, open, setOpen, setReloadData}) => {
+const NewBrandModal = ({apiUrl, open, setOpen, setReloadData}) => {
     const [form] = Form.useForm();
     const [fileList, setFileList] = useState([]);
 
@@ -44,11 +44,11 @@ const NewItemModal = ({apiUrl, open, setOpen, setReloadData}) => {
         form.validateFields().then(async (values) => {
             const session = await getSession();
             const formData = new FormData();
-            formData.append("title", values.title);
-            formData.append("content", values.content);
+            formData.append("name", values.name);
+            formData.append("description", values.description);
             if (fileList.length > 0) {
                 const file = fileList[0].originFileObj;
-                formData.append("image", file);
+                formData.append("logo_url", file);
             }
 
             const config = {
@@ -90,8 +90,8 @@ const NewItemModal = ({apiUrl, open, setOpen, setReloadData}) => {
                 validateMessages={validateMessages}
             >
                 <Form.Item
-                    name='title'
-                    label="Название"
+                    name='name'
+                    label="Имя продукта"
                     rules={[
                         {
                             required: true,
@@ -102,8 +102,8 @@ const NewItemModal = ({apiUrl, open, setOpen, setReloadData}) => {
                     <Input/>
                 </Form.Item>
                 <Form.Item
-                    name='content'
-                    label="Контент"
+                    name='description'
+                    label="Описание"
                     rules={[
                         {
                             required: true,
@@ -114,7 +114,7 @@ const NewItemModal = ({apiUrl, open, setOpen, setReloadData}) => {
                     <Input.TextArea/>
                 </Form.Item>
                 <Form.Item
-                    name='image'
+                    name='logo_url'
                     label="Фото"
                     rules={[
                         {
@@ -140,4 +140,4 @@ const NewItemModal = ({apiUrl, open, setOpen, setReloadData}) => {
     );
 };
 
-export default NewItemModal;
+export default NewBrandModal;
