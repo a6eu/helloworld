@@ -39,7 +39,9 @@ const Header = () => {
     }, {
         label: <a href={"/cart"}>Корзина</a>, key: '1',
     }, {
-        label: <a href={"/favorites"}>Избранное</a>, key: '2',
+        label: <a href={"/favourites"}>Избранное</a>, key: '2',
+    },{
+        label: <a href={"/my_orders"}>Мои заказы</a>, key: '3',
     },];
 
     const loggedOutItems = [{
@@ -47,7 +49,7 @@ const Header = () => {
     }, {
         label: <a href={"/cart"}>Корзина</a>, key: '1',
     }, {
-        label: <a href={"/favorites"}>Избранное</a>, key: '2',
+        label: <a href={"/favourites"}>Избранное</a>, key: '2',
     },];
 
     const performSearch = async (term) => {
