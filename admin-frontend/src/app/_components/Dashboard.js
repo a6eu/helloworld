@@ -45,12 +45,11 @@ function Dashboard() {
 
     const [isLoading, setIsLoading] = useState(false);
     const [user, setUser] = useState('');
-    // const [reviews, setReviews] = useState(initItems);
+
     let url = `${config.baseUrl}/api/v1/auth/users/profile/`
     useEffect(() => {
         const getProfile = async () => {
             const session = await getSession();
-            console.log(session)
             const config = {
                 headers: {
                     Authorization: `Bearer ${session.user.accessToken}`,
@@ -70,11 +69,6 @@ function Dashboard() {
             console.log(r)
         })
     }, []);
-
-
-    const onChange = (key) => {
-        console.log(key);
-    };
 
     return (
         <div>
@@ -110,7 +104,7 @@ function Dashboard() {
             </Row>
 
             <h3 className={'text-lg mb-2 mt-4'} >Последние отзывы</h3>
-            <Collapse style={{marginTop: 16, backgroundColor: '#caddfa', border: '#caddfa'}} items={initItems} defaultActiveKey={['1']} onChange={onChange}/>
+            <Collapse style={{marginTop: 16, backgroundColor: '#caddfa', border: '#caddfa'}} items={initItems} defaultActiveKey={['1']}/>
         </div>
     );
 }

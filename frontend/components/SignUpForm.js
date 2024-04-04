@@ -26,7 +26,7 @@ const SignUpForm = ({onLogInClick}) => {
     const validateSecondName = (name) => /^[a-zA-Zа-яА-Я\s]+$/.test(name);
     const validatePhoneNumber = (number) => /^\d{10}$/.test(number);
     const validateEmail = (email) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
-    const validatePassword = (password) => password.length >= 6;
+    const validatePassword = (password) => password.length >= 8;
     const validateRepeatPassword = (password, repeatPassword) => password === repeatPassword;
 
     const handleShowClick = () => {
@@ -90,8 +90,10 @@ const SignUpForm = ({onLogInClick}) => {
                         onLogInClick();
                     })
                     .catch((error) => {
-                        if (error.response && error.response.data && error.response.data.error) {
-                            setSignUpError(error.response.data.error)
+                        if (error.response && error.response.data) {
+                            if (error.response.data.error) {
+                                setSignUpError(error.response.data.error)
+                            }
                         }
                     });
 
