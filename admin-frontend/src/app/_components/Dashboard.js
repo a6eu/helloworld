@@ -45,12 +45,11 @@ function Dashboard() {
 
     const [isLoading, setIsLoading] = useState(false);
     const [user, setUser] = useState('');
-    // const [reviews, setReviews] = useState(initItems);
+
     let url = `${config.baseUrl}/api/v1/auth/users/profile/`
     useEffect(() => {
         const getProfile = async () => {
             const session = await getSession();
-            console.log(session)
             const config = {
                 headers: {
                     Authorization: `Bearer ${session.user.accessToken}`,
@@ -70,11 +69,6 @@ function Dashboard() {
             console.log(r)
         })
     }, []);
-
-
-    const onChange = (key) => {
-        console.log(key);
-    };
 
     return (
         <div>

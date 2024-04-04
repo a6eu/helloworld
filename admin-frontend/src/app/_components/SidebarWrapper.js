@@ -27,6 +27,7 @@ function getItem(label, key, icon, children) {
 const handleLogout = async () => {
     await logout()
 };
+
 const items = [
     getItem((<Link href={"/"}>Dashboard</Link>), '1', <PieChartOutlined/>),
     getItem((<Link href={"/products"}>Продукты</Link>), '2', <ProductOutlined/>),
@@ -59,8 +60,7 @@ function SidebarWrapper({children}) {
                 <Footer
                     className={"text-center"}
                 >
-                    Astana IT Group ©{new Date().getFullYear()} Created by <span
-                    className={"italic font-bold"}>hello-world</span>
+                    Astana IT Group
                 </Footer>
             </Layout>
         </Layout>
