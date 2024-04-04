@@ -104,7 +104,7 @@ function Dashboard() {
             </Row>
 
             <h3 className={'text-lg mb-2 mt-4'} >Последние отзывы</h3>
-            <Collapse style={{marginTop: 16, backgroundColor: '#caddfa', border: '#caddfa'}} items={initItems} defaultActiveKey={['1']} onChange={onChange}/>
+            <Collapse style={{marginTop: 16, backgroundColor: '#caddfa', border: '#caddfa'}} items={initItems} defaultActiveKey={['1']}/>
         </div>
     );
 }
