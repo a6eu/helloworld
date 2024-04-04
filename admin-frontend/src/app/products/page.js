@@ -1,6 +1,6 @@
 "use client"
 import React, {useEffect, useState} from 'react';
-import {Avatar, Button, Form, List, Skeleton} from "antd";
+import {Avatar, Button, Cascader, Form, List, Skeleton} from "antd";
 import axios from 'axios';
 import {DeleteOutlined, EditOutlined, PlusOutlined} from "@ant-design/icons";
 import Search from "antd/es/input/Search";
@@ -12,7 +12,7 @@ import {config} from "@/../config";
 
 
 const apiUrl = `${config.baseUrl}/api/v1/products/`;
-
+const catalogUrl = `${config.baseUrl}/api/v1/categories/`;
 
 const Page = () => {
     const [form] = Form.useForm();
@@ -28,12 +28,10 @@ const Page = () => {
     const [openNewProductModal, setOpenNewProductModal] = useState(false);
     const [openDeleteProductModal, setOpenDeleteProductModal] = useState(false);
     const [confirmLoading, setConfirmLoading] = useState(false);
-
+    const [catalog, setCatalog] = useState([]);
+    const [selected, setSelected] = useState([]);
+    const [onReset, setOnReset] = useState(false);
     const [currentItem, setCurrentItem] = useState({});
-
-    useEffect(() => {
-        fetchData(apiUrl);
-    }, []);
 
     useEffect(() => {
         if (currentItem) {
@@ -41,6 +39,64 @@ const Page = () => {
             form.setFieldsValue({name: currentItem.name, description: currentItem.description, price: numericValue});
         }
     }, [form, currentItem]);
+
+    useEffect(() => {
+        const addAttributes = (data) => {
+            return data.map((item) => {
+                if (item.children && item.children.length > 0) {
+                    item.children = addAttributes(item.children);
+                }
+                return {
+                    ...item,
+                    value: item.name, // Assuming name should be the value
+                    label: item.name, // Assuming name should be the label
+                };
+            });
+        };
+
+        const fetchCatalog = async () => {
+            try {
+                const response = await axios.get(catalogUrl);
+                const updatedCatalog = addAttributes(response.data)
+                setCatalog(updatedCatalog);
+            } catch (error) {
+                console.log(error);
+            }
+        };
+
+        fetchCatalog();
+        fetchData(apiUrl);
+    }, [onReset]);
+
+    const onChange = (values) => {
+        console.log(values)
+        setSelected([...values]);
+        const categoryId = getCategoryId(values[values.length - 1]);
+        console.log("sfdfsdf", categoryId)
+        let fetchingUrl = values.length > 0 ? `${apiUrl}?category_id_or_parent_id=${categoryId}`
+            : `${apiUrl}`;
+        console.log(fetchingUrl)
+        fetchData(fetchingUrl);
+    };
+
+    const getCategoryId = (name) => {
+        const findCategoryId = (items) => {
+            for (const item of items) {
+                if (item.name === name) {
+                    return item.categoryId;
+                }
+                if (item.children && item.children.length > 0) {
+                    const categoryId = findCategoryId(item.children);
+                    if (categoryId !== undefined) {
+                        return categoryId;
+                    }
+                }
+            }
+            return undefined;
+        };
+
+        return findCategoryId(catalog);
+    };
 
     function fetchData(url) {
         useFetchData(url, setList, setTotal, setInitLoading)
@@ -124,16 +180,61 @@ const Page = () => {
         const infoFromName = name.substring(name.indexOf('/'));
         return infoFromName + "\n" + description;
     };
+    const reset = () => {
+        setCatalog([]);
+        setSelected([]);
+        setOnReset(!onReset);
+    };
+
     return (
         <div>
-            <h2>
-                Продукты
-            </h2>
             <>
+                <h2>
+                    Каталог
+                </h2>
+
+                <Cascader.Panel options={catalog} autoClearSearchValue={false} onChange={onChange} allowClear={true} changeOnSelect={true} value={[]}/>
+                {
+                    selected.length > 0 &&
+                    <Button className={'ml-3'} type="primary" onClick={reset} ghost>
+                        Сбросить
+                    </Button>
+                }
+
+                <div className={'flex w-full justify-between mt-5'}>
+                    <p>
+                        {
+                            selected.map((item, index) => <>
+                                {index !== selected.length - 1 ?
+                                    <span className={'my-3 font-semibold text-base'}>{item}</span>:
+                                    <span className={'my-3 font-semibold text-base text-blue-700'}>{item}</span>
+                                }
+                                {index !== selected.length - 1 && ' >> '}
+                            </>)
+                        }
+                    </p>
+
+                    <div>
+                        <Button type="primary" ghost>
+                            Добавить
+                        </Button>
+                        <Button className={'ml-3'} type="primary" danger ghost>
+                            Удалить
+                        </Button>
+                    </div>
+                </div>
+
+
+            </>
+            <>
+                <p className={'font-bold text-base mb-3'}>
+                    Продукты каталога:
+                </p>
                 <div className={"w-full flex justify-between mb-10"}>
                     <div className={"w-[70%] flex"}>
                         <Search loading={initLoading} style={{marginRight: 10}}
-                                placeholder="Для поиска введите информацию о продукте" allowClear size={'large'}
+                                placeholder="Для поиска введите информацию о продукте"
+                                allowClear size={'large'}
                                 onSearch={onSearch}
                                 enterButton/>
                     </div>
@@ -149,9 +250,9 @@ const Page = () => {
                         onChange: (page) => {
                             console.log(page);
                             if (currentPage < page) {
-                                fetchData(apiUrl + `?search=${searchValue}&page=${page}`);
+                                fetchData(apiUrl + `?search=${searchValue}&page=${page}&category_id_or_parent_id=${selected[selected.length-1] ? selected[selected.length-1] : ""}`);
                             } else {
-                                fetchData(apiUrl + `?search=${searchValue}&page=${page}`);
+                                fetchData(apiUrl + `?search=${searchValue}&page=${page}&category_id_or_parent_id=${selected[selected.length-1] ? selected[selected.length-1] : ""}`);
                             }
                             setCurrentPage(page);
                         },
