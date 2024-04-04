@@ -176,7 +176,7 @@ const Page = () => {
                 />
                 <EditProductModal handleOk={handleOk} setOpen={setOpenEditProductModal} open={openEditProductModal} confirmLoading={confirmLoading}
                                   form={form} currentItem={currentItem}/>
-                <NewProductModal open={openNewProductModal} setOpen={setOpenNewProductModal} />
+                <NewProductModal apiUrl={apiUrl} open={openNewProductModal} setOpen={setOpenNewProductModal} />
                 <DeleteProductModal open={openDeleteProductModal} setOpen={setOpenDeleteProductModal} />
             </>
         </div>

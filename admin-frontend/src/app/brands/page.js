@@ -9,6 +9,9 @@ import NewItemModal from "@/app/_components/_modals/NewItemModal";
 import ItemModal from "@/app/_components/_modals/ItemModal";
 import DeleteItemModal from "@/app/_components/_modals/DeleteItemModal";
 import EditItemModal from "@/app/_components/_modals/EditItemModal";
+import NewBrandModal from "@/app/_components/_modals/NewBrandModal";
+import EditBrandModal from "@/app/_components/_modals/EditBrandModal";
+import DeleteBrandModal from "@/app/_components/_modals/DeleteBrandModal";
 
 const apiUrl = `${config.baseUrl}/api/v1/brands/`
 
@@ -106,10 +109,10 @@ const Page = () => {
                     </List.Item>
                 )}
             />
-            <NewItemModal apiUrl={apiUrl} open={openAddNewsModal} setOpen={setOpenAddNewsModal} setReloadData={handleReload}/>
+            <NewBrandModal apiUrl={apiUrl + 'create/'} open={openAddNewsModal} setOpen={setOpenAddNewsModal} setReloadData={handleReload}/>
             <ItemModal open={openNewsModal} setOpen={setOpenNewsModal} news={currentItem} />
-            <DeleteItemModal apiUrl={apiUrl} open={openDeleteModal} setOpen={setOpenDeleteModal} item={currentItem} setReloadData={handleReload}/>
-            <EditItemModal apiUrl={apiUrl} open={openEditModal} setOpen={setOpenEditModal} item={currentItem} setReloadData={handleReload}/>
+            <DeleteBrandModal apiUrl={apiUrl} open={openDeleteModal} setOpen={setOpenDeleteModal} item={currentItem} setReloadData={handleReload}/>
+            <EditBrandModal apiUrl={apiUrl} open={openEditModal} setOpen={setOpenEditModal} item={currentItem} setReloadData={handleReload}/>
         </div>
     );
 };
