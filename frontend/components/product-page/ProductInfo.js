@@ -1,5 +1,4 @@
 import Image from "next/image";
-import {Rating} from "@smastrom/react-rating";
 import Price from "@/components/Price";
 import plus from "@/public/images/plus.svg";
 import minus from "@/public/images/minus.svg";
@@ -9,8 +8,8 @@ import axios from "axios";
 import {AlertContext} from "@/components/AlertContext";
 import {Rate} from "antd";
 import {config} from "@/config";
-import { getSession } from "@/login";
-import { useCookies } from "react-cookie";
+import {getSession} from "@/login";
+import {useCookies} from "react-cookie";
 
 const ProductInfo = ({product, brandName}) => {
     const { showAlert } = useContext(AlertContext);
@@ -63,21 +62,6 @@ const ProductInfo = ({product, brandName}) => {
         }
     }
 
-    function Stars(starAvg) {
-        return (
-            <div className="flex items-end text-[#9A9A9A] ProductSansLight">
-                <Rating
-                    style={{maxWidth: 130}}
-                    readOnly
-                    orientation="horizontal"
-                    value={starAvg.starAvg}
-                />
-                <p className={"ml-2"}>35 отзывов</p>
-            </div>
-        )
-    }
-
-
     return (
         <div className="w-full flex mt-3 md:flex-row flex-col rounded-[10px] bg-white md:pl-5">
             <div className="w-1/3 h-full self-center flex justify-center">
@@ -118,7 +102,7 @@ const ProductInfo = ({product, brandName}) => {
                     </div>
                 </div>
 
-                <Rate />
+                <Rate disabled defaultValue={product.rating_total} />
                 <div className="mb-5"></div>
                 <div className='flex flex-col sm:flex-row justify-between items-center'>
                     <Price price={product.price} fSizeOfCurrency={30} fSizeOfDigit={35}/>
