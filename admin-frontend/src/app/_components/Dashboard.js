@@ -45,11 +45,13 @@ function Dashboard() {
 
     const [isLoading, setIsLoading] = useState(false);
     const [user, setUser] = useState('');
+    const [allUsers, setAllUsers] = useState(['']);
 
     let url = `${config.baseUrl}/api/v1/auth/users/profile/`
     useEffect(() => {
         const getProfile = async () => {
             const session = await getSession();
+            console.log("TOKEN", session.user.accessToken);
             const config = {
                 headers: {
                     Authorization: `Bearer ${session.user.accessToken}`,
@@ -69,6 +71,32 @@ function Dashboard() {
             console.log(r)
         })
     }, []);
+
+    useEffect(() => {
+        const getUsers = async () => {
+            const session = await getSession();
+            console.log("TOKEN", session.user.accessToken);
+            const config = {
+                headers: {
+                    Authorization: `Bearer ${session.user.accessToken}`,
+                },
+            }
+            try {
+                const response = await axios.get(url + "all", config);
+                setAllUsers(response.data);
+            } catch (error) {
+                console.log(error)
+            }
+        }
+        getUsers().then(r => {
+            console.log(r)
+        })
+    }, []);
+
+    useEffect(() => {
+        console.log(allUsers);
+    }, [allUsers]);
+
 
     return (
         <div>
@@ -90,7 +118,7 @@ function Dashboard() {
                 <Col span={7}>
                     <div className={"bg-white p-4 rounded-md mb-3"}>
                         <Statistic title="Количество пользователей"
-                                   value={112893}
+                                   value={allUsers.count}
                                    prefix={<UserOutlined />}
                                    loading={isLoading}
                         />
