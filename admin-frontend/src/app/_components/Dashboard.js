@@ -46,6 +46,7 @@ function Dashboard() {
     const [isLoading, setIsLoading] = useState(false);
     const [user, setUser] = useState('');
     const [allUsers, setAllUsers] = useState(['']);
+    const [allOrders, setAllOrders] = useState(['']);
 
     let url = `${config.baseUrl}/api/v1/auth/users/profile/`
     useEffect(() => {
@@ -93,9 +94,31 @@ function Dashboard() {
         })
     }, []);
 
+
     useEffect(() => {
-        console.log(allUsers);
-    }, [allUsers]);
+        const getOrders = async () => {
+            const session = await getSession();
+            console.log("TOKEN", session.user.accessToken);
+            const config = {
+                headers: {
+                    Authorization: `Bearer ${session.user.accessToken}`,
+                },
+            }
+            try {
+                const response = await axios.get(`https://shop-01it-group.up.railway.app/api/v1/orders/`, config);
+                setAllOrders(response.data);
+            } catch (error) {
+                console.log(error)
+            }
+        }
+        getOrders().then(r => {
+            console.log(r)
+        })
+    }, []);
+
+    useEffect(() => {
+        console.log(allOrders)
+    },[allOrders])
 
 
     return (
@@ -126,7 +149,7 @@ function Dashboard() {
                 </Col>
                 <Col span={7}>
                     <div className={"bg-white p-4 rounded-md"}>
-                        <Statistic title="Активных заказов" value={112893} prefix={<ShoppingOutlined />} loading={isLoading}/>
+                        <Statistic title="Активных заказов" value={allOrders.count} prefix={<ShoppingOutlined />} loading={isLoading}/>
                     </div>
                 </Col>
             </Row>
