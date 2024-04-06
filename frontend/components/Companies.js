@@ -25,16 +25,16 @@ const Companies = () => {
     return (
         <div className="w-full flex justify-center">
             <div className="w-full flex">
-                <div className="w-full md:flex-wrap overflow-x-scroll flex justify-center">
+                <div className="w-full xl:flex-wrap overflow-x-scroll flex justify-center">
                     {
-                        brands.map((item) => (
-                            <Link key={item.id} href={`brands/${item.name}`}>
+                        brands.map((item, index) => {
+                            return (<Link key={item.id} href={`brands/${item.name}`}>
                                 <div
                                     style={{'--image-url': `url(${item.logo_url})`}}
                                     className={'w-[20vh] h-[20vh] bg-70%  -mt-5  bg-[image:var(--image-url)] bg-fit bg-no-repeat bg-center rounded cursor-pointer'}>
                                 </div>
-                            </Link>
-                        ))
+                            </Link>)
+                        })
                     }
                 </div>
             </div>

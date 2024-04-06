@@ -47,9 +47,9 @@ function BrandName() {
     return (
         <MainContainer>
             <div
-                className="flex justify-start gap-3.5 self-start items-center  max-md:max-w-full max-md:flex-wrap max-md:justify-center mt-[2%]">
+                className="flex justify-start  gap-3.5 self-start items-center  max-md:max-w-full max-md:flex-wrap max-md:justify-center mt-[2%]">
                 <div
-                    className="justify-center text-sky-700 text-xs font-medium tracking-wide uppercase self-center whitespace-nowrap my-auto">
+                    className="justify-center cursor-default text-sky-700 text-xs font-medium tracking-wide uppercase self-center whitespace-nowrap my-auto">
                     Бренды
                 </div>
                 <svg width="9" height="14" viewBox="0 0 11 16" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -57,7 +57,7 @@ function BrandName() {
                     <path d="M1 15L9.5 8" stroke="#1075B2" strokeWidth="2" strokeLinecap="round"/>
                 </svg>
                 <div
-                    className="justify-center text-sky-700 text-xs font-medium tracking-wide uppercase self-center whitespace-nowrap my-auto">
+                    className="justify-center cursor-default text-sky-700 text-xs font-medium tracking-wide uppercase self-center whitespace-nowrap my-auto">
                     {data.name}
                 </div>
             </div>
