@@ -46,12 +46,12 @@ const ProductInfo = ({product, brandName}) => {
             const response = await axios.post(
                 url,
                 {
-                    product_id: product.id,
+                    product_id: product_id,
                     quantity: quantity,
                 },
                 {
                     headers: {
-                        Authorization: "Bearer " + access,
+                        Authorization: `Bearer ${access}`,
                     },
                 }
             );
@@ -124,6 +124,8 @@ const ProductInfo = ({product, brandName}) => {
                 <div className='flex flex-col sm:flex-row justify-between items-center'>
                     <Price price={product.price} fSizeOfCurrency={30} fSizeOfDigit={35}/>
                     <div className='ProductSansLight text-sm text-gray-500'>Артикул: {product.article}</div>
+                    <div className='ProductSansLight text-center text-sm text-gray-500'>В наличии: {product.quantity}</div>
+
                 </div>
                 <div className={`relative max-w-[70%] ${!isExpanded ? 'max-h-24 overflow-hidden' : ''}`}>
                     <p className="text-[#9A9a9a] text-[15px] ProductSansLight">
