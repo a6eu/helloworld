@@ -23,13 +23,13 @@ function DescriptionChooser({product, brand}) {
                 console.log("session not found")
             }
         const accessToken = session?.user.accessToken
-        console.log(product.id)
+        console.log("Id: ", product.id)
         const response = await axios.get(
           `${config.baseUrl}/api/v1/product/${product.id}/comments/`,
           {
-            headers: {
-              Authorization: 'Bearer ' + accessToken,
-            },
+            headers:{
+              Authorization: `Bearer ${accessToken}`,
+            }
           }
         );
         setReviews(response.data);
@@ -38,7 +38,7 @@ function DescriptionChooser({product, brand}) {
       }
     };
     fetchReviews();
-  }, [product.id]);
+  }, []);
 
   function typeSet(typeProd) {
     setType(typeProd);

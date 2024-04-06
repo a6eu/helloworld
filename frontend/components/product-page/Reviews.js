@@ -1,6 +1,7 @@
 import Image from "next/image";
 import { Rating } from "@smastrom/react-rating";
 import axios from "axios";
+import empty_review from '../../public/images/empty_review.png'
 
 const Reviews = ({ reviews }) => {
   function Stars({ starAvg }) {
@@ -15,9 +16,24 @@ const Reviews = ({ reviews }) => {
       </div>
     );
   }
+
+  if (!reviews || reviews.length === 0) {
+    return (
+      <div className="flex flex-col items-center justify-center my-10">
+        <Image
+          src={empty_review}
+          alt="Нет отзывов"
+          height={150}
+          width={150}
+        />
+        <h3 className="text-lg text-gray-600 mt-5">Пока здесь пусто...</h3>
+      </div>
+    );
+  }
+  
   console.log(reviews)
   return (
-    <div className="flex flex-col w-7/12 p-3 mr-4 mt-5">
+    <div className="flex flex-col w-full p-3 mr-4 mt-5">
       <ul className="h-[600px] overflow-y-auto">
         {reviews.map((review) => (
           <li key={review.id} className="w-full shadow-md rounded-md bg-white h-auto p-3 mb-4">
