@@ -23,6 +23,7 @@ export default function ProductPage() {
                 setIsLoading(true)
                 response = await axios.get(`${config.baseUrl}/api/v1/products/?search=${productName}`);
                 await getBrand(response.data.results[0].brand.name)
+                
                 setIsLoading(false)
                 setProduct(response.data.results[0]);
             } catch (error) {

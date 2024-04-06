@@ -2,7 +2,7 @@ import Image from "next/image";
 import Price from "@/components/Price";
 import plus from "@/public/images/plus.svg";
 import minus from "@/public/images/minus.svg";
-import {useContext, useState} from "react";
+import {useContext, useEffect, useState} from "react";
 import defaultImage from "@/public/images/picture.png"
 import axios from "axios";
 import {AlertContext} from "@/components/AlertContext";
@@ -10,6 +10,7 @@ import {Rate} from "antd";
 import {config} from "@/config";
 import {getSession} from "@/login";
 import {useCookies} from "react-cookie";
+import ModalDialog from "../ModalDialog";
 
 const ProductInfo = ({product, brandName}) => {
     const { showAlert } = useContext(AlertContext);
@@ -18,20 +19,31 @@ const ProductInfo = ({product, brandName}) => {
     const [alert, setAlert] = useState('');
     const [alertType, setAlertType] = useState('')
     const [cookies] = useCookies(['session'])
+    const [signedIn, setSignedIn] = useState(false);
+    const [isModalOpen, setIsModalOpen] = useState(false);
     const handleAddToBasket = () => {
         showAlert(alert, alertType);
     };
 
-    const handleButtonClick = async (quantity) => {
-        const url = `${config.baseUrl}/api/v1/basket/products/`;
+    
 
+    const handleButtonClick = async (product_id, quantity) => {
+        const session = await getSession(cookies);
+        if (!session) {
+            setIsModalOpen(true);
+            return; 
+        }
+    
+        const url = `${config.baseUrl}/api/v1/basket/products/`;
+    
         try {
             const session = await getSession(cookies);
             if (!session) {
-                console.log("session not found")
+                console.log("session not found: NOW");
+                return;
             }
-            const access = session?.user.accessToken
-                const response = await axios.post(
+            const access = session?.user.accessToken;
+            const response = await axios.post(
                 url,
                 {
                     product_id: product.id,
@@ -43,14 +55,19 @@ const ProductInfo = ({product, brandName}) => {
                     },
                 }
             );
+            console.log("After post method");
             if (response.status === 201) {
+                console.log('Ваш товар успешно добавлен в корзину!');
                 showAlert('Ваш товар успешно добавлен в корзину!', 'success');
+                
             }
+    
         } catch (error) {
             console.error(error);
             showAlert('Возможно у нас нет столько продуктов, сколько вы хотите добавить!', 'error');
         }
     };
+    
 
     const increaseQuantity = () => {
         setQuantity(quantity + 1);
@@ -160,6 +177,8 @@ const ProductInfo = ({product, brandName}) => {
                             В КОРЗИНУ
                         </button>
                     </div>
+                    <ModalDialog isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen} />
+
                 </div>
             </div>
         </div>

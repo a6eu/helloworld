@@ -6,7 +6,6 @@ import plus from "@/public/images/plus.svg";
 import minus from "@/public/images/minus.svg";
 import { Rating } from "@smastrom/react-rating";
 import Price from "@/components/Price";
-import ModalDialog from "@/components/ModalDialog";
 import axios from 'axios';
 import { useDispatch, useSelector } from "react-redux";
 import defaultImage from "@/public/images/picture.png";
@@ -16,6 +15,8 @@ import {Rate} from "antd";
 import {config} from "@/config";
 import { useCookies } from 'react-cookie';
 import { getSession } from '@/login';
+import ModalDialog from "@/components/ModalDialog";
+
 const floatValues = [0.29, 1.44, 2.31, 3.48, 4.52];
 
 const ProductItem = ({ product, signedIn }) => {
@@ -72,16 +73,25 @@ const ProductItem = ({ product, signedIn }) => {
     };
 
     const handleButtonClick = async (product_id, quantity) => {
+        // Check if the user is not signed in
+        if (!signedIn) {
+            // Open the modal dialog to prompt the user to sign in
+            setIsModalOpen(true);
+            return; // Return early since the user is not signed in
+        }
+    
         const url = `${config.baseUrl}/api/v1/basket/products/`;
-
+    
         try {
             const session = await getSession(cookies);
-        if (!session) {
-            console.log("session not found: NOW")
-        }
-         const access = session?.user.accessToken
+            if (!session) {
+                console.log("session not found: NOW");
+                // Consider handling this case as well, maybe showing the modal or a message
+                return;
+            }
+            const access = session?.user.accessToken;
             const response = await axios.post(
-                `${config.baseUrl}/api/v1/basket/products/`,
+                url,
                 {
                     product_id: product.id,
                     quantity: quantity,
@@ -92,18 +102,19 @@ const ProductItem = ({ product, signedIn }) => {
                     },
                 }
             );
-                console.log("After post method")
+            console.log("After post method");
             if (response.status === 201) {
-                console.log('Ваш товар успешно добавлен в корзину!')
+                console.log('Ваш товар успешно добавлен в корзину!');
                 showAlert('Ваш товар успешно добавлен в корзину!', 'success');
+                // Consider whether you really want to reload the page here
+                // window.location.reload();
             }
-
+    
         } catch (error) {
             console.error(error);
             showAlert('Возможно у нас нет столько продуктов, сколько вы хотите добавить!', 'error');
         }
     };
-
     
 
     const deleteFavClick = async () => {
