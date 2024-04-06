@@ -202,7 +202,7 @@ const ProductItem = ({ product, signedIn }) => {
             >
                 <div className='w-full flex align-middle justify-center '>
                     {product.img_url ?
-                        <Image className='w-full min-[485px]:h-40 max-[485px]:max-h-80 pt-4' src={product.img_url} alt={product.name} width={180}
+                        <Image className='w-full min-[485px]:h-32 max-[485px]:max-h-80 pt-4' src={product.img_url} alt={product.name} width={180}
                                height={180} /> :
                         <Image className='w-[90%] min-[485px]:h-32 pt-4' src={defaultImage} alt={product.name} width={180}
                                height={180} />}
