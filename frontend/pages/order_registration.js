@@ -5,10 +5,10 @@ import axios from "axios";
 import defaultImage from "@/public/images/picture.png"
 import Link from "next/link";
 import PhoneNumberFormatter from "@/components/PhoneNumberFormatter";
-import {AlertContext} from "@/components/AlertContext";
+import { AlertContext } from "@/components/AlertContext";
 import {config} from '@/config';
-import {getSession} from "@/login";
-import {useCookies} from "react-cookie";
+import { getSession } from "@/login";
+import { useCookies } from "react-cookie";
 
 let baseUrl = config.baseUrl;
 export default function OrderRegistration() {
@@ -21,19 +21,18 @@ export default function OrderRegistration() {
             const session = await getSession(cookies);
             if (!session) {
                 console.log("session not found")
+                
             }
             const access = session?.user.accessToken
             const url = `${baseUrl}/api/v1/auth/users/profile/`;
+            const bearerToken = access;
 
             const config = {
                 headers: {
-                    Authorization: `Bearer ${access}`,
+                    Authorization: `Bearer ${bearerToken}`,
                 },
             };
 
-
-
-            
             try {
                 const response = await axios.get(url, config);
                 setProfile(response.data);
@@ -146,7 +145,7 @@ export default function OrderRegistration() {
 
         if (isNameValid && isPhoneValid && isFieldFilled && isPaymentMethodValid) {
             const orderItems = basket.map(item => ({
-                product_id: item.id,
+                product_id: item.product.id,
                 quantity: item.quantity,
             }));
             basket.map((item) => {
@@ -173,8 +172,11 @@ export default function OrderRegistration() {
                         Authorization: `Bearer ${access}`,
                     },
                 });
-                console.log('Order submitted successfully:', response.data);
-                showAlert("Заказ успешно оформлен!", 'success');
+                if(response.status === 200){
+                    console.log('Order submitted successfully:', response.data);
+                    showAlert("Заказ успешно оформлен!", 'success');
+                    window.location.reload();
+                }
             } catch (error) {
                 console.error('Error submitting order:', error);
             }
@@ -354,7 +356,7 @@ export default function OrderRegistration() {
                             <div
                                 className="flex font-sans border-dashed border-l-0 border-r-none w-full justify-between border-t-2 border-b-2 py-5 px-8">
                                 <div className="flex flex-col">
-                                    <div>3 товара на сумму</div>
+                                    <div>{basket.length} товара на сумму</div>
                                 </div>
                                 <div className="flex flex-col">
                                     <div>{totalCost} ₸</div>
@@ -362,10 +364,10 @@ export default function OrderRegistration() {
                             </div>
                             <div
                                 className="flex flex-col border-dashed border-l-0 border-r-none w-full justify-between border-t-0 border-b-2 py-2 px-8">
-                                <div className="flex font-sans text-sm justify-center my-3"><p>Оформляя заказ, вы
+                                <div className="flex font-sans text-sm justify-center my-3">Оформляя заказ, вы
                                     подтверждаете свое согласие с&nbsp;<span
                                         className="text-[#1075B2] underline cursor-pointer">нашими условиями покупки</span>&nbsp;в
-                                    интернет-магазине</p>
+                                    интернет-магазине
                                 </div>
                                 <button
                                     className="bg-[#1075B2] rounded-md py-2 text-white justify-center"
