@@ -77,11 +77,10 @@ const ForgotPasswordForm = ({onLogInClick}) => {
         setIsSubmitting(true);
         setIsLoading(true);
         try {
-            // Send reset token request
             await axios.post(`${config.baseUrl}/api/v1/auth/password-reset-request/`, {
                 email: emailOrPhone,
             }).then((response) => {
-                if (response.data.message == "If an account with that email exists, we've sent an email with a password reset code."){
+                if (response.data.message === "If an account with that email exists, we've sent an email with a password reset code."){
                     setInfo("Мы отправили код на указанную почту")
                 }
                 console.log(response.data)
@@ -120,7 +119,7 @@ const ForgotPasswordForm = ({onLogInClick}) => {
                 onLogInClick();
             })
         } catch (error) {
-            if (error.response.data.error == "Invalid token.") {
+            if (error.response.data.error === "Invalid token.") {
                 setConfirmError("Неверный код")
             }
         }

@@ -143,7 +143,7 @@ export default function OrderRegistration() {
 
         if (isNameValid && isPhoneValid && isFieldFilled && isPaymentMethodValid) {
             const orderItems = basket.map(item => ({
-                product_id: item.product.id,
+                product_id: item.id,
                 quantity: item.quantity,
             }));
             basket.map((item) => {

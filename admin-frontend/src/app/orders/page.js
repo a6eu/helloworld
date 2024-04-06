@@ -7,24 +7,34 @@ import {config} from "../../../config";
 import axios from "axios";
 import {getSession} from "@/lib";
 import ViewModalOrder from "@/app/_components/_modals/ViewModalOrder";
+import CreateOrderModal from "@/app/_components/_modals/CreateOrderModal";
 
-const apiUrl = `${config.baseUrl}/api/v1/orders/`;
+const apiUrl = `${config.baseUrl}/api/v1/admin/orders/`;
 
 const Page = () => {
     const [data, setData] = useState([]);
     const [total, setTotal] = useState(0);
-    const [Loading, setLoading] = useState(false);
+    const [loading, setLoading] = useState(false);
     const [startTime, setStartTime] = useState("");
     const [endTime, setEndTime] = useState("");
-    const [status, setStatus] = useState("")
-    const [paymentMethod, setPaymentMethod] = useState("")
+    const [status, setStatus] = useState("");
+    const [paymentStatus, setPaymentStatus] = useState("");
     const [searchValue, setSearchValue] = useState('');
     const [currentPage, setCurrentPage] = useState(1);
     const [selectedOrder, setSelectedOrder] = useState(null);
     const [modalVisible, setModalVisible] = useState(false);
+    const [createModalVisible, setCreateModalVisible] = useState(false);
+
+    const handleCreateModalOk = () => {
+        setCreateModalVisible(false);
+    };
+
+    const handleCreateModalCancel = () => {
+        setCreateModalVisible(false);
+    };
     useEffect(() => {
-        fetchOrderData(apiUrl).then(r => console.error(r));
-    }, [startTime, endTime, status, paymentMethod, searchValue, currentPage]);
+        fetchOrderData().then(r => console.log(r));
+    }, [startTime, endTime, status, paymentStatus, searchValue, currentPage]);
 
     const handleOk = () => {
         setModalVisible(false);
@@ -34,21 +44,28 @@ const Page = () => {
         setModalVisible(false);
     };
 
-    async function fetchOrderData(url) {
-        const session = await getSession();
-        console.log(session)
-        const config = {
-            headers: {
-                Authorization: `Bearer ${session.user.accessToken}`,
-            },
-        }
-        console.log(session.user.accessToken)
+    async function fetchOrderData() {
         setLoading(true);
         try {
-            const response = await axios.get(url, config);
+            const session = await getSession();
+            console.log(session.user.accessToken);
+            const config = {
+                headers: {
+                    Authorization: `Bearer ${session.user.accessToken}`,
+                },
+                params: {
+                    start_date: startTime ? new Date(startTime).toISOString() : null,
+                    end_date: endTime ? new Date(endTime).toISOString() : null,
+                    payment_status: paymentStatus,
+                    order_status: status,
+                    search: searchValue,
+                    page: currentPage,
+                }
+            };
+            const response = await axios.get(apiUrl , config);
             setData(response.data.results);
             setTotal(response.data.count);
-            console.log('response:', response.data);
+            console.log(response)
         } catch (error) {
             console.error('Error fetching data:', error);
         } finally {
@@ -56,22 +73,31 @@ const Page = () => {
         }
     }
 
-    const onChangeStart = (_, dateStr) => {
-        setStartTime(dateStr);
+    const handleStartDateChange = (date) => {
+        setStartTime(date);
     };
 
-    const onChangeEnd = (_, dateStr) => {
-        setEndTime(dateStr);
+    const handleEndDateChange = (date) => {
+        setEndTime(date);
+        console.log(endTime)
     };
 
     useEffect(() => {
-        console.log('Start:', startTime);
-    }, [startTime]);
+        console.log(endTime)
+        }
+    )
 
-    useEffect(() => {
-        console.log('End:', endTime);
-    }, [endTime]);
+    const handleStatusChange = (value) => {
+        setStatus(value);
+    };
 
+    const handlePaymentStatusChange = (value) => {
+        setPaymentStatus(value);
+    };
+
+    const handleSearchChange = (value) => {
+        setSearchValue(value);
+    };
     const showModal = (order) => {
         setSelectedOrder(order);
         setModalVisible(true);
@@ -148,24 +174,24 @@ const Page = () => {
     return (
         <div>
             <div className={"w-full flex flex-col justify-between mb-10"}>
-                <div className={"w-full py-4 bg-white rounded flex-col  flex"}>
+                <div className={"w-full py-4 bg-white rounded flex-col flex"}>
                     <div className={`flex justify-around`}>
                         <div className={`flex gap-3 flex-row items-center`}>
-                            <p>Старт:</p>
+                            <p>Start:</p>
                             <DatePicker rootClassName={`h-7`} showTime format="YYYY-MM-DD HH:mm:ss"
-                                        onChange={onChangeStart}/>
+                                        onChange={handleStartDateChange}/>
                         </div>
                         <div className={`flex gap-3 items-center flex-row`}>
-                            <p>Конец:</p>
+                            <p>End:</p>
                             <DatePicker rootClassName={`h-7`} showTime format="YYYY-MM-DD HH:mm:ss"
-                                        onChange={onChangeEnd}/>
+                                        onChange={handleEndDateChange}/>
                         </div>
                     </div>
                     <div className={`flex-row flex justify-around`}>
                         <div className={`flex flex-row items-center gap-3`}>
-                            <p>Статус заказа:</p>
+                            <p>Order Status:</p>
                             <Select className={`flex`}
-                                    placeholder="Статус"
+                                    placeholder="Status"
                                     style={{
                                         flex: 1,
                                     }}
@@ -176,19 +202,20 @@ const Page = () => {
                                         },
                                         {
                                             value: 'C',
-                                            label: 'Доставлен',
+                                            label: 'Доставлено',
                                         },
                                         {
                                             value: 'O',
                                             label: 'В пути',
                                         },
                                     ]}
+                                    onChange={handleStatusChange}
                             />
                         </div>
                         <div className={`flex flex-row items-center gap-3`}>
-                            <p>Способ оплаты:</p>
+                            <p>Payment Status:</p>
                             <Select className={`flex`}
-                                    placeholder="Способ"
+                                    placeholder="Payment Method"
                                     defaultValue={""}
 
                                     style={{
@@ -200,25 +227,33 @@ const Page = () => {
                                             label: 'Kaspi',
                                         },
                                         {
-                                            value: 'Банковская карта',
-                                            label: 'Банковская карта',
+                                            value: 'Bank card',
+                                            label: 'Bank card',
                                         }
                                     ]}
+                                    onChange={handlePaymentStatusChange}
                             />
 
                         </div>
                         <div className={`flex flex-row items-center gap-3`}>
-                            <p>Поиск:</p>
-                            <Search loading={Loading} style={{marginRight: 10}}
-                                    placeholder="Для поиска введите информацию о продукте" allowClear size={'middle'}
-                                    enterButton/>
+                            <p>Search:</p>
+                            <Search loading={loading} style={{marginRight: 10}}
+                                    placeholder="Enter product information to search" allowClear size={'middle'}
+                                    enterButton
+                                    onChange={e => handleSearchChange(e.target.value)}
+                            />
                         </div>
                         <div className={`flex flex-row items-center gap-3`}>
                             <p>Новый заказ</p>
-                            <Button type="primary" size={"middle"}>+</Button>
+                            <Button type="primary" size="middle" onClick={() => setCreateModalVisible(true)}>Create New
+                                Order</Button>
+                            <CreateOrderModal
+                                visible={createModalVisible}
+                                onCreate={handleCreateModalOk}
+                                onCancel={handleCreateModalCancel}
+                            />
                         </div>
                     </div>
-
                 </div>
                 <Table
                     columns={columns}

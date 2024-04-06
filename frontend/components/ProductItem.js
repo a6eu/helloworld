@@ -60,7 +60,12 @@ const ProductItem = ({ product, signedIn }) => {
         }
     }, []);
 
-    const statementChecker = () => {
+    const statementChecker = async () => {
+        const session = await getSession(cookies);
+        if (!session) {
+            setIsModalOpen(true);
+            return;
+        }
         if (signedIn) {
             if (!favButtonClicked) {
                 handleFavClick();
@@ -75,7 +80,7 @@ const ProductItem = ({ product, signedIn }) => {
     const handleButtonClick = async (product_id, quantity) => {
         if (!signedIn) {
             setIsModalOpen(true);
-            return; 
+            return;
         }
     
         const url = `${config.baseUrl}/api/v1/basket/products/`;
@@ -84,6 +89,7 @@ const ProductItem = ({ product, signedIn }) => {
             const session = await getSession(cookies);
             if (!session) {
                 console.log("session not found: NOW");
+                // Consider handling this case as well, maybe showing the modal or a message
                 return;
             }
             const access = session?.user.accessToken;
@@ -103,7 +109,6 @@ const ProductItem = ({ product, signedIn }) => {
             if (response.status === 201) {
                 console.log('Ваш товар успешно добавлен в корзину!');
                 showAlert('Ваш товар успешно добавлен в корзину!', 'success');
-                
             }
     
         } catch (error) {
@@ -214,12 +219,8 @@ const ProductItem = ({ product, signedIn }) => {
                     </svg>
                 </button>
             </div>
-
-            
             <div className='pl-[10px] h-[70px] flex-col justify-between self-start transition-[300ms]'>
                 <p className="text-[14px] ProductSansLight mb-3 break-all">{nameRefactor()}</p>
-                <div className='ProductSansLight text-sm'>В наличии: {product.quantity}</div>
-
                 <Price price={product.price} fSizeOfDigit={16} fSizeOfCurrency={13} />
             </div>
             <div className={styles.piecesAndToBucket}>

@@ -36,7 +36,7 @@ box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #
 
 
 .productCard:hover {
-    height: 320px;
+    height: 340px;
     justify-content: space-between;
     transition: 300ms;
     margin-bottom: -20px;
