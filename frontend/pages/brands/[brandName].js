@@ -47,7 +47,7 @@ function BrandName() {
     return (
         <MainContainer>
             <div
-                className="flex justify-start gap-3.5 self-start max-md:max-w-full max-md:flex-wrap max-md:justify-center mt-[2%]">
+                className="flex justify-start gap-3.5 self-start items-center  max-md:max-w-full max-md:flex-wrap max-md:justify-center mt-[2%]">
                 <div
                     className="justify-center text-sky-700 text-xs font-medium tracking-wide uppercase self-center whitespace-nowrap my-auto">
                     Бренды
@@ -61,16 +61,9 @@ function BrandName() {
                     {data.name}
                 </div>
             </div>
-            <div className="bg-white p-6 mx-auto h-[50vh] my-8 rounded-lg shadow-md ProductSansLight">
-                <div className="flex">
-                    <div className="flex-1">
-                        <h2 className="text-2xl font-bold mb-4">{data.name}</h2>
-                        <p className="text-gray-700 mb-4 font-normal h-3/5">{data.description}</p>
-                        <div className="flex gap-4 mt-[6%] w-auto">
-
-                        </div>
-                    </div>
-                    <div className="flex-shrink-0 ml-4">
+            <div className="bg-white p-6 md:p-4 mx-auto my-8 rounded-lg shadow-md ProductSansLight">
+                <div className="w-full flex flex-col md:flex-row-reverse md:items-center">
+                    <div className="flex md:w-1/2 flex-shrink-0 justify-center">
                         {data.logo_url ?
                             <Image
                                 height={200}
@@ -88,6 +81,13 @@ function BrandName() {
                                 className="my-20"
                             />
                         }
+                    </div>
+                    <div className="flex-1 ml-3 md:w-1/2">
+                        <h2 className="text-2xl font-bold mb-4">{data.name}</h2>
+                        <p className="text-gray-700 mb-4 font-normal h-3/5">{data.description}</p>
+                        <div className="flex gap-4 mt-[6%] w-auto">
+
+                        </div>
                     </div>
                 </div>
             </div>

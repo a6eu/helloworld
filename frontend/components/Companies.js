@@ -1,53 +1,45 @@
-import Link from "next/link";
+'useClient'
 
-const Companies = () => (
-    <div className="w-full h-44 flex justify-center mt-5">
-        <div className="w-full flex">
-            <div className="w-full flex-wrap flex">
-                <div className="w-full h-1/2 flex-wrap flex">
-                        <Link className="w-1/6 bg-netapp bg-70% bg-fit bg-no-repeat bg-center rounded cursor-pointer"
-                              href={{
-                                  pathname: "/brands/netapp"
-                              }}>
-                        </Link>
-                        <Link className="w-1/6 bg-vmware bg-70% bg-fit  bg-no-repeat bg-center rounded cursor-pointer"
-                              href={"/brands/vmware"}>
-                        </Link>
-                        <Link className="w-1/6 bg-citrix bg-70% bg-no-repeat bg-center rounded cursor-pointer"
-                              href={"brands/citrix"}>
-                        </Link>
-                        <Link className="w-1/6 bg-cisco bg-70% bg-no-repeat bg-center rounded cursor-pointer"
-                              href={"brands/cisco"}>
-                        </Link>
-                        <Link className="w-1/6 bg-fortinet bg-70% bg-fit  bg-no-repeat bg-center rounded cursor-pointer"
-                              href={"brands/fortinet"}>
-                        </Link>
-                        <Link className="w-1/6 bg-newlett bg-70% bg-fit  bg-no-repeat bg-center rounded cursor-pointer"
-                              href={"brands/hewlett"}>
-                        </Link>
-                </div>
-                <div className="w-full h-1/2 flex flex-wrap ">
-                    <Link className="w-1/6 bg-veeam bg-70% bg-fit bg-no-repeat bg-center rounded cursor-pointer"
-                          href={"brands/veeam"}>
-                    </Link>
-                    <Link className="w-1/6 bg-IBM bg-50% bg-no-repeat bg-center rounded cursor-pointer"
-                          href={"brands/ibm"}>
-                    </Link>
-                    <Link className="w-1/6 bg-hp bg-50% bg-fit  bg-no-repeat bg-center rounded cursor-pointer"
-                          href={"brands/hp"}>
-                    </Link>
-                    <Link className="w-1/6 bg-microsoft bg-70% bg-fit  bg-no-repeat bg-center rounded cursor-pointer"
-                          href={"brands/microsoft"}>
-                    </Link>
-                    <Link className="w-1/6 bg-lifeison bg-70% bg-fit  bg-no-repeat bg-center rounded cursor-pointer"
-                          href={"brands/lifeison"}>
-                    </Link>
-                    <Link className="w-1/6 bg-grandstream bg-70% bg-fit  bg-no-repeat bg-center rounded cursor-pointer"
-                          href={"brands/grandstream"}>
-                    </Link>
+import {useEffect, useState} from "react";
+import Link from "next/link";
+import {config} from "@/config";
+import axios from "axios";
+
+const brandsUrl = `${config.baseUrl}/api/v1/brands/`;
+
+const Companies = () => {
+
+    const [brands, setBrands] = useState([]);
+
+    useEffect(() => {
+        axios.get(brandsUrl)
+            .then((response) => {
+                console.log(response.data.results.slice(0, 12));
+                setBrands(response.data.results.slice(0, 12));
+            })
+            .catch((error) => {
+                console.log("error");
+            });
+    }, []);
+
+    return (
+        <div className="w-full flex justify-center">
+            <div className="w-full flex">
+                <div className="w-full md:flex-wrap overflow-x-scroll flex justify-center">
+                    {
+                        brands.map((item) => (
+                            <Link key={item.id} href={`brands/${item.name}`}>
+                                <div
+                                    style={{'--image-url': `url(${item.logo_url})`}}
+                                    className={'w-[20vh] h-[20vh] bg-70%  -mt-5  bg-[image:var(--image-url)] bg-fit bg-no-repeat bg-center rounded cursor-pointer'}>
+                                </div>
+                            </Link>
+                        ))
+                    }
                 </div>
             </div>
         </div>
-    </div>);
+    );
+};
 
 export default Companies;

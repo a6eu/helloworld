@@ -25,7 +25,7 @@ function CategoryChooser() {
     }
 
     return (
-        <div className="w-full flex flex-col items-center justify-center mt-20">
+        <div className="w-full flex flex-col items-center justify-center mt-5">
             <div className="flex justify-center">
                 <button
                     className={`h-10 rounded-lg border-2 border-[#1075B2] text-xs transition ease-out px-4 ${newDesign} mr-2`}

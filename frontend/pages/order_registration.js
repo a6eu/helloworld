@@ -5,10 +5,10 @@ import axios from "axios";
 import defaultImage from "@/public/images/picture.png"
 import Link from "next/link";
 import PhoneNumberFormatter from "@/components/PhoneNumberFormatter";
-import { AlertContext } from "@/components/AlertContext";
+import {AlertContext} from "@/components/AlertContext";
 import {config} from '@/config';
-import { getSession } from "@/login";
-import { useCookies } from "react-cookie";
+import {getSession} from "@/login";
+import {useCookies} from "react-cookie";
 
 let baseUrl = config.baseUrl;
 export default function OrderRegistration() {
@@ -21,7 +21,7 @@ export default function OrderRegistration() {
             const session = await getSession(cookies);
             if (!session) {
                 console.log("session not found")
-                
+
             }
             const access = session?.user.accessToken
             const url = `${baseUrl}/api/v1/auth/users/profile/`;
@@ -83,10 +83,8 @@ export default function OrderRegistration() {
     const [phoneError, setPhoneError] = useState('');
     const [selectedPaymentMethod, setSelectedPaymentMethod] = useState('');    // метод оплаты
     const [paymentMethodError, setPaymentMethodError] = useState('');
-   
-    const { showAlert } = useContext(AlertContext);
-   
-    
+    const [loading, setLoading] = useState(false);
+    const {showAlert} = useContext(AlertContext);
 
 
     const validateField = () => {
@@ -161,28 +159,38 @@ export default function OrderRegistration() {
                 recipient_name: name,
                 recipient_phone: phone,
             };
-            try{
+            try {
                 const session = await getSession(cookies);
                 if (!session) {
                     console.log("session not found")
                 }
                 const access = session?.user.accessToken
-                const response = await axios.post(`${config.baseUrl}/api/v1/orders/`, data, {
+                setLoading(true);
+                await axios.post(`${config.baseUrl}/api/v1/orders/`, data, {
                     headers: {
                         Authorization: `Bearer ${access}`,
                     },
-                });
-                if(response.status === 200){
+                }).then((response) => {
                     console.log('Order submitted successfully:', response.data);
                     showAlert("Заказ успешно оформлен!", 'success');
                     window.location.reload();
-                }
+                }).catch((error) => {
+                    showAlert("Извините что то пошло не так", 'error')
+                    if (error.response.data && error.response.data.order_items) {
+                        const errorMessage = error.response.data.order_items[0].non_field_errors[0];
+                        showAlert(errorMessage, 'error');
+                        console.log(error.response.data.order_items[0].non_field_errors[0]);
+                    }
+                    console.log('ERROR', error)
+                });
+                setLoading(false);
             } catch (error) {
                 console.error('Error submitting order:', error);
+                showAlert("Извините что то пошло не так", 'error')
             }
-            
+
         }
-        
+
     }
 
     return (<MainContainer>
@@ -196,7 +204,8 @@ export default function OrderRegistration() {
                             <div className="">
                                 <h1 className="text-xl">1. Покупатель</h1>
                                 <div className="mt-5 px-3 flex flex-col gap-1">
-                                    <h2 className=""><PhoneNumberFormatter phoneNumber={'7'+profile.phone_number}/></h2>
+                                    <h2 className=""><PhoneNumberFormatter phoneNumber={'7' + profile.phone_number}/>
+                                    </h2>
                                     <h3 className="font-sans"> {profile.first_name} {profile.last_name}</h3>
                                     <h3 className="font-sans"> {profile.email}</h3>
                                 </div>
@@ -225,7 +234,7 @@ export default function OrderRegistration() {
                                                     placeholder="Например: ул. Макатаева 14/2"
                                                     value={field}
                                                     onChange={(e) => setField(e.target.value)}
-                                                    
+
                                                 />
 
                                                 <svg className="absolute inset top-0.5 " width="25" height="24"
@@ -334,8 +343,9 @@ export default function OrderRegistration() {
                                         </div>
                                         <div>
                                             <input
-                                                className={'align-middle mr-1'} type="radio" name={'payment'} id={'debit'}
-                                                   onChange={() => setSelectedPaymentMethod('debit')}/>
+                                                className={'align-middle mr-1'} type="radio" name={'payment'}
+                                                id={'debit'}
+                                                onChange={() => setSelectedPaymentMethod('debit')}/>
                                             <label htmlFor="debit">Оплата картой</label>
                                             <p className={'text-sm text-[#9a9a9a]'}>Оплата с помощью Казахстанской
                                                 банковской карты.</p>
@@ -373,7 +383,10 @@ export default function OrderRegistration() {
                                     className="bg-[#1075B2] rounded-md py-2 text-white justify-center"
                                     onClick={handleSubmit}
                                 >
-                                    ПОДТВЕРДИТЬ ЗАКАЗ
+                                    {
+                                        loading ?
+                                            'СОЗДАНИЕ ЗАКАЗА' : 'ПОДТВЕРДИТЬ ЗАКАЗ'
+                                    }
                                 </button>
                                 {fieldError && <p className="text-red-500 text-xs italic">{fieldError}</p>}
                             </div>
