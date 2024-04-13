@@ -10,11 +10,22 @@ import { AlertContext } from "@/components/AlertContext";
 import {config} from "@/config";
 import { useCookies } from "react-cookie";
 import { getSession } from "@/login";
-
+import OrderReviewModal from "@/components/OrderReviewModal";
 function MyOrders() {
     const [orders, setOrders] = useState([]);
     const { showAlert } = useContext(AlertContext);
     const[cookies] = useCookies(['session'])
+    const [isModalOpen, setIsModalOpen] = useState(false);
+    const [currentOrderForReview, setCurrentOrderForReview] = useState(null);
+
+    const handleLeaveReview = (order) => {
+      if (order.order_status === 'C') {
+        setCurrentOrderForReview(order);
+        setIsModalOpen(true);
+      } else {
+        showAlert('You can only leave a review for delivered orders.', 'error');
+      }
+    };
 
     useEffect(() => {
         const fetchOrders = async () => {
@@ -72,7 +83,8 @@ function MyOrders() {
 
             if (response.status === 201) {
                 showAlert('Ваш товар успешно добавлен в корзину!', 'success');
-                
+                window.location.reload();
+
             }
 
         } catch (error) {
@@ -80,6 +92,7 @@ function MyOrders() {
             showAlert('Возможно у нас нет столько продуктов, сколько вы хотите добавить!', 'error');
         }
     };
+
 
     function whichStatus(status){
         if(status=='P'){
@@ -124,7 +137,27 @@ function MyOrders() {
             }
         }
     }
-
+    const submitReview = async (reviewText, rating) => {
+        if (currentOrderForReview) {
+            try {
+                const session = await getSession(cookies);
+                if (session) {
+                    await axios.post(`${config.baseUrl}/api/v1/product/${currentOrderForReview.order_items[0].product.id}/comments/`, {
+                        content: reviewText,
+                        rating: rating,
+                    }, {
+                        headers: { Authorization: `Bearer ${session.user.accessToken}` },
+                    });
+                    showAlert('Review submitted successfully!', 'success');
+                } else {
+                    console.log("session not found");
+                }
+            } catch (error) {
+                console.error('Failed to submit review:', error);
+                showAlert('Failed to submit review.', 'error');
+            }
+        }
+    };
     return (
         <MainContainer>
             <head><title>Мои заказы</title></head>
@@ -208,12 +241,13 @@ function MyOrders() {
                                                                     <div className="flex w-1/2 gap-3 mt-5 flex flex-col items-center ml-8">
                                                                         <div className="w-[40px] h-[40px] flex justify-center items-start  bg-cover mb-2">
                                                                             <Image width={80} height={80} 
-                                                                                src={item.product.brand_logo_url !== null ? item.product.brand_logo_url : defaultImage }
-                                                                             alt={'review'}/>
+                                                                            src={item.product.brand_logo_url !== null ? item.product.brand_logo_url : defaultImage }/>
                                                                         </div>
                                                                         <div className="flex gap-2 sm: flex-col sm:flex-row">
                                                                             <button
-                                                                                className="h-8 w-28 text-sm rounded-md bg-[#1075B2] bg-opacity-10 text-[#1075B2] sm:h-10 sm:w-34 lg:h-12 lg:w-40 lg:text-base">
+                                                                                className="h-8 w-28 text-sm rounded-md bg-[#1075B2] bg-opacity-10 text-[#1075B2] sm:h-10 sm:w-34 lg:h-12 lg:w-40 lg:text-base"
+                                                                                disabled={order.order_status != 'C'}
+                                                                               onClick={() => handleLeaveReview(order)}>
                                                                                 Оставить отзыв
                                                                             </button>
                                                                             <button
@@ -246,11 +280,8 @@ function MyOrders() {
                     </div>
                 </div>
             </div>
-            {/*<div>*/}
-            {/*    <h3 className="flex justify-center mt-12 ProductSansLight text-xl text-[#1075B2]">ПЕРСОНАЛЬНЫЕ*/}
-            {/*        РЕКОМЕНДАЦИИ</h3>*/}
-            {/*    <Products products={} fetchingStatus={true} />*/}
-            {/*</div>*/}
+            <OrderReviewModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} onSubmit={submitReview} />
+
         </MainContainer>
     )
 
