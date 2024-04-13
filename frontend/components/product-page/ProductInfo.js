@@ -95,16 +95,16 @@ const ProductInfo = ({product, brandName}) => {
     };
 
     const handleButtonClick = async (product_id, quantity) => {
+        console.log(quantity)
         const session = await getSession(cookies);
         if (!session) {
             setIsModalOpen(true);
             return;
         }
-    
+
         const url = `${config.baseUrl}/api/v1/basket/products/`;
-    
+
         try {
-            const session = await getSession(cookies);
             if (!session) {
                 console.log("session not found: NOW");
                 return;
@@ -113,22 +113,21 @@ const ProductInfo = ({product, brandName}) => {
             const response = await axios.post(
                 url,
                 {
-                    product_id: product_id,
+                    product_id: product.id,
                     quantity: quantity,
                 },
                 {
                     headers: {
-                        Authorization: `Bearer ${access}`,
+                        Authorization: "Bearer " + access,
                     },
                 }
             );
-            console.log("After post method");
+            console.log(response);
             if (response.status === 201) {
                 console.log('Ваш товар успешно добавлен в корзину!');
                 showAlert('Ваш товар успешно добавлен в корзину!', 'success');
-                
             }
-    
+
         } catch (error) {
             console.error(error);
             showAlert('Возможно у нас нет столько продуктов, сколько вы хотите добавить!', 'error');
@@ -222,7 +221,8 @@ const ProductInfo = ({product, brandName}) => {
                 </button>
 
                 <div className={"flex justify-between items-center"}>
-                    {brandName.logo_url ? <Image
+                    {brandName.logo_url ?
+                        <Image
                             className="mt-4"
                             src={brandName.logo_url}
                             alt="Logo"
@@ -254,7 +254,7 @@ const ProductInfo = ({product, brandName}) => {
                         <button
                             className={
                                 'ProductSansLight text-[11px] text-[#1075b2] border-1px border-[#1075b2] rounded-[3px] h-[25px] w-[100px] hover:transition-[300ms] hover:bg-[#1075b2] hover:text-white'}
-                            onClick={() => handleButtonClick(quantity)}
+                            onClick={() => handleButtonClick(product.id, quantity)}
                         >
                             В КОРЗИНУ
                         </button>

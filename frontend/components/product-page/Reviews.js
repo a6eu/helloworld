@@ -23,8 +23,7 @@ const Reviews = ({ reviews }) => {
         <Image
           src={empty_review}
           alt="Нет отзывов"
-          height={150}
-          width={150}
+          className={'size-[150px]'}
         />
         <h3 className="text-lg text-gray-600 mt-5">Пока здесь пусто...</h3>
       </div>

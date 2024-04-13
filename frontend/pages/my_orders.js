@@ -208,9 +208,8 @@ function MyOrders() {
                                                                     <div className="flex w-1/2 gap-3 mt-5 flex flex-col items-center ml-8">
                                                                         <div className="w-[40px] h-[40px] flex justify-center items-start  bg-cover mb-2">
                                                                             <Image width={80} height={80} 
-                                                                            src={item.product.brand_logo_url !== null ? item.product.brand_logo_url : defaultImage }
-                                                                                //    alt={item.order_items[0].product.brand_logo_url}
-                                                                                   />
+                                                                                src={item.product.brand_logo_url !== null ? item.product.brand_logo_url : defaultImage }
+                                                                             alt={'review'}/>
                                                                         </div>
                                                                         <div className="flex gap-2 sm: flex-col sm:flex-row">
                                                                             <button

@@ -219,7 +219,8 @@ const ProductItem = ({ product, signedIn }) => {
             </div>
             <div className='pl-[10px] h-[70px] flex-col justify-between self-start transition-[300ms]'>
                 <p className="text-[14px] ProductSansLight mb-3 break-all">{nameRefactor()}</p>
-                <Price price={product.price} fSizeOfDigit={16} fSizeOfCurrency={13} />
+                <Price price={product.price} fSizeOfDigit={16} fSizeOfCurrency={13}/>
+                <div className='ProductSansLight text-sm text-gray-500'>В наличии: {product.quantity}</div>
             </div>
             <div className={styles.piecesAndToBucket}>
                 <div className='flex justify-between w-16'>

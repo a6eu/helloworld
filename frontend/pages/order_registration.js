@@ -1,5 +1,5 @@
 import MainContainer from "@/components/MainContainer";
-import React, {useEffect, useState, useContext} from "react";
+import React, {useContext, useEffect, useState} from "react";
 import Image from "next/image";
 import axios from "axios";
 import defaultImage from "@/public/images/picture.png"
@@ -25,11 +25,9 @@ export default function OrderRegistration() {
             }
             const access = session?.user.accessToken
             const url = `${baseUrl}/api/v1/auth/users/profile/`;
-            const bearerToken = access;
-
             const config = {
                 headers: {
-                    Authorization: `Bearer ${bearerToken}`,
+                    Authorization: `Bearer ${access}`,
                 },
             };
 
@@ -143,7 +141,7 @@ export default function OrderRegistration() {
 
         if (isNameValid && isPhoneValid && isFieldFilled && isPaymentMethodValid) {
             const orderItems = basket.map(item => ({
-                product_id: item.id,
+                product_id: item.product.id,
                 quantity: item.quantity,
             }));
             basket.map((item) => {
@@ -309,19 +307,23 @@ export default function OrderRegistration() {
                                         />
                                         {nameError && <p className="text-red-500 text-xs italic">{nameError}</p>}
                                     </div>
-                                    <div className="w-[49.5%]">
+                                    <div className="w-[49.5%] ">
                                         <label
                                             className="block uppercase tracking-wide text-gray-700 text-[10px] font-bold mb-1"
                                             htmlFor="grid-password"
                                         >
                                             Номер телефона
                                         </label>
-                                        <input
-                                            className="appearance-none block w-full bg-white text-gray-700 border border-[#1075B2] rounded py-1 text-s px-2.5 leading-tight focus:outline-none focus:bg-white focus:border-gray-500 hover:shadow-lg transition duration-500"
-                                            placeholder="87064295529"
-                                            value={phone}
-                                            onChange={(e) => setPhone(e.target.value)}
-                                        />
+                                        <div className="relative">
+                            <span
+                                className="absolute inset-y-0 left-0 pl-2 flex items-center w-9 rounded-tl rounded-bl bg-[#1075B2] text-white">+7</span>
+                                            <div>
+                                                <input
+                                                    value={phone}
+                                                    onChange={(e) => setPhone(e.target.value)}
+                                                    className="appearance-none block w-[90%] ml-9 bg-white text-gray-700 border border-[#1075B2] rounded-tr rounded-br py-1 px-2 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500 hover:shadow-lg transition duration-500"
+                                                    id="grid-phone" type="text" placeholder="(***) *** ** **"/></div>
+                                        </div>
                                         {phoneError && <p className="text-red-500 text-xs italic">{phoneError}</p>}
                                     </div>
                                 </div>
