@@ -17,8 +17,6 @@ import { useCookies } from 'react-cookie';
 import { getSession } from '@/login';
 import ModalDialog from "@/components/ModalDialog";
 
-const floatValues = [0.29, 1.44, 2.31, 3.48, 4.52];
-
 const ProductItem = ({ product, signedIn }) => {
     const router = useRouter();
     const [quantity, setQuantity] = useState(1);
