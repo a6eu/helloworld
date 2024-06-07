@@ -207,7 +207,7 @@ const ProductItem = ({ product, signedIn }) => {
                 </div>
             </Link>
             <div className="flex w-full ml-3 justify-between mt-2">
-                <Stars starAvg={Math.random() * 4 + 1} />
+                <Stars starAvg={product.rating_total} />
                 <button onClick={statementChecker}>
                     <svg className={`mr-4 hover:fill-[#1075b2]`} width="16" height="16" viewBox="0 0 16 16"
                          xmlns="http://www.w3.org/2000/svg" fill={favButtonClicked ? "#1075b2" : "#ffffff"}>
